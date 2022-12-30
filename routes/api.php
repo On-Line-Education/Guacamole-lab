@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post("/login", [LoginController::class, "login"]);
-Route::get("/logout", [LoginController::class, "logout"]);
+Route::get("/logout", [LoginController::class, "logoutAll"]);
+Route::get("/logout/{tokenId}", [LoginController::class, "logout"]);
 
 Route::prefix("/user")->group(function() {
     Route::get("/", [UserController::class, "get"]);
