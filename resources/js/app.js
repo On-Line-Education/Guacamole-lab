@@ -12,19 +12,22 @@ import './bootstrap';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import './components/Example';
+import Login from './features/pages/Login';
 
 import ReactDOM from "react-dom/client";
 import React from "react";
-import Example from "./components/Example";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
 
     Index.render(
-        <React.StrictMode>
-            <Example/>
-        </React.StrictMode>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                </Routes>
+            </BrowserRouter>
     )
 }
+
