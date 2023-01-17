@@ -1,7 +1,11 @@
 import React from 'react'
+import Sidebar from './components/Sidebar'
 
-export default function index() {
+export default function View() {
   return (
-    <div>index</div>
+    <div className='login'>
+      <Sidebar />
+      <div className='login-container'></div>
+    </div>
   )
 }
