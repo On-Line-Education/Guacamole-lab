@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
+import View from '../login/index';
 
 export default function Login() {
   return (
-    <div>Login</div>
+    <View/>
   )
 }

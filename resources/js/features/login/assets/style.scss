@@ -1,0 +1,42 @@
+@import '../../../../sass/variables';
+
+.login {
+    display: flex;
+
+    height: 100vh;
+}
+
+.login-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $body-dark;
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        font-family: $font-family-title;
+        font-size: $font-size-1;
+        color: $font-light;
+        margin: 1em 0;
+
+        img, span {
+            margin: 0 0.1em;
+        }
+    }
+
+    .description {
+
+        font-family: $font-family-content;
+        font-size: $font-size-2;
+        font-weight: bold;
+        color: $font-accent;
+        margin: auto;
+    }   
+}
+
+.login-container {
+    flex: 3;
+    background-color: $body-light;
+}

@@ -20,9 +20,13 @@
         "postcss": "^8.1.14",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "sass": "^1.56.1"
+        "sass": "^1.57.1"
     },
     "dependencies": {
-        "react-router-dom": "^6.6.2"
+        "@emotion/react": "^11.10.5",
+        "@emotion/styled": "^11.10.5",
+        "@mui/material": "^5.11.4",
+        "react-router-dom": "^6.6.2",
+        "sass-loader": "^13.2.0"
     }
 }
