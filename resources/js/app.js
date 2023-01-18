@@ -4,7 +4,11 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
-import './bootstrap';
+import ReactDOM from "react-dom/client";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import muiTheme from "./mui";
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -14,20 +18,18 @@ import './bootstrap';
 
 import Login from './features/pages/Login';
 
-import ReactDOM from "react-dom/client";
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
 
     Index.render(
+        <ThemeProvider theme={muiTheme}>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />} />
                 </Routes>
             </BrowserRouter>
+        </ThemeProvider>
     )
 }
 
