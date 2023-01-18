@@ -19,52 +19,55 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post("/login", [LoginController::class, "login"]);
-Route::get("/logout", [LoginController::class, "logoutAll"]);
-Route::get("/logout/{tokenId}", [LoginController::class, "logout"]);
+Route::middleware("auth:sanctum")->group(function () {
 
-Route::prefix("/user")->group(function() {
-    Route::get("/", [UserController::class, "get"]);
-    Route::get("/all", [UserController::class, "list"]);
-    Route::post("/", [UserController::class, "create"]);
-    Route::patch("/", [UserController::class, "edit"]);
-    Route::delete("/", [UserController::class, "delete"]);
-    Route::get("/search", [UserController::class, "search"]);
-});
+    Route::get("/logout/all", [LoginController::class, "logoutAll"]);
+    Route::get("/logout", [LoginController::class, "logout"]);
 
-Route::prefix("/classroom")->group(function() {
-
-    Route::get("/", [ClassroomController::class, "list"]);
-    Route::post("/select", [ClassroomController::class, "select"]);
-    Route::post("/assign", [ClassroomController::class, "assign"]);
-    Route::post("/{classroom}/import", [ClassroomController::class, "import"]);
-    Route::post("/{classroom}/start", [ClassroomController::class, "start"]);
-    Route::post("/{classroom}/end", [ClassroomController::class, "end"]);
-
-    Route::prefix("/{classroom}/time")->group(function (){
-        Route::get("/", [ClassroomController::class, "getRemainingTime"]);
-        Route::patch("/update", [ClassroomController::class, "updateTime"]);
+    Route::prefix("/user")->group(function () {
+        Route::get("/", [UserController::class, "get"]);
+        Route::get("/all", [UserController::class, "list"]);
+        Route::post("/", [UserController::class, "create"]);
+        Route::patch("/", [UserController::class, "edit"]);
+        Route::delete("/", [UserController::class, "delete"]);
+        Route::get("/search", [UserController::class, "search"]);
     });
 
-    Route::prefix("/{classroom}/computer")->group(function (){
-        Route::get("/", [ComputerController::class, "list"]);
-        Route::post("/", [ComputerController::class, "create"]);
-        Route::patch("/", [ComputerController::class, "edit"]);
-        Route::delete("/", [ComputerController::class, "delete"]);
-        Route::post("/assign", [ComputerController::class, "assign"]);
-        Route::post("/import", [ComputerController::class, "import"]);
+    Route::prefix("/classroom")->group(function () {
+
+        Route::get("/", [ClassroomController::class, "list"]);
+        Route::post("/select", [ClassroomController::class, "select"]);
+        Route::post("/assign", [ClassroomController::class, "assign"]);
+        Route::post("/{classroom}/import", [ClassroomController::class, "import"]);
+        Route::post("/{classroom}/start", [ClassroomController::class, "start"]);
+        Route::post("/{classroom}/end", [ClassroomController::class, "end"]);
+
+        Route::prefix("/{classroom}/time")->group(function () {
+            Route::get("/", [ClassroomController::class, "getRemainingTime"]);
+            Route::patch("/update", [ClassroomController::class, "updateTime"]);
+        });
+
+        Route::prefix("/{classroom}/computer")->group(function () {
+            Route::get("/", [ComputerController::class, "list"]);
+            Route::post("/", [ComputerController::class, "create"]);
+            Route::patch("/", [ComputerController::class, "edit"]);
+            Route::delete("/", [ComputerController::class, "delete"]);
+            Route::post("/assign", [ComputerController::class, "assign"]);
+            Route::post("/import", [ComputerController::class, "import"]);
+        });
     });
+
+    Route::prefix("/group")->group(function () {
+        Route::get("/", [GroupController::class, "list"]);
+        Route::post("/", [GroupController::class, "create"]);
+        Route::patch("/", [GroupController::class, "edit"]);
+        Route::delete("/", [GroupController::class, "delete"]);
+        Route::post("/add", [GroupController::class, "add"]);
+        Route::post("/remove", [GroupController::class, "remove"]);
+    });
+
+
 });
-
-Route::prefix("/group")->group(function (){
-    Route::get("/", [GroupController::class, "list"]);
-    Route::post("/", [GroupController::class, "create"]);
-    Route::patch("/", [GroupController::class, "edit"]);
-    Route::delete("/", [GroupController::class, "delete"]);
-    Route::post("/add", [GroupController::class, "add"]);
-    Route::post("/remove", [GroupController::class, "remove"]);
-});
-
-
 
 
 
