@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { GuacamoleButton, GuacamoleInput } from '../../../mui'
-import login from '../services/api'
+import login from '../api/login'
 
 export default function LoginForm() {
     const [username, setUsername] = useState('')

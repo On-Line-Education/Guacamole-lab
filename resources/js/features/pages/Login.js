@@ -1,5 +1,5 @@
 import React from 'react';
-import View from '../login/index';
+import View from '../auth/index';
 
 export default function Login() {
   return (

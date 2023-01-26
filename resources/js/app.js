@@ -17,6 +17,7 @@ import muiTheme from "./mui";
  */
 
 import Login from './features/pages/Login';
+import Dashboard from "./features/pages/Dashboard";
 
 
 if (document.getElementById("app")) {
@@ -27,6 +28,7 @@ if (document.getElementById("app")) {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
