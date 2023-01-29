@@ -49,3 +49,7 @@ TODO
 ## Instrukcja obsługi
 
 TODO
+
+Dane dostępowe do guacamole:
+Login: guacadmin
+Hasło: guacadmin

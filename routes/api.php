@@ -5,6 +5,8 @@ use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\System\SystemAuth;
+use App\System\SystemPermissions;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,58 +20,86 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post("/login", [LoginController::class, "login"]);
-Route::middleware("auth:sanctum")->group(function () {
+Route::controller(LoginController::class)->group(function () {
+    Route::post("/login", "login");
+    Route::get("/logout/all", "logoutAll")
+        ->middleware([SystemAuth::AUTH]);
+    Route::get("/logout", "logout")
+        ->middleware([SystemAuth::AUTH]);
+});
 
-    Route::get("/logout/all", [LoginController::class, "logoutAll"]);
-    Route::get("/logout", [LoginController::class, "logout"]);
-
+Route::controller(UserController::class)->group(function () {
     Route::prefix("/user")->group(function () {
-        Route::get("/", [UserController::class, "get"]);
-        Route::get("/all", [UserController::class, "list"]);
-        Route::post("/", [UserController::class, "create"]);
-        Route::patch("/", [UserController::class, "edit"]);
-        Route::delete("/", [UserController::class, "delete"]);
-        Route::get("/search", [UserController::class, "search"]);
+        Route::get("/", "get")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::USER_DISPLAY]);
+        Route::get("/all", "list")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::USER_DISPLAY]);
+        Route::post("/", "create")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::USER_MODIFY]);
+        Route::patch("/", "edit")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::USER_MODIFY]);
+        Route::delete("/", "delete")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::USER_MODIFY]);
+        Route::get("/search", "search")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::USER_DISPLAY]);
     });
+});
 
+Route::controller(ClassroomController::class)->group(function () {
     Route::prefix("/classroom")->group(function () {
-
-        Route::get("/", [ClassroomController::class, "list"]);
-        Route::post("/select", [ClassroomController::class, "select"]);
-        Route::post("/assign", [ClassroomController::class, "assign"]);
-        Route::post("/{classroom}/import", [ClassroomController::class, "import"]);
-        Route::post("/{classroom}/start", [ClassroomController::class, "start"]);
-        Route::post("/{classroom}/end", [ClassroomController::class, "end"]);
+        Route::get("/", "list")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_DISPLAY]);
+        Route::post("/select", "select")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_DISPLAY]);
+        Route::post("/assign", "assign")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_MODIFY]);
+        Route::post("/{classroom}/import", "import")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_IMPORT]);
+        Route::post("/{classroom}/start", "start")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_MODIFY]);
+        Route::post("/{classroom}/end", "end")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_MODIFY]);
 
         Route::prefix("/{classroom}/time")->group(function () {
-            Route::get("/", [ClassroomController::class, "getRemainingTime"]);
-            Route::patch("/update", [ClassroomController::class, "updateTime"]);
+            Route::get("/", "getRemainingTime")
+                ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_TIME]);
+            Route::patch("/update", "updateTime")
+                ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_TIME_MODIFY]);
         });
 
         Route::prefix("/{classroom}/computer")->group(function () {
-            Route::get("/", [ComputerController::class, "list"]);
-            Route::post("/", [ComputerController::class, "create"]);
-            Route::patch("/", [ComputerController::class, "edit"]);
-            Route::delete("/", [ComputerController::class, "delete"]);
-            Route::post("/assign", [ComputerController::class, "assign"]);
-            Route::post("/import", [ComputerController::class, "import"]);
+            Route::get("/", "list")
+                ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_COMPUTER_DISPLAY]);
+            Route::post("/", "create")
+                ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_COMPUTER_MODIFY]);
+            Route::patch("/", "edit")
+                ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_COMPUTER_MODIFY]);
+            Route::delete("/", "delete")
+                ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_COMPUTER_MODIFY]);
+            Route::post("/assign", "assign")
+                ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_COMPUTER_MODIFY]);
+            Route::post("/import", "import")
+                ->middleware([SystemAuth::AUTH, SystemPermissions::CLASSROOM_COMPUTER_IMPORT]);
         });
     });
-
-    Route::prefix("/group")->group(function () {
-        Route::get("/", [GroupController::class, "list"]);
-        Route::post("/", [GroupController::class, "create"]);
-        Route::patch("/", [GroupController::class, "edit"]);
-        Route::delete("/", [GroupController::class, "delete"]);
-        Route::post("/add", [GroupController::class, "add"]);
-        Route::post("/remove", [GroupController::class, "remove"]);
-    });
-
-
 });
 
-
+Route::controller(GroupController::class)->group(function () {
+    Route::prefix("/group")->group(function () {
+        Route::get("/", "list")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::GROUP_DISPLAY]);
+        Route::post("/", "create")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::GROUP_MODIFY]);
+        Route::patch("/", "edit")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::GROUP_MODIFY]);
+        Route::delete("/", "delete")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::GROUP_MODIFY]);
+        Route::post("/add", "add")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::GROUP_MODIFY]);
+        Route::post("/remove", "remove")
+            ->middleware([SystemAuth::AUTH, SystemPermissions::GROUP_MODIFY]);
+    });
+});
 
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
