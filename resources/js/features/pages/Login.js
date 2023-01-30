@@ -1,8 +1,8 @@
 import React from 'react';
-import View from '../auth/index';
+import LoginView from '../auth/index';
 
 export default function Login() {
   return (
-    <View/>
+    <LoginView/>
   )
 }
