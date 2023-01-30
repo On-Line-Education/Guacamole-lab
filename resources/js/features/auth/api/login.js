@@ -47,6 +47,7 @@ export default async function login(username, password) {
     if(result.token) {
         localStorage.setItem("token", result.token)
         console.log("token set")
+        navigate('/home')
     }
     console.log(result)
 }

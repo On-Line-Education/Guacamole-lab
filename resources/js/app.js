@@ -6,9 +6,10 @@
 
 import ReactDOM from "react-dom/client";
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import muiTheme from "./mui";
+import RouteGuard from "./features/auth/components/RouteGuard";
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -27,8 +28,11 @@ if (document.getElementById("app")) {
         <ThemeProvider theme={muiTheme}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/" element={<Navigate to="/login"/>} />
+                    <Route exact path="/login" element={<Login />} />
+                    <Route element={ <RouteGuard /> }>
+                        <Route path='/home' element={ <Dashboard /> } />
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
