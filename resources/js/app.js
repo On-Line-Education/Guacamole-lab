@@ -29,8 +29,8 @@ if (document.getElementById("app")) {
         <ThemeProvider theme={muiTheme}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Navigate to="/login"/>} />
-                    <Route exact path="/login" element={<Login />} />
+                    {/* <Route path="/" element={<Navigate to="/login"/>} /> */}
+                    <Route exact path="/" element={<Login />} />
                     <Route element={ <RouteGuard /> }>
                         <Route path='/home' element={ <Dashboard /> } />
                     </Route>

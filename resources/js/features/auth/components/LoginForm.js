@@ -1,21 +1,26 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GuacamoleButton, GuacamoleInput } from '../../../mui'
-import login from '../api/login'
+import useLogin from '../hooks/useLogin'
 
 export default function LoginForm() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [token, error, login] = useLogin(username, password)
+
+    if(error) {
+        console.log(error)
+    }
+
+    if(token) {
+        console.log(token)
+    }
 
     const navigate = useNavigate();
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        
-        await login(username, password)
-
-        navigate("/home")
-
+        login()
     }
 
   return (
