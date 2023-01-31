@@ -17,9 +17,11 @@ export default function useLogin(username, password) {
                     setError({code: statusCode, messages: Object.values(data.errors)})
                 }
                 else {
-                    setToken(data)
+                    setToken(data.token)
 
-                    localStorage.setItem('token', token)
+                    console.log(data)
+
+                    localStorage.setItem('token', data.token)
 
                     navigate('/home')
                 }

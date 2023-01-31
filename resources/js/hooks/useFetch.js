@@ -14,15 +14,23 @@ const useFetch = ({endpoint, method, data, start}) => {
         
         setLoading(true);
         const staticURL = `${'http://localhost:8080/api'}${endpoint}`
-        const headers = data === undefined ? {} : {
-            "Content-Type":"application/json",
-            "Accept": "application/json"
+        const headers = {
+            "Accept": "application/json",
+            "Authorization": localStorage.getItem('token')? `Bearer ${localStorage.getItem('token')}`: {} 
         };
-        const response = await fetch(staticURL, {
-            headers,
-            body:JSON.stringify(data === undefined ? {} : data),
-            method,
-        });
+
+        const requestOptions = {
+            headers: headers,
+            method: method
+        }
+
+        if(data) {
+            requestOptions.headers['Content-Type'] = "application/json" 
+            requestOptions['body'] = JSON.stringify(data)
+        }
+
+        const response = await fetch(staticURL, requestOptions);
+
         setCode(response.status);
         try {
             const data = await response.json();
