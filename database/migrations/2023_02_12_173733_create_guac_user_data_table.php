@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('guac_user_data', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->index()->unique();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->string('token', 64)->unique();
+            $table->string('data_source');
+            $table->dateTime('expires');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('guac_user_data');
     }
 };

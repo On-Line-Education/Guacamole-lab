@@ -27,3 +27,11 @@ Artisan::command('make:test:user', function () {
     $user->save();
     $this->comment("Login: test  Password: pass1234");
 })->purpose("Creates test user");
+
+Artisan::command('make:test:admin', function () {
+    $user = new User();
+    $user->username = "guacadmin";
+    $user->password = Hash::make("guacadmin");
+    $user->save();
+    $this->comment("Login: guacadmin  Password: guacadmin");
+})->purpose("Creates test admin");

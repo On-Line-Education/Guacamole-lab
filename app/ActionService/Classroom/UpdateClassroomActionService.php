@@ -2,7 +2,7 @@
 
 namespace App\ActionService\Classroom;
 
-class CreateClassroomActionService
+class UpdateClassroomActionService
 {
     public function __invoke()
     {

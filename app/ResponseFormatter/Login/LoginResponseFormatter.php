@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ResponseFormatter;
+namespace App\ResponseFormatter\Login;
 
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
