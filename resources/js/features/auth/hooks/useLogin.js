@@ -2,34 +2,27 @@ import {useEffect, useState} from 'react'
 import usePost from '../../../hooks/usePost'
 import { useNavigate } from 'react-router-dom'
 
-
 export default function useLogin(username, password) {
-    const [data, loading, refresh, statusCode] = usePost('/login', false, {username: username,password: password})
-    const [error, setError] = useState()
+    const [data, loading, refresh, error] = usePost('/login', false, {username: username,password: password})
     const [token, setToken] = useState()
     const navigate = useNavigate();
 
     useEffect(()=>{
 
-        if (!loading) {
+        if (!loading && !error) {
             try {
-                if(statusCode !== 200) {
-                    setError({code: statusCode, messages: Object.values(data.errors)})
-                }
-                else {
-                    setToken(data.token)
+                setToken(data.token)
 
-                    console.log(data)
+                console.log(data)
 
-                    localStorage.setItem('token', data.token)
+                localStorage.setItem('token', data.token)
 
-                    navigate('/home')
-                }
+                navigate('/home')
             } catch(e) {
-
+                console.log(e)
             }
         }
-     },[login, loading, data, statusCode]);
+     },[login, loading, data, error]);
 
     const login = async () => {
         refresh();
