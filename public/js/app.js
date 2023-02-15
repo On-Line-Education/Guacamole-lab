@@ -26743,12 +26743,6 @@ function LoginView() {
     token = _useLogin2[0],
     error = _useLogin2[1],
     login = _useLogin2[2];
-  if (error) {
-    console.log(error);
-  }
-  if (token) {
-    console.log(token);
-  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "login",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_Sidebar__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -26835,10 +26829,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function ErrorMessage(_ref) {
-  var error = _ref.error,
-    id = _ref.id;
+  var error = _ref.error;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  var timeout = 5000;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setTimeout(function () {
+      return dispatch((0,_state_errorActions__WEBPACK_IMPORTED_MODULE_3__.deleteError)(error.code));
+    }, timeout);
+  }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     severity: "error",
     className: "error",
@@ -27406,7 +27406,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".error {\n  width: 400px;\n  margin: 0.25em;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".error {\n  width: 400px;\n  margin: 0.25em;\n  opacity: 1;\n  transition: all 1s;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
