@@ -9,14 +9,9 @@ export default function LoginView() {
   const [password, setPassword] = useState('')
   const [token, error, login] = useLogin(username, password)
 
-  if(error) {
-      console.log(error)
-  }
-
   if(token) {
       console.log(token)
   }
-
 
   return (
     <div className='login'>

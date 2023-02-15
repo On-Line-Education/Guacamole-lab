@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux';
 import { formatError } from '../features/error/services/formatError';
 import { loginFailedAction } from '../features/error/state/errorActions';
 
-const useFetch = ({endpoint, method, data, start}) => {
-    const [result,setResult] = useState(null);
+const useFetch = ({endpoint, method, body, start}) => {
+    const [result, setResult] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState([]);
 
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-        if(start) fetchData();
-     },[fetchData, start]);
+    // useEffect(()=>{
+    //     if(start) fetchData();
+    // },[fetchData, start]);
 
     const fetchData = async () => {
         if(loading) return;
@@ -29,9 +29,9 @@ const useFetch = ({endpoint, method, data, start}) => {
             method: method
         }
 
-        if(data) {
+        if(body) {
             requestOptions.headers['Content-Type'] = "application/json" 
-            requestOptions['body'] = JSON.stringify(data)
+            requestOptions['body'] = JSON.stringify(body)
         }
 
         try {
@@ -46,10 +46,13 @@ const useFetch = ({endpoint, method, data, start}) => {
                         dispatch(loginFailedAction(formatError(error[0])))
                     })
                 } else {
+                    setError(data.message)
                     dispatch(loginFailedAction(formatError(data.message)))
                 }
+            } else {
+                console.log(data)
+                setResult(data);
             }
-            setResult(data);
         } catch (err) {
             setError(err)
         }

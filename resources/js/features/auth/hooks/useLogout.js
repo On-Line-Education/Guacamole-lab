@@ -1,37 +1,36 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useRef} from 'react'
 import useGet from '../../../hooks/useGet'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logoutAction } from '../state/authActions';
 
 
 export default function useLogout() {
-    const [data, loading, refresh, statusCode] = useGet('/logout', false)
-    const [error, setError] = useState()
+    const [data, loading, refresh, error] = useGet('/logout', false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const didMount = useRef(false);
 
     useEffect(()=>{
-
-        if (!loading) {
-            try {
-                if(statusCode !== 200) {
-                    setError({code: statusCode, messages: Object.values(data.errors)})
-                }
-                else {
-                    localStorage.removeItem('token')
-
+        if(didMount.current) {
+            if (!loading && error.length < 1) {
+                try {
+                    console.log()
+    
+                    dispatch(logoutAction())
+    
                     navigate('/')
+                } catch(e) {
+    
                 }
-            } catch(e) {
-
             }
         }
-     },[logout, loading, data, statusCode]);
+        else didMount.current = true
+     },[logout, loading, data, error]);
 
     const logout = async () => {
         refresh();
     }
-
-
-
 
     return [error, logout]
 }
