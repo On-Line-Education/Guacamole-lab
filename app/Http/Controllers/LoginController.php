@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\ActionService\Login\UserLoginActionService;
 use App\ActionService\Login\UserLogoutActionService;
-use App\ActionService\Login\UserLogoutAllActionService;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -13,8 +12,7 @@ class LoginController extends Controller
     //
     public function __construct(
         private readonly UserLoginActionService $userLoginActionService,
-        private readonly UserLogoutActionService $userLogoutActionService,
-        private readonly UserLogoutAllActionService $userLogoutAllActionService
+        private readonly UserLogoutActionService $userLogoutActionService
     ) {}
 
     public function login(LoginRequest $request): JsonResponse
@@ -24,11 +22,6 @@ class LoginController extends Controller
 
     public function logout(): JsonResponse
     {
-        return $this->userLogoutActionService();
-    }
-
-    public function logoutAll(): JsonResponse
-    {
-        return $this->userLogoutAllActionService();
+        return ($this->userLogoutActionService)();
     }
 }
