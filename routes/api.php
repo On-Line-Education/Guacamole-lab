@@ -43,7 +43,7 @@ Route::controller(UserController::class)->group(function () {
                     SystemAuth::AUTH,
                     SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)
             ]);
-        Route::patch('/', 'edit')
+        Route::patch('/{user}', 'edit')
             ->middleware([
                     SystemAuth::AUTH,
                     SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)

@@ -4,15 +4,16 @@ namespace App\Service;
 
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Models\GuacUserData;
+use App\Models\User;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
 class GuacamoleUserLoginService
 {
-    public function __invoke()
+    public function __invoke(?User $user = null)
     {
-        $user = Auth::user();
+        $user = $user ?? Auth::user();
         $guacData = GuacUserData::where('user_id', $user->id)->first();
 
         if (strtotime($guacData->expires) > strtotime(Carbon::now())) {

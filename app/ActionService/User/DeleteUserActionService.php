@@ -18,7 +18,7 @@ class DeleteUserActionService
 
     public function __invoke(User $user)
     {
-        $guacAuth = ($this->guacamoleUserLoginService)();
+        $guacAuth = ($this->guacamoleUserLoginService)($user);
         ($this->userDeleteAction)($guacAuth, $user);
         return ($this->responder)();
     }

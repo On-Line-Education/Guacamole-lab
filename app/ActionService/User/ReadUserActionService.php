@@ -22,7 +22,7 @@ class ReadUserActionService
 
     public function __invoke(?User $user = null, ?string $search = null)
     {
-        $guacAuth = ($this->guacamoleUserLoginService)();
+        $guacAuth = ($this->guacamoleUserLoginService)($user);
 
         $users = [];
         if ($user !== null) {

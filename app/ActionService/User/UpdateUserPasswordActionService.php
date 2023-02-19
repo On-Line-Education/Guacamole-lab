@@ -21,7 +21,7 @@ class UpdateUserPasswordActionService
 
     public function __invoke(User $user, UserNewPasswordRequest $userNewPasswordRequest)
     {
-        $guacAuth = ($this->guacamoleUserLoginService)();
+        $guacAuth = ($this->guacamoleUserLoginService)($user);
 
         $oldPassword = $userNewPasswordRequest->get('oldPassword');
         $newPassword = $userNewPasswordRequest->get('newPassword');

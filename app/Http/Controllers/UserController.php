@@ -41,9 +41,9 @@ class UserController extends Controller
         return ($this->createUserActionService)($userCreateRequest);
     }
 
-    function edit(UserUpdateRequest $userCreateRequest): JsonResponse
+    function edit(User $user, UserUpdateRequest $userCreateRequest): JsonResponse
     {
-        return ($this->updateUserActionService)($userCreateRequest);
+        return ($this->updateUserActionService)($user, $userCreateRequest);
     }
 
     function newPassword(User $user, UserNewPasswordRequest $userNewPasswordRequest): JsonResponse

@@ -229,7 +229,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "6|GOKSL9u4WysbX4CrtubnfI4SM6xMuyrQoOr9AcRn",
+									"value": "21|2uUpU5JrZkZkGAZ6lyEOSoejY3xaPKjkNQjB4WL4",
 									"type": "string"
 								}
 							]
@@ -247,7 +247,12 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Test",
+									"value": "Test6",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "testtest",
 									"type": "default"
 								}
 							]
@@ -293,7 +298,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"Test2\",\n    \"attributes\": {\n        \"guac-email-address\": \"aa@bb.cc\"\n    }\n}",
+							"raw": "{\n    \"attributes\": {\n        \"guac-email-address\": \"aa@bb.cc\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -301,13 +306,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/user",
+							"raw": "{{URL}}/api/user/3",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
-								"user"
+								"user",
+								"3"
 							]
 						}
 					},
@@ -363,9 +369,41 @@
 				},
 				{
 					"name": "DeleteUser",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "31|3oyFKW88deipl69xprLcbCmG1gpWyzczjQtgkwJE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/user/5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"5"
+							]
+						}
 					},
 					"response": []
 				}
