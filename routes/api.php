@@ -28,7 +28,7 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::prefix('/user')->group(function () {
-        Route::get('/', 'get')
+        Route::get('/get/{user}', 'get')
             ->middleware([
                     SystemAuth::AUTH,
                     SystemPermissions::hasAll(SystemPermissions::USER_DISPLAY)
@@ -48,12 +48,17 @@ Route::controller(UserController::class)->group(function () {
                     SystemAuth::AUTH,
                     SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)
             ]);
-        Route::delete('/', 'delete')
+        Route::patch('/{user}/password', 'newPassword')
             ->middleware([
                     SystemAuth::AUTH,
                     SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)
             ]);
-        Route::get('/search', 'search')
+        Route::delete('/{user}', 'delete')
+            ->middleware([
+                    SystemAuth::AUTH,
+                    SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)
+            ]);
+        Route::get('/search/{search}', 'search')
             ->middleware([
                     SystemAuth::AUTH,
                     SystemPermissions::hasAll(SystemPermissions::USER_DISPLAY)

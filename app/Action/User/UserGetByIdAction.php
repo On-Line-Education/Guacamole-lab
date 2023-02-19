@@ -2,9 +2,16 @@
 
 namespace App\Action\User;
 
+use App\Guacamole\Guacamole;
+use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
+
 class UserGetByIdAction {
-    public function __invoke(int $id)
+    public function __construct(
+            private readonly Guacamole $guacamole
+    )
+    {}
+    public function __invoke(GuacamoleAuthLoginData $guacamoleAuthLoginData, string $username)
     {
-        // TODO: Implement __invoke() method.
+        return ($this->guacamole->getUser()->get($guacamoleAuthLoginData, $username));
     }
 }

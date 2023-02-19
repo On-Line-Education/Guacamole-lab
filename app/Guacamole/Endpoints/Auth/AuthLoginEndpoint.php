@@ -21,7 +21,7 @@ class AuthLoginEndpoint {
             $response = ($this->loginAuthApi)($username, $password);
             return new GuacamoleAuthLoginData(($this->apiResponseWrapper)($response));
         } catch (GuzzleException $exception) {
-            abort($exception->getCode(), $exception->getMessage());
+            abort($exception->getCode(), "Guacamole Api Error: " . $exception->getMessage());
         }
     }
 }

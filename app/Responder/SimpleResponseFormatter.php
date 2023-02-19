@@ -1,19 +1,20 @@
 <?php
 
-namespace App\ResponseFormatter\User;
+namespace App\ResponseFormatter;
 
+use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\JsonResponse;
 
-class UsersGetResponseFormatter
+class SimpleResponseFormatter
 {
     /**
      * @return JsonResponse
      */
-    public function __invoke(array $users): JsonResponse
+    public function __invoke(): JsonResponse
     {
         return new JsonResponse([
-                "users" => $users
+            "success" => true
         ], Response::HTTP_OK);
     }
 }

@@ -6,6 +6,7 @@ use App\Guacamole\Api\Auth\LogoutAuthApi;
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Guacamole\Helpers\ApiResponseWrapper;
 use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthLogoutEndpoint {
 
@@ -21,7 +22,10 @@ class AuthLogoutEndpoint {
             $response = ($this->logoutAuthApi)($token);
             return new GuacamoleAuthLoginData(($this->apiResponseWrapper)($response));
         } catch (GuzzleException $exception) {
-            abort($exception->getCode(), $exception->getMessage());
+            if ($exception->getCode() === Response::HTTP_NOT_FOUND){
+                return new GuacamoleAuthLoginData([]);
+            }
+            abort($exception->getCode(), "Guacamole Api Error: " . $exception->getMessage());
         }
     }
 }

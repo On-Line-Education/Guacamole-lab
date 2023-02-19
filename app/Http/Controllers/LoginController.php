@@ -22,6 +22,6 @@ class LoginController extends Controller
 
     public function logout(): JsonResponse
     {
-        return $this->userLogoutActionService();
+        return ($this->userLogoutActionService)();
     }
 }

@@ -34,6 +34,23 @@ class GuacamoleUserAttributesData
         $this->validFrom = $data["valid-from"] ?? null;
     }
 
+    public function getGuacFormat(): array
+    {
+        return [
+                "guac-email-address" => $this->guacEmailAddress,
+            "guac-organizational-role" => $this->guacOrganizationalRole,
+            "guac-full-name" => $this->guacFullName,
+            "expired" => $this->expired,
+            "timezone" => $this->timezone,
+            "access-window-start" => $this->accessWindowStart,
+            "guac-organization" => $this->guacOrganization,
+            "access-window-end" => $this->accessWindowEnd,
+            "disabled" => $this->disabled,
+            "valid-until" => $this->validUntil,
+            "valid-from" => $this->validFrom
+        ];
+    }
+
     /**
      * @return string|null
      */

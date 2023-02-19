@@ -2,21 +2,23 @@
 
 namespace App\ActionService\Login;
 
+use App\Action\Login\GuacamoleAuthCreateLoginData;
 use App\Action\Login\GuacamoleAuthLoginAction;
 use App\Action\Login\SystemUserLoginAction;
 use App\Exceptions\InvalidCredentialsException;
 use App\Http\Requests\LoginRequest;
 use App\Models\GuacUserData;
-use App\ResponseFormatter\Login\LoginResponseFormatter;
+use App\Responder\Responder;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserLoginActionService
 {
     public function __construct(
-        protected readonly SystemUserLoginAction    $systemUserLoginAction,
-        protected readonly LoginResponseFormatter   $loginResponseFormatter,
-        protected readonly GuacamoleAuthLoginAction $guacamoleAuthLoginAction
+        private readonly SystemUserLoginAction        $systemUserLoginAction,
+        private readonly Responder                    $responder,
+        private readonly GuacamoleAuthLoginAction     $guacamoleAuthLoginAction,
+        private readonly GuacamoleAuthCreateLoginData $guacamoleAuthCreateLoginData
     )
     {
     }
@@ -31,18 +33,14 @@ class UserLoginActionService
             );
 
             $guacAuth = ($this->guacamoleAuthLoginAction)($request->get("username"), $request->get("password"));
+            ($this->guacamoleAuthCreateLoginData)($userData['user']->id, $guacAuth->getAuthToken(), $guacAuth->getDataSource());
 
-            GuacUserData::where('user_id', $userData['user']->id)->delete();
-            GuacUserData::create([
-                'token' => $guacAuth->getAuthToken(),
-                'user_id' => $userData['user']->id,
-                'data_source' => $guacAuth->getDataSource(),
-                'expires' => Carbon::now()->addHour()
-            ]);
-
-            return ($this->loginResponseFormatter)($userData['token'], $userData['user']);
+            return ($this->responder)(['token' => $userData['token'], 'user' => $userData['user']]);
         } catch (InvalidCredentialsException $exception) {
-            abort(Response::HTTP_UNAUTHORIZED, "Invalid credentials");
+            return ($this->responder)(
+                status: Response::HTTP_UNAUTHORIZED,
+                message: "Invalid credentials"
+            );
         }
     }
 }
