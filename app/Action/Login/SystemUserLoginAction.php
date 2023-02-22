@@ -15,6 +15,7 @@ class SystemUserLoginAction {
      * @param string $password
      * @param string $deviceName
      * @return array<string, User|string>
+     * @throws InvalidCredentialsException
      */
     public function __invoke(string $username, string $password, string $deviceName): array
     {

@@ -4,19 +4,19 @@ namespace App\ActionService\Login;
 
 use App\Action\Login\GuacamoleAuthLogoutAction;
 use App\Action\Login\SystemUserLogoutAction;
+use App\ActionService\AbstractActionService;
 use App\Models\GuacUserData;
 use App\Models\User;
-use App\Responder\Responder;
 use Illuminate\Support\Facades\Auth;
 
-class UserLogoutActionService
+class UserLogoutActionService extends AbstractActionService
 {
     public function __construct(
             private readonly GuacamoleAuthLogoutAction $guacamoleAuthLogoutAction,
             private readonly SystemUserLogoutAction $systemUserLogoutAction,
-            private readonly Responder $responder
-            )
-    {}
+    ) {
+        parent::__construct();
+    }
 
     public function __invoke()
     {

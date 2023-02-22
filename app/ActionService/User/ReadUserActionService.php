@@ -5,19 +5,19 @@ namespace App\ActionService\User;
 use App\Action\User\UserGetAllAction;
 use App\Action\User\UserGetByIdAction;
 use App\Action\User\UserSearchAction;
+use App\ActionService\AbstractActionService;
 use App\Models\User;
-use App\Responder\Responder;
 use App\Service\GuacamoleUserLoginService;
 
-class ReadUserActionService
+class ReadUserActionService extends AbstractActionService
 {
     public function __construct(
         private readonly UserGetByIdAction         $userGetByIdAction,
         private readonly UserGetAllAction          $userGetAllAction,
         private readonly UserSearchAction          $userSearchAction,
         private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
-        private readonly Responder                 $responder,
     ) {
+        parent::__construct();
     }
 
     public function __invoke(?User $user = null, ?string $search = null)

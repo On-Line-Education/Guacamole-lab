@@ -9,26 +9,18 @@ class Responder
 {
     /**
      * @param string|array|null $body
-     * @param int $status
-     * @param bool $success
-     * @param string|null $message
      * @return JsonResponse
      */
     public function __invoke(
             string|array|null $body = null,
-            int $status = Response::HTTP_OK,
-            bool $success = true,
-            ?string $message = null
     ): JsonResponse
     {
         $response = [
-                "success" => $success
+                'success' => true,
         ];
-        if ($body !== null){
+        if (!is_null($body)){
             $response['body'] = $body;
-        } else if ($message !== null) {
-            $response['message'] = $message;
         }
-        return new JsonResponse($response, $status);
+        return new JsonResponse($response, Response::HTTP_OK);
     }
 }

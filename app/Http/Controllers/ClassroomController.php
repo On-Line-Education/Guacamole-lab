@@ -6,8 +6,10 @@ use App\ActionService\Classroom\CreateClassroomActionService;
 use App\ActionService\Classroom\DeleteClassroomActionService;
 use App\ActionService\Classroom\ReadClassroomActionService;
 use App\ActionService\Classroom\UpdateClassroomActionService;
+use App\Http\Requests\ClassRoomCreateRequest;
+use App\Http\Requests\ClassRoomUpdateRequest;
+use App\Models\ClassRoom;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
@@ -22,21 +24,41 @@ class ClassroomController extends Controller
 
     function list(): JsonResponse
     {
-        ($this->readClassroomActionService)();
-        return response()->json("todo");
+        return ($this->readClassroomActionService)();
     }
 
-    // select classroom (instructor)
+    function get(ClassRoom $classRoom)
+    {
+        return ($this->readClassroomActionService)($classRoom);
+    }
+
+    // select classroom (instructor) <- AssignActin
     function select(): JsonResponse
     {
-        ($this->readClassroomActionService)();
-        return response()->json("todo");
+        return ($this->readClassroomActionService)();
     }
 
-    // select instructor (student)
+    // create classroom
+    function create(ClassRoomCreateRequest $classRoomCreateRequest): JsonResponse
+    {
+        return ($this->createClassroomActionService)($classRoomCreateRequest->all());
+    }
+
+    // delete classroom
+    function delete(ClassRoom $classRoom): JsonResponse
+    {
+        return ($this->deleteClassroomActionService)($classRoom);
+    }
+
+    function update(ClassRoom $classRoom, ClassRoomUpdateRequest $classRoomUpdateRequest): JsonResponse
+    {
+        return ($this->updateClassroomActionService)($classRoom, $classRoomUpdateRequest->all());
+    }
+
+    // select instructor (student) <- AssignActin
     function assign(): JsonResponse
     {
-        ($this->updateClassroomActionService)();
+//        return ($this->updateClassroomActionService)();
         return response()->json("todo");
     }
 

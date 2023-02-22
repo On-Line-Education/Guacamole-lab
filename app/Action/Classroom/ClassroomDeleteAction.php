@@ -2,9 +2,11 @@
 
 namespace App\Action\Classroom;
 
+use App\Models\ClassRoom;
+
 class ClassroomDeleteAction {
-    public function __invoke()
+    public function __invoke(int $id): void
     {
-        // TODO: Implement __invoke() method.
+        ClassRoom::find($id)->delete();
     }
 }

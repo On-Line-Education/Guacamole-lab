@@ -3,24 +3,23 @@
 namespace App\ActionService\User;
 
 use App\Action\User\UserCreateAction;
+use App\ActionService\AbstractActionService;
 use App\Guacamole\Objects\User\GuacamoleUserData;
-use App\Http\Requests\UserCreateRequest;
-use App\Responder\Responder;
 use App\Service\GuacamoleUserLoginService;
 
-class CreateUserActionService
+class CreateUserActionService extends AbstractActionService
 {
     public function __construct(
             private readonly UserCreateAction $userCreateAction,
             private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
-            private readonly Responder $responder,
-    )
-    {}
-    public function __invoke(UserCreateRequest $userCreateRequest)
+    ){
+        parent::__construct();
+    }
+    public function __invoke(array $userCreateRequestData)
     {
         $guacAuth = ($this->guacamoleUserLoginService)();
-        $user = new GuacamoleUserData($userCreateRequest->all());
-        ($this->userCreateAction)($guacAuth, $user);
-        return ($this->responder)();
+        $user = new GuacamoleUserData($userCreateRequestData);
+        $response = ($this->userCreateAction)($guacAuth, $user);
+        return ($this->responder)(['user' => $response]);
     }
 }
