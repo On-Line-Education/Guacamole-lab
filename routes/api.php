@@ -67,7 +67,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(ClassroomController::class)->group(function () {
     Route::prefix('/classroom')->group(function () {
-        Route::get('/', 'list')
+        Route::get('/all', 'list')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAll(SystemPermissions::CLASSROOM_DISPLAY)

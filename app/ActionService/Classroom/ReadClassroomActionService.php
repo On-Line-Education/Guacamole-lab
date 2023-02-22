@@ -10,8 +10,8 @@ class ReadClassroomActionService extends AbstractActionService
 {
     public function __construct(
             private readonly ClassroomGetAllAction $classroomGetAllAction
-            )
-    {
+    ) {
+        parent::__construct();
     }
 
     public function __invoke(?ClassRoom $classRoom = null)
@@ -19,7 +19,7 @@ class ReadClassroomActionService extends AbstractActionService
         if (!is_null($classRoom)) {
             $classrooms = ['classroom' => $classRoom];
         } else {
-            $classrooms = ($this->classroomGetAllAction)();
+            $classrooms = ['classrooms' => ($this->classroomGetAllAction)()];
         }
 
         return ($this->responder)($classrooms);

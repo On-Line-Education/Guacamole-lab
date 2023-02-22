@@ -10,8 +10,8 @@ class DeleteClassroomActionService extends AbstractActionService
 {
     public function __construct(
             private readonly ClassroomDeleteAction $classroomDeleteAction
-            )
-    {
+    ) {
+        parent::__construct();
     }
 
     public function __invoke(ClassRoom $classRoom)

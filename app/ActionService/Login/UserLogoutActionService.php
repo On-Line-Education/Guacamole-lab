@@ -14,8 +14,9 @@ class UserLogoutActionService extends AbstractActionService
     public function __construct(
             private readonly GuacamoleAuthLogoutAction $guacamoleAuthLogoutAction,
             private readonly SystemUserLogoutAction $systemUserLogoutAction,
-            )
-    {}
+    ) {
+        parent::__construct();
+    }
 
     public function __invoke()
     {

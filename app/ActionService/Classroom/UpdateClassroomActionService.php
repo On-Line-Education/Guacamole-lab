@@ -10,9 +10,9 @@ class UpdateClassroomActionService extends AbstractActionService
 {
     public function __construct(
             private readonly ClassroomUpdateAction $classroomUpdateAction
-            )
-{
-}
+    ) {
+        parent::__construct();
+    }
     public function __invoke(ClassRoom $classRoom, array $classRoomUpdateRequestData)
     {
         $updated = ($this->classroomUpdateAction)(

@@ -12,8 +12,9 @@ class DeleteUserActionService extends AbstractActionService
     public function __construct(
             private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
             private readonly UserDeleteAction $userDeleteAction
-    )
-    {}
+    ) {
+        parent::__construct();
+    }
 
     public function __invoke(User $user)
     {

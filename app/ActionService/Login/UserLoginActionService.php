@@ -16,8 +16,8 @@ class UserLoginActionService extends AbstractActionService
         private readonly SystemUserLoginAction        $systemUserLoginAction,
         private readonly GuacamoleAuthLoginAction     $guacamoleAuthLoginAction,
         private readonly GuacamoleAuthCreateLoginData $guacamoleAuthCreateLoginData
-    )
-    {
+    ) {
+        parent::__construct();
     }
 
     public function __invoke(LoginRequest $request)
@@ -34,10 +34,7 @@ class UserLoginActionService extends AbstractActionService
 
             return ($this->responder)(['token' => $userData['token'], 'user' => $userData['user']]);
         } catch (InvalidCredentialsException $exception) {
-            return ($this->responder)(
-                status: Response::HTTP_UNAUTHORIZED,
-                message: 'Invalid credentials'
-            );
+            abort(Response::HTTP_UNAUTHORIZED, 'Invalid credentials');
         }
     }
 }

@@ -9,8 +9,8 @@ class CreateClassroomActionService extends AbstractActionService
 {
     public function __construct(
             private readonly ClassroomCreateAction $classroomCreateAction
-            )
-    {
+    ) {
+        parent::__construct();
     }
 
     public function __invoke(array $classRoomCreateRequestData)

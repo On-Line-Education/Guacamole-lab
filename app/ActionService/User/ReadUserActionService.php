@@ -17,6 +17,7 @@ class ReadUserActionService extends AbstractActionService
         private readonly UserSearchAction          $userSearchAction,
         private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
     ) {
+        parent::__construct();
     }
 
     public function __invoke(?User $user = null, ?string $search = null)

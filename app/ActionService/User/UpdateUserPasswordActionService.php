@@ -4,31 +4,27 @@ namespace App\ActionService\User;
 
 use App\Action\User\UserPasswordUpdateAction;
 use App\ActionService\AbstractActionService;
-use App\Http\Requests\UserNewPasswordRequest;
+use App\Exceptions\InvalidOldPasswordException;
 use App\Models\User;
 use App\Service\GuacamoleUserLoginService;
-use Symfony\Component\HttpFoundation\Response;
 
 class UpdateUserPasswordActionService extends AbstractActionService
 {
     public function __construct(
         private readonly UserPasswordUpdateAction  $userPasswordUpdateAction,
         private readonly GuacamoleUserLoginService $guacamoleUserLoginService
-    )
-    {
+    ) {
+        parent::__construct();
     }
 
-    public function __invoke(User $user, UserNewPasswordRequest $userNewPasswordRequest)
+    public function __invoke(User $user, array $userNewPasswordRequestData)
     {
         $guacAuth = ($this->guacamoleUserLoginService)($user);
 
-        $oldPassword = $userNewPasswordRequest->get('oldPassword');
-        $newPassword = $userNewPasswordRequest->get('newPassword');
+        $oldPassword = $userNewPasswordRequestData['oldPassword'];
+        $newPassword = $userNewPasswordRequestData['newPassword'];
         if (!($this->userPasswordUpdateAction)($guacAuth, $user, $oldPassword, $newPassword)) {
-            return ($this->responder)(
-                status: Response::HTTP_BAD_REQUEST,
-                message: 'Invalid old password'
-            );
+            throw new InvalidOldPasswordException();
         }
 
         return ($this->responder)();
