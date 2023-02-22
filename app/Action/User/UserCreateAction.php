@@ -15,12 +15,13 @@ class UserCreateAction {
     )
     {}
 
-    public function __invoke(GuacamoleAuthLoginData $guacamoleAuthLoginData, GuacamoleUserData $user): void
+    public function __invoke(GuacamoleAuthLoginData $guacamoleAuthLoginData, GuacamoleUserData $user): User
     {
         $this->guacamole->getUser()->create($guacamoleAuthLoginData, $user);
         $sysUser = new User();
         $sysUser->username = $user->username;
         $sysUser->password = Hash::make($user->password);
         $sysUser->save();
+        return $sysUser;
     }
 }

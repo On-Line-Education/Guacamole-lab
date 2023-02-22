@@ -38,7 +38,7 @@ class UserController extends Controller
 
     function create(UserCreateRequest $userCreateRequest): JsonResponse
     {
-        return ($this->createUserActionService)($userCreateRequest);
+        return ($this->createUserActionService)($userCreateRequest->all());
     }
 
     function edit(User $user, UserUpdateRequest $userCreateRequest): JsonResponse

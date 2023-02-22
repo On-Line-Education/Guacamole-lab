@@ -3,18 +3,17 @@
 namespace App\ActionService\User;
 
 use App\Action\User\UserUpdateAction;
+use App\ActionService\AbstractActionService;
 use App\Guacamole\Objects\User\GuacamoleUserData;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
-use App\Responder\Responder;
 use App\Service\GuacamoleUserLoginService;
 
-class UpdateUserActionService
+class UpdateUserActionService extends AbstractActionService
 {
     public function __construct(
         private readonly UserUpdateAction          $userUpdateAction,
         private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
-        private readonly Responder                 $responder,
     ) {
     }
 

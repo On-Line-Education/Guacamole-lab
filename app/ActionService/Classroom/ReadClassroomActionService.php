@@ -2,10 +2,26 @@
 
 namespace App\ActionService\Classroom;
 
-class ReadClassroomActionService
-{
-    public function __invoke(?int $id = null)
-    {
+use App\Action\Classroom\ClassroomGetAllAction;
+use App\ActionService\AbstractActionService;
+use App\Models\ClassRoom;
 
+class ReadClassroomActionService extends AbstractActionService
+{
+    public function __construct(
+            private readonly ClassroomGetAllAction $classroomGetAllAction
+            )
+    {
+    }
+
+    public function __invoke(?ClassRoom $classRoom = null)
+    {
+        if (!is_null($classRoom)) {
+            $classrooms = ['classroom' => $classRoom];
+        } else {
+            $classrooms = ($this->classroomGetAllAction)();
+        }
+
+        return ($this->responder)($classrooms);
     }
 }
