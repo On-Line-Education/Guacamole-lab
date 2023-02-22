@@ -57,20 +57,4 @@ class Handler extends ExceptionHandler
             }
         });
     }
-
-    protected function buildExceptionContext(Throwable $e)
-    {
-        return array_merge(
-                parent::buildExceptionContext($e),
-                ['success' => false]
-        );
-    }
-
-    protected function context()
-    {
-        return array_merge(
-                parent::context(),
-                ['success' => false]
-        );
-    }
 }

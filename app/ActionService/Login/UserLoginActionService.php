@@ -8,7 +8,7 @@ use App\Action\Login\SystemUserLoginAction;
 use App\ActionService\AbstractActionService;
 use App\Exceptions\InvalidCredentialsException;
 use App\Http\Requests\LoginRequest;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\JsonResponse;
 
 class UserLoginActionService extends AbstractActionService
 {
@@ -20,7 +20,12 @@ class UserLoginActionService extends AbstractActionService
         parent::__construct();
     }
 
-    public function __invoke(LoginRequest $request)
+    /**
+     * @param LoginRequest $request
+     * @return JsonResponse
+     * @throws InvalidCredentialsException
+     */
+    public function __invoke(LoginRequest $request): JsonResponse
     {
         try {
             $userData = ($this->systemUserLoginAction)(
@@ -34,7 +39,7 @@ class UserLoginActionService extends AbstractActionService
 
             return ($this->responder)(['token' => $userData['token'], 'user' => $userData['user']]);
         } catch (InvalidCredentialsException $exception) {
-            abort(Response::HTTP_UNAUTHORIZED, 'Invalid credentials');
+            throw new InvalidCredentialsException();
         }
     }
 }

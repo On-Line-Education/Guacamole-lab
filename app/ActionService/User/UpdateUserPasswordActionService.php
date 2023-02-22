@@ -7,6 +7,7 @@ use App\ActionService\AbstractActionService;
 use App\Exceptions\InvalidOldPasswordException;
 use App\Models\User;
 use App\Service\GuacamoleUserLoginService;
+use Illuminate\Http\JsonResponse;
 
 class UpdateUserPasswordActionService extends AbstractActionService
 {
@@ -17,7 +18,13 @@ class UpdateUserPasswordActionService extends AbstractActionService
         parent::__construct();
     }
 
-    public function __invoke(User $user, array $userNewPasswordRequestData)
+    /**
+     * @param User $user
+     * @param array $userNewPasswordRequestData
+     * @return JsonResponse
+     * @throws InvalidOldPasswordException
+     */
+    public function __invoke(User $user, array $userNewPasswordRequestData): JsonResponse
     {
         $guacAuth = ($this->guacamoleUserLoginService)($user);
 

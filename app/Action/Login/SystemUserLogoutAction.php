@@ -11,7 +11,7 @@ class SystemUserLogoutAction {
      * @param User $user
      * @return array<string, User|string>
      */
-    public function __invoke(User $user): array
+    public function __invoke(User $user): void
     {
         $user->currentAccessToken()->delete();
     }
