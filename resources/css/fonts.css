@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Raleway";
+    src: local('Raleway'), url("../fonts/Raleway/Raleway-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "Inter";
+    src: local('Inter'), url("../fonts/Inter/Inter-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "Inter-Bold";
+    src: local('Inter'), url("../fonts/Inter/Inter-Bold.ttf") format('truetype');
+}

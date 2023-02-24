@@ -1,7 +1,22 @@
 // Body
-$body-bg: #f8fafc;
+$body-color-light: #F3F2ED;
+$body-color-dark: #2B272A;
+$body-color-accent:#EDFFA9;
+
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$font-family-title: 'Raleway', sans-serif;
+$font-family-content: 'Inter', arial;
+
+$font-size-1: 2.5rem;
+$font-size-2: 1.5rem;
+$font-size-3: 1rem;
+$font-size-4: 0.8rem;
+
+$font-color-light: #F3F2ED;
+$font-color-dark: #2B272A;
+$font-color-accent:#EDFFA9;
+
+$font-weight-thin: 400;
+$font-weight-regular: 500;
+$font-weight-bold: 700;

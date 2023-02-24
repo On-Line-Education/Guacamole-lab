@@ -1,1 +1,19 @@
+@font-face {
+    font-family: "Raleway";
+    src: local('Raleway'), url(/fonts/Raleway-Regular.ttf?3927fa2a37e6f7f4c7c0ac672e97c670) format('truetype');
+}
 
+@font-face {
+    font-family: "Inter";
+    src: local('Inter'), url(/fonts/Inter-Regular.ttf?e89cb19905e7db5591b0037b15a1d9cd) format('truetype');
+}
+
+@font-face {
+    font-family: "Inter-Bold";
+    src: local('Inter'), url(/fonts/Inter-Bold.ttf?88fa7ae373b07b41ecce77adbdf16ec2) format('truetype');
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

@@ -1,0 +1,86 @@
+@import '../../../../sass/variables';
+
+.login {
+    display: flex;
+
+    height: 100vh;
+}
+
+.login-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $body-color-dark;
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        font-family: $font-family-title;
+        font-size: $font-size-1;
+        color: $font-color-light;
+        margin: 1em 0;
+
+        img, span {
+            margin: 0 0.1em;
+        }
+    }
+
+    .description {
+
+        font-family: $font-family-content;
+        font-size: $font-size-2;
+        font-weight: $font-weight-bold;
+        color: $font-color-accent;
+        margin: auto;
+    }   
+}
+
+.login-container {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $body-color-light;
+
+    .welcome {
+        font-family: $font-family-title;
+        font-size: $font-size-2;
+        font-weight: $font-weight-bold;
+        color: $font-color-dark;
+        margin-bottom: 2em;
+
+        span {
+            display: block;
+            margin-top: 1em;
+            font-family: $font-family-content;
+            font-size: $font-size-4;
+            font-weight: $font-weight-regular;
+        }
+    }
+
+    .login-form-input {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 1em 0;
+
+        label {
+            margin: 0.5em 0;
+            font-family: $font-family-content;
+            font-size: $font-size-4;
+            font-weight: $font-weight-regular;
+        }
+
+        input, fieldset {
+            border: none;
+        }
+    }
+
+    .login-form-submit {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 2.5em;
+    }
+}
