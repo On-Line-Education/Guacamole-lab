@@ -91,9 +91,14 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
 				{
-					"name": "Logout-all",
+					"name": "Get All",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"accept": true
@@ -105,7 +110,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "12|a8gqga2Q79B4WxPc9ziA1qgcoSlaPuT8K9XWMFCC",
+									"value": "5|DI9Y5btEc6U758sAHi59U7DeSMG5zaIBPMLqOHTX",
 									"type": "string"
 								}
 							]
@@ -119,14 +124,731 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/logout/all",
+							"raw": "{{URL}}/api/user",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
-								"logout",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUser",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|GOKSL9u4WysbX4CrtubnfI4SM6xMuyrQoOr9AcRn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/user/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchUser",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|GOKSL9u4WysbX4CrtubnfI4SM6xMuyrQoOr9AcRn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/user/search/guac",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"search",
+								"guac"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateUser",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "21|2uUpU5JrZkZkGAZ6lyEOSoejY3xaPKjkNQjB4WL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Test6",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "testtest",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|GOKSL9u4WysbX4CrtubnfI4SM6xMuyrQoOr9AcRn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"attributes\": {\n        \"guac-email-address\": \"aa@bb.cc\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/user/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserPassword",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "30|7OFPY7CuEuH6opb0GAATfMybj9NgN5HB7oaAXcq1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"testtest\",\n    \"newPassword\": \"testjest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/user/5/password",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"5",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "31|3oyFKW88deipl69xprLcbCmG1gpWyzczjQtgkwJE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/user/5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Classroom",
+			"item": [
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/all",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
 								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"202\",\n    \"description\": \"Sala na pierwszym piętrze po prawej od schodów\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Sala na pierwszym piętrze po lewej od schodów\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Class",
+			"item": [
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/class/all",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Class",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "44|2gU7ZFZzk85Y6Zz5lycJOVBSd8npE05kC7Nts6Bd",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/class/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Class",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"4gta\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/class",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"4sa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/class/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/class/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class",
+								"1"
 							]
 						}
 					},
@@ -135,6 +857,16 @@
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "1|cM1uJcrthbRpfu0lgSGeiUD1lG1oIPEXBrgTixBx",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -158,7 +890,7 @@
 	"variable": [
 		{
 			"key": "URL",
-			"value": "localhost:8080"
+			"value": "localhost:8888"
 		}
 	]
 }

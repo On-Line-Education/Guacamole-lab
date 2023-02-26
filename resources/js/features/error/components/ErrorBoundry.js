@@ -4,7 +4,7 @@ import ErrorMessage from './ErrorMessage'
 import '../assets/errorBoundry.scss'
 
 export default function ErrorBoundry(props) {
-    const errors = useSelector(state => state.errors)
+    const errors = useSelector(state => state.error.errors)
 
   return (
     <>
