@@ -2,10 +2,9 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class InvalidOldPasswordException extends Exception
+class InvalidOldPasswordException extends SystemException
 {
     //
     public function __construct()

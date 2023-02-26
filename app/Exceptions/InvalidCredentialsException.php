@@ -2,10 +2,9 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class InvalidCredentialsException extends Exception
+class InvalidCredentialsException extends SystemException
 {
     //
     public function __construct()

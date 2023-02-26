@@ -25,20 +25,20 @@ class UserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            "username" => "required|string|unique:users",
-            "password" => "required|string|min:8",
-            "attributes" => "array",
-            "attributes.guac-email-address" => "",
-            "attributes.guac-organizational-role" => "",
-            "attributes.guac-full-name" => "",
-            "attributes.expired" => "",
-            "attributes.timezone" => "",
-            "attributes.access-window-start" => "",
-            "attributes.guac-organization" => "",
-            "attributes.access-window-end" => "",
-            "attributes.disabled" => "",
-            "attributes.valid-until" => "",
-            "attributes.valid-from" => ""
+            'username' => 'required|string|unique:users',
+            'password' => 'required|string|min:8',
+            'attributes' => 'array',
+            'attributes.guac-email-address' => '',
+            'attributes.guac-organizational-role' => '',
+            'attributes.guac-full-name' => '',
+            'attributes.expired' => '',
+            'attributes.timezone' => '',
+            'attributes.access-window-start' => '',
+            'attributes.guac-organization' => '',
+            'attributes.access-window-end' => '',
+            'attributes.disabled' => '',
+            'attributes.valid-until' => '',
+            'attributes.valid-from' => ''
         ];
     }
 }
