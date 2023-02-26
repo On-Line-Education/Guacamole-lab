@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\GroupController;
+use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\System\SystemAuth;
@@ -166,9 +166,14 @@ Route::controller(ClassroomController::class)->group(function () {
     });
 });
 
-Route::controller(GroupController::class)->group(function () {
-    Route::prefix('/group')->group(function () {
-        Route::get('/', 'list')
+Route::controller(StudentClassController::class)->group(function () {
+    Route::prefix('/class')->group(function () {
+        Route::get('/all', 'list')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::GROUP_DISPLAY)
+            ]);
+        Route::get('/{class}', 'get')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAll(SystemPermissions::GROUP_DISPLAY)
@@ -178,12 +183,12 @@ Route::controller(GroupController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAll(SystemPermissions::GROUP_MODIFY)
             ]);
-        Route::patch('/', 'edit')
+        Route::patch('/{class}', 'edit')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAll(SystemPermissions::GROUP_MODIFY)
             ]);
-        Route::delete('/', 'delete')
+        Route::delete('/{class}', 'delete')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAll(SystemPermissions::GROUP_MODIFY)
@@ -200,26 +205,3 @@ Route::controller(GroupController::class)->group(function () {
             ]);
     });
 });
-
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-//
-//Route::get("/test", function () {
-//
-//
-//    return response()->json(
-//        ["response" => \App\Guacamole\GuacamoleHelper::generateSessionConnectionUrl(1, "postgresql")]
-//    );
-//});
-
-//Route::get('/test/guac/connect', function () {
-//    $g = new \App\Guacamole\GuacamoleLogin();
-//    $userConn = $g->connectUser("guacadmin", "guacadmin");
-//    $user = \App\Guacamole\GuacamoleUser::getUserDetails($userConn, "test");
-//
-//    return response()->json([
-//        'response' => $userConn,
-//        'user' => $user
-//    ]);
-//});

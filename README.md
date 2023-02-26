@@ -75,8 +75,18 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 | /api/classroom/all           | GET    | Umozliwia pobranie wszystkich sal z systemu                       | TAK              |
 | /api/classroom/{classroomId} | GET    | Umozliwia pobranie sali z systemu o id podanym jako {classroomId} | TAK              |
 | /api/classroom               | POST   | Umozliwia utworzenie nowej sali w systemie                        | TAK              |
-| /api/classroom/{classroomId} | PATCH  | Umozliwia aktualizacje danych sali o id {classroomId} w systemie  | TAK              |
-| /api/classroom/{classroomId} | DELETE | Umozliwia usunięcie sali o id {userId} z systemu                  | TAK              |
+| /api/classroom/{classroomId} | PATCH  | Umozliwia aktualizacje danej sali o id {classroomId} w systemie   | TAK              |
+| /api/classroom/{classroomId} | DELETE | Umozliwia usunięcie sali o id {classroomId} z systemu             | TAK              |
+
+### Grupy / Klasy
+
+| Ścieżka              | Metoda | Opis                                                                 | Wymaga logowania |
+|----------------------|--------|----------------------------------------------------------------------|------------------|
+| /api/class/all       | GET    | Umozliwia pobranie wszystkich grup/klas z systemu                    | TAK              |
+| /api/class/{classId} | GET    | Umozliwia pobranie grupyy/klas z systemu o id podanym jako {classId} | TAK              |
+| /api/class           | POST   | Umozliwia utworzenie nowej grupy/klasy w systemie                    | TAK              |
+| /api/class/{classId} | PATCH  | Umozliwia aktualizacje danej grupy/klasy o id {classId} w systemie   | TAK              |
+| /api/class/{classId} | DELETE | Umozliwia usunięcie grupy/klasy o id {classId} z systemu             | TAK              |
 
 ## Instrukcja obsługi
 

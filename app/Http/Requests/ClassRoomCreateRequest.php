@@ -25,8 +25,8 @@ class ClassRoomCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string",
-            "description" => "string"
+            'name' => 'required|string',
+            'description' => 'string'
         ];
     }
 }
