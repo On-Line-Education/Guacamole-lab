@@ -3,11 +3,19 @@
 ---
 
 ## Spis treści
-1. [Instalacja](#instalacja)
-2. [Instalacja pod dalszy rozwój](#instalacja-pod-dalszy-rozwój)
-3. [Opis struktury systemu](#opis-struktury-systemu)
-4. [Endpointy](#endpointy)
-5. [Instrukcja obsługi](#instrukcja-obsługi)
+- [Guacamole Lab](#guacamole-lab)
+  - [Spis treści](#spis-treści)
+  - [Instalacja](#instalacja)
+  - [Instalacja pod dalszy rozwój](#instalacja-pod-dalszy-rozwój)
+  - [Opis struktury systemu](#opis-struktury-systemu)
+  - [Endpointy](#endpointy)
+    - [Logowanie](#logowanie)
+    - [Użytkownik](#użytkownik)
+    - [Sale](#sale)
+    - [Grupy / Klasy](#grupy--klasy)
+    - [Komputery](#komputery)
+  - [Instrukcja obsługi](#instrukcja-obsługi)
+  - [Dodatkowe informacje](#dodatkowe-informacje)
 
 ## Instalacja
 
@@ -51,15 +59,15 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 
 ### Logowanie
 
-| Ścieżka                     | Metoda | Opis                            | Wymaga logowania |
-|-----------------------------|--------|---------------------------------|------------------|
-| /api/user                   | POST   | Umozliwia logowanie do systemu  | NIE              |
-| /api/logout                 | GET    | Umozliwia wylogowanie z systemu | TAK              |
+| Ścieżka     | Metoda | Opis                            | Wymaga logowania |
+| ----------- | ------ | ------------------------------- | ---------------- |
+| /api/user   | POST   | Umozliwia logowanie do systemu  | NIE              |
+| /api/logout | GET    | Umozliwia wylogowanie z systemu | TAK              |
 
 ### Użytkownik
 
 | Ścieżka                     | Metoda | Opis                                                                                                           | Wymaga logowania |
-|-----------------------------|--------|----------------------------------------------------------------------------------------------------------------|------------------|
+| --------------------------- | ------ | -------------------------------------------------------------------------------------------------------------- | ---------------- |
 | /api/user/all               | GET    | Umozliwia pobranie wszystkich użytkowników systemu                                                             | TAK              |
 | /api/user/{userID}          | GET    | Umozliwia pobranie użytkownika z systemu o id podanym jako {userId}                                            | TAK              |
 | /api/user/search/{search}   | GET    | Umozliwia pobranie użytkownika z systemu, zawierającego dany fragment podanego tekstu (jako {search}) w nazwie | TAK              |
@@ -71,7 +79,7 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 ### Sale
 
 | Ścieżka                      | Metoda | Opis                                                              | Wymaga logowania |
-|------------------------------|--------|-------------------------------------------------------------------|------------------|
+| ---------------------------- | ------ | ----------------------------------------------------------------- | ---------------- |
 | /api/classroom/all           | GET    | Umozliwia pobranie wszystkich sal z systemu                       | TAK              |
 | /api/classroom/{classroomId} | GET    | Umozliwia pobranie sali z systemu o id podanym jako {classroomId} | TAK              |
 | /api/classroom               | POST   | Umozliwia utworzenie nowej sali w systemie                        | TAK              |
@@ -81,12 +89,23 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 ### Grupy / Klasy
 
 | Ścieżka              | Metoda | Opis                                                                 | Wymaga logowania |
-|----------------------|--------|----------------------------------------------------------------------|------------------|
+| -------------------- | ------ | -------------------------------------------------------------------- | ---------------- |
 | /api/class/all       | GET    | Umozliwia pobranie wszystkich grup/klas z systemu                    | TAK              |
 | /api/class/{classId} | GET    | Umozliwia pobranie grupyy/klas z systemu o id podanym jako {classId} | TAK              |
 | /api/class           | POST   | Umozliwia utworzenie nowej grupy/klasy w systemie                    | TAK              |
 | /api/class/{classId} | PATCH  | Umozliwia aktualizacje danej grupy/klasy o id {classId} w systemie   | TAK              |
 | /api/class/{classId} | DELETE | Umozliwia usunięcie grupy/klasy o id {classId} z systemu             | TAK              |
+
+### Komputery
+
+| Ścieżka                                          | Metoda | Opis                                                                                        | Wymaga logowania |
+| ------------------------------------------------ | ------ | ------------------------------------------------------------------------------------------- | ---------------- |
+| /api/classroom/computers                         | GET    | Umozliwia pobranie wszystkich komputerów z systemu                                          | TAK              |
+| /api/classroom/{classroom}/computer/all          | GET    | Umozliwia pobranie wszystkich komputerów z systemu znajdujacych się w klasie {classroom}    | TAK              |
+| /api/classroom/{classroom}/computer/{computerId} | GET    | Umozliwia pobranie komputera z systemu o id podanym jako {computerId} w klasie {classroom}  | TAK              |
+| /api/classroom/{classroom}/computer              | POST   | Umozliwia utworzenie nowego komputera w systemie, przypisanego do klasy {classroom}         | TAK              |
+| /api/classroom/{classroom}/computer/{computerId} | PATCH  | Umozliwia aktualizacje danego komputera o id {computerId} przypisanego do klasy {classroom} | TAK              |
+| /api/classroom/{classroom}/computer/{computerId} | DELETE | Umozliwia usunięcie komputera o id {computerId} przypisanego do klasy {classroom} z systemu | TAK              |
 
 ## Instrukcja obsługi
 

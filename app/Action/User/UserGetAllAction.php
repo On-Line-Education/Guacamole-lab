@@ -5,7 +5,8 @@ namespace App\Action\User;
 use App\Guacamole\Guacamole;
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 
-class UserGetAllAction {
+class UserGetAllAction
+{
 
     public function __construct(
             private readonly Guacamole $guacamole

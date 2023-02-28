@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class UserLogoutActionService extends AbstractActionService
 {
     public function __construct(
-            private readonly GuacamoleAuthLogoutAction $guacamoleAuthLogoutAction,
-            private readonly SystemUserLogoutAction $systemUserLogoutAction,
+        private readonly GuacamoleAuthLogoutAction $guacamoleAuthLogoutAction,
+        private readonly SystemUserLogoutAction $systemUserLogoutAction,
     ) {
         parent::__construct();
     }

@@ -7,11 +7,12 @@ use App\Guacamole\Api\Auth\LoginAuthApi;
 use App\Guacamole\Helpers\ApiResponseWrapper;
 use GuzzleHttp\Exception\GuzzleException;
 
-class AuthLoginEndpoint {
+class AuthLoginEndpoint
+{
 
     public function __construct(
-            private readonly LoginAuthApi $loginAuthApi,
-            private readonly ApiResponseWrapper $apiResponseWrapper
+        private readonly LoginAuthApi $loginAuthApi,
+        private readonly ApiResponseWrapper $apiResponseWrapper
     )
     {}
 

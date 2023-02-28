@@ -35,7 +35,11 @@ class UserLoginActionService extends AbstractActionService
             );
 
             $guacAuth = ($this->guacamoleAuthLoginAction)($request->get('username'), $request->get('password'));
-            ($this->guacamoleAuthCreateLoginData)($userData['user']->id, $guacAuth->getAuthToken(), $guacAuth->getDataSource());
+            ($this->guacamoleAuthCreateLoginData)(
+                $userData['user']->id,
+                $guacAuth->getAuthToken(),
+                $guacAuth->getDataSource()
+            );
 
             return ($this->responder)(['token' => $userData['token'], 'user' => $userData['user']]);
         } catch (InvalidCredentialsException $exception) {

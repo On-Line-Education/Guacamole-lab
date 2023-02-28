@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Computer extends Model
 {
     use HasFactory;
+
+    public function classroom()
+    {
+        return $this->hasOne(ClassRoom::class);
+    }
 }

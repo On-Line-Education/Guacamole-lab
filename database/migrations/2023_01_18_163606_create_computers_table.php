@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('computers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('class_room_id')->references('id')->on('class_rooms');
             $table->string('name');
             $table->string('ip');
             $table->string('mac');

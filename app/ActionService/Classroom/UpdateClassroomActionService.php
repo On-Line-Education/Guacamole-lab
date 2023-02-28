@@ -16,10 +16,10 @@ class UpdateClassroomActionService extends AbstractActionService
     public function __invoke(ClassRoom $classRoom, array $classRoomUpdateRequestData)
     {
         $updated = ($this->classroomUpdateAction)(
-                $classRoom->id,
-                $classRoomUpdateRequestData['title'] ?? null,
-                $classRoomUpdateRequestData['description'] ?? null
-            );
+            $classRoom->id,
+            $classRoomUpdateRequestData['title'] ?? null,
+            $classRoomUpdateRequestData['description'] ?? null
+        );
         return ($this->responder)(['classroom' => $updated]);
     }
 }

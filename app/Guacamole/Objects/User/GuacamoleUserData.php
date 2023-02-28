@@ -2,7 +2,8 @@
 
 namespace App\Guacamole\Objects\User;
 
-class GuacamoleUserData {
+class GuacamoleUserData
+{
     public ?int $id = null;
     public ?string $username;
     public ?int $lastActive;
@@ -20,8 +21,8 @@ class GuacamoleUserData {
     public function getGuacFormat(): array
     {
         return [
-                "username" => $this->username,
-                "password" => $this->password,
+            "username" => $this->username,
+            "password" => $this->password,
             "attributes" => $this->attributes->getGuacFormat(),
         ];
     }

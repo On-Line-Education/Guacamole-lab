@@ -29,7 +29,7 @@ class ReadUserActionService extends AbstractActionService
             $guacUser = ($this->userGetByIdAction)($guacAuth, $user->id);
             $guacUser->id = $user->id;
             return ($this->responder)($guacUser);
-        } else if ($search !== null) {
+        } elseif ($search !== null) {
             $users[] = ($this->userSearchAction)($guacAuth, $search);
         } else {
             $users = ($this->userGetAllAction)($guacAuth);

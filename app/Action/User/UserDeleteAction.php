@@ -6,7 +6,8 @@ use App\Guacamole\Guacamole;
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Models\User;
 
-class UserDeleteAction {
+class UserDeleteAction
+{
 
     public function __construct(
             private readonly Guacamole $guacamole

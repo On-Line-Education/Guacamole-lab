@@ -25,8 +25,8 @@ class UserNewPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-                'oldPassword' => 'required|string|min:8',
-                'newPassword' => 'required|string|min:8',
+            'oldPassword' => 'required|string|min:8',
+            'newPassword' => 'required|string|min:8',
         ];
     }
 }

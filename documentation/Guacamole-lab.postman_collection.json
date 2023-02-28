@@ -26,7 +26,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"test\",\n    \"password\": \"pass1234\"\n}",
+							"raw": "{\n    \"username\": \"guacadmin\",\n    \"password\": \"guacadmin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -54,16 +54,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "10|968JgpnqNIo0sgRhUXPPYc5s5M5qFsQx1X6pQdo4",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -105,16 +95,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "5|DI9Y5btEc6U758sAHi59U7DeSMG5zaIBPMLqOHTX",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -124,13 +104,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user",
+							"raw": "{{URL}}/api/user/all",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
-								"user"
+								"user",
+								"all"
 							]
 						}
 					},
@@ -144,16 +125,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "6|GOKSL9u4WysbX4CrtubnfI4SM6xMuyrQoOr9AcRn",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -184,16 +155,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "6|GOKSL9u4WysbX4CrtubnfI4SM6xMuyrQoOr9AcRn",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -225,16 +186,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "21|2uUpU5JrZkZkGAZ6lyEOSoejY3xaPKjkNQjB4WL4",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -279,16 +230,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "6|GOKSL9u4WysbX4CrtubnfI4SM6xMuyrQoOr9AcRn",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PATCH",
 						"header": [
 							{
@@ -328,16 +269,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "30|7OFPY7CuEuH6opb0GAATfMybj9NgN5HB7oaAXcq1",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PATCH",
 						"header": [
 							{
@@ -378,16 +309,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "31|3oyFKW88deipl69xprLcbCmG1gpWyzczjQtgkwJE",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -423,16 +344,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -463,16 +374,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -503,16 +404,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -523,7 +414,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"202\",\n    \"description\": \"Sala na pierwszym piętrze po prawej od schodów\"\n}",
+							"raw": "{\n    \"name\": \"203\",\n    \"description\": \"Sala na pierwszym piętrze po prawej od schodów\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -551,16 +442,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PATCH",
 						"header": [
 							{
@@ -600,16 +481,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -645,16 +516,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -685,16 +546,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "44|2gU7ZFZzk85Y6Zz5lycJOVBSd8npE05kC7Nts6Bd",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -725,16 +576,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -773,16 +614,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PATCH",
 						"header": [
 							{
@@ -822,16 +653,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|ffezK7kwlyNgh5HkFjNAqI4RhnYqfqu2tYkR1Dvg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -855,6 +676,218 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Computer",
+			"item": [
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/computers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"computers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All in ClassRoom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/2/computer/all",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"2",
+								"computer",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Computer In ClassRoom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/1/computer/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"1",
+								"computer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Computer",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dell\",\n    \"ip\": \"127.0.0.1\",\n    \"mac\": \"7a:76:0e:6c:e4:0c\",\n    \"login\": \"Andrzej\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom/1/computer",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"1",
+								"computer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ip\": \"127.0.0.2\",\n    \"login\": \"Duda\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom/1/computer/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"1",
+								"computer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/1/computer/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"1",
+								"computer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -862,7 +895,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "1|cM1uJcrthbRpfu0lgSGeiUD1lG1oIPEXBrgTixBx",
+				"value": "1|2Kk47JwphRS4AB2RjHNrZLpvnPse8WKICba4R2OX",
 				"type": "string"
 			}
 		]

@@ -2,46 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\ActionService\Computer\CreateComputerActionService;
+use App\ActionService\Computer\DeleteComputerActionService;
+use App\ActionService\Computer\ReadComputerActionService;
+use App\ActionService\Computer\UpdateComputerActionService;
+use App\Http\Requests\ComputerCreateRequest;
+use App\Http\Requests\ComputerUpdateRequest;
+use App\Models\ClassRoom;
+use App\Models\Computer;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ComputerController extends Controller
 {
-    //
+    public function __construct(
+        private readonly CreateComputerActionService $createComputerActionService,
+        private readonly ReadComputerActionService $readComputerActionService,
+        private readonly UpdateComputerActionService $updateComputerActionService,
+        private readonly DeleteComputerActionService $deleteComputerActionService
+    )
+    {}
 
-    function list(): JsonResponse
+    public function allComputers(): JsonResponse
     {
-
-        return response()->json("todo");
+        return ($this->readComputerActionService)();
     }
 
-    function create(): JsonResponse
+    public function list(ClassRoom $classroom): JsonResponse
     {
-
-        return response()->json("todo");
+        return ($this->readComputerActionService)($classroom);
     }
 
-    function edit(): JsonResponse
+    public function get(ClassRoom $classroom, Computer $computer): JsonResponse
     {
-
-        return response()->json("todo");
+        return ($this->readComputerActionService)($classroom, $computer);
     }
 
-    function delete(): JsonResponse
+    public function create(ClassRoom $classroom, ComputerCreateRequest $computerCreateRequest): JsonResponse
     {
+        return ($this->createComputerActionService)($classroom, $computerCreateRequest->all());
+    }
 
-        return response()->json("todo");
+    public function edit(
+        ClassRoom $classroom,
+        Computer $computer,
+        ComputerUpdateRequest $computerUpdateRequest
+    ): JsonResponse
+    {
+        return ($this->updateComputerActionService)($classroom, $computer, $computerUpdateRequest->all());
+    }
+
+    public function delete(ClassRoom $classroom, Computer $computer): JsonResponse
+    {
+        return ($this->deleteComputerActionService)($classroom, $computer);
     }
 
     // assign computer to student
-    function assign(): JsonResponse
+    public function assign(): JsonResponse
     {
 
         return response()->json("todo");
     }
 
     // import computers from csv
-    function import(): JsonResponse
+    public function import(): JsonResponse
     {
 
         return response()->json("todo");
