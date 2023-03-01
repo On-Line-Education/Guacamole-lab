@@ -5,11 +5,12 @@ namespace App\Guacamole;
 use App\Guacamole\Endpoints\Auth\AuthEndpoint;
 use App\Guacamole\Endpoints\User\UserEndpoint;
 
-class Guacamole {
+class Guacamole
+{
     public function __construct(
-            private readonly AuthEndpoint $auth,
-            private readonly UserEndpoint $user
-            )
+        private readonly AuthEndpoint $auth,
+        private readonly UserEndpoint $user
+    )
     {}
 
     public static function getUrl() : string {
@@ -33,5 +34,4 @@ class Guacamole {
     {
         return $this->user;
     }
-
 }

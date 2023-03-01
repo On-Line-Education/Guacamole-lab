@@ -3,7 +3,6 @@
 namespace App\Guacamole\Api\User;
 
 use App\Guacamole\Api\AbstractApi;
-use App\Guacamole\Objects\User\GuacamoleUserData;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 

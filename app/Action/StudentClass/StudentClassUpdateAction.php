@@ -4,7 +4,8 @@ namespace App\Action\StudentClass;
 
 use App\Models\StudentClass;
 
-class StudentClassUpdateAction {
+class StudentClassUpdateAction
+{
     public function __invoke(int $id, ?string $newName = null)
     {
         $class = StudentClass::find($id);

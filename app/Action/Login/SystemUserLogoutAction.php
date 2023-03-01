@@ -4,8 +4,8 @@ namespace App\Action\Login;
 
 use App\Models\User;
 
-class SystemUserLogoutAction {
-
+class SystemUserLogoutAction
+{
 
     /**
      * @param User $user

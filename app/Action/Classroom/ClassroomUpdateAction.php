@@ -4,7 +4,8 @@ namespace App\Action\Classroom;
 
 use App\Models\ClassRoom;
 
-class ClassroomUpdateAction {
+class ClassroomUpdateAction
+{
     public function __invoke(int $id, ?string $newName = null, ?string $newDescription = null)
     {
         $classRoom = ClassRoom::find($id);

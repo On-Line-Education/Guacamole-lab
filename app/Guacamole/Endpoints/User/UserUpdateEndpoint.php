@@ -7,11 +7,13 @@ use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Guacamole\Objects\User\GuacamoleUserData;
 use GuzzleHttp\Exception\GuzzleException;
 
-class UserUpdateEndpoint {
+class UserUpdateEndpoint
+{
 
     public function __construct(
-            private readonly UpdateUserApi $updateUserApi
-    ){}
+        private readonly UpdateUserApi $updateUserApi
+    )
+    {}
 
     public function __invoke(GuacamoleAuthLoginData $loginData, GuacamoleUserData $user): void
     {

@@ -10,8 +10,8 @@ use App\Service\GuacamoleUserLoginService;
 class DeleteUserActionService extends AbstractActionService
 {
     public function __construct(
-            private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
-            private readonly UserDeleteAction $userDeleteAction
+        private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
+        private readonly UserDeleteAction $userDeleteAction
     ) {
         parent::__construct();
     }

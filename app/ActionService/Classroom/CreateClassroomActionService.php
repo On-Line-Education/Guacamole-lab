@@ -16,8 +16,8 @@ class CreateClassroomActionService extends AbstractActionService
     public function __invoke(array $classRoomCreateRequestData)
     {
         $newClass = ($this->classroomCreateAction)(
-                $classRoomCreateRequestData['name'],
-                $classRoomCreateRequestData['description']
+            $classRoomCreateRequestData['name'],
+            $classRoomCreateRequestData['description']
         );
         return ($this->responder)(['classroom' => $newClass]);
     }

@@ -8,7 +8,8 @@ use App\Guacamole\Objects\User\GuacamoleUserData;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class UserCreateAction {
+class UserCreateAction
+{
 
     public function __construct(
             private readonly Guacamole $guacamole

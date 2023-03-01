@@ -8,12 +8,14 @@ use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Guacamole\Objects\User\GuacamoleUserData;
 use GuzzleHttp\Exception\GuzzleException;
 
-class UserGetEndpoint {
+class UserGetEndpoint
+{
 
     public function __construct(
-            private readonly GetUserApi $getUserApi,
-            private readonly ApiResponseWrapper $apiResponseWrapper
-    ){}
+        private readonly GetUserApi $getUserApi,
+        private readonly ApiResponseWrapper $apiResponseWrapper
+    )
+    {}
 
     public function __invoke(GuacamoleAuthLoginData $loginData, string $username): ?GuacamoleUserData
     {

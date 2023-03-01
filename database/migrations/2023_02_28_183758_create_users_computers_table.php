@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('class_rooms_computers', function (Blueprint $table) {
-            $table->foreignId('class_id')->references('id')->on('class_rooms');
+        Schema::create('users_computers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('class_room_id')->references('id')->on('class_rooms');
             $table->foreignId('computer_id')->references('id')->on('computers');
             $table->timestamps();
         });
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class_rooms_computers');
+        Schema::dropIfExists('users_computers');
     }
 };

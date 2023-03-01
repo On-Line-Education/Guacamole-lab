@@ -6,7 +6,8 @@ use App\Guacamole\Guacamole;
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Guacamole\Objects\User\GuacamoleUserData;
 
-class UserUpdateAction {
+class UserUpdateAction
+{
 
     public function __construct(
             private readonly Guacamole $guacamole

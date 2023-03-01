@@ -16,47 +16,47 @@ use Illuminate\Http\JsonResponse;
 class UserController extends Controller
 {
     public function __construct(
-            private readonly CreateUserActionService $createUserActionService,
-            private readonly ReadUserActionService $readUserActionService,
-            private readonly UpdateUserActionService $updateUserActionService,
-            private readonly DeleteUserActionService $deleteUserActionService,
-            private readonly UpdateUserPasswordActionService $updateUserPasswordActionService
-            )
+        private readonly CreateUserActionService $createUserActionService,
+        private readonly ReadUserActionService $readUserActionService,
+        private readonly UpdateUserActionService $updateUserActionService,
+        private readonly DeleteUserActionService $deleteUserActionService,
+        private readonly UpdateUserPasswordActionService $updateUserPasswordActionService
+    )
     {}
 
     // get current
-    function get(User $user): JsonResponse
+    public function get(User $user): JsonResponse
     {
         return ($this->readUserActionService)(user: $user);
     }
 
     // get all
-    function list(): JsonResponse
+    public function list(): JsonResponse
     {
         return ($this->readUserActionService)();
     }
 
-    function create(UserCreateRequest $userCreateRequest): JsonResponse
+    public function create(UserCreateRequest $userCreateRequest): JsonResponse
     {
         return ($this->createUserActionService)($userCreateRequest->all());
     }
 
-    function edit(User $user, UserUpdateRequest $userCreateRequest): JsonResponse
+    public function edit(User $user, UserUpdateRequest $userCreateRequest): JsonResponse
     {
         return ($this->updateUserActionService)($user, $userCreateRequest->all());
     }
 
-    function newPassword(User $user, UserNewPasswordRequest $userNewPasswordRequest): JsonResponse
+    public function newPassword(User $user, UserNewPasswordRequest $userNewPasswordRequest): JsonResponse
     {
         return ($this->updateUserPasswordActionService)($user, $userNewPasswordRequest->all());
     }
 
-    function delete(User $user): JsonResponse
+    public function delete(User $user): JsonResponse
     {
         return ($this->deleteUserActionService)($user);
     }
 
-    function search(string $search): JsonResponse
+    public function search(string $search): JsonResponse
     {
         return ($this->readUserActionService)(search: $search);
     }

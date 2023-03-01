@@ -22,7 +22,8 @@ class SystemPermissions
     /**
      * @param string ...$abilities
      */
-    public static function hasAll(string ...$abilities): string {
+    public static function hasAll(string ...$abilities): string
+    {
         return self::buildPermissionsString('abilities:', ...$abilities);
     }
 
@@ -32,7 +33,8 @@ class SystemPermissions
     public static function hasAtLeastOne(string ...$abilities): string {
         return self::buildPermissionsString('ability:', ...$abilities);
     }
-    protected static function buildPermissionsString(string $prefix, string ...$abilities): string {
+    protected static function buildPermissionsString(string $prefix, string ...$abilities): string
+    {
         $output = $prefix;
         $count = count($abilities);
         foreach ($abilities as $index => $ability) {

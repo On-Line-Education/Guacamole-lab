@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
@@ -65,6 +66,56 @@ Route::controller(UserController::class)->group(function () {
     });
 });
 
+Route::controller(ComputerController::class)->group(function () {
+    Route::get('/classroom/computers', 'allComputers')
+        ->middleware([
+            SystemAuth::AUTH,
+            SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_DISPLAY)
+        ]);
+    Route::prefix('/classroom/{classroom}/computer')->group(function () {
+        Route::get('/all', 'list')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_DISPLAY)
+            ]);
+        Route::get('/{computer}', 'get')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_DISPLAY)
+            ]);
+        Route::post('/', 'create')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+            ]);
+        Route::patch('/{computer}', 'edit')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+            ]);
+        Route::delete('/{computer}', 'delete')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+            ]);
+        Route::post('/{computer}/assign', 'assign')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+            ]);
+        Route::post('/{computer}/unassign', 'unassign')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+            ]);
+        Route::post('/import', 'import')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+            ]);
+    });
+});
+
 Route::controller(ClassroomController::class)->group(function () {
     Route::prefix('/classroom')->group(function () {
         Route::get('/all', 'list')
@@ -102,6 +153,11 @@ Route::controller(ClassroomController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
             ]);
+        Route::post('/unassign', 'unassign')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
+            ]);
         Route::post('/{classroom}/import', 'import')
             ->middleware([
                 SystemAuth::AUTH,
@@ -124,44 +180,11 @@ Route::controller(ClassroomController::class)->group(function () {
                     SystemAuth::AUTH,
                     SystemPermissions::hasAll(SystemPermissions::CLASSROOM_TIME)
                 ]);
-            Route::patch('/update', 'updateTime')
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAll(SystemPermissions::CLASSROOM_TIME_MODIFY)
-                ]);
-        });
-
-        Route::prefix('/{classroom}/computer')->group(function () {
-            Route::get('/', 'list')
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_DISPLAY)
-                ]);
-            Route::post('/', 'create')
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
-                ]);
-            Route::patch('/', 'edit')
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
-                ]);
-            Route::delete('/', 'delete')
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
-                ]);
-            Route::post('/assign', 'assign')
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
-                ]);
-            Route::post('/import', 'import')
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
-                ]);
+        Route::patch('/update', 'updateTime')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_TIME_MODIFY)
+            ]);
         });
     });
 });

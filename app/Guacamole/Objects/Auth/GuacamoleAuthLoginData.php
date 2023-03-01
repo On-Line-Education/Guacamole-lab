@@ -2,7 +2,8 @@
 
 namespace App\Guacamole\Objects\Auth;
 
-class GuacamoleAuthLoginData {
+class GuacamoleAuthLoginData
+{
     public string $authToken;
     public string $username;
     public string $dataSource;

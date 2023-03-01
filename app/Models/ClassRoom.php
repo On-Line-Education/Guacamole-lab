@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ClassRoom extends Model
 {
     use HasFactory;
+
+    public function computers()
+    {
+        return $this->hasMany(Computer::class);
+    }
 }

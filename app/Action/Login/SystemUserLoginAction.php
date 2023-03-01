@@ -7,8 +7,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
-class SystemUserLoginAction {
-
+class SystemUserLoginAction
+{
 
     /**
      * @param string $username
