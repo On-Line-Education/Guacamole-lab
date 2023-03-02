@@ -13,21 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
-            $table->foreignId('class_room_id')->references('id')->on('class_rooms');
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('user', function (Blueprint $table) {
-            //
+            $table->foreignId('assigned_class_room')->nullable()->default(null)->references('id')->on('class_rooms');
         });
     }
 };

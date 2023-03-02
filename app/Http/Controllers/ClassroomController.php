@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\ActionService\Classroom\CreateClassroomActionService;
 use App\ActionService\Classroom\DeleteClassroomActionService;
+use App\ActionService\Classroom\InstructorClassroomAssignActionService;
 use App\ActionService\Classroom\ReadClassroomActionService;
+use App\ActionService\Classroom\StudentClassroomAssignActionService;
 use App\ActionService\Classroom\UpdateClassroomActionService;
 use App\Http\Requests\ClassRoomCreateRequest;
 use App\Http\Requests\ClassRoomUpdateRequest;
+use App\Http\Requests\UserAssignRequest;
 use App\Models\ClassRoom;
 use Illuminate\Http\JsonResponse;
 
@@ -15,6 +18,8 @@ class ClassroomController extends Controller
 {
     
     public function __construct(
+        private readonly InstructorClassroomAssignActionService $instructorClassroomAssignActionService,
+        private readonly StudentClassroomAssignActionService $studentClassroomAssignActionService,
         private readonly CreateClassroomActionService $createClassroomActionService,
         private readonly ReadClassroomActionService $readClassroomActionService,
         private readonly UpdateClassroomActionService $updateClassroomActionService,
@@ -30,12 +35,6 @@ class ClassroomController extends Controller
     public function get(ClassRoom $classRoom)
     {
         return ($this->readClassroomActionService)($classRoom);
-    }
-
-    // select classroom (instructor) <- AssignActin
-    public function select(): JsonResponse
-    {
-        return ($this->readClassroomActionService)();
     }
 
     // create classroom
@@ -55,11 +54,28 @@ class ClassroomController extends Controller
         return ($this->updateClassroomActionService)($classRoom, $classRoomUpdateRequest->all());
     }
 
-    // select instructor (student) <- AssignActin
-    public function assign(): JsonResponse
+    // select classroom (student) <- AssignActin
+    public function select(UserAssignRequest $userAssignRequest): JsonResponse
     {
-//        return ($this->updateClassroomActionService)();
-        return response()->json("todo");
+        return ($this->studentClassroomAssignActionService)(true, $userAssignRequest->all());
+    }
+
+    // select classroom (student) <- AssignActin
+    public function unselect(UserAssignRequest $userAssignRequest): JsonResponse
+    {
+        return ($this->studentClassroomAssignActionService)(false, $userAssignRequest->all());
+    }
+
+    // select classroom (instructor) <- AssignActin
+    public function assign(UserAssignRequest $userAssignRequest): JsonResponse
+    {
+        return ($this->instructorClassroomAssignActionService)(true, $userAssignRequest->all());
+    }
+
+    // select classroom (instructor) <- AssignActin
+    public function unassign(UserAssignRequest $userAssignRequest): JsonResponse
+    {
+        return ($this->instructorClassroomAssignActionService)(false, $userAssignRequest->all());
     }
 
     // import students from csv

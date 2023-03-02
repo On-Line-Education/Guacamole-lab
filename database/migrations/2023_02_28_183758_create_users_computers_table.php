@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('users_computers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('class_room_id')->references('id')->on('class_rooms');
             $table->foreignId('computer_id')->references('id')->on('computers');
             $table->timestamps();
         });

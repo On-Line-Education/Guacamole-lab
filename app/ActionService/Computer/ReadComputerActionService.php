@@ -7,6 +7,8 @@ use App\Action\Computer\ComputerGetAllInClassAction;
 use App\ActionService\AbstractActionService;
 use App\Models\ClassRoom;
 use App\Models\Computer;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ReadComputerActionService extends AbstractActionService
@@ -25,10 +27,12 @@ class ReadComputerActionService extends AbstractActionService
                 throw new NotFoundHttpException();
             }
             $computers = ['computer' => $computer];
-        } elseif (!is_null($classRoom)) {
+        } elseif (!is_null($classRoom) && !Auth::user()->isStudent()) {
             $computers = ['computers' => ($this->computerGetAllInClassAction)($classRoom)];
-        } elseif (is_null($computer) && is_null($classRoom)) {
+        } elseif (is_null($computer) && is_null($classRoom) && !Auth::user()->isStudent()) {
             $computers = ['computers' => ($this->computerGetAllAction)()];
+        } elseif (Auth::user()->isStudent()) {
+            throw new UnauthorizedException();
         } else {
             $computers = [];
         }

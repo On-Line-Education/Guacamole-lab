@@ -4,6 +4,7 @@ namespace App\Action\Login;
 
 use App\Exceptions\InvalidCredentialsException;
 use App\Models\User;
+use App\System\SystemPermissions;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,7 +27,8 @@ class SystemUserLoginAction
         if (is_null($user) || !Hash::check($password, $user->password)) {
             throw new InvalidCredentialsException();
         }
-        $token = $user->createToken(Carbon::now() . $deviceName);
+
+        $token = $user->createToken(Carbon::now() . $deviceName, [$user->role]);
         return ["token" => $token->plainTextToken, "user" => $user];
     }
 

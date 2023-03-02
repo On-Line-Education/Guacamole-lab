@@ -28,40 +28,42 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::prefix('/user')->group(function () {
-        Route::get('/get/{user}', 'get')
+        Route::post('/', 'create')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::USER_DISPLAY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+
+        Route::get('/self', 'self')
+            ->middleware([
+                SystemAuth::AUTH,
             ]);
         Route::get('/all', 'list')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::USER_DISPLAY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/', 'create')
+        Route::get('/{user}', 'get')
             ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)
+                SystemAuth::AUTH
             ]);
         Route::patch('/{user}', 'edit')
             ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)
+                SystemAuth::AUTH
             ]);
         Route::patch('/{user}/password', 'newPassword')
             ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)
+                SystemAuth::AUTH
             ]);
         Route::delete('/{user}', 'delete')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::USER_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::get('/search/{search}', 'search')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::USER_DISPLAY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
     });
 });
@@ -70,120 +72,120 @@ Route::controller(ComputerController::class)->group(function () {
     Route::get('/classroom/computers', 'allComputers')
         ->middleware([
             SystemAuth::AUTH,
-            SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_DISPLAY)
+            SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
         ]);
     Route::prefix('/classroom/{classroom}/computer')->group(function () {
         Route::get('/all', 'list')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_DISPLAY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::get('/{computer}', 'get')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_DISPLAY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::post('/', 'create')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::patch('/{computer}', 'edit')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::delete('/{computer}', 'delete')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/{computer}/assign', 'assign')
+        Route::post('/{computer}/assign', 'assign') // to student
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/{computer}/unassign', 'unassign')
+        Route::post('/{computer}/unassign', 'unassign') // from student
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::post('/import', 'import')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_COMPUTER_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
     });
 });
 
 Route::controller(ClassroomController::class)->group(function () {
     Route::prefix('/classroom')->group(function () {
-        Route::get('/all', 'list')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_DISPLAY)
-            ]);
-        Route::get('/{classRoom}', 'get')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_DISPLAY)
-            ]);
         Route::post('/', 'create')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::get('/all', 'list')
+            ->middleware([
+                SystemAuth::AUTH
+            ]);
+        Route::post('/student/select', 'select') // student select
+            ->middleware([
+                SystemAuth::AUTH
+            ]);
+        Route::post('/student/unselect', 'unselect') // student select
+            ->middleware([
+                SystemAuth::AUTH
+            ]);
+        Route::post('/instructor/assign', 'assign') // instructor select
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::post('/instructor/unassign', 'unassign') // instructor unselect
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::get('/{classRoom}', 'get')
+            ->middleware([
+                SystemAuth::AUTH
             ]);
         Route::patch('/{classRoom}', 'update')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::delete('/{classRoom}', 'delete')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
-            ]);
-        Route::post('/select', 'select')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_DISPLAY)
-            ]);
-        Route::post('/assign', 'assign')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
-            ]);
-        Route::post('/unassign', 'unassign')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::post('/{classroom}/import', 'import')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::post('/{classroom}/start', 'start')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::post('/{classroom}/end', 'end')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
 
         Route::prefix('/{classroom}/time')->group(function () {
             Route::get('/', 'getRemainingTime')
                 ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAll(SystemPermissions::CLASSROOM_TIME)
+                    SystemAuth::AUTH
                 ]);
         Route::patch('/update', 'updateTime')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::CLASSROOM_TIME_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         });
     });
@@ -194,37 +196,36 @@ Route::controller(StudentClassController::class)->group(function () {
         Route::get('/all', 'list')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::GROUP_DISPLAY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::get('/{class}', 'get')
             ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::GROUP_DISPLAY)
+                SystemAuth::AUTH
             ]);
         Route::post('/', 'create')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::GROUP_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::patch('/{class}', 'edit')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::GROUP_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::delete('/{class}', 'delete')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::GROUP_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::post('/add', 'add')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::GROUP_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::post('/remove', 'remove')
             ->middleware([
                 SystemAuth::AUTH,
-                SystemPermissions::hasAll(SystemPermissions::GROUP_MODIFY)
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
     });
 });

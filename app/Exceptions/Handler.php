@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -54,6 +56,24 @@ class Handler extends ExceptionHandler
                         'success' => false,
                         'message' => 'Record not found.'
                 ], 404);
+            }
+        });
+
+        $this->renderable(function (AccessDeniedHttpException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Access Denied.'
+                ], 403);
+            }
+        });
+
+        $this->renderable(function (UnauthorizedException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Access Denied.'
+                ], 403);
             }
         });
     }
