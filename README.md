@@ -44,8 +44,56 @@ TODO
 
 ## Endpointy
 
-TODO
+*Uwaga*: Każdy endpoint wymaga dodania headera `Accept: application/json`
+Dla endpointów wymagających logowania, należy podać token w headerze. Przykład: `Authorization: Bearer 27|KfrnopPZ5xRFs5jfHHVDYiYqpSbuTfvjbsKbhdEa`
+Do testów endpointów dostępna jest kolekcja postman w `documentation/Guacamole-lab.postman_collection.json`.
+Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odpowiediną w danym środowisku.
+
+### Logowanie
+
+| Ścieżka                     | Metoda | Opis                            | Wymaga logowania |
+|-----------------------------|--------|---------------------------------|------------------|
+| /api/user                   | POST   | Umozliwia logowanie do systemu  | NIE              |
+| /api/logout                 | GET    | Umozliwia wylogowanie z systemu | TAK              |
+
+### Użytkownik
+
+| Ścieżka                     | Metoda | Opis                                                                                                           | Wymaga logowania |
+|-----------------------------|--------|----------------------------------------------------------------------------------------------------------------|------------------|
+| /api/user/all               | GET    | Umozliwia pobranie wszystkich użytkowników systemu                                                             | TAK              |
+| /api/user/{userID}          | GET    | Umozliwia pobranie użytkownika z systemu o id podanym jako {userId}                                            | TAK              |
+| /api/user/search/{search}   | GET    | Umozliwia pobranie użytkownika z systemu, zawierającego dany fragment podanego tekstu (jako {search}) w nazwie | TAK              |
+| /api/user                   | POST   | Umozliwia utworzenie nowego użytkownika w systemie                                                             | TAK              |
+| /api/user/{userId}          | PATCH  | Umozliwia aktualizacje danych użytkownika o id {userId} w systemie                                             | TAK              |
+| /api/user/{userId}/password | PATCH  | Umozliwia zmianę hasła użytkownika o id {userId} w systemie                                                    | TAK              |
+| /api/user/{userId}          | DELETE | Umozliwia usunięcie użytkownika o id {userId} z systemu                                                        | TAK              |
+
+### Sale
+
+| Ścieżka                      | Metoda | Opis                                                              | Wymaga logowania |
+|------------------------------|--------|-------------------------------------------------------------------|------------------|
+| /api/classroom/all           | GET    | Umozliwia pobranie wszystkich sal z systemu                       | TAK              |
+| /api/classroom/{classroomId} | GET    | Umozliwia pobranie sali z systemu o id podanym jako {classroomId} | TAK              |
+| /api/classroom               | POST   | Umozliwia utworzenie nowej sali w systemie                        | TAK              |
+| /api/classroom/{classroomId} | PATCH  | Umozliwia aktualizacje danej sali o id {classroomId} w systemie   | TAK              |
+| /api/classroom/{classroomId} | DELETE | Umozliwia usunięcie sali o id {classroomId} z systemu             | TAK              |
+
+### Grupy / Klasy
+
+| Ścieżka              | Metoda | Opis                                                                 | Wymaga logowania |
+|----------------------|--------|----------------------------------------------------------------------|------------------|
+| /api/class/all       | GET    | Umozliwia pobranie wszystkich grup/klas z systemu                    | TAK              |
+| /api/class/{classId} | GET    | Umozliwia pobranie grupyy/klas z systemu o id podanym jako {classId} | TAK              |
+| /api/class           | POST   | Umozliwia utworzenie nowej grupy/klasy w systemie                    | TAK              |
+| /api/class/{classId} | PATCH  | Umozliwia aktualizacje danej grupy/klasy o id {classId} w systemie   | TAK              |
+| /api/class/{classId} | DELETE | Umozliwia usunięcie grupy/klasy o id {classId} z systemu             | TAK              |
 
 ## Instrukcja obsługi
 
 TODO
+
+## Dodatkowe informacje
+
+Dane dostępowe do guacamole:
+Login: guacadmin
+Hasło: guacadmin
