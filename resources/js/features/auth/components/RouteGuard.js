@@ -1,9 +1,11 @@
-import React from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import React from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const RouteGuard = () => {
-    return localStorage.getItem("token") ? <Outlet/> : <Navigate to='/login' exact />
+    const token = useSelector((state) => state.auth.token);
+
+    return token ? <Outlet /> : <Navigate to="/" exact />;
 };
 
-export default RouteGuard
-
+export default RouteGuard;
