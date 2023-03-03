@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { formatError } from "../features/alert/services/formatError";
 import { loginFailedAction } from "../features/alert/state/alertActions";
 
-const useFetch = ({ endpoint, method, data, start }) => {
+const useFetch = ({ endpoint, method, body, start }) => {
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState([]);
@@ -31,9 +31,9 @@ const useFetch = ({ endpoint, method, data, start }) => {
             method: method,
         };
 
-        if (data) {
+        if (body) {
             requestOptions.headers["Content-Type"] = "application/json";
-            requestOptions["body"] = JSON.stringify(data);
+            requestOptions["body"] = JSON.stringify(body);
         }
 
         try {
@@ -53,10 +53,13 @@ const useFetch = ({ endpoint, method, data, start }) => {
                         dispatch(loginFailedAction(formatError(error[0])));
                     });
                 } else {
+                    setError(data.message);
                     dispatch(loginFailedAction(formatError(data.message)));
                 }
+            } else {
+                console.log(data);
+                setResult(data);
             }
-            setResult(data);
         } catch (err) {
             setError(err);
         }

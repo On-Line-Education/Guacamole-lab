@@ -10,19 +10,21 @@ export default function useLogin(username, password) {
     });
     const [token, setToken] = useState();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const didMount = useRef(false);
 
     useEffect(() => {
-        if (!loading && !error.length > 0) {
-            try {
-                setToken(data.token);
-
-                loginAction(token);
-
-                navigate("/home");
-            } catch (e) {
-                console.log(e);
+        if (didMount.current) {
+            if (!loading && error.length < 1) {
+                try {
+                    setToken(data.token);
+                    dispatch(loginAction(data));
+                    navigate("/home");
+                } catch (e) {
+                    console.log(e);
+                }
             }
-        }
+        } else didMount.current = true;
     }, [login, loading, data, error]);
 
     const login = async () => {

@@ -1,7 +1,7 @@
-export function loginAction(token) {
+export function loginAction(data) {
     return {
         type: "LOGIN",
-        payload: token,
+        payload: data,
     };
 }
 
