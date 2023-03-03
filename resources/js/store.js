@@ -1,10 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { combineReducers } from '@reduxjs/toolkit'
-import { ErrorReducer } from './features/error/state/errorReducers'
-import { AuthReducer } from './features/auth/state/authReducers'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { AuthReducer } from "./features/auth/state/authRedducers";
+import {
+    AlertsReducer,
+    ErrorReducer,
+} from "./features/alert/state/alertsReducer";
 
-const rootReducer = combineReducers({error: ErrorReducer, auth: AuthReducer})
+const rootReducer = combineReducers({
+    alerts: AlertsReducer,
+    auth: AuthReducer,
+});
 
-export default configureStore({
-  reducer: rootReducer,
-})
+const store = configureStore({
+    reducer: rootReducer,
+});
+
+export default store;

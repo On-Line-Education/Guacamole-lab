@@ -12,15 +12,14 @@ import store from "./store";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@mui/material/styles";
 import muiTheme from "./mui";
-import Login from './features/pages/Login';
+import Login from "./features/pages/Login";
 import Dashboard from "./features/pages/Dashboard";
-import ErrorBoundry from "./features/error/components/ErrorBoundry";
-
+import ErrorBoundry from "./features/alert/components/ErrorBoundry";
 
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
 
-    let a = null 
+    let a = null;
 
     Index.render(
         <Provider store={store}>
@@ -30,14 +29,16 @@ if (document.getElementById("app")) {
                         <Routes>
                             {/* <Route path="/" element={<Navigate to="/login"/>} /> */}
                             <Route exact path="/" element={<Login />} />
-                            <Route element={ <RouteGuard /> }>
-                                <Route path='/home' element={ <Dashboard /> } />
+                            <Route element={<RouteGuard />}>
+                                <Route path="/home" element={<Dashboard />} />
+                            </Route>
+                            <Route element={<RouteGuard />}>
+                                <Route path="/home" element={<Dashboard />} />
                             </Route>
                         </Routes>
                     </BrowserRouter>
                 </ErrorBoundry>
             </ThemeProvider>
         </Provider>
-    )
+    );
 }
-

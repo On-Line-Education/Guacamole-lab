@@ -4,6 +4,11 @@
 }
 
 @font-face {
+    font-family: "Raleway-Bold";
+    src: local('Raleway'), url(/fonts/Raleway-Bold.ttf?18960343b3da49bfd35362fc0cbc7eed) format('truetype');
+}
+
+@font-face {
     font-family: "Inter";
     src: local('Inter'), url(/fonts/Inter-Regular.ttf?e89cb19905e7db5591b0037b15a1d9cd) format('truetype');
 }

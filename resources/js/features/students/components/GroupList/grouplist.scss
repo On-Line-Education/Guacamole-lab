@@ -1,0 +1,36 @@
+.group-list-container {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2 / 3;
+    grid-row: 1;
+
+    .group-list-title {
+        padding: 0.5em 1em;
+    }
+
+    .group-list-panel {
+        background-color: #ffffff;
+        padding: 1em 2em;
+        border-radius: 30px;
+        width: 250px;
+    }
+
+    .group-list-actions {
+        display: flex;
+        flex-direction: column;
+        padding-top: 1em;
+        justify-content: space-around;
+
+        button {
+            margin: 5px 0;
+        }
+    }
+}
+
+//table override styles
+
+.group-list {
+    .group {
+        min-width: 150px !important;
+    }
+}

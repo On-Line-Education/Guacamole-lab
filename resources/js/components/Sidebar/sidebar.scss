@@ -1,0 +1,54 @@
+@import "../../../sass/variables";
+
+.app-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $body-color-dark;
+
+    .app-nav {
+        display: flex;
+        height: 100%;
+        align-items: center;
+
+        ul {
+            list-style: none;
+
+            .app-nav-link {
+                border-left: 2px solid $body-color-dark;
+                color: $body-color-light;
+                font-family: $font-family-content-bold;
+                font-size: $font-size-2;
+                margin: 2em;
+                padding: 0 0.5em;
+
+                a {
+                    text-decoration: none;
+                    color: inherit;
+                }
+            }
+
+            .checked {
+                color: $body-color-accent;
+                border-left: 2px solid $body-color-accent;
+            }
+        }
+    }
+
+    .sidebar-footer {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: column;
+        height: 20%;
+        bottom: 2em;
+
+        .sidebar-footer-user-info {
+            color: $body-color-light;
+            font-family: $font-family-content;
+            font-size: $font-size-4;
+        }
+    }
+}

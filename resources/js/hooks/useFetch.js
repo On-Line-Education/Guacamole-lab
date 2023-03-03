@@ -1,69 +1,76 @@
-import {useState, useEffect} from 'react'
-import { useDispatch } from 'react-redux';
-import { formatError } from '../features/error/services/formatError';
-import { loginFailedAction } from '../features/error/state/errorActions';
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { formatError } from "../features/alert/services/formatError";
+import { loginFailedAction } from "../features/alert/state/alertActions";
 
-const useFetch = ({endpoint, method, body, start}) => {
+const useFetch = ({ endpoint, method, body, start }) => {
     const [result, setResult] = useState(null);
-    const [loading,setLoading] = useState(false);
-    const [error,setError] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState([]);
 
     const dispatch = useDispatch();
 
-    // useEffect(()=>{
-    //     if(start) fetchData();
-    // },[fetchData, start]);
+    useEffect(() => {
+        if (start) fetchData();
+    }, [fetchData, start]);
 
     const fetchData = async () => {
-        if(loading) return;
-        
+        if (loading) return;
+
         setLoading(true);
-        const staticURL = `${'http://localhost:8080/api'}${endpoint}`
+        const staticURL = `${"http://localhost:8888/api"}${endpoint}`;
         const headers = {
-            "Accept": "application/json",
-            "Authorization": localStorage.getItem('token')? `Bearer ${localStorage.getItem('token')}`: {} 
+            Accept: "application/json",
+            Authorization: localStorage.getItem("token")
+                ? `Bearer ${localStorage.getItem("token")}`
+                : {},
         };
 
         const requestOptions = {
             headers: headers,
-            method: method
-        }
+            method: method,
+        };
 
-        if(body) {
-            requestOptions.headers['Content-Type'] = "application/json" 
-            requestOptions['body'] = JSON.stringify(body)
+        if (body) {
+            requestOptions.headers["Content-Type"] = "application/json";
+            requestOptions["body"] = JSON.stringify(body);
         }
 
         try {
             const response = await fetch(staticURL, requestOptions);
             const data = await response.json();
-            if(!response.ok){
-                console.log(data)
+
+            console.log(data);
+            if (!response.ok) {
+                console.log(data);
                 // Api returns an array of errors. This piece of code formats every returned error message and sends it to state variable
-                if(data.errors) {
-                    Object.values(data.errors).forEach(error => {
-                        setError(prevErrors => [...prevErrors, formatError(error[0])]); 
-                        dispatch(loginFailedAction(formatError(error[0])))
-                    })
+                if (data.errors) {
+                    Object.values(data.errors).forEach((error) => {
+                        setError((prevErrors) => [
+                            ...prevErrors,
+                            formatError(error[0]),
+                        ]);
+                        dispatch(loginFailedAction(formatError(error[0])));
+                    });
                 } else {
-                    setError(data.message)
-                    dispatch(loginFailedAction(formatError(data.message)))
+                    setError(data.message);
+                    dispatch(loginFailedAction(formatError(data.message)));
                 }
             } else {
-                console.log(data)
+                console.log(data);
                 setResult(data);
             }
         } catch (err) {
-            setError(err)
+            setError(err);
         }
         setLoading(false);
-    }
+    };
 
     const refresh = () => {
         fetchData();
-    }
+    };
 
-    return ([result, loading, refresh, error]);
-}
+    return [result, loading, refresh, error];
+};
 
-export default useFetch
+export default useFetch;
