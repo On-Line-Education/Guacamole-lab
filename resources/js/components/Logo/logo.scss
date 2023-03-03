@@ -1,0 +1,19 @@
+@import "../../../sass/variables";
+
+.logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    font-family: $font-family-title;
+    font-size: $font-size-1;
+    color: $font-color-dark;
+    padding: 0.5em;
+
+    img,
+    span {
+        margin: 0 0.1em;
+        color: $font-color-dark;
+    }
+}

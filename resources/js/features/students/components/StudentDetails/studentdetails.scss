@@ -1,0 +1,94 @@
+@import "../../../../../sass/variables";
+
+.overlay {
+    position: absolute;
+    z-index: 2;
+    background-color: $body-color-dark;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+}
+
+.student-details-container {
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.student-details-panel {
+    z-index: 3;
+    opacity: 1;
+    background-color: $body-color-light;
+    border-radius: 30px;
+    padding: 1em 3em;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .panel-info {
+        font-size: $font-size-2;
+        font-family: $font-family-title-bold;
+        color: $body-color-dark;
+
+        .user-info {
+            margin: 0.4em 0;
+        }
+    }
+
+    .panel-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+    }
+
+    .panel-list-container {
+        display: flex;
+        flex-direction: column;
+        font-size: $font-size-3;
+        font-family: $font-family-content;
+
+        .panel-list-title {
+            font-size: $font-size-2;
+            font-family: $font-family-title-bold;
+            color: $body-color-dark;
+            margin-top: 0.3em;
+        }
+
+        .panel-list {
+            background-color: #ffffff;
+            padding: 1em 2em;
+            margin: 1em 0;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .computer-access-list-actions {
+            display: flex;
+            padding-top: 1em;
+            padding-bottom: 0.5em;
+        }
+    }
+}
+
+//Table override styles
+
+.computer-access-list {
+    .computerName {
+        min-width: 275px;
+    }
+    .ip {
+        min-width: 175px;
+    }
+
+    // the following entry is required because of a weird bug
+    tbody {
+        margin-right: 20px !important;
+    }
+}

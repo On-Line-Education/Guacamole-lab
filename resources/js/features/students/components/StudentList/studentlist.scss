@@ -1,0 +1,27 @@
+.student-list-container {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1 / 2;
+    grid-row: 1;
+
+    .student-list-title {
+        padding: 0.5em 1em;
+    }
+
+    .student-list-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #ffffff;
+        padding: 0.5em 2em;
+        border-radius: 30px;
+        width: 550px;
+    }
+
+    .student-list-actions {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1em;
+        padding-bottom: 0.5em;
+    }
+}
