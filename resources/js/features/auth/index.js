@@ -9,8 +9,6 @@ export default function LoginView() {
     const [password, setPassword] = useState("");
     const [token, error, login] = useLogin(username, password);
 
-    console.log(login);
-
     return (
         <div className="login">
             <Sidebar />

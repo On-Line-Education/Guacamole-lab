@@ -58,7 +58,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
                 }
             } else {
                 console.log(data);
-                setResult(data);
+                setResult(data.body);
             }
         } catch (err) {
             setError(err);

@@ -15,6 +15,7 @@ import muiTheme from "./mui";
 import Login from "./features/pages/Login";
 import Dashboard from "./features/pages/Dashboard";
 import ErrorBoundry from "./features/alert/components/ErrorBoundry";
+import Students from "./features/pages/Students";
 
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
@@ -33,7 +34,10 @@ if (document.getElementById("app")) {
                                 <Route path="/home" element={<Dashboard />} />
                             </Route>
                             <Route element={<RouteGuard />}>
-                                <Route path="/home" element={<Dashboard />} />
+                                <Route
+                                    path="/students"
+                                    element={<Students />}
+                                />
                             </Route>
                         </Routes>
                     </BrowserRouter>

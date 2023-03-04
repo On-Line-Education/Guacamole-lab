@@ -41,12 +41,15 @@ export const GuacamoleButton = styled(Button)(({ theme }) => ({
 export const GuacamoleFragileButton = styled(Button)(({ theme }) => ({
     height: "2.75em",
     width: "100%",
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.light,
     backgroundColor: theme.palette.error.main,
     boxShadow: "none",
     textTransform: "none",
     fontFamily: theme.typography.content.fontFamily,
     fontWeight: theme.typography.content.fontWeight,
+    "&:hover": {
+        backgroundColor: theme.palette.primary.main,
+    },
 }));
 
 export const GuacamoleInput = styled(TextField)(({ theme }) => ({

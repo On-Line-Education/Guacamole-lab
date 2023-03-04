@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import usePost from "../../../hooks/usePost";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../state/authActions";
+import { useDispatch } from "react-redux";
 
 export default function useLogin(username, password) {
     const [data, loading, refresh, error] = usePost("/login", false, {
@@ -17,6 +18,7 @@ export default function useLogin(username, password) {
         if (didMount.current) {
             if (!loading && error.length < 1) {
                 try {
+                    console.log("logging");
                     setToken(data.token);
                     dispatch(loginAction(data));
                     navigate("/home");
