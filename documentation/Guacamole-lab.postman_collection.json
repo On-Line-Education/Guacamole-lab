@@ -26,7 +26,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"guacadmin\",\n    \"password\": \"guacadmin\"\n}",
+							"raw": "{\n    \"username\": \"Test6GuacStudent\",\n    \"password\": \"testtest\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -104,14 +104,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user/all",
+							"raw": "{{URL}}/api/user/self",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"user",
-								"all"
+								"self"
 							]
 						}
 					},
@@ -164,14 +164,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user/1",
+							"raw": "{{URL}}/api/user/3",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"user",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -194,7 +194,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user/search/guac",
+							"raw": "{{URL}}/api/user/search/uac",
 							"host": [
 								"{{URL}}"
 							],
@@ -202,7 +202,7 @@
 								"api",
 								"user",
 								"search",
-								"guac"
+								"uac"
 							]
 						}
 					},
@@ -229,7 +229,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Test6Guac",
+									"value": "Test6GuacStudent",
 									"type": "default"
 								},
 								{
@@ -283,14 +283,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/user/2",
+							"raw": "{{URL}}/api/user/3",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"user",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -353,14 +353,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user/5",
+							"raw": "{{URL}}/api/user/3",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"user",
-								"5"
+								"3"
 							]
 						}
 					},
