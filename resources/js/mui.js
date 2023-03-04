@@ -36,6 +36,9 @@ export const GuacamoleButton = styled(Button)(({ theme }) => ({
     textTransform: "none",
     fontFamily: theme.typography.content.fontFamily,
     fontWeight: theme.typography.content.fontWeight,
+    "&:disabled": {
+        backgroundColor: theme.palette.primary.light,
+    },
 }));
 
 export const GuacamoleFragileButton = styled(Button)(({ theme }) => ({
@@ -49,6 +52,9 @@ export const GuacamoleFragileButton = styled(Button)(({ theme }) => ({
     fontWeight: theme.typography.content.fontWeight,
     "&:hover": {
         backgroundColor: theme.palette.primary.main,
+    },
+    "&:disabled": {
+        backgroundColor: theme.palette.primary.light,
     },
 }));
 

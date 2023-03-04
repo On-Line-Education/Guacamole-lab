@@ -29451,7 +29451,10 @@ var GuacamoleButton = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_1__["defa
     boxShadow: "none",
     textTransform: "none",
     fontFamily: theme.typography.content.fontFamily,
-    fontWeight: theme.typography.content.fontWeight
+    fontWeight: theme.typography.content.fontWeight,
+    "&:disabled": {
+      backgroundColor: theme.palette.primary.light
+    }
   };
 });
 var GuacamoleFragileButton = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_1__["default"])(_mui_material_Button__WEBPACK_IMPORTED_MODULE_2__["default"])(function (_ref2) {
@@ -29467,6 +29470,9 @@ var GuacamoleFragileButton = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_1_
     fontWeight: theme.typography.content.fontWeight,
     "&:hover": {
       backgroundColor: theme.palette.primary.main
+    },
+    "&:disabled": {
+      backgroundColor: theme.palette.primary.light
     }
   };
 });
