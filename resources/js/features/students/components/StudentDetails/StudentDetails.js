@@ -6,12 +6,12 @@ import { ClickAwayListener } from "@mui/base";
 import BasicTable from "../../../../components/BasicTable/BasicTable";
 import { GuacamoleFragileButton } from "../../../../mui";
 import GroupTile from "../GroupTile/GroupTile";
+import useDeleteStudent from "../../hooks/useDeleteStudent";
 
 export default function StudentDetails({ student, close }) {
-    const [newStudentUsername, setNewStudentUsername] = useState();
-    const [newStudentPassword, setNewStudentPassword] = useState();
-
     const [selectedRow, setSelectedRow] = useState(null);
+
+    const { error, deleteStudent } = useDeleteStudent(student.id);
 
     const DATA = [
         {
@@ -164,6 +164,15 @@ export default function StudentDetails({ student, close }) {
                                 tableColumns={COLUMNS}
                                 tableData={DATA}
                             />
+                        </div>
+                        <div className="panel-additional-actions">
+                            <div
+                                className="panel-action"
+                                id="delete-student"
+                                onClick={() => deleteStudent()}
+                            >
+                                Usuń tego ucznia
+                            </div>
                         </div>
                         <div className="panel-close">
                             <IconButton onClick={() => close(false)}>

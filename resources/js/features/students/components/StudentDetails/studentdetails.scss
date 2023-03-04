@@ -90,6 +90,17 @@
             padding-bottom: 0.5em;
         }
     }
+
+    .panel-additional-actions {
+        font-size: $font-size-3;
+        font-family: $font-family-content-light;
+        text-decoration: underline;
+    }
+
+    .panel-additional-actions:hover {
+        font-family: $font-family-content;
+        cursor: pointer;
+    }
 }
 
 //Table override styles
