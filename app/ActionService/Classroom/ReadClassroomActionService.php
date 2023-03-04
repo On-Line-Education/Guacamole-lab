@@ -16,6 +16,8 @@ class ReadClassroomActionService extends AbstractActionService
 
     public function __invoke(?ClassRoom $classRoom = null)
     {
+        $classrooms = [];
+
         if (!is_null($classRoom)) {
             $classrooms = ['classroom' => $classRoom];
         } else {

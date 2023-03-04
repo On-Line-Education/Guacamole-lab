@@ -3,8 +3,6 @@
 namespace App\Action\User;
 
 use App\Guacamole\Guacamole;
-use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
-use App\Guacamole\Objects\User\GuacamoleUserData;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,12 +14,12 @@ class UserCreateAction
     )
     {}
 
-    public function __invoke(GuacamoleAuthLoginData $guacamoleAuthLoginData, GuacamoleUserData $user): User
+    public function __invoke(string $username, string $password, string $role): User
     {
-        $this->guacamole->getUser()->create($guacamoleAuthLoginData, $user);
         $sysUser = new User();
-        $sysUser->username = $user->username;
-        $sysUser->password = Hash::make($user->password);
+        $sysUser->username = $username;
+        $sysUser->password = Hash::make($password);
+        $sysUser->role = $role;
         $sysUser->save();
         return $sysUser;
     }

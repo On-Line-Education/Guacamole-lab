@@ -12,6 +12,7 @@ use App\Http\Requests\UserNewPasswordRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -24,13 +25,16 @@ class UserController extends Controller
     )
     {}
 
-    // get current
+    public function self(): JsonResponse
+    {
+        return ($this->readUserActionService)(user: Auth::user());
+    }
+
     public function get(User $user): JsonResponse
     {
         return ($this->readUserActionService)(user: $user);
     }
 
-    // get all
     public function list(): JsonResponse
     {
         return ($this->readUserActionService)();

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\System\SystemPermissions;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
@@ -20,18 +21,11 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command('make:test:user', function () {
-    $user = new User();
-    $user->username = "test";
-    $user->password = Hash::make("pass1234");
-    $user->save();
-    $this->comment("Login: test  Password: pass1234");
-})->purpose("Creates test user");
-
 Artisan::command('make:test:admin', function () {
     $user = new User();
     $user->username = "guacadmin";
     $user->password = Hash::make("guacadmin");
+    $user->role = SystemPermissions::ADMIN;
     $user->save();
     $this->comment("Login: guacadmin  Password: guacadmin");
 })->purpose("Creates test admin");

@@ -27,6 +27,7 @@ class UserCreateRequest extends FormRequest
         return [
             'username' => 'required|string|unique:users',
             'password' => 'required|string|min:8',
+            'role' => 'required|in:student,instructor',
             'attributes' => 'array',
             'attributes.guac-email-address' => '',
             'attributes.guac-organizational-role' => '',

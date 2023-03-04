@@ -8,6 +8,8 @@ use App\Action\User\UserSearchAction;
 use App\ActionService\AbstractActionService;
 use App\Models\User;
 use App\Service\GuacamoleUserLoginService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 
 class ReadUserActionService extends AbstractActionService
 {
@@ -26,16 +28,18 @@ class ReadUserActionService extends AbstractActionService
 
         $users = [];
         if ($user !== null) {
-            $guacUser = ($this->userGetByIdAction)($guacAuth, $user->id);
-            $guacUser->id = $user->id;
-            return ($this->responder)($guacUser);
-        } elseif ($search !== null) {
-            $users[] = ($this->userSearchAction)($guacAuth, $search);
-        } else {
+            if (Auth::user()->isStudent() && $user->id !== Auth::id()) {
+                throw new UnauthorizedException();
+            }
+            $guacUser = ($this->userGetByIdAction)($guacAuth, $user->username);
+            return ($this->responder)($user->getUserWithGuacDataArray($guacUser));
+        } elseif ($search !== null && !Auth::user()->isStudent()) {
+            $users = ($this->userSearchAction)($guacAuth, $search);
+        } elseif (!Auth::user()->isStudent()) {
             $users = ($this->userGetAllAction)($guacAuth);
         }
         foreach ($users as &$guacUser) {
-            $guacUser->id = User::where('username', $guacUser->getUsername())->first()?->id ?? null;
+            $guacUser->id = User::where('username', $guacUser->username)->first()?->id ?? null;
         }
         return ($this->responder)($users);
     }
