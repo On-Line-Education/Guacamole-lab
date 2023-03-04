@@ -1,5 +1,6 @@
 import React from "react";
-import { GuacamoleButton, GuacamoleInput } from "../../../mui";
+import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
+import "./loginform.scss";
 
 export default function LoginForm({ setUsername, setPassword, login }) {
     function handleSubmit(e) {

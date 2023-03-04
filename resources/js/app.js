@@ -16,6 +16,7 @@ import Login from "./features/pages/Login";
 import Dashboard from "./features/pages/Dashboard";
 import ErrorBoundry from "./features/alert/components/ErrorBoundry";
 import Students from "./features/pages/Students";
+import Page404 from "./features/auth/components/Page404/Page404";
 
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
@@ -26,9 +27,14 @@ if (document.getElementById("app")) {
                 <ErrorBoundry>
                     <BrowserRouter>
                         <Routes>
-                            {/* <Route path="/" element={<Navigate to="/login"/>} /> */}
-                            <Route exact path="/" element={<Login />} />
                             <Route
+                                path="/"
+                                element={<Navigate to="/login" />}
+                            />
+                            <Route exact path="/login" element={<Login />} />
+                            <Route
+                                exact
+                                path="/home"
                                 element={
                                     <RouteGuard
                                         accessList={[
@@ -36,23 +42,22 @@ if (document.getElementById("app")) {
                                             "instructor",
                                             "admin",
                                         ]}
-                                    />
+                                    >
+                                        <Dashboard />
+                                    </RouteGuard>
                                 }
-                            >
-                                <Route path="/home" element={<Dashboard />} />
-                            </Route>
+                            />
                             <Route
+                                path="/students"
                                 element={
                                     <RouteGuard
                                         accessList={["instructor", "admin"]}
-                                    />
+                                    >
+                                        <Students />
+                                    </RouteGuard>
                                 }
-                            >
-                                <Route
-                                    path="/students"
-                                    element={<Students />}
-                                />
-                            </Route>
+                            />
+                            <Route path="*" element={<Page404 />} />
                         </Routes>
                     </BrowserRouter>
                 </ErrorBoundry>

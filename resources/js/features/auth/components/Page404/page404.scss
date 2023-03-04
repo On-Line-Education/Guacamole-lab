@@ -1,0 +1,32 @@
+@import "../../../../../sass/variables";
+
+.page-not-found {
+    height: 100vh;
+    width: 100%;
+    background-color: $body-color-dark;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $body-color-light;
+    font-family: $font-family-title;
+    padding-top: 4em;
+
+    .error-visualization {
+        .error-code {
+            font-size: 8em;
+            top: 2em;
+        }
+        .error-logo {
+            transform: rotate(90deg);
+
+            img {
+                width: 8em;
+            }
+        }
+    }
+
+    .description {
+        font-size: 1em;
+    }
+}
