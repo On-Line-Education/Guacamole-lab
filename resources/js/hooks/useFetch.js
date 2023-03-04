@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formatError } from "../features/alert/services/formatError";
 import { loginFailedAction } from "../features/alert/state/alertActions";
 
@@ -7,6 +7,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState([]);
+    const token = useSelector((state) => state.auth.token);
 
     const dispatch = useDispatch();
 
@@ -21,9 +22,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
         const staticURL = `${"http://localhost:8888/api"}${endpoint}`;
         const headers = {
             Accept: "application/json",
-            Authorization: localStorage.getItem("token")
-                ? `Bearer ${localStorage.getItem("token")}`
-                : {},
+            Authorization: token ? `Bearer ${token}` : {},
         };
 
         const requestOptions = {
@@ -67,6 +66,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
     };
 
     const refresh = () => {
+        console.log(token);
         fetchData();
     };
 

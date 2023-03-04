@@ -20,8 +20,6 @@ import Students from "./features/pages/Students";
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
 
-    let a = null;
-
     Index.render(
         <Provider store={store}>
             <ThemeProvider theme={muiTheme}>
@@ -30,10 +28,26 @@ if (document.getElementById("app")) {
                         <Routes>
                             {/* <Route path="/" element={<Navigate to="/login"/>} /> */}
                             <Route exact path="/" element={<Login />} />
-                            <Route element={<RouteGuard />}>
+                            <Route
+                                element={
+                                    <RouteGuard
+                                        accessList={[
+                                            "student",
+                                            "instructor",
+                                            "admin",
+                                        ]}
+                                    />
+                                }
+                            >
                                 <Route path="/home" element={<Dashboard />} />
                             </Route>
-                            <Route element={<RouteGuard />}>
+                            <Route
+                                element={
+                                    <RouteGuard
+                                        accessList={["instructor", "admin"]}
+                                    />
+                                }
+                            >
                                 <Route
                                     path="/students"
                                     element={<Students />}

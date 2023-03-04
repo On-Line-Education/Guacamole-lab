@@ -26642,7 +26642,6 @@ __webpack_require__.r(__webpack_exports__);
 
 if (document.getElementById("app")) {
   var Index = react_dom_client__WEBPACK_IMPORTED_MODULE_0__.createRoot(document.getElementById("app"));
-  var a = null;
   Index.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_4__.Provider, {
     store: _store__WEBPACK_IMPORTED_MODULE_3__["default"],
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_styles__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -26655,13 +26654,17 @@ if (document.getElementById("app")) {
               path: "/",
               element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_features_pages_Login__WEBPACK_IMPORTED_MODULE_6__["default"], {})
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
-              element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_features_auth_components_RouteGuard__WEBPACK_IMPORTED_MODULE_2__["default"], {}),
+              element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_features_auth_components_RouteGuard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                accessList: ["student", "instructor", "admin"]
+              }),
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
                 path: "/home",
                 element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_features_pages_Dashboard__WEBPACK_IMPORTED_MODULE_7__["default"], {})
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
-              element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_features_auth_components_RouteGuard__WEBPACK_IMPORTED_MODULE_2__["default"], {}),
+              element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_features_auth_components_RouteGuard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                accessList: ["instructor", "admin"]
+              }),
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
                 path: "/students",
                 element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_features_pages_Students__WEBPACK_IMPORTED_MODULE_9__["default"], {})
@@ -27428,14 +27431,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var RouteGuard = function RouteGuard() {
-  var token = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.auth.token;
-  });
-  return token ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Outlet, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Navigate, {
-    to: "/",
-    exact: true
-  });
+var RouteGuard = function RouteGuard(_ref) {
+  var accessList = _ref.accessList;
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+      return state.auth;
+    }),
+    token = _useSelector.token,
+    role = _useSelector.role;
+  if (token && accessList.includes(role)) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Outlet, {});
+  } else {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Navigate, {
+      to: "/",
+      exact: true
+    });
+  }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RouteGuard);
 
@@ -27599,7 +27609,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function useLogout() {
-  var _useGet = (0,_hooks_useGet__WEBPACK_IMPORTED_MODULE_1__["default"])('/logout', false),
+  var _useGet = (0,_hooks_useGet__WEBPACK_IMPORTED_MODULE_1__["default"])("/logout", false),
     _useGet2 = _slicedToArray(_useGet, 4),
     data = _useGet2[0],
     loading = _useGet2[1],
@@ -27612,9 +27622,9 @@ function useLogout() {
     if (didMount.current) {
       if (!loading && error.length < 1) {
         try {
-          console.log();
+          console.log("?");
           dispatch((0,_state_authActions__WEBPACK_IMPORTED_MODULE_3__.logoutAction)());
-          navigate('/');
+          navigate("/");
         } catch (e) {}
       }
     } else didMount.current = true;
@@ -27760,7 +27770,6 @@ function AuthReducer() {
         role: action.payload.user.role
       });
     case "LOGOUT":
-      localStorage.removeItem("token");
       return _objectSpread(_objectSpread({}, state), {}, {
         token: "",
         id: "",
@@ -28663,6 +28672,9 @@ var useFetch = function useFetch(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     error = _useState6[0],
     setError = _useState6[1];
+  var token = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.auth.token;
+  });
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (start) fetchData();
@@ -28683,7 +28695,7 @@ var useFetch = function useFetch(_ref) {
             staticURL = "http://localhost:8888/api".concat(endpoint);
             headers = {
               Accept: "application/json",
-              Authorization: localStorage.getItem("token") ? "Bearer ".concat(localStorage.getItem("token")) : {}
+              Authorization: token ? "Bearer ".concat(token) : {}
             };
             requestOptions = {
               headers: headers,
@@ -28740,6 +28752,7 @@ var useFetch = function useFetch(_ref) {
     };
   }();
   var refresh = function refresh() {
+    console.log(token);
     fetchData();
   };
   return [result, loading, refresh, error];

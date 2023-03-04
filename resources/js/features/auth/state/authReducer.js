@@ -16,8 +16,6 @@ export function AuthReducer(state = initialState, action) {
                 role: action.payload.user.role,
             };
         case "LOGOUT":
-            localStorage.removeItem("token");
-
             return {
                 ...state,
                 token: "",
