@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import usePost from "../../../hooks/usePost";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../state/authActions";
+import { loginFailedAction } from "../../alert/state/alertActions";
 import { useDispatch } from "react-redux";
 
 export default function useLogin(username, password) {
@@ -15,10 +16,15 @@ export default function useLogin(username, password) {
     const didMount = useRef(false);
 
     useEffect(() => {
-        if (didMount.current) {
-            if (!loading && error.length < 1) {
+        console.log(error);
+        if (didMount.current && !loading) {
+            if (error.length > 0) {
+                console.log(error);
+                error.map((err) => {
+                    dispatch(loginFailedAction(err));
+                });
+            } else {
                 try {
-                    console.log("logging");
                     setToken(data.token);
                     dispatch(loginAction(data));
                     navigate("/home");

@@ -2,11 +2,16 @@ import React, { useMemo } from "react";
 import { useTable, useRowSelect } from "react-table";
 import "./basictable.scss";
 
-export default function BasicTable({ MOCKDATA, selectRow, selectedRow }) {
+export default function BasicTable({
+    tableColumns,
+    tableData,
+    selectRow,
+    selectedRow,
+}) {
     // cache data from api using useMemo react hook
 
-    const columns = useMemo(() => MOCKDATA.COLUMNS, []);
-    const data = useMemo(() => MOCKDATA.DATA, []);
+    const columns = useMemo(() => tableColumns, []);
+    const data = useMemo(() => tableData, []);
 
     // create table instance using react-table library, for more check official react-table documentation
 
@@ -28,23 +33,6 @@ export default function BasicTable({ MOCKDATA, selectRow, selectedRow }) {
     return (
         <div className="table-container">
             <table {...getTableProps()} className="basic-table">
-                {/* <thead>
-                    {headerGroups.map((headerGroup) => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map((column) => (
-                                <th
-                                    id={column.id}
-                                    className={column.id}
-                                    {...column.getHeaderProps()}
-                                >
-                                    <div className="col-flex">
-                                        {column.render("Header")}
-                                    </div>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead> */}
                 <tbody {...getTableBodyProps()}>
                     {rows.map((row) => {
                         prepareRow(row);
@@ -52,10 +40,10 @@ export default function BasicTable({ MOCKDATA, selectRow, selectedRow }) {
                             <tr
                                 {...row.getRowProps()}
                                 className={`table-row ${
-                                    row.id === selectedRow ? "active" : ""
+                                    row.original === selectedRow ? "active" : ""
                                 }`}
                                 onClick={() => {
-                                    selectRow(row.id);
+                                    selectRow(row.original);
                                 }}
                             >
                                 {row.cells.map((cell) => {

@@ -5,7 +5,7 @@ import { loginFailedAction } from "../features/alert/state/alertActions";
 
 const useFetch = ({ endpoint, method, body, start }) => {
     const [result, setResult] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState([]);
     const token = useSelector((state) => state.auth.token);
 
@@ -16,7 +16,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
     }, [fetchData, start]);
 
     const fetchData = async () => {
-        if (loading) return;
+        console.log(body);
 
         setLoading(true);
         const staticURL = `${"http://localhost:8888/api"}${endpoint}`;
@@ -39,7 +39,6 @@ const useFetch = ({ endpoint, method, body, start }) => {
             const response = await fetch(staticURL, requestOptions);
             const data = await response.json();
 
-            console.log(data);
             if (!response.ok) {
                 console.log(data);
                 // Api returns an array of errors. This piece of code formats every returned error message and sends it to state variable
@@ -49,14 +48,11 @@ const useFetch = ({ endpoint, method, body, start }) => {
                             ...prevErrors,
                             formatError(error[0]),
                         ]);
-                        dispatch(loginFailedAction(formatError(error[0])));
                     });
                 } else {
-                    setError(data.message);
-                    dispatch(loginFailedAction(formatError(data.message)));
+                    setError(formatError(data.message));
                 }
             } else {
-                console.log(data);
                 setResult(data.body);
             }
         } catch (err) {
@@ -67,6 +63,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
 
     const refresh = () => {
         console.log(token);
+        setError("");
         fetchData();
     };
 

@@ -1,0 +1,19 @@
+@import "../../../../../sass/variables";
+
+.group-tile {
+    display: flex;
+    padding: 0.1em 0.2em;
+    margin-right: 0.5em;
+    background-color: #ffffff;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: space-between;
+
+    .group-tile-name {
+        padding-left: 0.2em;
+    }
+
+    .group-tile-delete {
+        margin-left: 0.4em;
+    }
+}

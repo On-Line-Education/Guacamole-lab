@@ -3,19 +3,46 @@ import { GuacamoleButton } from "../../../../mui";
 import GuacamoleSoringTable from "../../../../components/SortingTable/SortingTable";
 import "./studentlist.scss";
 
-export default function StudentList({ openStudentAdd, openStudentDetails }) {
-    const [selectedRow, setSelectedRow] = useState(null);
-
-    console.log(selectedRow);
+export default function StudentList({
+    openStudentAdd,
+    openStudentDetails,
+    studentList,
+    loading,
+    setSelectedStudent,
+    selectedStudent,
+}) {
+    const tableColumns = [
+        {
+            Header: "ID",
+            accessor: "id",
+            disableSortBy: true,
+        },
+        {
+            Header: "Nazwa",
+            accessor: "username",
+        },
+        {
+            Header: "Grupy",
+            accessor: "password",
+            disableSortBy: true,
+            Filter: true,
+        },
+    ];
 
     return (
         <div className="student-list-container">
             <div className="title student-list-title">Lista uczniów</div>
             <div className="student-list-panel">
-                <GuacamoleSoringTable
-                    selectRow={setSelectedRow}
-                    selectedRow={selectedRow}
-                />
+                {loading ? (
+                    "Loading"
+                ) : (
+                    <GuacamoleSoringTable
+                        selectRow={setSelectedStudent}
+                        selectedRow={selectedStudent}
+                        tableData={studentList}
+                        tableColumns={tableColumns}
+                    />
+                )}
                 <div className="list-actions student-list-actions">
                     <GuacamoleButton
                         sx={{ width: "40%" }}
@@ -26,6 +53,7 @@ export default function StudentList({ openStudentAdd, openStudentDetails }) {
                     <GuacamoleButton
                         sx={{ width: "50%" }}
                         onClick={() => openStudentDetails(true)}
+                        disabled={selectedStudent ? false : true}
                     >
                         Szczegóły ucznia
                     </GuacamoleButton>

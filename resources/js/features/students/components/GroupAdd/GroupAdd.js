@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
 import CloseIcon from "@mui/icons-material/Close";
-import "./studentadd.scss";
+import "./groupadd.scss";
 import { IconButton } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
-import useCreateStudent from "../../hooks/useCreateStudent";
+import useCreateGroup from "../../hooks/useCreateGroup";
 
-export default function StudentAdd({ close }) {
-    const [newStudentUsername, setNewStudentUsername] = useState();
-    const [newStudentPassword, setNewStudentPassword] = useState();
+export default function GroupAdd({ close }) {
+    const [newGroupName, setNewGroupName] = useState();
 
-    const [error, loading, createStudent] = useCreateStudent(
-        newStudentUsername,
-        newStudentPassword
-    );
+    const [error, loading, createGroup] = useCreateGroup(newGroupName);
 
     if (error) {
         console.log(error);
@@ -22,10 +18,10 @@ export default function StudentAdd({ close }) {
     return (
         <>
             <div className="overlay"></div>
-            <div className="student-add-container">
+            <div className="group-add-container">
                 <ClickAwayListener onClickAway={() => close(false)}>
-                    <div className="student-add-panel">
-                        <div className="panel-title">Stwórz nowego ucznia</div>
+                    <div className="group-add-panel">
+                        <div className="panel-title">Stwórz nową grupę</div>
                         <div className="panel-close">
                             <IconButton onClick={() => close(false)}>
                                 <CloseIcon />
@@ -35,7 +31,8 @@ export default function StudentAdd({ close }) {
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    createStudent();
+                                    console.log(newGroupName);
+                                    createGroup();
                                     console.log("?");
                                 }}
                             >
@@ -47,24 +44,7 @@ export default function StudentAdd({ close }) {
                                         size="small"
                                         id="username"
                                         onChange={(e) =>
-                                            setNewStudentUsername(
-                                                e.target.value
-                                            )
-                                        }
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label className="form-label">Hasło</label>
-                                    <GuacamoleInput
-                                        className="form-input"
-                                        variant="outlined"
-                                        type="password"
-                                        size="small"
-                                        id="password"
-                                        onChange={(e) =>
-                                            setNewStudentPassword(
-                                                e.target.value
-                                            )
+                                            setNewGroupName(e.target.value)
                                         }
                                     />
                                 </div>

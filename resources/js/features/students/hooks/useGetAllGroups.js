@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import useGet from "../../../hooks/useGet";
 
-export default function useGetAllStudents() {
-    const [data, loading, refresh, error] = useGet("/user/all", true);
+export default function useGetAllGroups() {
+    const [data, loading, refresh, error] = useGet("/class/all", true);
     const didMount = useRef(false);
 
     useEffect(() => {
