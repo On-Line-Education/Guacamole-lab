@@ -88,6 +88,36 @@
 			"name": "User",
 			"item": [
 				{
+					"name": "Get Self",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/user/all",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
@@ -199,12 +229,17 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Test6",
+									"value": "Test6Guac",
 									"type": "default"
 								},
 								{
 									"key": "password",
 									"value": "testtest",
+									"type": "default"
+								},
+								{
+									"key": "role",
+									"value": "student",
 									"type": "default"
 								}
 							]
@@ -248,14 +283,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/user/3",
+							"raw": "{{URL}}/api/user/2",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"user",
-								"3"
+								"2"
 							]
 						}
 					},
@@ -498,6 +533,166 @@
 								"api",
 								"classroom",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Instructor Select Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"classroomId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom/instructor/assign",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"instructor",
+								"assign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Instructor Leave Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"classroomId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom/instructor/unassign",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"instructor",
+								"unassign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Select Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"classroomId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom/student/select",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"student",
+								"select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Leave Classroom",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"classroomId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom/student/unselect",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"student",
+								"unselect"
 							]
 						}
 					},
@@ -895,7 +1090,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "1|2Kk47JwphRS4AB2RjHNrZLpvnPse8WKICba4R2OX",
+				"value": "3|ipucoJUL2iZaMBbrl0dA2Q9e621P6pbYYLWFuWOQ",
 				"type": "string"
 			}
 		]
