@@ -13,6 +13,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
@@ -25,19 +26,19 @@ class UserController extends Controller
     )
     {}
 
-    public function self(): JsonResponse
+    public function self(Request $request): JsonResponse
     {
-        return ($this->readUserActionService)(user: Auth::user());
+        return ($this->readUserActionService)($request, user: Auth::user());
     }
 
-    public function get(User $user): JsonResponse
+    public function get(Request $request, User $user): JsonResponse
     {
-        return ($this->readUserActionService)(user: $user);
+        return ($this->readUserActionService)($request, user: $user);
     }
 
-    public function list(): JsonResponse
+    public function list(Request $request): JsonResponse
     {
-        return ($this->readUserActionService)();
+        return ($this->readUserActionService)($request);
     }
 
     public function create(UserCreateRequest $userCreateRequest): JsonResponse
@@ -60,8 +61,8 @@ class UserController extends Controller
         return ($this->deleteUserActionService)($user);
     }
 
-    public function search(string $search): JsonResponse
+    public function search(Request $request, string $search): JsonResponse
     {
-        return ($this->readUserActionService)(search: $search);
+        return ($this->readUserActionService)($request, search: $search);
     }
 }

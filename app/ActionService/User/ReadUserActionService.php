@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Service\GuacamoleUserLoginService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpFoundation\Request;
 
 class ReadUserActionService extends AbstractActionService
 {
@@ -22,7 +23,7 @@ class ReadUserActionService extends AbstractActionService
         parent::__construct();
     }
 
-    public function __invoke(?User $user = null, ?string $search = null)
+    public function __invoke(Request $request, ?User $user = null, ?string $search = null)
     {
         $guacAuth = ($this->guacamoleUserLoginService)($user);
 
@@ -32,15 +33,41 @@ class ReadUserActionService extends AbstractActionService
                 throw new UnauthorizedException();
             }
             $guacUser = ($this->userGetByIdAction)($guacAuth, $user->username);
-            return ($this->responder)($user->getUserWithGuacDataArray($guacUser));
+            return ($this->responder)(
+                array_merge(
+                    $user->getUserWithGuacDataArray($guacUser),
+                    ['classes' => $user->getGroups()]
+                    
+                )
+            );
         } elseif ($search !== null && !Auth::user()->isStudent()) {
             $users = ($this->userSearchAction)($guacAuth, $search);
         } elseif (!Auth::user()->isStudent()) {
             $users = ($this->userGetAllAction)($guacAuth);
         }
         foreach ($users as &$guacUser) {
-            $guacUser->id = User::where('username', $guacUser->username)->first()?->id ?? null;
+            $usr = User::where('username', $guacUser->username)->first();
+            $guacUser->id = $usr?->id ?? null;
+            $usrGroups = $usr?->getGroups() ?? [];
+            $guacUser = $usr?->getUserWithGuacDataArray($guacUser) ?? $guacUser->getGuacFormat();
+            $guacUser = array_merge(
+                ['classes' => $usrGroups],
+                $guacUser
+            );
+            unset($guacUser['password']);
         }
+
+        if ($request->has('system-only') && $request->input('system-only') === 'true') {
+            $users = array_values(
+                array_filter($users, function (&$element) {
+                    if (!array_key_exists('id', (array)$element)) {
+                        $element['id'] = null;
+                    }
+                    return ((array)$element)['id'] !== null;
+                })
+            );
+        }
+
         return ($this->responder)($users);
     }
 }

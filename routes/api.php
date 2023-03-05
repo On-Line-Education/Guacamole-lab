@@ -217,12 +217,12 @@ Route::controller(StudentClassController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/add', 'add')
+        Route::get('/{class}/add/{user}', 'add')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/remove', 'remove')
+        Route::get('/{class}/remove/{user}', 'remove')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
