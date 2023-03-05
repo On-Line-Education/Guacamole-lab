@@ -18,6 +18,7 @@ import ErrorBoundry from "./features/alert/components/ErrorBoundry";
 import Students from "./features/pages/Students";
 import Page404 from "./features/auth/components/Page404/Page404";
 import Classrooms from "./features/pages/Classrooms";
+import Lessons from "./features/pages/Lessons";
 
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
@@ -45,6 +46,16 @@ if (document.getElementById("app")) {
                                         ]}
                                     >
                                         <Dashboard />
+                                    </RouteGuard>
+                                }
+                            />
+                            <Route
+                                path="/lessons"
+                                element={
+                                    <RouteGuard
+                                        accessList={["instructor", "admin"]}
+                                    >
+                                        <Lessons />
                                     </RouteGuard>
                                 }
                             />

@@ -1,6 +1,7 @@
 import { createTheme, styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import { Select, TextField } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers";
 
 const muiTheme = createTheme({
     palette: {
@@ -59,6 +60,28 @@ export const GuacamoleFragileButton = styled(Button)(({ theme }) => ({
 }));
 
 export const GuacamoleInput = styled(TextField)(({ theme }) => ({
+    boxShadow: "none",
+    border: "1px solid",
+    height: "2.75em",
+    width: "100%",
+    color: theme.palette.primary.main,
+    fontFamily: theme.typography.content.fontFamily,
+    borderColor: theme.palette.primary.main,
+    borderRadius: "5px",
+}));
+
+export const GuacamoleDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
+    boxShadow: "none",
+    border: "1px solid",
+    height: "2.75em",
+    width: "100%",
+    color: theme.palette.primary.main,
+    fontFamily: theme.typography.content.fontFamily,
+    borderColor: theme.palette.primary.main,
+    borderRadius: "5px",
+}));
+
+export const GuacamoleSelect = styled(Select)(({ theme }) => ({
     boxShadow: "none",
     border: "1px solid",
     height: "2.75em",

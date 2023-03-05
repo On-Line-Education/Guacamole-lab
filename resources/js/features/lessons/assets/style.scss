@@ -1,0 +1,19 @@
+@import "../../../../sass/variables";
+
+.lessons {
+    display: flex;
+    height: 100vh;
+}
+
+.lessons-container {
+    padding: 70px;
+    flex: 6;
+    display: flex;
+    background-color: $body-color-light;
+    align-items: center;
+
+    .title {
+        font-family: $font-family-title-bold;
+        font-size: $font-size-2;
+    }
+}
