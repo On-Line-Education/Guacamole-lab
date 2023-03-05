@@ -1,0 +1,43 @@
+.computer-list-container {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2 / 4;
+    grid-row: 1;
+
+    .computer-list-title {
+        padding: 0.5em 1em;
+    }
+
+    .computer-list-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #ffffff;
+        padding: 0.5em 2em;
+        border-radius: 30px;
+        width: 550px;
+        min-height: 375px;
+
+        th.id,
+        td.id {
+            min-width: 25px;
+        }
+
+        th.name,
+        td.name {
+            min-width: 225px;
+        }
+
+        th.ip,
+        td.ip {
+            min-width: 225px;
+        }
+    }
+
+    .computer-list-actions {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1em;
+        padding-bottom: 0.5em;
+    }
+}

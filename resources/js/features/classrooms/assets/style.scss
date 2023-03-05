@@ -1,0 +1,21 @@
+@import "../../../../sass/variables";
+
+.classrooms {
+    display: flex;
+    height: 100vh;
+}
+
+.classrooms-container {
+    padding: 70px;
+    flex: 6;
+    display: grid;
+    background-color: $body-color-light;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0 100px;
+    grid-auto-rows: minmax(100px, auto);
+
+    .title {
+        font-family: $font-family-title-bold;
+        font-size: $font-size-2;
+    }
+}

@@ -31,3 +31,10 @@ export function groupCreationFailedAction(error) {
         payload: error,
     };
 }
+
+export function classroomCreationFailedAction(error) {
+    return {
+        type: "GROUP_CREATION_FAILED",
+        payload: error,
+    };
+}

@@ -1,0 +1,47 @@
+.classroom-list-container {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1 / 2;
+    grid-row: 1;
+
+    .classroom-list-title {
+        padding: 0.5em 1em;
+    }
+
+    .classroom-list-panel {
+        background-color: #ffffff;
+        padding: 1em 2em;
+        border-radius: 30px;
+        width: 250px;
+        min-height: 430px;
+
+        th.id,
+        td.id {
+            min-width: 25px;
+        }
+
+        th.name,
+        td.name {
+            min-width: 175px;
+        }
+    }
+
+    .classroom-list-actions {
+        display: flex;
+        flex-direction: column;
+        padding-top: 1em;
+        justify-content: space-around;
+
+        button {
+            margin: 5px 0;
+        }
+    }
+}
+
+//table override styles
+
+.classroom-list {
+    .classroom {
+        min-width: 150px !important;
+    }
+}
