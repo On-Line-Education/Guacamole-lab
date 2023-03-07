@@ -32,6 +32,11 @@ class ClassroomController extends Controller
         return ($this->readClassroomActionService)();
     }
 
+    public function withInstructors(): JsonResponse
+    {
+        return ($this->readClassroomActionService)(withInstructors: true);
+    }
+
     public function get(ClassRoom $classRoom)
     {
         return ($this->readClassroomActionService)($classRoom);

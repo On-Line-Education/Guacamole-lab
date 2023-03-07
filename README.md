@@ -78,13 +78,14 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 
 ### Sale
 
-| Ścieżka                      | Metoda | Opis                                                              | Wymaga logowania |
-| ---------------------------- | ------ | ----------------------------------------------------------------- | ---------------- |
-| /api/classroom/all           | GET    | Umozliwia pobranie wszystkich sal z systemu                       | TAK              |
-| /api/classroom/{classroomId} | GET    | Umozliwia pobranie sali z systemu o id podanym jako {classroomId} | TAK              |
-| /api/classroom               | POST   | Umozliwia utworzenie nowej sali w systemie                        | TAK              |
-| /api/classroom/{classroomId} | PATCH  | Umozliwia aktualizacje danej sali o id {classroomId} w systemie   | TAK              |
-| /api/classroom/{classroomId} | DELETE | Umozliwia usunięcie sali o id {classroomId} z systemu             | TAK              |
+| Ścieżka                             | Metoda | Opis                                                                 | Wymaga logowania |
+| ----------------------------------- | ------ | -------------------------------------------------------------------- | ---------------- |
+| /api/classroom/all                  | GET    | Umozliwia pobranie wszystkich sal z systemu                          | TAK              |
+| /api/classroom/all/with-instructors | GET    | Umozliwia pobranie wszystkich sal z systemu włącznie z instruktorami | TAK              |
+| /api/classroom/{classroomId}        | GET    | Umozliwia pobranie sali z systemu o id podanym jako {classroomId}    | TAK              |
+| /api/classroom                      | POST   | Umozliwia utworzenie nowej sali w systemie                           | TAK              |
+| /api/classroom/{classroomId}        | PATCH  | Umozliwia aktualizacje danej sali o id {classroomId} w systemie      | TAK              |
+| /api/classroom/{classroomId}        | DELETE | Umozliwia usunięcie sali o id {classroomId} z systemu                | TAK              |
 
 ### Grupy / Klasy
 
