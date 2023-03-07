@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActionService\Computer\AssignComputerActionService;
 use App\ActionService\Computer\CreateComputerActionService;
 use App\ActionService\Computer\DeleteComputerActionService;
 use App\ActionService\Computer\ReadComputerActionService;
@@ -10,6 +11,7 @@ use App\Http\Requests\ComputerCreateRequest;
 use App\Http\Requests\ComputerUpdateRequest;
 use App\Models\ClassRoom;
 use App\Models\Computer;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class ComputerController extends Controller
@@ -18,13 +20,19 @@ class ComputerController extends Controller
         private readonly CreateComputerActionService $createComputerActionService,
         private readonly ReadComputerActionService $readComputerActionService,
         private readonly UpdateComputerActionService $updateComputerActionService,
-        private readonly DeleteComputerActionService $deleteComputerActionService
+        private readonly DeleteComputerActionService $deleteComputerActionService,
+        private readonly AssignComputerActionService $assignComputerActionService
     )
     {}
 
     public function allComputers(): JsonResponse
     {
         return ($this->readComputerActionService)();
+    }
+
+    public function allUsersComputers(User $user): JsonResponse
+    {
+        return ($this->readComputerActionService)(user: $user);
     }
 
     public function list(ClassRoom $classroom): JsonResponse
@@ -57,10 +65,15 @@ class ComputerController extends Controller
     }
 
     // assign computer to student
-    public function assign(): JsonResponse
+    public function assign(Computer $computer, User $user): JsonResponse
     {
+        return ($this->assignComputerActionService)($computer, $user);
+    }
 
-        return response()->json("todo");
+    // assign computer to student
+    public function unassign(Computer $computer, User $user): JsonResponse
+    {
+        return ($this->assignComputerActionService)($computer, $user, true);
     }
 
     // import computers from csv
