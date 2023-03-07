@@ -100,14 +100,17 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 
 ### Komputery
 
-| Ścieżka                                          | Metoda | Opis                                                                                        | Wymaga logowania |
-| ------------------------------------------------ | ------ | ------------------------------------------------------------------------------------------- | ---------------- |
-| /api/classroom/computers                         | GET    | Umozliwia pobranie wszystkich komputerów z systemu                                          | TAK              |
-| /api/classroom/{classroom}/computer/all          | GET    | Umozliwia pobranie wszystkich komputerów z systemu znajdujacych się w klasie {classroom}    | TAK              |
-| /api/classroom/{classroom}/computer/{computerId} | GET    | Umozliwia pobranie komputera z systemu o id podanym jako {computerId} w klasie {classroom}  | TAK              |
-| /api/classroom/{classroom}/computer              | POST   | Umozliwia utworzenie nowego komputera w systemie, przypisanego do klasy {classroom}         | TAK              |
-| /api/classroom/{classroom}/computer/{computerId} | PATCH  | Umozliwia aktualizacje danego komputera o id {computerId} przypisanego do klasy {classroom} | TAK              |
-| /api/classroom/{classroom}/computer/{computerId} | DELETE | Umozliwia usunięcie komputera o id {computerId} przypisanego do klasy {classroom} z systemu | TAK              |
+| Ścieżka                                             | Metoda | Opis                                                                                        | Wymaga logowania |
+| --------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------- | ---------------- |
+| /api/classroom/computers                            | GET    | Umozliwia pobranie wszystkich komputerów z systemu                                          | TAK              |
+| /api/classroom/computers/all/{user}                 | GET    | Umozliwia pobranie wszystkich komputerów z systemu przypisanych dla uzytkownika o id {user} | TAK              |
+| /api/classroom/computers/{computer}/assign/{user}   | GET    | Umozliwia przypisanie komputera o id {computer} do uzytkownika o id {user}                  | TAK              |
+| /api/classroom/computers/{computer}/unassign/{user} | GET    | Umozliwia usunięcie przypisania komputera o id {computer} do uzytkownika o id {user}        | TAK              |
+| /api/classroom/{classroom}/computer/all             | GET    | Umozliwia pobranie wszystkich komputerów z systemu znajdujacych się w klasie {classroom}    | TAK              |
+| /api/classroom/{classroom}/computer/{computerId}    | GET    | Umozliwia pobranie komputera z systemu o id podanym jako {computerId} w klasie {classroom}  | TAK              |
+| /api/classroom/{classroom}/computer                 | POST   | Umozliwia utworzenie nowego komputera w systemie, przypisanego do klasy {classroom}         | TAK              |
+| /api/classroom/{classroom}/computer/{computerId}    | PATCH  | Umozliwia aktualizacje danego komputera o id {computerId} przypisanego do klasy {classroom} | TAK              |
+| /api/classroom/{classroom}/computer/{computerId}    | DELETE | Umozliwia usunięcie komputera o id {computerId} przypisanego do klasy {classroom} z systemu | TAK              |
 
 ## Instrukcja obsługi
 

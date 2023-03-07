@@ -975,6 +975,38 @@
 					"response": []
 				},
 				{
+					"name": "Get All Users",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/computers/all/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"computers",
+								"all",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All in ClassRoom",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
@@ -1150,6 +1182,72 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Assign",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/computers/1/assign/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"computers",
+								"1",
+								"assign",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unassign",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/computers/1/unassign/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"computers",
+								"1",
+								"unassign",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -1159,7 +1257,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "1|CTn4WgesftQnKWeqKO57KH3KM2gb2zRNYNi5A2ed",
+				"value": "2|XHt8JjHcARgdh3iCTZfLUwqRo8BNBSoKN2cnVEtd",
 				"type": "string"
 			}
 		]

@@ -74,18 +74,38 @@ Route::controller(ComputerController::class)->group(function () {
             SystemAuth::AUTH,
             SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
         ]);
+    Route::get('/classroom/computers/all/{user}', 'allUsersComputers')
+        ->middleware([
+            SystemAuth::AUTH,
+            SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+        ]);
+    Route::get('/classroom/computers/{computer}/assign/{user}', 'assign') // to student
+        ->middleware([
+            SystemAuth::AUTH,
+            SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+        ]);
+    Route::get('/classroom/computers/{computer}/unassign/{user}', 'unassign') // from student
+        ->middleware([
+            SystemAuth::AUTH,
+            SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+        ]);
     Route::prefix('/classroom/{classroom}/computer')->group(function () {
+        Route::post('/', 'create')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
         Route::get('/all', 'list')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::get('/{computer}', 'get')
+        Route::post('/import', 'import')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/', 'create')
+        Route::get('/{computer}', 'get')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
@@ -96,21 +116,6 @@ Route::controller(ComputerController::class)->group(function () {
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::delete('/{computer}', 'delete')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::post('/{computer}/assign', 'assign') // to student
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::post('/{computer}/unassign', 'unassign') // from student
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::post('/import', 'import')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
