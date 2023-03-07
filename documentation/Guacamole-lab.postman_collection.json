@@ -408,6 +408,37 @@
 					"response": []
 				},
 				{
+					"name": "Get All With Instructors",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/all/with-instructors",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"all",
+								"with-instructors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Classroom",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {

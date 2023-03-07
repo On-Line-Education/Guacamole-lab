@@ -134,6 +134,10 @@ Route::controller(ClassroomController::class)->group(function () {
             ->middleware([
                 SystemAuth::AUTH
             ]);
+        Route::get('/all/with-instructors', 'withInstructors')
+            ->middleware([
+                SystemAuth::AUTH
+            ]);
         Route::post('/student/select', 'select') // student select
             ->middleware([
                 SystemAuth::AUTH
