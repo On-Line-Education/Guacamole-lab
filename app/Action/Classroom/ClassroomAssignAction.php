@@ -9,6 +9,6 @@ class ClassroomAssignAction
 {
     public function __invoke(ClassRoom $classRoom, User $user): User
     {
-        return $user->attachToClassroom($classRoom->id);
+        return $user->attachToClassroom($classRoom);
     }
 }

@@ -16,7 +16,7 @@ class GuacamoleUserLoginService
         $user = $user ?? Auth::user();
         $guacData = GuacUserData::where('user_id', $user->id)->first();
 
-        if (strtotime($guacData->expires) > strtotime(Carbon::now())) {
+        if (!is_null($guacData) && strtotime($guacData->expires) > strtotime(Carbon::now())) {
             $guacData->expires = Carbon::now()->addHour();
             $guacData->save();
             return new GuacamoleAuthLoginData([

@@ -5,7 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Guacamole\Objects\User\GuacamoleUserData;
-use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -60,12 +60,9 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
-    public function attachToClassroom(int $classroomId): User
+    public function attachToClassroom(ClassRoom $classRoom): User
     {
-        if (ClassRoom::find($classroomId) === null) {
-            throw new Exception('ClassRoom object doesn\'t exist', 500);
-        }
-        $this->assigned_class_room = $classroomId;
+        $this->assigned_class_room = $classRoom->id;
         $this->save();
         return $this;
     }
@@ -77,6 +74,25 @@ class User extends Authenticatable
         return $this;
     }
 
+    public function assignToClass(StudentClass $class): User
+    {
+        if (StudentClasses::where([['student_class', '=', $class->id], ['student', '=', $this->id]])->count()) {
+            return $this;
+        }
+
+        $studentClass = new StudentClasses();
+        $studentClass->student = $this->id;
+        $studentClass->student_class = $class->id;
+        $studentClass->save();
+        return $this;
+    }
+
+    public function removeFromClass(StudentClass $class): User
+    {
+        StudentClasses::where([['student_class', '=', $class->id], ['student', '=', $this->id]])->delete();
+        return $this;
+    }
+
     public function getUserWithGuacDataArray(GuacamoleUserData $guacUser): array
     {
         $guacUser->id = $this->id;
@@ -85,5 +101,20 @@ class User extends Authenticatable
         $userData['assigned_class_room'] = $this->assigned_class_room;
         unset($userData['password']);
         return $userData;
+    }
+
+    public function getGroups(): array
+    {
+        $sc = StudentClasses::where('student', $this->id)->get();
+        $studentClasses = [];
+        foreach ($sc as $class) {
+            $studentClasses[] = StudentClass::find($class->student_class);
+        }
+        return $studentClasses;
+    }
+
+    public function getGroupsIds(): array
+    {
+        return StudentClasses::where('student', $this->id)->get()->toArray();
     }
 }
