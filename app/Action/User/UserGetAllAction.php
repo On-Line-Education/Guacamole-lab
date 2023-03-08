@@ -9,8 +9,8 @@ class UserGetAllAction
 {
 
     public function __construct(
-            private readonly Guacamole $guacamole
-            )
+        private readonly Guacamole $guacamole
+    )
     {}
 
     public function __invoke(GuacamoleAuthLoginData $guacamoleAuthLoginData): array

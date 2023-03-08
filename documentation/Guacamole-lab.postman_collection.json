@@ -26,7 +26,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"Test6GuacStudent\",\n    \"password\": \"testtest\"\n}",
+							"raw": "{\n    \"username\": \"guacadmin\",\n    \"password\": \"guacadmin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -134,7 +134,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user/all",
+							"raw": "{{URL}}/api/user/all?system-only=true",
 							"host": [
 								"{{URL}}"
 							],
@@ -142,6 +142,12 @@
 								"api",
 								"user",
 								"all"
+							],
+							"query": [
+								{
+									"key": "system-only",
+									"value": "true"
+								}
 							]
 						}
 					},
@@ -164,14 +170,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user/3",
+							"raw": "{{URL}}/api/user/1",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"user",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -229,7 +235,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Test6GuacStudent",
+									"value": "test02_s",
 									"type": "default"
 								},
 								{
@@ -396,6 +402,37 @@
 								"api",
 								"classroom",
 								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All With Instructors",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/all/with-instructors",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"all",
+								"with-instructors"
 							]
 						}
 					},
@@ -869,6 +906,69 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add User",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/class/1/add/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class",
+								"1",
+								"add",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove User from class",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/class/remove/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class",
+								"remove",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -900,6 +1000,38 @@
 								"api",
 								"classroom",
 								"computers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/computers/all/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"computers",
+								"all",
+								"3"
 							]
 						}
 					},
@@ -1081,6 +1213,72 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Assign",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/computers/1/assign/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"computers",
+								"1",
+								"assign",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unassign",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/classroom/computers/1/unassign/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"computers",
+								"1",
+								"unassign",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -1090,7 +1288,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "3|ipucoJUL2iZaMBbrl0dA2Q9e621P6pbYYLWFuWOQ",
+				"value": "2|XHt8JjHcARgdh3iCTZfLUwqRo8BNBSoKN2cnVEtd",
 				"type": "string"
 			}
 		]
