@@ -30,6 +30,13 @@ export default function BasicTable({
         useRowSelect
     );
 
+    if (tableData.length < 1)
+        return (
+            <div className="table-container">
+                Brak elementów do wyświetlenia
+            </div>
+        );
+
     return (
         <div className="table-container">
             <table {...getTableProps()} className="basic-table">
