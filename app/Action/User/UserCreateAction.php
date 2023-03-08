@@ -10,7 +10,7 @@ class UserCreateAction
 {
 
     public function __construct(
-            private readonly Guacamole $guacamole
+        private readonly Guacamole $guacamole
     )
     {}
 

@@ -8,6 +8,17 @@
   - [Instalacja](#instalacja)
   - [Instalacja pod dalszy rozwój](#instalacja-pod-dalszy-rozwój)
   - [Opis struktury systemu](#opis-struktury-systemu)
+    - [Action](#action)
+    - [ActionService](#actionservice)
+    - [Responder](#responder)
+    - [Service](#service)
+    - [Obsługa błędów](#obsługa-błędów)
+    - [Kontrolery endpointów](#kontrolery-endpointów)
+    - [Definicje endpointów](#definicje-endpointów)
+    - [Połączenie z Guacamole](#połączenie-z-guacamole)
+      - [Połączenie z Api](#połączenie-z-api)
+      - [Obiekty wewnętrzne](#obiekty-wewnętrzne)
+      - [Obiekty pomocnicze](#obiekty-pomocnicze)
   - [Endpointy](#endpointy)
     - [Logowanie](#logowanie)
     - [Użytkownik](#użytkownik)
@@ -50,6 +61,28 @@ należy wykonać `./vendor/bin/sail npm run watch`.
 
 TODO
 
+### Action
+
+### ActionService
+
+### Responder
+
+### Service
+
+### Obsługa błędów
+
+### Kontrolery endpointów
+
+### Definicje endpointów
+
+### Połączenie z Guacamole
+
+#### Połączenie z Api
+
+#### Obiekty wewnętrzne
+
+#### Obiekty pomocnicze
+
 ## Endpointy
 
 *Uwaga*: Każdy endpoint wymaga dodania headera `Accept: application/json`
@@ -66,15 +99,16 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 
 ### Użytkownik
 
-| Ścieżka                     | Metoda | Opis                                                                                                           | Wymaga logowania |
-| --------------------------- | ------ | -------------------------------------------------------------------------------------------------------------- | ---------------- |
-| /api/user/all               | GET    | Umozliwia pobranie wszystkich użytkowników systemu                                                             | TAK              |
-| /api/user/{userID}          | GET    | Umozliwia pobranie użytkownika z systemu o id podanym jako {userId}                                            | TAK              |
-| /api/user/search/{search}   | GET    | Umozliwia pobranie użytkownika z systemu, zawierającego dany fragment podanego tekstu (jako {search}) w nazwie | TAK              |
-| /api/user                   | POST   | Umozliwia utworzenie nowego użytkownika w systemie                                                             | TAK              |
-| /api/user/{userId}          | PATCH  | Umozliwia aktualizacje danych użytkownika o id {userId} w systemie                                             | TAK              |
-| /api/user/{userId}/password | PATCH  | Umozliwia zmianę hasła użytkownika o id {userId} w systemie                                                    | TAK              |
-| /api/user/{userId}          | DELETE | Umozliwia usunięcie użytkownika o id {userId} z systemu                                                        | TAK              |
+| Ścieżka                     | Metoda | Opis                                                                                                                                | Wymaga logowania |
+| --------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| /api/user/all               | GET    | Umozliwia pobranie wszystkich użytkowników systemu                                                                                  | TAK              |
+| /api/user/{userID}          | GET    | Umozliwia pobranie użytkownika z systemu o id podanym jako {userId}                                                                 | TAK              |
+| /api/user/search/{search}   | GET    | Umozliwia pobranie użytkownika z systemu, zawierającego dany fragment podanego tekstu (jako {search}) w nazwie                      | TAK              |
+| /api/user                   | POST   | Umozliwia utworzenie nowego użytkownika w systemie                                                                                  | TAK              |
+| /api/user/import            | POST   | Umozliwia zaimportowanie nowych użytkowników o roli student do systemu na podstawie przykładu documentation/example_user_import.csv | TAK              |
+| /api/user/{userId}          | PATCH  | Umozliwia aktualizacje danych użytkownika o id {userId} w systemie                                                                  | TAK              |
+| /api/user/{userId}/password | PATCH  | Umozliwia zmianę hasła użytkownika o id {userId} w systemie                                                                         | TAK              |
+| /api/user/{userId}          | DELETE | Umozliwia usunięcie użytkownika o id {userId} z systemu                                                                             | TAK              |
 
 ### Sale
 
@@ -101,17 +135,18 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 
 ### Komputery
 
-| Ścieżka                                             | Metoda | Opis                                                                                        | Wymaga logowania |
-| --------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------- | ---------------- |
-| /api/classroom/computers                            | GET    | Umozliwia pobranie wszystkich komputerów z systemu                                          | TAK              |
-| /api/classroom/computers/all/{user}                 | GET    | Umozliwia pobranie wszystkich komputerów z systemu przypisanych dla uzytkownika o id {user} | TAK              |
-| /api/classroom/computers/{computer}/assign/{user}   | GET    | Umozliwia przypisanie komputera o id {computer} do uzytkownika o id {user}                  | TAK              |
-| /api/classroom/computers/{computer}/unassign/{user} | GET    | Umozliwia usunięcie przypisania komputera o id {computer} do uzytkownika o id {user}        | TAK              |
-| /api/classroom/{classroom}/computer/all             | GET    | Umozliwia pobranie wszystkich komputerów z systemu znajdujacych się w klasie {classroom}    | TAK              |
-| /api/classroom/{classroom}/computer/{computerId}    | GET    | Umozliwia pobranie komputera z systemu o id podanym jako {computerId} w klasie {classroom}  | TAK              |
-| /api/classroom/{classroom}/computer                 | POST   | Umozliwia utworzenie nowego komputera w systemie, przypisanego do klasy {classroom}         | TAK              |
-| /api/classroom/{classroom}/computer/{computerId}    | PATCH  | Umozliwia aktualizacje danego komputera o id {computerId} przypisanego do klasy {classroom} | TAK              |
-| /api/classroom/{classroom}/computer/{computerId}    | DELETE | Umozliwia usunięcie komputera o id {computerId} przypisanego do klasy {classroom} z systemu | TAK              |
+| Ścieżka                                             | Metoda | Opis                                                                                                            | Wymaga logowania |
+| --------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------- | ---------------- |
+| /api/classroom/computers                            | GET    | Umozliwia pobranie wszystkich komputerów z systemu                                                              | TAK              |
+| /api/classroom/computers/import                     | POST   | Umozliwia zaimportowanie komputerów do systemu na podstawie przykładu documentation/example_computer_import.csv | TAK              |
+| /api/classroom/computers/all/{user}                 | GET    | Umozliwia pobranie wszystkich komputerów z systemu przypisanych dla uzytkownika o id {user}                     | TAK              |
+| /api/classroom/computers/{computer}/assign/{user}   | GET    | Umozliwia przypisanie komputera o id {computer} do uzytkownika o id {user}                                      | TAK              |
+| /api/classroom/computers/{computer}/unassign/{user} | GET    | Umozliwia usunięcie przypisania komputera o id {computer} do uzytkownika o id {user}                            | TAK              |
+| /api/classroom/{classroom}/computer/all             | GET    | Umozliwia pobranie wszystkich komputerów z systemu znajdujacych się w klasie {classroom}                        | TAK              |
+| /api/classroom/{classroom}/computer/{computerId}    | GET    | Umozliwia pobranie komputera z systemu o id podanym jako {computerId} w klasie {classroom}                      | TAK              |
+| /api/classroom/{classroom}/computer                 | POST   | Umozliwia utworzenie nowego komputera w systemie, przypisanego do klasy {classroom}                             | TAK              |
+| /api/classroom/{classroom}/computer/{computerId}    | PATCH  | Umozliwia aktualizacje danego komputera o id {computerId} przypisanego do klasy {classroom}                     | TAK              |
+| /api/classroom/{classroom}/computer/{computerId}    | DELETE | Umozliwia usunięcie komputera o id {computerId} przypisanego do klasy {classroom} z systemu                     | TAK              |
 
 ## Instrukcja obsługi
 

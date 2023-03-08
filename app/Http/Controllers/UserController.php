@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\ActionService\User\CreateUserActionService;
 use App\ActionService\User\DeleteUserActionService;
+use App\ActionService\User\ImportUserActionService;
 use App\ActionService\User\ReadUserActionService;
 use App\ActionService\User\UpdateUserActionService;
 use App\ActionService\User\UpdateUserPasswordActionService;
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserImportRequest;
 use App\Http\Requests\UserNewPasswordRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
@@ -22,7 +24,8 @@ class UserController extends Controller
         private readonly ReadUserActionService $readUserActionService,
         private readonly UpdateUserActionService $updateUserActionService,
         private readonly DeleteUserActionService $deleteUserActionService,
-        private readonly UpdateUserPasswordActionService $updateUserPasswordActionService
+        private readonly UpdateUserPasswordActionService $updateUserPasswordActionService,
+        private readonly ImportUserActionService $importUserActionService
     )
     {}
 
@@ -64,5 +67,11 @@ class UserController extends Controller
     public function search(Request $request, string $search): JsonResponse
     {
         return ($this->readUserActionService)($request, search: $search);
+    }
+
+    // import students from csv
+    public function import(UserImportRequest $request): JsonResponse
+    {
+        return ($this->importUserActionService)($request->file('import_csv')->get());
     }
 }
