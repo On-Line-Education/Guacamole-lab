@@ -16,8 +16,6 @@ const useFetch = ({ endpoint, method, body, start }) => {
     }, [fetchData, start]);
 
     const fetchData = async () => {
-        console.log(body);
-
         setLoading(true);
         const staticURL = `${"http://localhost:8888/api"}${endpoint}`;
         const headers = {

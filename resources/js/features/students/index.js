@@ -27,18 +27,25 @@ export default function StudentsView() {
         data: studentList,
         loading: studentListLoading,
         error: studentListLoadingError,
+        refetch: refreshStudentList,
     } = useGetAllStudents();
 
     const {
         data: groupList,
         loading: groupListLoading,
         error: groupListLoadingError,
+        refetch: refreshGroupList,
     } = useGetAllGroups();
 
     //Selected table rows state
 
     const [selectedStudent, setSelectedStudent] = useState("");
     const [selectedGroup, setSelectedGroup] = useState("");
+
+    const refetchAll = () => {
+        refreshStudentList();
+        refreshGroupList();
+    };
 
     return (
         <div className="students">
@@ -64,7 +71,10 @@ export default function StudentsView() {
             </div>
 
             {studentAdditionPanelActive ? (
-                <StudentAdd close={setStudentAdditionPanelActive} />
+                <StudentAdd
+                    close={setStudentAdditionPanelActive}
+                    refetch={refetchAll}
+                />
             ) : (
                 ""
             )}
@@ -79,7 +89,10 @@ export default function StudentsView() {
             )}
 
             {groupAdditionPanelActive ? (
-                <GroupAdd close={setGroupAdditionPanelActive} />
+                <GroupAdd
+                    close={setGroupAdditionPanelActive}
+                    refetch={refetchAll}
+                />
             ) : (
                 ""
             )}

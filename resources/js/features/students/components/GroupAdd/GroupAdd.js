@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
 import CloseIcon from "@mui/icons-material/Close";
 import "./groupadd.scss";
@@ -6,10 +6,14 @@ import { IconButton } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import useCreateGroup from "../../hooks/useCreateGroup";
 
-export default function GroupAdd({ close }) {
+export default function GroupAdd({ close, refetch }) {
     const [newGroupName, setNewGroupName] = useState();
 
-    const [error, loading, createGroup] = useCreateGroup(newGroupName);
+    const [data, error, createGroup] = useCreateGroup(newGroupName);
+
+    useEffect(() => {
+        refetch();
+    }, [data]);
 
     if (error) {
         console.log(error);
@@ -31,9 +35,7 @@ export default function GroupAdd({ close }) {
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    console.log(newGroupName);
                                     createGroup();
-                                    console.log("?");
                                 }}
                             >
                                 <div className="form-group">

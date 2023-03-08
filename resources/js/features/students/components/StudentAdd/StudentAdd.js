@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
 import CloseIcon from "@mui/icons-material/Close";
 import "./studentadd.scss";
@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import useCreateStudent from "../../hooks/useCreateStudent";
 
-export default function StudentAdd({ close }) {
+export default function StudentAdd({ close, refetch }) {
     const [newStudentUsername, setNewStudentUsername] = useState();
     const [newStudentPassword, setNewStudentPassword] = useState();
 
@@ -14,6 +14,10 @@ export default function StudentAdd({ close }) {
         newStudentUsername,
         newStudentPassword
     );
+
+    useEffect(() => {
+        refetch();
+    }, [data]);
 
     if (error) {
         console.log(error);
@@ -36,7 +40,7 @@ export default function StudentAdd({ close }) {
                                 onSubmit={(e) => {
                                     e.preventDefault();
                                     createStudent();
-                                    console.log("?");
+                                    refetch();
                                 }}
                             >
                                 <div className="form-group">

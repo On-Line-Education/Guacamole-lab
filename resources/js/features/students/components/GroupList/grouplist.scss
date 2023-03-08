@@ -31,7 +31,10 @@
 //table override styles
 
 .group-list {
+    .id {
+        width: 20%;
+    }
     .group {
-        min-width: 150px !important;
+        width: 80%;
     }
 }
