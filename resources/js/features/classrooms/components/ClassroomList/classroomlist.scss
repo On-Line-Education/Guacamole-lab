@@ -1,19 +1,20 @@
 .classroom-list-container {
+    grid-column: 1;
+    grid-row: 1;
     display: flex;
     flex-direction: column;
-    grid-column: 1 / 2;
-    grid-row: 1;
+    justify-content: center;
 
     .classroom-list-title {
         padding: 0.5em 1em;
     }
 
     .classroom-list-panel {
+        width: 80%;
         background-color: #ffffff;
         padding: 1em 2em;
         border-radius: 30px;
-        width: 250px;
-        min-height: 430px;
+        min-height: 80%;
 
         th.id,
         td.id {
