@@ -13,12 +13,12 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "@mui/material/styles";
 import muiTheme from "./mui";
 import Login from "./features/pages/Login";
-import Dashboard from "./features/pages/Dashboard";
 import ErrorBoundry from "./features/alert/components/ErrorBoundry";
 import Students from "./features/pages/Students";
 import Page404 from "./features/auth/components/Page404/Page404";
 import Classrooms from "./features/pages/Classrooms";
 import Lessons from "./features/pages/Lessons";
+import Connect from "./features/pages/Connect";
 
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
@@ -36,7 +36,7 @@ if (document.getElementById("app")) {
                             <Route exact path="/login" element={<Login />} />
                             <Route
                                 exact
-                                path="/home"
+                                path="/connect"
                                 element={
                                     <RouteGuard
                                         accessList={[
@@ -45,7 +45,7 @@ if (document.getElementById("app")) {
                                             "admin",
                                         ]}
                                     >
-                                        <Dashboard />
+                                        <Connect />
                                     </RouteGuard>
                                 }
                             />

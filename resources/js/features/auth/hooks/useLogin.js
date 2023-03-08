@@ -27,7 +27,12 @@ export default function useLogin(username, password) {
                 try {
                     setToken(data.token);
                     dispatch(loginAction(data));
-                    navigate("/home");
+                    if (data.user.role === "student") navigate("/home");
+                    if (
+                        data.user.role === "teacher" ||
+                        data.user.role === "admin"
+                    )
+                        navigate("/lessons");
                 } catch (e) {
                     console.log(e);
                 }
