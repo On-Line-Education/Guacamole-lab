@@ -7,25 +7,32 @@
     border-collapse: separate;
     border-spacing: 0 5px;
     table-layout: fixed;
+    width: 100%;
 
     thead {
         font-family: $font-family-content-bold;
         tr {
-            display: block;
+            display: flex;
+            width: 100%;
             th {
-                position: relative;
-                border-bottom: 2px solid $body-color-dark;
-                height: 40px;
-                padding: 2px 5px;
-                text-align: left;
+                display: flex;
+                justify-content: space-between;
+                align-self: center;
                 position: sticky;
-                top: 0px;
+                min-height: 2.5em;
+                padding: 0.2em 0.5em;
+                border-bottom: 2px solid $body-color-dark;
 
                 .col-flex {
+                    width: 100%;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                 }
+            }
+
+            th:first-child {
+                padding-left: 0.2em;
             }
 
             //pseudo-class responsible for creating spaced borders in hader
@@ -34,7 +41,7 @@
                 position: absolute;
                 top: 10%;
                 bottom: 10%;
-                right: -2px;
+                right: -1px;
                 border-left: 2px solid $body-color-dark;
             }
 
@@ -53,6 +60,9 @@
         margin-right: 10px;
 
         tr {
+            display: flex;
+            width: 100%;
+            border-radius: 10px;
             td {
                 font-family: $font-family-content;
                 height: 20px;
@@ -75,44 +85,36 @@
             background-color: $body-color-accent;
         }
     }
-
-    // global widths for collumns
-
-    .id {
-        min-width: 2em;
-    }
-
-    .username {
-        min-width: 200px;
-    }
-
-    .group {
-        min-width: 250px;
-    }
 }
 
 //custom input field
 
-.guac-table-input {
-    height: 1.5em;
-    width: 100px;
-    border: none;
-    border-bottom: 1px solid $body-color-dark;
-    background-color: transparent;
-}
+.table-search {
+    display: flex;
+    justify-content: center;
+    width: 50%;
 
-.guac-table-input:hover {
-    border-bottom: 2px solid $body-color-dark;
-}
+    .guac-table-input {
+        width: 100%;
+        height: 1.5em;
+        border: none;
+        border-bottom: 1px solid $body-color-dark;
+        background-color: transparent;
+    }
 
-.guac-table-input:active,
-.guac-table-input:focus {
-    border: none;
-    box-shadow: none;
-    outline: none;
-    border-bottom: 2px solid $body-color-dark;
-    font-size: $font-size-4;
-    font-family: $font-family-content;
+    .guac-table-input:hover {
+        border-bottom: 2px solid $body-color-dark;
+    }
+
+    .guac-table-input:active,
+    .guac-table-input:focus {
+        border: none;
+        box-shadow: none;
+        outline: none;
+        border-bottom: 2px solid $body-color-dark;
+        font-size: $font-size-4;
+        font-family: $font-family-content;
+    }
 }
 
 //custom scrollbar

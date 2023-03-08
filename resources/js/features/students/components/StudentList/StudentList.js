@@ -23,7 +23,7 @@ export default function StudentList({
         },
         {
             Header: "Grupy",
-            accessor: "password",
+            accessor: "group",
             disableSortBy: true,
             Filter: true,
         },

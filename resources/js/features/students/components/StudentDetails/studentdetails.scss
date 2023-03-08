@@ -22,6 +22,7 @@
 .student-details-panel {
     z-index: 3;
     opacity: 1;
+    width: 50%;
     background-color: $body-color-light;
     border-radius: 30px;
     padding: 1em 3em;
@@ -106,11 +107,14 @@
 //Table override styles
 
 .computer-access-list {
+    .id {
+        width: 10%;
+    }
     .computerName {
-        min-width: 275px;
+        min-width: 40%;
     }
     .ip {
-        min-width: 175px;
+        min-width: 40%;
     }
 
     // the following entry is required because of a weird bug

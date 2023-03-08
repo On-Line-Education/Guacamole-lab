@@ -9,10 +9,9 @@
     padding: 70px;
     flex: 6;
     display: grid;
+    grid-template-columns: 40% 30% auto;
+    grid-template-rows: 50% 50%;
     background-color: $body-color-light;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0 100px;
-    grid-auto-rows: minmax(100px, auto);
 
     .title {
         font-family: $font-family-title-bold;

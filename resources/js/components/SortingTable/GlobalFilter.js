@@ -3,7 +3,7 @@ import React from "react";
 
 export default function GlobalFilter({ filter, setFilter }) {
     return (
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div className="table-search">
             <SearchIcon fontSize="small" />
             <input
                 className="guac-table-input"

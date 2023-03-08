@@ -1,8 +1,9 @@
 .group-list-container {
+    grid-column: 2;
+    grid-row: 1;
     display: flex;
     flex-direction: column;
-    grid-column: 2 / 3;
-    grid-row: 1;
+    justify-content: center;
 
     .group-list-title {
         padding: 0.5em 1em;
@@ -12,7 +13,7 @@
         background-color: #ffffff;
         padding: 1em 2em;
         border-radius: 30px;
-        width: 250px;
+        width: 50%;
     }
 
     .group-list-actions {

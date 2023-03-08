@@ -47,30 +47,6 @@
     }
 }
 
-//custom input field
-
-.guac-table-input {
-    height: 1.5em;
-    width: 100px;
-    border: none;
-    border-bottom: 1px solid $body-color-dark;
-    background-color: transparent;
-}
-
-.guac-table-input:hover {
-    border-bottom: 2px solid $body-color-dark;
-}
-
-.guac-table-input:active,
-.guac-table-input:focus {
-    border: none;
-    box-shadow: none;
-    outline: none;
-    border-bottom: 2px solid $body-color-dark;
-    font-size: $font-size-4;
-    font-family: $font-family-content;
-}
-
 //custom scrollbar
 
 ::-webkit-scrollbar {
