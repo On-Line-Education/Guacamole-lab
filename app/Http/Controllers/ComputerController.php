@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\ActionService\Computer\AssignComputerActionService;
 use App\ActionService\Computer\CreateComputerActionService;
 use App\ActionService\Computer\DeleteComputerActionService;
+use App\ActionService\Computer\ImportComputerActionService;
 use App\ActionService\Computer\ReadComputerActionService;
 use App\ActionService\Computer\UpdateComputerActionService;
 use App\Http\Requests\ComputerCreateRequest;
+use App\Http\Requests\ComputerImportRequest;
 use App\Http\Requests\ComputerUpdateRequest;
 use App\Models\ClassRoom;
 use App\Models\Computer;
@@ -21,7 +23,8 @@ class ComputerController extends Controller
         private readonly ReadComputerActionService $readComputerActionService,
         private readonly UpdateComputerActionService $updateComputerActionService,
         private readonly DeleteComputerActionService $deleteComputerActionService,
-        private readonly AssignComputerActionService $assignComputerActionService
+        private readonly AssignComputerActionService $assignComputerActionService,
+        private readonly ImportComputerActionService $importComputerActionService
     )
     {}
 
@@ -77,9 +80,8 @@ class ComputerController extends Controller
     }
 
     // import computers from csv
-    public function import(): JsonResponse
+    public function import(ComputerImportRequest $computerImportRequest): JsonResponse
     {
-
-        return response()->json("todo");
+        return ($this->importComputerActionService)($computerImportRequest->file('import_csv')->get());
     }
 }

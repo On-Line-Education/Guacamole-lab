@@ -235,7 +235,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "test02_s",
+									"value": "test02_st",
 									"type": "default"
 								},
 								{
@@ -359,14 +359,54 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user/3",
+							"raw": "{{URL}}/api/user/5",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"user",
-								"3"
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "import_csv",
+									"type": "file",
+									"src": "/Users/karolkrzykowski/Desktop/Guacamole test/Guacamole-lab/documentation/example_user_import.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/user/import",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"import"
 							]
 						}
 					},
@@ -1279,6 +1319,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Import",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "import_csv",
+									"type": "file",
+									"src": "/Users/karolkrzykowski/Desktop/Guacamole test/Guacamole-lab/documentation/example_computer_import.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/classroom/computers/import",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"classroom",
+								"computers",
+								"import"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -1288,7 +1369,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "2|XHt8JjHcARgdh3iCTZfLUwqRo8BNBSoKN2cnVEtd",
+				"value": "7|tPOmWG3UhJijNbPuo43TxRWAtOULzRSIzuRw7RWM",
 				"type": "string"
 			}
 		]
