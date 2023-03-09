@@ -139,7 +139,6 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 | --------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------- | ---------------- |
 | /api/classroom/computers                            | GET    | Umozliwia pobranie wszystkich komputerów z systemu                                                              | TAK              |
 | /api/classroom/computers/import                     | POST   | Umozliwia zaimportowanie komputerów do systemu na podstawie przykładu documentation/example_computer_import.csv | TAK              |
-| /api/classroom/computers/all/{user}                 | GET    | Umozliwia pobranie wszystkich komputerów z systemu przypisanych dla uzytkownika o id {user}                     | TAK              |
 | /api/classroom/computers/{computer}/assign/{user}   | GET    | Umozliwia przypisanie komputera o id {computer} do uzytkownika o id {user}                                      | TAK              |
 | /api/classroom/computers/{computer}/unassign/{user} | GET    | Umozliwia usunięcie przypisania komputera o id {computer} do uzytkownika o id {user}                            | TAK              |
 | /api/classroom/{classroom}/computer/all             | GET    | Umozliwia pobranie wszystkich komputerów z systemu znajdujacych się w klasie {classroom}                        | TAK              |

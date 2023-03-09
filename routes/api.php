@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ComputerController;
+use App\Http\Controllers\LectureController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
@@ -80,11 +81,6 @@ Route::controller(ComputerController::class)->group(function () {
             SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
         ]);
     Route::post('/classroom/computers/import', 'import')
-        ->middleware([
-            SystemAuth::AUTH,
-            SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-        ]);
-    Route::get('/classroom/computers/all/{user}', 'allUsersComputers')
         ->middleware([
             SystemAuth::AUTH,
             SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
@@ -175,28 +171,6 @@ Route::controller(ClassroomController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/{classroom}/start', 'start')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::post('/{classroom}/end', 'end')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-
-        Route::prefix('/{classroom}/time')->group(function () {
-            Route::get('/', 'getRemainingTime')
-                ->middleware([
-                    SystemAuth::AUTH
-                ]);
-        Route::patch('/update', 'updateTime')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        });
     });
 });
 
@@ -236,5 +210,64 @@ Route::controller(StudentClassController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
+    });
+});
+
+Route::controller(LectureController::class)->group(function () {
+    Route::prefix('/lecture')->group(function () {
+        Route::post('/start', 'start') // instructor start lecture
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::post('/end', 'end') // instructor end lecture
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::post('/join', 'start') // student join lectore
+            ->middleware([
+                SystemAuth::AUTH
+            ]);
+
+        Route::prefix('/reserve')->group(function () {
+            Route::post('/', 'start') // instructor reserve lecture
+                ->middleware([
+                    SystemAuth::AUTH,
+                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+                ]);
+            Route::patch('/', 'start') // instructor edit reservation
+                ->middleware([
+                    SystemAuth::AUTH,
+                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+                ]);
+            Route::delete('/', 'start') // instructor delete reservation
+                ->middleware([
+                    SystemAuth::AUTH,
+                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+                ]);
+            Route::get('/{user}', 'start') // instructor get reservations
+                ->middleware([
+                    SystemAuth::AUTH,
+                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+                ]);
+            Route::get('/', 'start') // instructor get all reservations
+                ->middleware([
+                    SystemAuth::AUTH,
+                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+                ]);
+        });
+
+        Route::prefix('/time')->group(function () {
+            Route::get('/', 'getRemainingTime') // get lecture remaining time
+                ->middleware([
+                    SystemAuth::AUTH
+                ]);
+        Route::patch('/update', 'updateTime')  // instructor update lecture time
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        });
     });
 });

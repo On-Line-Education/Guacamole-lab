@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('computers', function (Blueprint $table) {
+        Schema::create('lectures', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('instructor_id')->references('id')->on('users');
             $table->foreignId('class_room_id')->references('id')->on('class_rooms');
-            $table->foreignId('user_id')->nullable()->default(null)->references('id')->on('users');
-            $table->string('name');
-            $table->string('ip');
-            $table->string('mac');
-            $table->string('login');
-            $table->boolean('instructor')->default('false');
+            $table->foreignId('class_id')->references('id')->on('student_classes');
+            $table->timestamp('start')->default('now');
+            $table->timestamp('end');
+            $table->boolean('started')->default(false);
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('computers');
+        Schema::dropIfExists('lectures');
     }
 };
