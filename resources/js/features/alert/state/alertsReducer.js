@@ -4,7 +4,7 @@ const initialState = {
 
 export function AlertsReducer(state = initialState, action) {
     switch (action.type) {
-        case "LOGIN_FAILED_ACTION":
+        case "FAILED_ACTION":
             return {
                 ...state,
                 errors: [...state.errors, action.payload],
@@ -16,6 +16,11 @@ export function AlertsReducer(state = initialState, action) {
                         (error) => error.code != action.payload
                     ),
                 ],
+            };
+        case "CONNECTION_ERROR":
+            return {
+                ...state,
+                errors: [...state.errors, action.payload],
             };
     }
     return state;

@@ -1,6 +1,18 @@
-export function loginFailedAction(error) {
+export function connectionError() {
     return {
-        type: "LOGIN_FAILED_ACTION",
+        type: "CONNECTION_ERROR",
+        payload: {
+            type: "connection",
+            code: "CONNECTION_ERROR",
+            title: "Błąd połączenia",
+            message: "Spróbuj ponownie później",
+        },
+    };
+}
+
+export function failedAction(error) {
+    return {
+        type: "FAILED_ACTION",
         payload: error,
     };
 }
