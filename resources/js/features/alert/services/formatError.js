@@ -1,5 +1,12 @@
 export function formatError(errorResponse) {
     switch (errorResponse) {
+        case "Invalid Guacamole URL":
+            return {
+                type: "connection",
+                code: "CONNECTION_ERROR",
+                title: "Błąd połączenia",
+                message: "Spróbuj ponownie później",
+            };
         case "The password field is required.":
             return {
                 type: "login",

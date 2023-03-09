@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import useGet from "../../../hooks/useGet";
 
 export default function useGetClassroomComputers(classroomId) {
@@ -6,17 +5,6 @@ export default function useGetClassroomComputers(classroomId) {
         `/classroom/${classroomId}/computer/all`,
         false
     );
-    const didMount = useRef(false);
-
-    useEffect(() => {
-        if (didMount.current) {
-            if (!loading && error.length < 1) {
-                try {
-                    console.log(data);
-                } catch (e) {}
-            }
-        } else didMount.current = true;
-    }, [getClassroomComputers, loading, data, error]);
 
     const getClassroomComputers = async () => {
         refresh();

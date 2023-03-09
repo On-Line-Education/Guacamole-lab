@@ -29,24 +29,3 @@ export function deleteError(code) {
         payload: code,
     };
 }
-
-export function userCreationFailedAction(error) {
-    return {
-        type: "USER_CREATION_FAILED",
-        payload: error,
-    };
-}
-
-export function groupCreationFailedAction(error) {
-    return {
-        type: "GROUP_CREATION_FAILED",
-        payload: error,
-    };
-}
-
-export function classroomCreationFailedAction(error) {
-    return {
-        type: "GROUP_CREATION_FAILED",
-        payload: error,
-    };
-}

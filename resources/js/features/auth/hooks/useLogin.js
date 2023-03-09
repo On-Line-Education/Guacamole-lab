@@ -17,12 +17,8 @@ export default function useLogin(username, password) {
 
     useEffect(() => {
         if (didMount.current && !loading) {
-            if (error.length > 0) {
-                console.log(error);
-                error.map((err) => {
-                    dispatch(failedAction(err));
-                });
-            } else {
+            console.log(error);
+            if (!error.length > 0) {
                 try {
                     setToken(data.token);
                     dispatch(loginAction(data));

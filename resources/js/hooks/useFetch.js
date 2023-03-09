@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatError } from "../features/alert/services/formatError";
 import {
     connectionError,
+    failedAction,
     loginFailedAction,
 } from "../features/alert/state/alertActions";
 
@@ -41,22 +42,21 @@ const useFetch = ({ endpoint, method, body, start }) => {
             const data = await response.json();
 
             if (!response.ok) {
-                if (response.status == 500) {
-                    console.log("500");
-                    dispatch(connectionError());
-                    setError("conn_error");
-                }
+                console.log(data);
 
                 // Api returns an array of errors. This piece of code formats every returned error message and sends it to state variable
                 if (data.errors) {
                     console.log(data);
                     Object.values(data.errors).forEach((error) => {
+                        dispatch(failedAction(formatError(error[0])));
                         setError((prevErrors) => [
                             ...prevErrors,
                             formatError(error[0]),
                         ]);
                     });
                 } else {
+                    console.log(data.message);
+                    dispatch(failedAction(formatError(data.message)));
                     setError(formatError(data.message));
                 }
             } else {
