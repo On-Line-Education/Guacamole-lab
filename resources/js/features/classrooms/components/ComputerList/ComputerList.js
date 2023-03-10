@@ -3,6 +3,7 @@ import { GuacamoleButton } from "../../../../mui";
 import GuacamoleSoringTable from "../../../../components/SortingTable/SortingTable";
 import "./computerlist.scss";
 import BasicTable from "../../../../components/BasicTable/BasicTable";
+import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 
 export default function ComputerList({
     openComputerAdd,
@@ -40,16 +41,18 @@ export default function ComputerList({
             <div className="computer-list-panel">
                 {selectedClassroom ? (
                     <>
-                        {loading ? (
-                            "Loading"
-                        ) : (
-                            <BasicTable
-                                selectRow={setSelectedComputer}
-                                selectedRow={selectedComputer}
-                                tableData={computerList.computers}
-                                tableColumns={tableColumns}
-                            />
-                        )}
+                        <div className="computer-list">
+                            {loading ? (
+                                <LoadingSpinner />
+                            ) : (
+                                <BasicTable
+                                    selectRow={setSelectedComputer}
+                                    selectedRow={selectedComputer}
+                                    tableData={computerList.computers}
+                                    tableColumns={tableColumns}
+                                />
+                            )}
+                        </div>
                         <div className="list-actions computer-list-actions">
                             <GuacamoleButton
                                 sx={{ width: "40%" }}

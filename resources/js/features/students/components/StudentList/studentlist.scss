@@ -17,6 +17,14 @@
         padding: 0.5em 2em;
         border-radius: 30px;
         width: 90%;
+        min-height: 80%;
+
+        .student-list {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
 
         .id {
             width: 10%;

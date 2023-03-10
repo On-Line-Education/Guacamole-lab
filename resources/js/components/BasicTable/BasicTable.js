@@ -30,44 +30,37 @@ export default function BasicTable({
         useRowSelect
     );
 
-    if (tableData.length < 1)
-        return (
-            <div className="table-container">
-                Brak elementów do wyświetlenia
-            </div>
-        );
+    if (tableData.length < 1) return "Brak elementów do wyświetlenia";
 
     return (
-        <div className="table-container">
-            <table {...getTableProps()} className="basic-table">
-                <tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
-                        prepareRow(row);
-                        return (
-                            <tr
-                                {...row.getRowProps()}
-                                className={`table-row ${
-                                    row.original === selectedRow ? "active" : ""
-                                }`}
-                                onClick={() => {
-                                    selectRow(row.original);
-                                }}
-                            >
-                                {row.cells.map((cell) => {
-                                    return (
-                                        <td
-                                            className={`table-cell ${cell.column.id}`}
-                                            {...cell.getCellProps()}
-                                        >
-                                            {cell.render("Cell")}
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
+        <table {...getTableProps()} className="basic-table">
+            <tbody {...getTableBodyProps()}>
+                {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                        <tr
+                            {...row.getRowProps()}
+                            className={`table-row ${
+                                row.original === selectedRow ? "active" : ""
+                            }`}
+                            onClick={() => {
+                                selectRow(row.original);
+                            }}
+                        >
+                            {row.cells.map((cell) => {
+                                return (
+                                    <td
+                                        className={`table-cell ${cell.column.id}`}
+                                        {...cell.getCellProps()}
+                                    >
+                                        {cell.render("Cell")}
+                                    </td>
+                                );
+                            })}
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
     );
 }

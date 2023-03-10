@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { GuacamoleButton } from "../../../../mui";
 import GuacamoleSoringTable from "../../../../components/SortingTable/SortingTable";
 import "./studentlist.scss";
+import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 
 export default function StudentList({
     openStudentAdd,
@@ -33,16 +34,18 @@ export default function StudentList({
         <div className="student-list-container">
             <div className="title student-list-title">Lista uczniów</div>
             <div className="student-list-panel">
-                {loading ? (
-                    "Loading"
-                ) : (
-                    <GuacamoleSoringTable
-                        selectRow={setSelectedStudent}
-                        selectedRow={selectedStudent}
-                        tableData={studentList}
-                        tableColumns={tableColumns}
-                    />
-                )}
+                <div className="student-list">
+                    {loading ? (
+                        <LoadingSpinner />
+                    ) : (
+                        <GuacamoleSoringTable
+                            selectRow={setSelectedStudent}
+                            selectedRow={selectedStudent}
+                            tableData={studentList}
+                            tableColumns={tableColumns}
+                        />
+                    )}
+                </div>
                 <div className="list-actions student-list-actions">
                     <GuacamoleButton
                         sx={{ width: "40%" }}

@@ -3,6 +3,7 @@ import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import "./classroomlist.scss";
 import BasicTable from "../../../../components/BasicTable/BasicTable";
 import useDeleteClassroom from "../../hooks/useDeleteClassroom";
+import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 
 export default function ClassroomList({
     openClassroomAdd,
@@ -25,19 +26,21 @@ export default function ClassroomList({
         },
     ];
 
-    if (loading) return "Loading...";
-
     return (
         <div className="classroom-list-container">
             <div className="title classroom-list-title">Lista sal</div>
             <div className="classroom-list-panel">
                 <div className="classroom-list">
-                    <BasicTable
-                        selectRow={setSelectedClassroom}
-                        selectedRow={selectedClassroom}
-                        tableColumns={tableColumns}
-                        tableData={classroomList.classrooms}
-                    />
+                    {loading ? (
+                        <LoadingSpinner />
+                    ) : (
+                        <BasicTable
+                            selectRow={setSelectedClassroom}
+                            selectedRow={selectedClassroom}
+                            tableColumns={tableColumns}
+                            tableData={classroomList.classrooms}
+                        />
+                    )}
                 </div>
                 <div className="classroom-list-actions">
                     <GuacamoleButton

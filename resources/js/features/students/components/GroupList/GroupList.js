@@ -3,6 +3,7 @@ import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import "./grouplist.scss";
 import BasicTable from "../../../../components/BasicTable/BasicTable";
 import useDeleteGroup from "../../hooks/useDeleteGroup";
+import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 
 export default function GroupList({
     openGroupAdd,
@@ -26,19 +27,21 @@ export default function GroupList({
         },
     ];
 
-    if (loading) return "Loading...";
-
     return (
         <div className="group-list-container">
             <div className="title group-list-title">Lista grup</div>
             <div className="group-list-panel">
                 <div className="group-list">
-                    <BasicTable
-                        selectRow={setSelectedGroup}
-                        selectedRow={selectedGroup}
-                        tableColumns={tableColumns}
-                        tableData={groupList.class}
-                    />
+                    {loading ? (
+                        <LoadingSpinner />
+                    ) : (
+                        <BasicTable
+                            selectRow={setSelectedGroup}
+                            selectedRow={selectedGroup}
+                            tableColumns={tableColumns}
+                            tableData={groupList.class}
+                        />
+                    )}
                 </div>
                 <div className="group-list-actions">
                     <GuacamoleButton
