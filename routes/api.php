@@ -51,16 +51,21 @@ Route::controller(UserController::class)->group(function () {
             ->middleware([
                 SystemAuth::AUTH
             ]);
-        Route::patch('/{user}/password', 'newPassword')
-            ->middleware([
-                SystemAuth::AUTH
-            ]);
         Route::delete('/{user}', 'delete')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
+        Route::patch('/{user}/password', 'newPassword')
+            ->middleware([
+                SystemAuth::AUTH
+            ]);
         Route::get('/search/{search}', 'search')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::post('/import', 'import')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
@@ -70,6 +75,11 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(ComputerController::class)->group(function () {
     Route::get('/classroom/computers', 'allComputers')
+        ->middleware([
+            SystemAuth::AUTH,
+            SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+        ]);
+    Route::post('/classroom/computers/import', 'import')
         ->middleware([
             SystemAuth::AUTH,
             SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
@@ -96,11 +106,6 @@ Route::controller(ComputerController::class)->group(function () {
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::get('/all', 'list')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::post('/import', 'import')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
@@ -166,11 +171,6 @@ Route::controller(ClassroomController::class)->group(function () {
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::delete('/{classRoom}', 'delete')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::post('/{classroom}/import', 'import')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)

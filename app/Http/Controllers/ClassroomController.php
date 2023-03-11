@@ -83,13 +83,6 @@ class ClassroomController extends Controller
         return ($this->instructorClassroomAssignActionService)(false, $userAssignRequest->all());
     }
 
-    // import students from csv
-    public function import(): JsonResponse
-    {
-        // TODO: Import AS
-        return response()->json("todo");
-    }
-
     // start class and set remaining time
     public function start(): JsonResponse
     {
