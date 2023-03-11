@@ -9,6 +9,7 @@ use App\Action\Lecture\LectureWithUserAction;
 use App\ActionService\AbstractActionService;
 use App\Models\Lecture;
 use App\Models\User;
+use App\Service\GuacamoleUserLoginService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -25,6 +26,7 @@ class ReadLectureActionService extends AbstractActionService
 
     public function __invoke(?Lecture $lecture = null, ?User $user = null)
     {
+        (new GuacamoleUserLoginService())();
         if (
             $lecture !== null
             && (!Auth::user()->isStudent()

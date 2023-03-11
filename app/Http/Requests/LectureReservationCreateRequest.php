@@ -25,6 +25,7 @@ class LectureReservationCreateRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required|string',
             'instructor_id' => 'required|exists:users,id',
             'class_room_id' => 'required|exists:class_rooms,id',
             'class_id' => 'required|exists:student_classes,id',

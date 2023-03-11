@@ -3,7 +3,7 @@
 namespace App\Guacamole\Endpoints\User;
 
 use App\Guacamole\Api\User\GetUserApi;
-use App\Guacamole\Helpers\ApiResponseWrapper;
+use App\Guacamole\Endpoints\ApiResponseWrapper;
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Guacamole\Objects\User\GuacamoleUserData;
 use GuzzleHttp\Exception\GuzzleException;

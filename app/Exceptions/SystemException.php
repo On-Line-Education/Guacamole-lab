@@ -8,11 +8,18 @@ use Illuminate\Http\Response;
 
 abstract class SystemException extends Exception
 {
+    protected mixed $additionalData = null;
     public function render(Request $request): Response
     {
-        return response([
+        $response = [
             'success' => false,
             'message' => $this->getMessage()
-        ], $this->getCode());
+        ];
+
+        if ($this->additionalData !== null) {
+            $response['data'] = $this->additionalData;
+        }
+
+        return response($response, $this->getCode());
     }
 }

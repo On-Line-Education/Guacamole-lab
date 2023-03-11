@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf5bd0d1306a4384e1d16b0437ffbff3",
+    "content-hash": "70973340e11da3793396c29262ca0328",
     "packages": [
         {
             "name": "brick/math",
@@ -2908,53 +2908,6 @@
                 }
             ],
             "time": "2023-01-12T18:13:24+00:00"
-        },
-        {
-            "name": "ridvanaltun/guacamole",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ridvanaltun/guacamole-php-sdk.git",
-                "reference": "356b5fe331243d7b707f7cfb201c49a0cc1b4311"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ridvanaltun/guacamole-php-sdk/zipball/356b5fe331243d7b707f7cfb201c49a0cc1b4311",
-                "reference": "356b5fe331243d7b707f7cfb201c49a0cc1b4311",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.0.1"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ridvanaltun\\Guacamole\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rıdvan Altun",
-                    "email": "ridvanaltun@outlook.com"
-                }
-            ],
-            "description": "Manage Guacamole with an easy SDK.",
-            "keywords": [
-                "guacamole",
-                "sdk"
-            ],
-            "support": {
-                "issues": "https://github.com/ridvanaltun/guacamole-php-sdk/issues",
-                "source": "https://github.com/ridvanaltun/guacamole-php-sdk/tree/v1.0.1"
-            },
-            "time": "2021-11-01T18:46:35+00:00"
         },
         {
             "name": "symfony/console",
@@ -7876,7 +7829,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0.2"
+        "php": "^8.1"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

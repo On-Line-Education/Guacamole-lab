@@ -9,6 +9,7 @@ use App\ActionService\AbstractActionService;
 use App\Models\ClassRoom;
 use App\Models\Computer;
 use App\Models\User;
+use App\Service\GuacamoleUserLoginService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -25,6 +26,7 @@ class ReadComputerActionService extends AbstractActionService
 
     public function __invoke(?ClassRoom $classRoom = null, ?Computer $computer = null, ?User $user = null)
     {
+        (new GuacamoleUserLoginService())();
         if ($user !== null) {
             $computers = ($this->computerGetAllUsersAction)($user);
         }

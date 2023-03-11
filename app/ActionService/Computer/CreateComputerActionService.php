@@ -5,6 +5,7 @@ namespace App\ActionService\Computer;
 use App\Action\Computer\ComputerCreateAction;
 use App\ActionService\AbstractActionService;
 use App\Models\ClassRoom;
+use App\Service\GuacamoleUserLoginService;
 
 class CreateComputerActionService extends AbstractActionService
 {
@@ -16,6 +17,7 @@ class CreateComputerActionService extends AbstractActionService
 
     public function __invoke(ClassRoom $classRoom, array $computerCreateRequestData)
     {
+        (new GuacamoleUserLoginService())();
         $newComputer = ($this->computerCreateAction)(
             $computerCreateRequestData['name'],
             $computerCreateRequestData['ip'],

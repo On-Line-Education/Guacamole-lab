@@ -4,6 +4,7 @@ namespace App\ActionService\Lecture;
 
 use App\Action\Lecture\LectureReserveAction;
 use App\ActionService\AbstractActionService;
+use App\Service\GuacamoleUserLoginService;
 
 class ReserveLectureActionService extends AbstractActionService
 {
@@ -15,6 +16,7 @@ class ReserveLectureActionService extends AbstractActionService
 
     public function __invoke(array $lectureData)
     {
+        (new GuacamoleUserLoginService())();
         $lecture = ($this->lectureReserveAction)($lectureData);
         return ($this->responder)(['lecture' => $lecture]);
     }

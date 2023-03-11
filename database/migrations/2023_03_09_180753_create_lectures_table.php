@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('instructor_id')->references('id')->on('users');
             $table->foreignId('class_room_id')->references('id')->on('class_rooms');
             $table->foreignId('class_id')->references('id')->on('student_classes');
-            $table->timestamp('start')->default('now');
+            $table->timestamp('start')->useCurrent();
             $table->timestamp('end');
             $table->boolean('started')->default(false);
             $table->timestamps();

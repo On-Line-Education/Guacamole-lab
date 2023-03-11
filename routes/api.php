@@ -215,23 +215,28 @@ Route::controller(StudentClassController::class)->group(function () {
 
 Route::controller(LectureController::class)->group(function () {
     Route::prefix('/lecture')->group(function () {
-        Route::post('/start', 'start') // instructor start lecture
+        Route::get('{lecture}/start', 'start') // instructor start lecture
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/end/{lecture}', 'end') // instructor end lecture
+        Route::get('/end/{lecture}', 'end') // instructor end lecture
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/join/{lecture}', 'join') // student join lectore
+        Route::get('/join/{lecture}', 'join') // student join lectore
             ->middleware([
                 SystemAuth::AUTH
             ]);
 
         Route::prefix('/reserve')->group(function () {
             Route::post('/', 'reserve') // instructor reserve lecture
+                ->middleware([
+                    SystemAuth::AUTH,
+                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+                ]);
+            Route::get('/', 'getAllReservations') // instructor get all reservations
                 ->middleware([
                     SystemAuth::AUTH,
                     SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
@@ -246,20 +251,13 @@ Route::controller(LectureController::class)->group(function () {
                     SystemAuth::AUTH,
                     SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
                 ]);
-            Route::get('/{user}', 'getInstructorReservations') // instructor get reservations
+            Route::get('/{user}', 'getUserReservations') // get user reservations
                 ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+                    SystemAuth::AUTH
                 ]);
-            Route::get('/start/{user}', 'startReserved') // instructor start reserved
+            Route::get('/get/{lecture}', 'getReservation') // get reservation
                 ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-                ]);
-            Route::get('/', 'getAllReservations') // instructor get all reservations
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+                    SystemAuth::AUTH
                 ]);
         });
 

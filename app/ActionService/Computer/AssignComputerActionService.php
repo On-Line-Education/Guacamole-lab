@@ -7,6 +7,7 @@ use App\Action\Computer\ComputerUnassignAction;
 use App\ActionService\AbstractActionService;
 use App\Models\Computer;
 use App\Models\User;
+use App\Service\GuacamoleUserLoginService;
 
 class AssignComputerActionService extends AbstractActionService
 {
@@ -19,6 +20,7 @@ class AssignComputerActionService extends AbstractActionService
 
     public function __invoke(Computer $computer, User $user, bool $assign = true)
     {
+        (new GuacamoleUserLoginService())();
         if ($assign) {
             ($this->computerAssignAction)($computer, $user);
         } else {
