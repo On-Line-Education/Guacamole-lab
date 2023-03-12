@@ -25,6 +25,7 @@
     - [Sale](#sale)
     - [Grupy / Klasy](#grupy--klasy)
     - [Komputery](#komputery)
+    - [Zajęcia](#zajęcia)
   - [Instrukcja obsługi](#instrukcja-obsługi)
   - [Dodatkowe informacje](#dodatkowe-informacje)
 
@@ -146,6 +147,21 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 | /api/classroom/{classroom}/computer                 | POST   | Umozliwia utworzenie nowego komputera w systemie, przypisanego do klasy {classroom}                             | TAK              |
 | /api/classroom/{classroom}/computer/{computerId}    | PATCH  | Umozliwia aktualizacje danego komputera o id {computerId} przypisanego do klasy {classroom}                     | TAK              |
 | /api/classroom/{classroom}/computer/{computerId}    | DELETE | Umozliwia usunięcie komputera o id {computerId} przypisanego do klasy {classroom} z systemu                     | TAK              |
+
+### Zajęcia
+
+| Ścieżka                            | Metoda | Opis                                                                  | Wymaga logowania |
+| ---------------------------------- | ------ | --------------------------------------------------------------------- | ---------------- |
+| /api/lecture/reserve               | GET    | Umozliwia pobranie wszystkich zajęć z systemu                         | TAK              |
+| /api/lecture/reserve/{user}        | GET    | Umozliwia pobranie wszystkich zajęć z systemu dotyczących uzytkownika | TAK              |
+| /api/lecture/reserve/get/{lecture} | GET    | Umozliwia pobranie zajęć z systemu o id {lecture}                     | TAK              |
+| /api/lecture/reserve               | POST   | Umozliwia zarezerwowanie zajęć w systemnie                            | TAK              |
+| /api/lecture/reserve/{lecture}     | DELETE | Umozliwia usunięcie rezerwacji zajęć                                  | TAK              |
+| /api/lecture/reserve/{lecture}     | PATCH  | Umozliwia aktualizację rezerwacji zajęć                               | TAK              |
+| /api/lecture/join/{lecture}        | GET    | Umozliwia dołączenie do zajęć                                         | TAK              |
+| /api/lecture/time/{lecture}        | GET    | Umozliwia pobranie pozostałego czasu zajęć                            | TAK              |
+| /api/lecture/time/{lecture}        | PATCH  | Umozliwia aktualizację pozostałego czasu zajęć                        | TAK              |
+
 
 ## Instrukcja obsługi
 

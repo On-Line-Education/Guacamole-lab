@@ -2,9 +2,13 @@
 
 namespace App\Action\Lecture;
 
+use App\Exceptions\InvalidStudentClassException;
+use App\Exceptions\LectureNotStartedException;
+use App\Exceptions\NoComputerLeftException;
 use App\Guacamole\Guacamole;
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Models\Computer;
+use App\Models\Connection;
 use App\Models\Lecture;
 use App\Models\StudentClasses;
 use App\Models\User;
@@ -16,38 +20,70 @@ class LectureJoinAction
     ) {
     }
 
-    public function __invoke(GuacamoleAuthLoginData $guacLogin, Lecture $lecture, User $user): void
+    public function __invoke(GuacamoleAuthLoginData $guacLogin, Lecture $lecture, User $user): string
     {
+        if (!$lecture->started) {
+            throw new LectureNotStartedException();
+        }
+
+        $connection = Connection::where('user_id', $user->id);
+        if ($connection->count() > 0) {
+            return Guacamole::generateSessionConnectionUrl(
+                $connection->first()->connection,
+                $guacLogin->dataSource
+            );
+        }
+
         $classRoom = $lecture->getClassRoom();
-        $class = $lecture->getClass();
+
+        if (StudentClasses::where([
+            ['student', '=', $user->id],
+            ['student_class', '=', $lecture->getClass()->id]
+        ])->count() === 0) {
+            throw new InvalidStudentClassException();
+        }
 
         $computer = null;
         $computers = [];
-        if ($user->isStudent()){
+        if ($user->isStudent()) {
             $computers = Computer::where([
                 ['class_room_id', '=', $classRoom->id],
                 ['instructor', '=', false],
                 ['user_id', '=', null]
-                ])->get();
+            ])->get();
         } else {
             $computers = Computer::where([
                 ['class_room_id', '=', $classRoom->id],
                 ['instructor', '=', true],
                 ['user_id', '=', null]
-                ])->get();
+            ])->get();
         }
         if (count($computers) === 0) {
-            // dupa
+            throw new NoComputerLeftException();
         }
 
-        $computer = array_shift($computers);
+        $computer = $computers->first();
         $computer->user_id = $user->id;
         $computer->save();
-        
+
         $username = $user->username;
         $group = $classRoom->name;
         $ip = $computer->ip;
-        $domain = env('DOMAIN');
-        $this->guacamole->getConnectionEndpoint()->create($guacLogin, $username, $group, $ip, $domain);
+        $domain = env('DOMAIN', '');
+        $guacConnection = $this->guacamole->getConnectionEndpoint()->create(
+            $guacLogin,
+            $username,
+            $group,
+            $ip,
+            $domain
+        );
+        $connection = new Connection();
+        $connection->user_id = $user->id;
+        $connection->connection = $guacConnection->identifier;
+        $connection->save();
+        return Guacamole::generateSessionConnectionUrl(
+            $guacConnection->identifier,
+            $guacLogin->dataSource
+        );
     }
 }

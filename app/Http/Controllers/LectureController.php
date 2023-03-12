@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\ActionService\Lecture\DeleteLectureActionService;
+use App\ActionService\Lecture\GetRemainingTimeLectureActionService;
+use App\ActionService\Lecture\JoinLectureActionService;
 use App\ActionService\Lecture\ReadLectureActionService;
 use App\ActionService\Lecture\ReserveLectureActionService;
+use App\ActionService\Lecture\UpdateRemainingTimeLectureActionService;
 use App\ActionService\Lecture\UpdateReserveLectureActionService;
 use App\Http\Requests\LectureReservationCreateRequest;
 use App\Http\Requests\LectureReservationUpdateRequest;
+use App\Http\Requests\LectureTimeUpdateRequest;
 use App\Models\Lecture;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -16,29 +20,20 @@ class LectureController extends Controller
 {
     
     public function __construct(
-        public readonly ReadLectureActionService $readLectureActionService,
-        public readonly ReserveLectureActionService $reserveLectureActionService,
-        public readonly DeleteLectureActionService $deleteLectureActionService,
-        public readonly UpdateReserveLectureActionService $updateReserveLectureActionService
+        private readonly ReadLectureActionService $readLectureActionService,
+        private readonly ReserveLectureActionService $reserveLectureActionService,
+        private readonly DeleteLectureActionService $deleteLectureActionService,
+        private readonly UpdateReserveLectureActionService $updateReserveLectureActionService,
+        private readonly UpdateRemainingTimeLectureActionService $updateRemainingTimeLectureActionService,
+        private readonly GetRemainingTimeLectureActionService $getRemainingTimeLectureActionService,
+        private readonly JoinLectureActionService $joinLectureActionService
     ) {
     }
 
-    // start class and set remaining time
-    public function start(): JsonResponse
-    {
-        return response()->json("todo");
-    }
-
-    // end class
-    public function end(): JsonResponse
-    {
-        return response()->json("todo");
-    }
-
     // student join lectore
-    public function join(): JsonResponse
+    public function join(Lecture $lecture): JsonResponse
     {
-        return response()->json("todo");
+        return ($this->joinLectureActionService)($lecture);
     }
 
     // instructor reserve lecture
@@ -74,27 +69,21 @@ class LectureController extends Controller
         return ($this->readLectureActionService)(user: $user);
     }
     
-    // instructor start reserved
-    public function startReserved(): JsonResponse
-    {
-        return response()->json("todo");
-    }
-    
-    // instructor get all reservations
-    public function getAllReservations(): JsonResponse
+    // instructor get all
+    public function getAll(): JsonResponse
     {
         return ($this->readLectureActionService)();
     }
 
     // get remaining time
-    public function getRemainingTime(): JsonResponse
+    public function getRemainingTime(Lecture $lecture): JsonResponse
     {
-        return response()->json("todo");
+        return ($this->getRemainingTimeLectureActionService)($lecture);
     }
 
     // update time
-    public function updateTime(): JsonResponse
+    public function updateTime(Lecture $lecture, LectureTimeUpdateRequest $lectureTimeUpdateRequest): JsonResponse
     {
-        return response()->json("todo");
+        return ($this->updateRemainingTimeLectureActionService)($lecture, $lectureTimeUpdateRequest->all());
     }
 }

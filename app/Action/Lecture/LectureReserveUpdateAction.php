@@ -4,6 +4,7 @@ namespace App\Action\Lecture;
 
 use App\Exceptions\ClassHasLectureException;
 use App\Exceptions\ClassRoomIsOccupiedException;
+use App\Exceptions\EndDateIsOlderThanStartDateException;
 use App\Exceptions\InstructorHasLecturesException;
 use App\Models\Lecture;
 use Illuminate\Support\Carbon;
@@ -20,6 +21,10 @@ class LectureReserveUpdateAction
         $classRoomId = $reserveData['class_room_id'] ?? $lecture->class_room_id;
         $instructorId = $lecture->instructor_id;
         $name = $reserveData['name'] ?? $lecture->name;
+
+        if (Carbon::createFromTimeString($start)->greaterThan(Carbon::createFromTimeString($end))) {
+            throw new EndDateIsOlderThanStartDateException();
+        }
 
         $lectures = Lecture::query()
             ->orWhere([

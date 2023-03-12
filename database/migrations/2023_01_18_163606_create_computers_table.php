@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('ip');
             $table->string('mac');
             $table->string('login');
-            $table->boolean('instructor')->default('false');
+            $table->boolean('instructor')->default(false);
             $table->timestamps();
         });
     }

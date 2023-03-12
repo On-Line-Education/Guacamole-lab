@@ -23,12 +23,19 @@ class Guacamole
             ? env("GUACAMOLE_URL")
             : env("GUACAMOLE_URL") . "/";
     }
+
+    public static function getAppUrl() : string
+    {
+        return str_ends_with(env("GUACAMOLE_APP_URL"), '/')
+            ? env("GUACAMOLE_APP_URL")
+            : env("GUACAMOLE_APP_URL") . "/";
+    }
     
     public static function generateSessionConnectionUrl(int $connectionId, string $provider) : string
     {
         $urlBuilder = "$connectionId\0c\0$provider";
 
-        return Guacamole::getUrl() . "guacamole/#/client/" . base64_encode($urlBuilder);
+        return Guacamole::getAppUrl() . "guacamole/#/client/" . base64_encode($urlBuilder);
     }
 
     /**

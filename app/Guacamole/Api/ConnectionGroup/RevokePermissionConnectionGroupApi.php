@@ -20,11 +20,11 @@ class RevokePermissionConnectionGroupApi extends AbstractApi
             'headers' => [
                 'Content-Type' => 'application/json;charset=utf-8'
             ],
-            'body' => json_encode([
+            'body' => json_encode([[
                 'op' => 'remove',
                 'path' => '/connectionGroupPermissions/' . $group,
                 'value' => 'READ'
-            ])
+            ]])
         ]);
     }
 }

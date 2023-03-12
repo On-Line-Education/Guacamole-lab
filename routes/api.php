@@ -215,28 +215,18 @@ Route::controller(StudentClassController::class)->group(function () {
 
 Route::controller(LectureController::class)->group(function () {
     Route::prefix('/lecture')->group(function () {
-        Route::get('{lecture}/start', 'start') // instructor start lecture
+        Route::get('/', 'getAll') // get all
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::get('/end/{lecture}', 'end') // instructor end lecture
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::get('/join/{lecture}', 'join') // student join lectore
+        Route::get('/join/{lecture}', 'join') // join lectore
             ->middleware([
                 SystemAuth::AUTH
             ]);
 
         Route::prefix('/reserve')->group(function () {
             Route::post('/', 'reserve') // instructor reserve lecture
-                ->middleware([
-                    SystemAuth::AUTH,
-                    SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-                ]);
-            Route::get('/', 'getAllReservations') // instructor get all reservations
                 ->middleware([
                     SystemAuth::AUTH,
                     SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
@@ -262,11 +252,11 @@ Route::controller(LectureController::class)->group(function () {
         });
 
         Route::prefix('/time')->group(function () {
-            Route::get('/', 'getRemainingTime') // get lecture remaining time
+            Route::get('/{lecture}', 'getRemainingTime') // get lecture remaining time
                 ->middleware([
                     SystemAuth::AUTH
                 ]);
-            Route::patch('/update', 'updateTime')  // instructor update lecture time
+            Route::patch('/{lecture}', 'updateTime')  // instructor update lecture time
                 ->middleware([
                     SystemAuth::AUTH,
                     SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)

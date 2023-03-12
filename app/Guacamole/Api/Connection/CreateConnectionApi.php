@@ -11,8 +11,14 @@ class CreateConnectionApi extends AbstractApi
     /**
      * @throws GuzzleException
      */
-    public function __invoke(string $token, string $sourceData, string $name, int $id, string $ip, string $domain): ResponseInterface
-    {
+    public function __invoke(
+        string $token,
+        string $sourceData,
+        string $name,
+        int $id,
+        string $ip,
+        string $domain
+    ): ResponseInterface {
         return $this->apiClient->post('api/session/data/' . $sourceData . '/connections', [
             'query' => [
                 'token' => $token

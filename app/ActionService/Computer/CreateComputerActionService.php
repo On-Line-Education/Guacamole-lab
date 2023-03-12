@@ -23,6 +23,7 @@ class CreateComputerActionService extends AbstractActionService
             $computerCreateRequestData['ip'],
             $computerCreateRequestData['mac'],
             $computerCreateRequestData['login'],
+            $computerCreateRequestData['instructor'],
             $classRoom->id
         );
         return ($this->responder)(['computer' => $newComputer]);

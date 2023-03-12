@@ -4,10 +4,12 @@ namespace App\Action\Lecture;
 
 use App\Guacamole\Guacamole;
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
+use App\Models\Computer;
+use App\Models\Connection;
 use App\Models\Lecture;
 use App\Models\StudentClasses;
 
-class LectureStartAction
+class LectureEndAction
 {
     public function __construct(
         private readonly Guacamole $guacamole
@@ -24,6 +26,12 @@ class LectureStartAction
             $username = $student->getStudent()->username;
             $group = $classRoom->name;
             $this->guacamole->getConnectionGroupEndpoint()->revokePermissions($guacLogin, $username, $group);
+            $computer = Computer::where('user_id', $student->id)->first();
+            if ($computer !== null) {
+                $computer->user_id = null;
+                $computer->save();
+            }
+            Connection::where('user_id', $student->getStudent()->id)->delete();
         }
 
         $this->guacamole->getConnectionGroupEndpoint()->revokePermissions(
@@ -31,6 +39,12 @@ class LectureStartAction
             $lecture->getInstructor()->username,
             $classRoom->name
         );
+        $computer = Computer::where('user_id', $lecture->getInstructor()->id)->first();
+        if ($computer !== null) {
+            $computer->user_id = null;
+            $computer->save();
+        }
+        Connection::where('user_id', $lecture->getInstructor()->id)->delete();
 
         $lecture->started = false;
         $lecture->save();

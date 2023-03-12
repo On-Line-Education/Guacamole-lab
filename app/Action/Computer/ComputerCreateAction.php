@@ -6,7 +6,7 @@ use App\Models\Computer;
 
 class ComputerCreateAction
 {
-    public function __invoke(string $name, string $ip, string $mac, string $login, int $id, bool $instructor): Computer
+    public function __invoke(string $name, string $ip, string $mac, string $login, bool $instructor, int $id): Computer
     {
         $computer = new Computer();
         $computer->name = $name;
