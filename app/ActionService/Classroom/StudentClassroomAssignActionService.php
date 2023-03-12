@@ -9,6 +9,7 @@ use App\Exceptions\ClassroomAlreadyAssignedException;
 use App\Exceptions\YouCantDoThatException;
 use App\Models\ClassRoom;
 use App\Models\User;
+use App\Service\GuacamoleUserLoginService;
 use Illuminate\Support\Facades\Auth;
 
 class StudentClassroomAssignActionService extends AbstractActionService
@@ -22,6 +23,7 @@ class StudentClassroomAssignActionService extends AbstractActionService
 
     public function __invoke(bool $assign, array $assignData)
     {
+        (new GuacamoleUserLoginService())();
         $currUser = Auth::user();
         if (!$currUser->isStudent() && User::find($assignData['userId'])->id === $currUser->id) {
             throw new YouCantDoThatException();

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users_computers', function (Blueprint $table) {
+        Schema::create('connections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('computer_id')->references('id')->on('computers');
+            $table->integer('connection');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_computers');
+        Schema::dropIfExists('connections');
     }
 };

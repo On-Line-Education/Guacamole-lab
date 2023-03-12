@@ -14,7 +14,7 @@ class GuacamoleAuthCreateLoginData
                 'token' => $guacAuthToken,
                 'user_id' => $userId,
                 'data_source' => $guacDataSource,
-                'expires' => Carbon::now()->addHour()
+                'expires' => Carbon::now(env('TIMEZONE', null))->addHour()
             ]);
     }
 }

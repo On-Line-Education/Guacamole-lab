@@ -2,10 +2,9 @@
 
 namespace App\ActionService\Computer;
 
-use App\Action\Computer\ComputerCreateAction;
 use App\Action\Computer\ComputerImportAction;
 use App\ActionService\AbstractActionService;
-use App\Models\ClassRoom;
+use App\Service\GuacamoleUserLoginService;
 
 class ImportComputerActionService extends AbstractActionService
 {
@@ -17,6 +16,7 @@ class ImportComputerActionService extends AbstractActionService
 
     public function __invoke(string $importStr)
     {
+        (new GuacamoleUserLoginService())();
         ($this->computerImportAction)($importStr);
         return ($this->responder)();
     }

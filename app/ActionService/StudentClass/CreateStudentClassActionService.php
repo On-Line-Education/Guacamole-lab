@@ -4,6 +4,7 @@ namespace App\ActionService\StudentClass;
 
 use App\Action\StudentClass\StudentClassCreateAction;
 use App\ActionService\AbstractActionService;
+use App\Service\GuacamoleUserLoginService;
 
 class CreateStudentClassActionService extends AbstractActionService
 {
@@ -15,6 +16,7 @@ class CreateStudentClassActionService extends AbstractActionService
 
     public function __invoke(array $classCreateRequestData)
     {
+        (new GuacamoleUserLoginService())();
         $newClass = ($this->classCreateAction)(
                 $classCreateRequestData['name']
         );

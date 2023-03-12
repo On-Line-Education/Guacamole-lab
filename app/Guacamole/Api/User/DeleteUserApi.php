@@ -13,9 +13,9 @@ class DeleteUserApi extends AbstractApi
      */
     public function __invoke(string $token, string $sourceData, string $username): ResponseInterface
     {
-        return $this->apiClient->delete('api/session/data/' . $sourceData . '/users/'.$username, [
-                'query' => [
-                        'token' => $token
+        return $this->apiClient->delete('api/session/data/' . $sourceData . '/users/' . $username, [
+            'query' => [
+                'token' => $token
             ]
         ]);
     }

@@ -29,6 +29,7 @@ class ComputerUpdateRequest extends FormRequest
             'ip' => 'ip',
             'mac' => 'mac_address',
             'login' => 'string',
+            'instructor' => 'boolean',
         ];
     }
 }

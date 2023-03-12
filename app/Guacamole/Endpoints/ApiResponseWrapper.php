@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Guacamole\Helpers;
+namespace App\Guacamole\Endpoints;
 
 use Psr\Http\Message\ResponseInterface;
 

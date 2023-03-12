@@ -8,6 +8,7 @@ use App\ActionService\AbstractActionService;
 use App\Exceptions\ClassroomAlreadyAssignedException;
 use App\Models\ClassRoom;
 use App\Models\User;
+use App\Service\GuacamoleUserLoginService;
 use Illuminate\Support\Facades\Auth;
 
 class InstructorClassroomAssignActionService extends AbstractActionService
@@ -21,6 +22,7 @@ class InstructorClassroomAssignActionService extends AbstractActionService
 
     public function __invoke(bool $assign, array $assignData)
     {
+        (new GuacamoleUserLoginService())();
         $currUser = Auth::user();
         if ($currUser->isAdmin()) {
             $currUser = User::find($assignData['userId']);

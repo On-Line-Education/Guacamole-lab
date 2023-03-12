@@ -526,7 +526,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"203\",\n    \"description\": \"Sala na pierwszym piętrze po prawej od schodów\"\n}",
+							"raw": "{\n    \"name\": \"220\",\n    \"description\": \"Sala na pierwszym piętrze po prawej od schodów\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1046,38 +1046,6 @@
 					"response": []
 				},
 				{
-					"name": "Get All Users",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{URL}}/api/classroom/computers/all/3",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"api",
-								"classroom",
-								"computers",
-								"all",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get All in ClassRoom",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
@@ -1362,6 +1330,315 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Lecture",
+			"item": [
+				{
+					"name": "Get All Reserved",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/lecture",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reserved assign to user",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/lecture/reserve/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture",
+								"reserve",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reserved Lecture",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/lecture/reserve/get/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture",
+								"reserve",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reserve Lecture",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test class\",\n    \"instructor_id\": 1,\n    \"class_room_id\": 1,\n    \"class_id\": 1,\n    \"start\": \"2023-03-12 18:00:00\",\n    \"end\": \"2023-03-12 18:59:30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/lecture/reserve",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture",
+								"reserve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reserved Lecture",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/lecture/reserve/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture",
+								"reserve",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reserve Lecture Copy",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test 2 class\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/lecture/reserve/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture",
+								"reserve",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/lecture/join/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture",
+								"join",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Remaining Time",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/lecture/time/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture",
+								"time",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Remaining Time Copy",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"end\": \"2023-03-12 18:05:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/lecture/time/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"lecture",
+								"time",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -1369,7 +1646,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "7|tPOmWG3UhJijNbPuo43TxRWAtOULzRSIzuRw7RWM",
+				"value": "1|LrpBsS0wt4gjn6zP9x2eIvGsedMXm32tdIhUagAs",
 				"type": "string"
 			}
 		]
