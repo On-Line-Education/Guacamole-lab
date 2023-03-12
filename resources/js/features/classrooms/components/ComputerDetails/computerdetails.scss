@@ -20,6 +20,7 @@
 }
 
 .computer-details-panel {
+    width: 50%;
     z-index: 3;
     opacity: 1;
     background-color: $body-color-light;
@@ -40,11 +41,18 @@
             }
 
             .computer-info-key {
+                width: 25%;
                 font-family: $font-family-title-bold;
             }
 
             .computer-info-value {
+                width: 65%;
                 font-family: $font-family-content;
+                display: flex;
+            }
+
+            .computer-info-edit {
+                width: 10%;
             }
         }
     }
@@ -90,15 +98,9 @@
         }
     }
 
-    .panel-additional-actions {
-        font-size: $font-size-3;
-        font-family: $font-family-content-light;
-        text-decoration: underline;
-    }
-
-    .panel-additional-actions:hover {
-        font-family: $font-family-content;
-        cursor: pointer;
+    .panel-actions {
+        display: flex;
+        justify-content: space-between;
     }
 }
 
@@ -116,4 +118,10 @@
     tbody {
         margin-right: 20px !important;
     }
+}
+
+input,
+fieldset,
+div {
+    border: none;
 }
