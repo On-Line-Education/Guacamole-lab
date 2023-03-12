@@ -42,6 +42,13 @@ export function formatError(errorResponse) {
                 title: "Sesja wygasła",
                 message: "Zaloguj się ponownie",
             };
+        case "The import csv field is required.":
+            return {
+                type: "import",
+                code: "REQUIRED_CSV",
+                title: "Błąd podczas importu",
+                message: "Pole CSV nie może być puste",
+            };
         default:
             return {
                 type: "unknown",

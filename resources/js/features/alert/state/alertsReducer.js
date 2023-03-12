@@ -22,6 +22,11 @@ export function AlertsReducer(state = initialState, action) {
                 ...state,
                 errors: [...state.errors, action.payload],
             };
+        case "USER_UNAUTHENTICATED":
+            return {
+                ...state,
+                errors: [...state.errors, action.payload],
+            };
     }
     return state;
 }

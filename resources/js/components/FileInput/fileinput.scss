@@ -1,0 +1,42 @@
+@import "../../../sass/variables";
+
+.computer-csv-input {
+    display: flex;
+    .file-input-input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .file-input-btn {
+        display: flex;
+        width: 200px;
+        border: 1px solid $body-color-dark;
+        border-radius: 10px;
+
+        .file-name {
+            flex: 1;
+            padding: 0.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .file-choose {
+            padding: 0.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                height: 1.5em;
+            }
+        }
+
+        .file-choose:hover {
+            cursor: pointer;
+        }
+    }
+}

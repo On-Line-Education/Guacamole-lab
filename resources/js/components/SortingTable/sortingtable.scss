@@ -2,12 +2,21 @@
 
 // styles for custom table
 
+.table-container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+
 .sorting-table {
+    flex: 1;
     font-size: $font-size-3;
     border-collapse: separate;
     border-spacing: 0 5px;
     table-layout: fixed;
     width: 100%;
+    height: 100%;
 
     thead {
         font-family: $font-family-content-bold;

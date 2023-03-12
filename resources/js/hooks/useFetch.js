@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { formatError } from "../features/alert/services/formatError";
 import {
-    connectionError,
     failedAction,
-    loginFailedAction,
+    userUnauthenticated,
 } from "../features/alert/state/alertActions";
 
 const useFetch = ({ endpoint, method, body, start }) => {
@@ -14,6 +14,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
     const token = useSelector((state) => state.auth.token);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (start) fetchData();
@@ -37,14 +38,21 @@ const useFetch = ({ endpoint, method, body, start }) => {
             requestOptions["body"] = JSON.stringify(body);
         }
 
+        console.log(body);
+
         try {
             const response = await fetch(staticURL, requestOptions);
             const data = await response.json();
 
             if (!response.ok) {
-                console.log(data);
+                console.log(response);
+                if (response.status === 401 || response.status === 403) {
+                    dispatch(userUnauthenticated());
+                    navigate("/login");
+                    return;
+                }
 
-                // Api returns an array of errors. This piece of code formats every returned error message and sends it to state variable
+                // Api returns an array of errors. This piece of code formats every returned error message and send it to redux store
                 if (data.errors) {
                     console.log(data);
                     Object.values(data.errors).forEach((error) => {
@@ -60,6 +68,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
                     setError(formatError(data.message));
                 }
             } else {
+                // if there are no errors return data
                 setResult(data.body);
             }
         } catch (err) {

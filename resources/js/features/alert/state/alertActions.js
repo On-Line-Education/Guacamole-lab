@@ -20,6 +20,12 @@ export function failedAction(error) {
 export function userUnauthenticated() {
     return {
         type: "USER_UNAUTHENTICATED",
+        payload: {
+            type: "connection",
+            code: "USER_UNAUTHENTICATED",
+            title: "Sesja wygasła",
+            message: "Zaloguj się ponownie",
+        },
     };
 }
 

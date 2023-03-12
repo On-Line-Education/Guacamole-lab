@@ -1,8 +1,15 @@
-import React from "react";
-import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
+import React, { useState } from "react";
+import FileInput from "../../../../components/FileInput/FileInput";
+import { GuacamoleButton } from "../../../../mui";
+import useImportComputers from "../../hooks/useImportComputers";
 import "./computerimport.scss";
 
 export default function ComputerImport() {
+    const [file, setFile] = useState("");
+    const [fileName, setFileName] = useState("");
+
+    const [error, data, importComputers] = useImportComputers(file);
+
     return (
         <div className="computer-import-container">
             <div className="title computer-import-title">
@@ -12,15 +19,19 @@ export default function ComputerImport() {
                 <form className="panel-form import-form">
                     <div className="form-group">
                         <label className="form-label">Wybierz plik .csv</label>
-                        <GuacamoleInput
-                            className="form-input"
-                            variant="outlined"
-                            size="small"
-                            id="import-file"
+                        <FileInput
+                            setFile={setFile}
+                            setFileName={setFileName}
+                            fileName={fileName}
                         />
                     </div>
                     <div className="form-actions computer-import-actions">
-                        <GuacamoleButton type="submit" sx={{ width: "40%" }}>
+                        <GuacamoleButton
+                            type="submit"
+                            sx={{ width: "40%" }}
+                            disabled={!file}
+                            onClick={() => importComputers()}
+                        >
                             Importuj
                         </GuacamoleButton>
                     </div>

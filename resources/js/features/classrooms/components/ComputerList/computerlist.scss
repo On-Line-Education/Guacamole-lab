@@ -28,17 +28,17 @@
 
         th.id,
         td.id {
-            min-width: 25px;
+            width: 10%;
         }
 
         th.name,
         td.name {
-            min-width: 225px;
+            width: 50%;
         }
 
         th.ip,
         td.ip {
-            min-width: 225px;
+            min-width: 45%;
         }
     }
 

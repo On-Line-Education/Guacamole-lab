@@ -23,6 +23,14 @@ export function AuthReducer(state = initialState, action) {
                 username: "",
                 role: "",
             };
+        case "USER_UNAUTHENTICATED":
+            return {
+                ...state,
+                token: "",
+                id: "",
+                username: "",
+                role: "",
+            };
     }
     return state;
 }
