@@ -18,15 +18,11 @@ const usePostFile = (endpoint, file) => {
 
     const fetchData = async () => {
         setLoading(true);
-        console.log(endpoint);
         const staticURL = `${"http://localhost:8888/api"}${endpoint}`;
 
         const myHeaders = new Headers();
         myHeaders.append("Accept", "application/json");
-        myHeaders.append(
-            "Authorization",
-            "Bearer 2|ZNOfI4xSXfEMyzWkZbP2xUcOVpHwqCyuVG3WOjI6"
-        );
+        myHeaders.append("Authorization", `Bearer ${token}`);
 
         const formdata = new FormData();
         formdata.append("import_csv", file);

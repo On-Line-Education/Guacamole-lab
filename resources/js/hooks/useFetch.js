@@ -38,8 +38,6 @@ const useFetch = ({ endpoint, method, body, start }) => {
             requestOptions["body"] = JSON.stringify(body);
         }
 
-        console.log(body);
-
         try {
             const response = await fetch(staticURL, requestOptions);
             const data = await response.json();

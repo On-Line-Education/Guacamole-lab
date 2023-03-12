@@ -3,7 +3,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./computerdetails.scss";
 import { IconButton, TextField } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
-import BasicTable from "../../../../components/BasicTable/BasicTable";
 import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import useDeleteComputer from "../../hooks/useDeleteComputer";
 import EditIcon from "@mui/icons-material/Edit";
@@ -168,15 +167,18 @@ export default function ComputerDetails({ classroom, computer, close }) {
                             </table>
                         </div>
                         <div className="panel-actions">
+                            <GuacamoleFragileButton
+                                sx={{ width: "45%" }}
+                                onClick={() => deleteComputer()}
+                            >
+                                Usuń ucznia
+                            </GuacamoleFragileButton>
                             <GuacamoleButton
                                 sx={{ width: "45%" }}
                                 disabled={!newName && !newIp && !newMac}
                             >
                                 Edytuj dane
                             </GuacamoleButton>
-                            <GuacamoleFragileButton sx={{ width: "45%" }}>
-                                Usuń ucznia
-                            </GuacamoleFragileButton>
                         </div>
                         <div className="panel-close">
                             <IconButton onClick={() => close(false)}>

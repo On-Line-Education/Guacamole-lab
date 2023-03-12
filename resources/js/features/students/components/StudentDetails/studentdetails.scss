@@ -92,15 +92,9 @@
         }
     }
 
-    .panel-additional-actions {
-        font-size: $font-size-3;
-        font-family: $font-family-content-light;
-        text-decoration: underline;
-    }
-
-    .panel-additional-actions:hover {
-        font-family: $font-family-content;
-        cursor: pointer;
+    .panel-actions {
+        display: flex;
+        justify-content: space-between;
     }
 }
 

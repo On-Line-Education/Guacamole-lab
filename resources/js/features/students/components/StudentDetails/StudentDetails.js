@@ -1,115 +1,29 @@
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./studentdetails.scss";
-import { IconButton } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
-import BasicTable from "../../../../components/BasicTable/BasicTable";
-import { GuacamoleFragileButton } from "../../../../mui";
+import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import GroupTile from "../GroupTile/GroupTile";
 import useDeleteStudent from "../../hooks/useDeleteStudent";
+import EditIcon from "@mui/icons-material/Edit";
+import EditOffIcon from "@mui/icons-material/EditOff";
+import useEditStudent from "../../hooks/useEditStudent";
 
 export default function StudentDetails({ student, close }) {
-    const [selectedRow, setSelectedRow] = useState(null);
+    const { username, classes } = student;
 
-    const { error, deleteStudent } = useDeleteStudent(student.id);
+    const [usernameEditActive, setUsernameEditActive] = useState(false);
+    const [newUsername, setNewUsername] = useState("");
 
-    const DATA = [
-        {
-            id: 1,
-            computerName: "ewelford0",
-            ip: "80.202.29.109",
-        },
-        {
-            id: 2,
-            computerName: "klelievre1",
-            ip: "97.36.250.129",
-        },
-        {
-            id: 3,
-            computerName: "emccray2",
-            ip: "240.36.9.93",
-        },
-        {
-            id: 4,
-            computerName: "mtotman3",
-            ip: "97.60.49.9",
-        },
-        {
-            id: 5,
-            computerName: "mhalsted4",
-            ip: "180.73.249.113",
-        },
-        {
-            id: 6,
-            computerName: "rdecort5",
-            ip: "146.72.121.180",
-        },
-        {
-            id: 7,
-            computerName: "yjuris6",
-            ip: "49.62.172.19",
-        },
-        {
-            id: 8,
-            computerName: "jfantone7",
-            ip: "252.93.90.128",
-        },
-        {
-            id: 9,
-            computerName: "ekleinstub8",
-            ip: "40.81.140.86",
-        },
-        {
-            id: 10,
-            computerName: "racland9",
-            ip: "50.164.98.74",
-        },
-        {
-            id: 11,
-            computerName: "mclixbya",
-            ip: "52.186.193.221",
-        },
-        {
-            id: 12,
-            computerName: "sgarfirthb",
-            ip: "218.122.98.55",
-        },
-        {
-            id: 13,
-            computerName: "mollandc",
-            ip: "8.164.205.48",
-        },
-        {
-            id: 14,
-            computerName: "ubanfieldd",
-            ip: "108.130.66.84",
-        },
-        {
-            id: 15,
-            computerName: "gdumelowe",
-            ip: "129.199.193.79",
-        },
-    ];
+    const { error: studentDeletionError, deleteStudent } = useDeleteStudent(
+        student.id
+    );
 
-    const COLUMNS = [
-        {
-            Header: "Id",
-            accessor: "id",
-        },
-        {
-            Header: "Computer",
-            accessor: "computerName",
-        },
-        {
-            Header: "IP",
-            accessor: "ip",
-        },
-    ];
-
-    const STUDENT_MOCK_GROUPS = [
-        { name: "4gta", id: 0 },
-        { name: "1ts", id: 1 },
-    ];
+    const { error: studentEditionError, editStudent } = useEditStudent(
+        student.id,
+        newUsername
+    );
 
     return (
         <>
@@ -129,7 +43,37 @@ export default function StudentDetails({ student, close }) {
                                             className="student-info-value"
                                             id="username"
                                         >
-                                            {student.username}
+                                            {usernameEditActive ? (
+                                                <TextField
+                                                    variant="standard"
+                                                    placeholder={username}
+                                                    onChange={(e) => {
+                                                        setNewUsername(
+                                                            e.target.value
+                                                        );
+                                                    }}
+                                                />
+                                            ) : (
+                                                username
+                                            )}
+                                        </td>
+                                        <td className="computer-info-edit">
+                                            <IconButton
+                                                size="small"
+                                                color="primary"
+                                                onClick={() => {
+                                                    setNewUsername("");
+                                                    setUsernameEditActive(
+                                                        !usernameEditActive
+                                                    );
+                                                }}
+                                            >
+                                                {usernameEditActive ? (
+                                                    <EditOffIcon />
+                                                ) : (
+                                                    <EditIcon />
+                                                )}
+                                            </IconButton>
                                         </td>
                                     </tr>
                                     <tr className="student-info-group">
@@ -141,38 +85,35 @@ export default function StudentDetails({ student, close }) {
                                             className="student-info-value"
                                             id="groups"
                                         >
-                                            {STUDENT_MOCK_GROUPS.map(
-                                                (group) => {
-                                                    return (
-                                                        <GroupTile
-                                                            key={group.id}
-                                                            name={group.name}
-                                                            id={group.id}
-                                                        />
-                                                    );
-                                                }
-                                            )}
+                                            {classes.map((group) => {
+                                                return (
+                                                    <GroupTile
+                                                        key={group.id}
+                                                        className={group.name}
+                                                        classId={group.id}
+                                                        userId={student.id}
+                                                    />
+                                                );
+                                            })}
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div className="panel-list-container">
-                            <UserAccessList
-                                selectedRow={selectedRow}
-                                setSelectedRow={setSelectedRow}
-                                tableColumns={COLUMNS}
-                                tableData={DATA}
-                            />
-                        </div>
-                        <div className="panel-additional-actions">
-                            <div
-                                className="panel-action"
-                                id="delete-student"
+                        <div className="panel-actions">
+                            <GuacamoleFragileButton
+                                sx={{ width: "45%" }}
                                 onClick={() => deleteStudent()}
                             >
-                                Usuń tego ucznia
-                            </div>
+                                Usuń ucznia
+                            </GuacamoleFragileButton>
+                            <GuacamoleButton
+                                sx={{ width: "45%" }}
+                                disabled={!newUsername}
+                                onClick={() => editStudent()}
+                            >
+                                Edytuj dane
+                            </GuacamoleButton>
                         </div>
                         <div className="panel-close">
                             <IconButton onClick={() => close(false)}>
@@ -181,37 +122,6 @@ export default function StudentDetails({ student, close }) {
                         </div>
                     </div>
                 </ClickAwayListener>
-            </div>
-        </>
-    );
-}
-
-function UserAccessList({
-    tableColumns,
-    tableData,
-    selectedRow,
-    setSelectedRow,
-}) {
-    return (
-        <>
-            <div className="panel-list-title">
-                Lista komputerów, do których uczeń ma dostęp
-            </div>
-            <div className="panel-list computer-access-list">
-                <BasicTable
-                    selectRow={setSelectedRow}
-                    selectedRow={selectedRow}
-                    tableColumns={tableColumns}
-                    tableData={tableData}
-                />
-                <div className="list-actions computer-access-list-actions">
-                    <GuacamoleFragileButton
-                        sx={{ width: "40%" }}
-                        onClick={() => console.log("?")}
-                    >
-                        Usuń dostęp
-                    </GuacamoleFragileButton>
-                </div>
             </div>
         </>
     );

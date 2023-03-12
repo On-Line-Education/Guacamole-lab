@@ -6,8 +6,6 @@ export default function useGetAllStudents() {
         true
     );
 
-    console.log(data);
-
     const refetch = async () => {
         refresh();
     };
