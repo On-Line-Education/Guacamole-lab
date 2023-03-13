@@ -1,31 +1,26 @@
 const initialState = {
-    errors: [],
+    messages: [],
 };
 
 export function AlertsReducer(state = initialState, action) {
     switch (action.type) {
-        case "FAILED_ACTION":
+        case "ACTION_FAILED":
             return {
                 ...state,
-                errors: [...state.errors, action.payload],
+                messages: [...state.messages, action.payload],
             };
-        case "DELETE_ERROR":
+        case "ACTION_SUCCEED":
             return {
-                errors: [
-                    ...state.errors.filter(
-                        (error) => error.code != action.payload
+                ...state,
+                messages: [...state.messages, action.payload],
+            };
+        case "DELETE_MESSAGE":
+            return {
+                messages: [
+                    ...state.messages.filter(
+                        (message) => message.id != action.payload
                     ),
                 ],
-            };
-        case "CONNECTION_ERROR":
-            return {
-                ...state,
-                errors: [...state.errors, action.payload],
-            };
-        case "USER_UNAUTHENTICATED":
-            return {
-                ...state,
-                errors: [...state.errors, action.payload],
             };
     }
     return state;

@@ -1,4 +1,8 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import usePost from "../../../hooks/usePost";
+import { formatSuccess } from "../../alert/services/formatSuccess";
+import { actionSucceed } from "../../alert/state/alertActions";
 
 export default function useEditComputer(
     classroomId,
@@ -16,6 +20,14 @@ export default function useEditComputer(
             mac: newMac,
         }
     );
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!loading && !error.length > 0) {
+            dispatch(actionSucceed(formatSuccess("COMPUTER_EDIT_SUCCESS")));
+        }
+    }, [loading, error]);
 
     const createClassroom = async () => {
         refresh();

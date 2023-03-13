@@ -3,6 +3,8 @@ import useGet from "../../../hooks/useGet";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "../state/authActions";
+import { formatSuccess } from "../../alert/services/formatSuccess";
+import { actionSucceed } from "../../alert/state/alertActions";
 
 export default function useLogout() {
     const [data, loading, refresh, error] = useGet("/logout", false);
@@ -17,6 +19,7 @@ export default function useLogout() {
                     console.log("?");
 
                     dispatch(logoutAction());
+                    dispatch(actionSucceed(formatSuccess("LOGOUT_SUCCESS")));
 
                     navigate("/");
                 } catch (e) {}

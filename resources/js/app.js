@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "@mui/material/styles";
 import muiTheme from "./mui";
 import Login from "./features/pages/Login";
-import ErrorBoundry from "./features/alert/components/ErrorBoundry";
+import MessageBoundry from "./features/alert/components/MessageBoundry";
 import Students from "./features/pages/Students";
 import Page404 from "./features/auth/components/Page404/Page404";
 import Classrooms from "./features/pages/Classrooms";
@@ -26,7 +26,7 @@ if (document.getElementById("app")) {
     Index.render(
         <Provider store={store}>
             <ThemeProvider theme={muiTheme}>
-                <ErrorBoundry>
+                <MessageBoundry>
                     <BrowserRouter>
                         <Routes>
                             <Route
@@ -82,7 +82,7 @@ if (document.getElementById("app")) {
                             <Route path="*" element={<Page404 />} />
                         </Routes>
                     </BrowserRouter>
-                </ErrorBoundry>
+                </MessageBoundry>
             </ThemeProvider>
         </Provider>
     );

@@ -1,37 +1,46 @@
-export function connectionError() {
-    return {
-        type: "CONNECTION_ERROR",
-        payload: {
-            type: "connection",
-            code: "CONNECTION_ERROR",
-            title: "Błąd połączenia",
-            message: "Spróbuj ponownie później",
-        },
-    };
-}
+let nextId = 0;
 
 export function failedAction(error) {
     return {
-        type: "FAILED_ACTION",
-        payload: error,
+        type: "ACTION_FAILED",
+        payload: { ...error, type: "error", id: nextId++ },
+    };
+}
+
+export function actionSucceed(success) {
+    return {
+        type: "ACTION_SUCCEED",
+        payload: { ...success, type: "success", id: nextId++ },
+    };
+}
+
+export function connectionError() {
+    return {
+        type: "ACTION_FAILED",
+        payload: {
+            title: "Błąd połączenia",
+            message: "Spróbuj ponownie później",
+            type: "error",
+            id: nextId++,
+        },
     };
 }
 
 export function userUnauthenticated() {
     return {
-        type: "USER_UNAUTHENTICATED",
+        type: "ACTION_FAILED",
         payload: {
-            type: "connection",
-            code: "USER_UNAUTHENTICATED",
             title: "Sesja wygasła",
             message: "Zaloguj się ponownie",
+            type: "error",
+            id: nextId++,
         },
     };
 }
 
-export function deleteError(code) {
+export function deleteError(id) {
     return {
-        type: "DELETE_ERROR",
-        payload: code,
+        type: "DELETE_MESSAGE",
+        payload: id,
     };
 }

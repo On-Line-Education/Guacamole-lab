@@ -63,7 +63,10 @@ const useFetch = ({ endpoint, method, body, start }) => {
                 } else {
                     console.log(data.message);
                     dispatch(failedAction(formatError(data.message)));
-                    setError(formatError(data.message));
+                    setError((prevErrors) => [
+                        ...prevErrors,
+                        formatError(data.message),
+                    ]);
                 }
             } else {
                 // if there are no errors return data
@@ -77,7 +80,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
 
     const refresh = () => {
         console.log(token);
-        setError("");
+        setError([]);
         fetchData();
     };
 

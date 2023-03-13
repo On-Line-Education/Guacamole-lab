@@ -14,10 +14,6 @@ export default function ClassroomAdd({ close }) {
         "desc"
     );
 
-    if (error) {
-        console.log(error);
-    }
-
     return (
         <>
             <div className="overlay"></div>
@@ -34,9 +30,7 @@ export default function ClassroomAdd({ close }) {
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    console.log(newClassroomName);
                                     createClassroom();
-                                    console.log("?");
                                 }}
                             >
                                 <div className="form-classroom">

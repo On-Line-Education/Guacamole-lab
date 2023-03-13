@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import usePost from "../../../hooks/usePost";
 import { useNavigate } from "react-router-dom";
-import { loginAction } from "../state/authActions";
-import { failedAction } from "../../alert/state/alertActions";
 import { useDispatch } from "react-redux";
+import { loginAction } from "../state/authActions";
+import { formatSuccess } from "../../alert/services/formatSuccess";
+import { actionSucceed } from "../../alert/state/alertActions";
 
 export default function useLogin(username, password) {
     const [data, loading, refresh, error] = usePost("/login", false, {
@@ -22,6 +23,7 @@ export default function useLogin(username, password) {
                 try {
                     setToken(data.token);
                     dispatch(loginAction(data));
+                    dispatch(actionSucceed(formatSuccess("LOGIN_SUCCESS")));
                     if (data.user.role === "student") navigate("/connect");
                     if (
                         data.user.role === "teacher" ||

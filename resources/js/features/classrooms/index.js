@@ -47,8 +47,6 @@ export default function ClassroomsView() {
         }
     }, [selectedClassroom]);
 
-    console.log(computerList);
-
     return (
         <div className="classrooms">
             <Logo />
