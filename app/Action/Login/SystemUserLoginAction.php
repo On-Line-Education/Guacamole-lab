@@ -28,7 +28,7 @@ class SystemUserLoginAction
             throw new InvalidCredentialsException();
         }
 
-        $token = $user->createToken(Carbon::now() . $deviceName, [$user->role]);
+        $token = $user->createToken(Carbon::now(env('TIMEZONE', null)) . $deviceName, [$user->role]);
         return ["token" => $token->plainTextToken, "user" => $user];
     }
 

@@ -4,14 +4,9 @@ namespace App\Action\Computer;
 
 use App\Action\Classroom\ClassroomCreateAction;
 use App\Exceptions\ImportComputerExistsException;
-use App\Exceptions\ImportUsernameExistsException;
 use App\Exceptions\InvalidImportFileException;
-use App\Guacamole\Objects\User\GuacamoleUserData;
 use App\Models\ClassRoom;
 use App\Models\Computer;
-use App\Models\StudentClass;
-use App\Models\User;
-use App\System\SystemPermissions;
 use Illuminate\Support\Facades\Validator;
 
 class ComputerImportAction
@@ -25,6 +20,7 @@ class ComputerImportAction
         private readonly string $ip = 'ip',
         private readonly string $mac = 'mac',
         private readonly string $classroom = 'sala',
+        private readonly string $instructor = 'instruktora',
     )
     {}
 
@@ -33,11 +29,12 @@ class ComputerImportAction
         $import = $this->getCsvArray($importStr);
         
         if (
-            count($import[0]) !== 4
+            count($import[0]) !== 5
             || $import[0][0] !== $this->name
             || $import[0][1] !== $this->ip
             || $import[0][2] !== $this->mac
             || $import[0][3] !== $this->classroom
+            || $import[0][4] !== $this->instructor
             ) {
             throw new InvalidImportFileException();
         }
@@ -51,7 +48,7 @@ class ComputerImportAction
 
         foreach ($import as $row) {
             $classroom = $this->getClassroom($row[3]);
-            $this->getComputer($row[0], $row[1], $row[2], $classroom->id);
+            $this->getComputer($row[0], $row[1], $row[2], $row[4], $classroom->id);
         }
     }
 
@@ -81,7 +78,7 @@ class ComputerImportAction
         return false;
     }
 
-    private function getComputer(string $name, string $ip, string $mac, int $classroomId): Computer
+    private function getComputer(string $name, string $ip, string $mac, bool $instructor, int $classroomId): Computer
     {
 
         $validator = Validator::make(['ip' => $ip], [
@@ -106,6 +103,7 @@ class ComputerImportAction
         $computer->mac = $mac;
         $computer->login = '';
         $computer->class_room_id = $classroomId;
+        $computer->instructor = $instructor;
         $computer->save();
 
         return $computer;

@@ -4,7 +4,7 @@ namespace App\Guacamole\Endpoints\Auth;
 
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Guacamole\Api\Auth\LoginAuthApi;
-use App\Guacamole\Helpers\ApiResponseWrapper;
+use App\Guacamole\Endpoints\ApiResponseWrapper;
 use GuzzleHttp\Exception\GuzzleException;
 
 class AuthLoginEndpoint

@@ -7,6 +7,7 @@ use App\ActionService\AbstractActionService;
 use App\Exceptions\NonStudentAssigmentToClassException;
 use App\Models\StudentClass;
 use App\Models\User;
+use App\Service\GuacamoleUserLoginService;
 
 class AssignStudentClassToStudentActionService extends AbstractActionService
 {
@@ -18,6 +19,7 @@ class AssignStudentClassToStudentActionService extends AbstractActionService
 
     public function __invoke(User $user, StudentClass $studentClass)
     {
+        (new GuacamoleUserLoginService())();
         if (!$user->isStudent()) {
             throw new NonStudentAssigmentToClassException();
         }

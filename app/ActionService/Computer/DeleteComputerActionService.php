@@ -6,6 +6,7 @@ use App\Action\Computer\ComputerDeleteAction;
 use App\ActionService\AbstractActionService;
 use App\Models\ClassRoom;
 use App\Models\Computer;
+use App\Service\GuacamoleUserLoginService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DeleteComputerActionService extends AbstractActionService
@@ -18,6 +19,7 @@ class DeleteComputerActionService extends AbstractActionService
 
     public function __invoke(ClassRoom $classRoom, Computer $computer)
     {
+        (new GuacamoleUserLoginService())();
         if ($classRoom->id !== $computer->class_room_id) {
             throw new NotFoundHttpException();
         }

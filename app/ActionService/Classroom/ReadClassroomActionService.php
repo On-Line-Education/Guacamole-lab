@@ -6,6 +6,7 @@ use App\Action\Classroom\ClassroomGetAllAction;
 use App\Action\Classroom\ClassroomGetAllWithInstructorsAction;
 use App\ActionService\AbstractActionService;
 use App\Models\ClassRoom;
+use App\Service\GuacamoleUserLoginService;
 
 class ReadClassroomActionService extends AbstractActionService
 {
@@ -18,6 +19,7 @@ class ReadClassroomActionService extends AbstractActionService
 
     public function __invoke(?ClassRoom $classRoom = null, bool $withInstructors = false)
     {
+        (new GuacamoleUserLoginService())();
         $classrooms = [];
 
         if ($withInstructors) {

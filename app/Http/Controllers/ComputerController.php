@@ -33,11 +33,6 @@ class ComputerController extends Controller
         return ($this->readComputerActionService)();
     }
 
-    public function allUsersComputers(User $user): JsonResponse
-    {
-        return ($this->readComputerActionService)(user: $user);
-    }
-
     public function list(ClassRoom $classroom): JsonResponse
     {
         return ($this->readComputerActionService)($classroom);

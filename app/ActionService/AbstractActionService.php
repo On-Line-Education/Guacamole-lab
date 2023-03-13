@@ -4,7 +4,8 @@ namespace App\ActionService;
 
 use App\Responder\Responder;
 
-abstract class AbstractActionService {
+abstract class AbstractActionService
+{
     protected readonly Responder $responder;
 
     public function __construct()

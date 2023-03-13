@@ -5,6 +5,7 @@ namespace App\ActionService\Classroom;
 use App\Action\Classroom\ClassroomUpdateAction;
 use App\ActionService\AbstractActionService;
 use App\Models\ClassRoom;
+use App\Service\GuacamoleUserLoginService;
 
 class UpdateClassroomActionService extends AbstractActionService
 {
@@ -15,6 +16,7 @@ class UpdateClassroomActionService extends AbstractActionService
     }
     public function __invoke(ClassRoom $classRoom, array $classRoomUpdateRequestData)
     {
+        (new GuacamoleUserLoginService())();
         $updated = ($this->classroomUpdateAction)(
             $classRoom->id,
             $classRoomUpdateRequestData['title'] ?? null,
