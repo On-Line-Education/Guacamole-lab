@@ -1,19 +1,34 @@
 import { DateTimePicker } from "@mui/x-date-pickers";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import useGetAllClassrooms from "../../../classrooms/hooks/useGetAllClassrooms";
+import useGetAllGroups from "../../../students/hooks/useGetAllGroups";
+import useCreateReservation from "../../hooks/useCreateReservation";
+import "./lessonreserve.scss";
 import {
     GuacamoleButton,
+    GuacamoleInput,
     GuacamoleDateTimePicker,
     GuacamoleSelect,
 } from "../../../../mui";
-import "./lessonreserve.scss";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { MenuItem } from "@mui/material";
-import useGetAllClassrooms from "../../../classrooms/hooks/useGetAllClassrooms";
 
 export default function LessonReserve() {
+    // Form variables
+
     const [classroom, setClassroom] = useState("");
-    const [duration, setDuration] = useState(60);
+    const [group, setGroup] = useState("");
+    const [name, setName] = useState("");
+    const [start, setStart] = useState("");
+    const [end, setEnd] = useState("");
+
+    // Getting logged teacher id from redux store
+
+    const teacherId = useSelector((state) => state.auth.id);
+
+    // Queries for selection data
 
     const {
         data: classroomList,
@@ -21,7 +36,24 @@ export default function LessonReserve() {
         error: classroomListLoadingError,
     } = useGetAllClassrooms();
 
-    if (classroomListLoading) {
+    const {
+        data: groupList,
+        loading: groupListLoading,
+        error: groupListLoadingError,
+    } = useGetAllGroups();
+
+    // Reserve lesson hook declaration
+
+    const { error, data, createReservation } = useCreateReservation(
+        name,
+        teacherId,
+        classroom,
+        group,
+        start,
+        end
+    );
+
+    if (classroomListLoading || groupListLoading) {
         return "Loading..";
     }
 
@@ -29,10 +61,16 @@ export default function LessonReserve() {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div className="lesson-create-container">
                 <div className="title lesson-create-title">
-                    Wybierz salę i czas zajęć
+                    Zarezerwuj nowe zajęcia
                 </div>
                 <div className="panel lesson-create-panel">
-                    <form className="panel-form lesson-create-form">
+                    <form
+                        className="panel-form lesson-create-form"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            createReservation();
+                        }}
+                    >
                         <div className="form-group">
                             <label className="form-label">Sala</label>
                             <GuacamoleSelect
@@ -48,7 +86,7 @@ export default function LessonReserve() {
                                             return (
                                                 <MenuItem
                                                     key={classroom.id}
-                                                    value={classroom.name}
+                                                    value={classroom.id}
                                                 >
                                                     {classroom.name}
                                                 </MenuItem>
@@ -56,9 +94,48 @@ export default function LessonReserve() {
                                         }
                                     )
                                 ) : (
-                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={""}>
+                                        Brak dostępnych sal
+                                    </MenuItem>
                                 )}
                             </GuacamoleSelect>
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label">Klasa</label>
+                            <GuacamoleSelect
+                                id="lesson-classroom"
+                                className="form-input"
+                                value={group}
+                                onChange={(e) => setGroup(e.target.value)}
+                                sx={{ width: "200px !important" }}
+                            >
+                                {groupList.class.length > 0 ? (
+                                    groupList.class.map((group) => {
+                                        return (
+                                            <MenuItem
+                                                key={group.id}
+                                                value={group.id}
+                                            >
+                                                {group.name}
+                                            </MenuItem>
+                                        );
+                                    })
+                                ) : (
+                                    <MenuItem value={""}>
+                                        Brak dostępnych klas
+                                    </MenuItem>
+                                )}
+                            </GuacamoleSelect>
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label">Nazwa</label>
+                            <GuacamoleInput
+                                className="form-input"
+                                variant="outlined"
+                                size="small"
+                                id="name"
+                                onChange={(e) => setName(e.target.value)}
+                            />
                         </div>
                         <div className="form-group">
                             <label className="form-label">Start</label>
@@ -67,26 +144,30 @@ export default function LessonReserve() {
                                 size="small"
                                 id="lesson-start"
                                 ampm={false}
+                                onChange={(value) =>
+                                    setStart(
+                                        value.format("YYYY-MM-DD hh:mm:ss")
+                                    )
+                                }
                             />
                         </div>
                         <div className="form-group">
-                            <label className="form-label">Czas trwania</label>
-                            <GuacamoleSelect
-                                id="lesson-classroom"
+                            <label className="form-label">Koniec</label>
+                            <GuacamoleDateTimePicker
                                 className="form-input"
-                                value={duration}
-                                onChange={(e) => setDuration(e.target.value)}
-                            >
-                                <MenuItem value="30">30 minut</MenuItem>
-                                <MenuItem value="45">45 minut</MenuItem>
-                                <MenuItem value="60">60 minut</MenuItem>
-                                <MenuItem value="90">90 minut</MenuItem>
-                                <MenuItem value="120">2 godziny</MenuItem>
-                                <MenuItem value="120">2.5 godziny</MenuItem>
-                                <MenuItem value="180">3 godziny</MenuItem>
-                            </GuacamoleSelect>
+                                size="small"
+                                id="lesson-end"
+                                ampm={false}
+                                onChange={(value) =>
+                                    setEnd(value.format("YYYY-MM-DD hh:mm:ss"))
+                                }
+                            />
                         </div>
-                        <div className="form-actions student-import-actions"></div>
+                        <div className="panel-actions">
+                            <GuacamoleButton type="submit">
+                                Zarezerwuj
+                            </GuacamoleButton>
+                        </div>
                     </form>
                 </div>
             </div>
