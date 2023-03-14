@@ -602,14 +602,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/classroom/1",
+							"raw": "{{URL}}/api/classroom/12",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"classroom",
-								"1"
+								"12"
 							]
 						}
 					},
@@ -1127,7 +1127,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Dell\",\n    \"ip\": \"127.0.0.1\",\n    \"mac\": \"7a:76:0e:6c:e4:0c\",\n    \"login\": \"Andrzej\"\n}",
+							"raw": "{\n    \"name\": \"Dell2\",\n    \"ip\": \"127.0.0.2\",\n    \"mac\": \"7b:76:0e:6c:e4:0c\",\n    \"login\": \"Andrzeju\",\n    \"instructor\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1150,7 +1150,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Classroom",
+					"name": "Update Computer",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"accept": true
@@ -1191,7 +1191,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Classroom",
+					"name": "Delete Computer",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"accept": true
@@ -1239,7 +1239,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/classroom/computers/1/assign/3",
+							"raw": "{{URL}}/api/classroom/computers/2/assign/1",
 							"host": [
 								"{{URL}}"
 							],
@@ -1247,9 +1247,9 @@
 								"api",
 								"classroom",
 								"computers",
-								"1",
+								"2",
 								"assign",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -1497,7 +1497,7 @@
 					"response": []
 				},
 				{
-					"name": "Reserve Lecture Copy",
+					"name": "Update Reserve Lecture",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"accept": true
@@ -1599,7 +1599,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Remaining Time Copy",
+					"name": "Update Get Remaining Time",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"accept": true
@@ -1646,7 +1646,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "1|LrpBsS0wt4gjn6zP9x2eIvGsedMXm32tdIhUagAs",
+				"value": "2|SKckGUkwsPJRYedNZ0jA29N53aMaMAlQMLsvRS9R",
 				"type": "string"
 			}
 		]
