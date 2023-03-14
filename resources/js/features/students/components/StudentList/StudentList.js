@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { GuacamoleButton } from "../../../../mui";
-import GuacamoleSoringTable from "../../../../components/SortingTable/SortingTable";
 import "./studentlist.scss";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
+import SortingTable from "../../../../components/SortingTable/SortingTable";
 
 export default function StudentList({
     openStudentAdd,
@@ -15,15 +15,18 @@ export default function StudentList({
     const tableColumns = [
         {
             Header: "ID",
+            name: "id",
             accessor: "id",
             disableSortBy: true,
         },
         {
             Header: "Nazwa",
+            name: "username",
             accessor: "username",
         },
         {
             Header: "Grupy",
+            name: "group",
             accessor: "group",
             disableSortBy: true,
             Filter: true,
@@ -38,7 +41,7 @@ export default function StudentList({
                     {loading ? (
                         <LoadingSpinner />
                     ) : (
-                        <GuacamoleSoringTable
+                        <SortingTable
                             selectRow={setSelectedStudent}
                             selectedRow={selectedStudent}
                             tableData={studentList}
@@ -56,7 +59,7 @@ export default function StudentList({
                     <GuacamoleButton
                         sx={{ width: "50%" }}
                         onClick={() => openStudentDetails(true)}
-                        disabled={selectedStudent ? false : true}
+                        disabled={!selectedStudent}
                     >
                         Szczegóły ucznia
                     </GuacamoleButton>

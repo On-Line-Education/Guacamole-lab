@@ -1,0 +1,62 @@
+.reserved-list-container {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .reserved-list-title {
+        padding: 0.5em 1em;
+    }
+
+    .reserved-list-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #ffffff;
+        padding: 0.5em 2em;
+        border-radius: 30px;
+        width: 80%;
+        min-height: 80%;
+
+        .reserved-list {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+
+            // Table cells styles
+
+            th.time,
+            td.time {
+                width: 25%;
+            }
+
+            th.instructor,
+            td.instructor {
+                width: 25%;
+            }
+
+            th.class,
+            td.class {
+                width: 10%;
+            }
+
+            th.classroom,
+            td.classroom {
+                width: 10%;
+            }
+
+            th.name,
+            td.name {
+                width: 30%;
+            }
+        }
+    }
+
+    .reserved-list-actions {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1em;
+        padding-bottom: 0.5em;
+    }
+}

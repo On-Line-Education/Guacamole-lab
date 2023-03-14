@@ -10,7 +10,7 @@ import {
 import "./sortingtable.scss";
 import { IconButton } from "@mui/material";
 
-export default function GuacamoleSoringTable({
+export default function SortingTable({
     selectRow,
     selectedRow,
     tableData,
@@ -52,7 +52,7 @@ export default function GuacamoleSoringTable({
                             {headerGroup.headers.map((column) => (
                                 <th
                                     id={column.id}
-                                    className={column.id}
+                                    className={column.name}
                                     {...column.getHeaderProps()}
                                 >
                                     <div className="col-flex">
@@ -102,7 +102,7 @@ export default function GuacamoleSoringTable({
                                 {row.cells.map((cell) => {
                                     return (
                                         <td
-                                            className={cell.column.id}
+                                            className={cell.column.name}
                                             {...cell.getCellProps()}
                                         >
                                             {cell.render("Cell")}

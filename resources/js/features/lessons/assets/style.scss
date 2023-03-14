@@ -8,9 +8,10 @@
 .lessons-container {
     padding: 70px;
     flex: 6;
-    display: flex;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 100%;
     background-color: $body-color-light;
-    align-items: center;
 
     .title {
         font-family: $font-family-title-bold;

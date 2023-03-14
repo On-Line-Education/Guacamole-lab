@@ -21,12 +21,12 @@ export default function ClassroomsView() {
     const [computerAdditionPanelActive, setComputerAdditionPanelActive] =
         useState(false);
 
-    //Selected table rows state
+    // Selected table rows state
 
     const [selectedClassroom, setSelectedClassroom] = useState("");
     const [selectedComputer, setSelectedComputer] = useState("");
 
-    //Queries
+    // Queries
 
     const {
         data: classroomList,
@@ -40,6 +40,8 @@ export default function ClassroomsView() {
         error: computerListLoadingError,
         getClassroomComputers,
     } = useGetClassroomComputers(selectedClassroom.id);
+
+    // Query for loading computer list, if user selected a classroom it fetches computers for that classroom
 
     useEffect(() => {
         if (selectedClassroom) {

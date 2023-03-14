@@ -1,3 +1,5 @@
+@import "../../../../../sass/variables";
+
 .student-list-container {
     grid-column: 1;
     grid-row: 1;
@@ -28,6 +30,7 @@
 
         .id {
             width: 10%;
+            font-family: $font-family-content-bold;
         }
 
         .username {

@@ -7,5 +7,5 @@ export default function useGetAllClassrooms() {
         refresh();
     };
 
-    return { data: data, loading, error, refetch };
+    return { data, loading, error, refetch };
 }
