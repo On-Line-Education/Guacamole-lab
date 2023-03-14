@@ -26,17 +26,17 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'attributes' => 'array',
-            'attributes.guac-email-address' => '',
-            'attributes.guac-organizational-role' => '',
-            'attributes.guac-full-name' => '',
-            'attributes.expired' => '',
-            'attributes.timezone' => '',
-            'attributes.access-window-start' => '',
-            'attributes.guac-organization' => '',
-            'attributes.access-window-end' => '',
-            'attributes.disabled' => '',
-            'attributes.valid-until' => '',
-            'attributes.valid-from' => ''
+            'attributes.guac-email-address' => 'string',
+            'attributes.guac-organizational-role' => 'string',
+            'attributes.guac-full-name' => 'string',
+            'attributes.expired' => 'string',
+            'attributes.timezone' => 'string',
+            'attributes.access-window-start' => 'string',
+            'attributes.guac-organization' => 'string',
+            'attributes.access-window-end' => 'string',
+            'attributes.disabled' => 'string',
+            'attributes.valid-until' => 'string',
+            'attributes.valid-from' => 'string'
         ];
     }
 }
