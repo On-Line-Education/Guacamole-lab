@@ -15,8 +15,8 @@ class LectureReserveUpdateAction
     {
         $start = $reserveData['start'] ?? $lecture->start;
         $end = $reserveData['end'] ?? $lecture->end;
-        $checkStart = Carbon::createFromTimeString($start)->addMinute();
-        $checkEnd = Carbon::createFromTimeString($end)->addMinute();
+        $checkStart = Carbon::createFromTimeString($start)->addMinutes(3);
+        $checkEnd = Carbon::createFromTimeString($end)->addMinutes(3);
         $classId = $reserveData['class_id'] ?? $lecture->class_id;
         $classRoomId = $reserveData['class_room_id'] ?? $lecture->class_room_id;
         $instructorId = $lecture->instructor_id;
