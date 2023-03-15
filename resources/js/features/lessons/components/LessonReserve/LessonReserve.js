@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import useGetAllClassrooms from "../../../classrooms/hooks/useGetAllClassrooms";
 import useGetAllGroups from "../../../students/hooks/useGetAllGroups";
@@ -26,6 +26,30 @@ export default function LessonReserve({ refetch }) {
     const [reservationDate, setReservationDate] = useState(undefined);
     const [reservationStartTime, setReservationStartTime] = useState(undefined);
     const [reservationEndTime, setReservationEndTime] = useState(undefined);
+
+    // Form validation
+
+    const [validForm, setValidForm] = useState(false);
+
+    useEffect(() => {
+        if (
+            reservationClassroom &&
+            reservationGroup &&
+            reservationName &&
+            reservationDate &&
+            reservationStartTime &&
+            reservationEndTime
+        ) {
+            setValidForm(true);
+        }
+    }, [
+        reservationClassroom,
+        reservationGroup,
+        reservationName,
+        reservationDate,
+        reservationStartTime,
+        reservationEndTime,
+    ]);
 
     // Getting logged teacher id from redux store
 
@@ -187,7 +211,10 @@ export default function LessonReserve({ refetch }) {
                                 </GuacamoleSelect>
                             </div>
                             <div className="panel-actions">
-                                <GuacamoleButton type="submit">
+                                <GuacamoleButton
+                                    type="submit"
+                                    disabled={!validForm}
+                                >
                                     Zarezerwuj
                                 </GuacamoleButton>
                             </div>
