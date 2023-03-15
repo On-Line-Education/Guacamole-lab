@@ -4,21 +4,22 @@ import usePost from "../../../hooks/usePost";
 import { actionSucceed } from "../../alert/state/alertActions";
 import { formatSuccess } from "../../alert/services/formatSuccess";
 
-export default function useCreateReservation(
-    name,
+export default function useCreateReservation({
     instructorId,
-    classroomId,
-    groupId,
-    start,
-    end
-) {
+    reservationClassroom,
+    reservationGroup,
+    reservationName,
+    reservationDate,
+    reservationStartTime,
+    reservationEndTime,
+}) {
     const [data, loading, refresh, error] = usePost("/lecture/reserve", false, {
-        name: name,
         instructor_id: instructorId,
-        class_room_id: classroomId,
-        class_id: groupId,
-        start: start,
-        end: end,
+        name: reservationName,
+        class_room_id: reservationClassroom.id,
+        class_id: reservationGroup.id,
+        start: `${reservationDate} ${reservationStartTime}`,
+        end: `${reservationDate} ${reservationEndTime}`,
     });
 
     const dispatch = useDispatch();

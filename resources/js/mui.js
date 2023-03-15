@@ -1,7 +1,7 @@
 import { createTheme, styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { Select, TextField } from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers";
+import { DatePicker, DateTimePicker, TimePicker } from "@mui/x-date-pickers";
 
 const muiTheme = createTheme({
     palette: {
@@ -71,6 +71,28 @@ export const GuacamoleInput = styled(TextField)(({ theme }) => ({
 }));
 
 export const GuacamoleDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
+    boxShadow: "none",
+    border: "1px solid",
+    height: "2.75em",
+    width: "100%",
+    color: theme.palette.primary.main,
+    fontFamily: theme.typography.content.fontFamily,
+    borderColor: theme.palette.primary.main,
+    borderRadius: "5px",
+}));
+
+export const GuacamoleDatePicker = styled(DatePicker)(({ theme }) => ({
+    boxShadow: "none",
+    border: "1px solid",
+    height: "2.75em",
+    width: "100%",
+    color: theme.palette.primary.main,
+    fontFamily: theme.typography.content.fontFamily,
+    borderColor: theme.palette.primary.main,
+    borderRadius: "5px",
+}));
+
+export const GuacamoleTimePicker = styled(TimePicker)(({ theme }) => ({
     boxShadow: "none",
     border: "1px solid",
     height: "2.75em",
