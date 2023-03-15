@@ -15,14 +15,6 @@ export default function StudentAdd({ close, refetch }) {
         newStudentPassword
     );
 
-    useEffect(() => {
-        refetch();
-    }, [data]);
-
-    if (error) {
-        console.log(error);
-    }
-
     return (
         <>
             <div className="overlay"></div>
