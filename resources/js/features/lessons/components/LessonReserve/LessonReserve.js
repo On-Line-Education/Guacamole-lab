@@ -15,7 +15,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { MenuItem } from "@mui/material";
 
-export default function LessonReserve() {
+export default function LessonReserve({ refetch }) {
     // Form variables
 
     const [classroom, setClassroom] = useState("");
@@ -69,6 +69,7 @@ export default function LessonReserve() {
                         onSubmit={(e) => {
                             e.preventDefault();
                             createReservation();
+                            refetch();
                         }}
                     >
                         <div className="form-group">
@@ -80,7 +81,9 @@ export default function LessonReserve() {
                                 onChange={(e) => setClassroom(e.target.value)}
                                 sx={{ width: "200px !important" }}
                             >
-                                {classroomList.classrooms.length > 0 ? (
+                                {classroomListLoading ? (
+                                    <div>Loading</div>
+                                ) : classroomList.classrooms.length > 0 ? (
                                     classroomList.classrooms.map(
                                         (classroom) => {
                                             return (

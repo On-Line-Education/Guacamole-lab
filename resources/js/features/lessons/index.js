@@ -22,7 +22,10 @@ export default function LessonsView() {
         data: reservedList,
         loading: reservedListLoading,
         error: reservedListLoadingError,
+        refetch: reservedListRefetch,
     } = useGetAllReserved();
+
+    // Refetch logic
 
     return (
         <div className="lessons">
@@ -38,7 +41,7 @@ export default function LessonsView() {
                         setReservationDetailsPanelState
                     }
                 />
-                <LessonReserve />
+                <LessonReserve refetch={reservedListRefetch} />
             </div>
         </div>
     );
