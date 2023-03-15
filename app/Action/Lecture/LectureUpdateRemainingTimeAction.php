@@ -15,7 +15,7 @@ class LectureUpdateRemainingTimeAction
     {
         $end = $newEnd;
         $start = $lecture->start;
-        $checkEnd = Carbon::createFromTimeString($end)->addMinute();
+        $checkEnd = Carbon::createFromTimeString($end)->addMinutes(3);
         $classId = $lecture->class_id;
         $classRoomId = $lecture->class_room_id;
         $instructorId = $lecture->instructor_id;
