@@ -75,6 +75,16 @@ export function formatSuccess(successResponse) {
                 title: "Pomyślnie usunięto grupę",
                 message: "",
             };
+        case "LESSON_CREATE_SUCCESS":
+            return {
+                title: "Pomyślnie utworzono rezerwacje",
+                message: "",
+            };
+        case "LESSON_DELETE_SUCCESS":
+            return {
+                title: "Pomyślnie usunięto rezerwacje",
+                message: "",
+            };
 
         default:
             return {

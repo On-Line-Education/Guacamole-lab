@@ -1,0 +1,121 @@
+@import "../../../../../sass/variables";
+
+.overlay {
+    position: absolute;
+    z-index: 2;
+    background-color: $body-color-dark;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+}
+
+.reservation-details-container {
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reservation-details {
+    z-index: 3;
+    opacity: 1;
+    background-color: $body-color-light;
+    border-radius: 30px;
+    padding: 1em 3em;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    color: $body-color-dark;
+
+    .reservation-name {
+        font-family: $font-family-title;
+        font-size: $font-size-2;
+        padding-bottom: 1em;
+    }
+
+    .reservation-classroom,
+    .reservation-class,
+    .reservation-start,
+    .reservation-end {
+        padding-left: 1em;
+        display: flex;
+        font-size: $font-size-2;
+
+        .reservation-param-key {
+            width: 25%;
+            font-family: $font-family-title-bold;
+        }
+
+        .reservation-param-value {
+            width: 65%;
+            font-family: $font-family-content;
+            display: flex;
+
+            input,
+            fieldset,
+            div {
+                border: none;
+            }
+        }
+
+        .reservation-param-edit {
+            width: 10%;
+        }
+    }
+
+    .panel-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+    }
+
+    .panel-list-container {
+        display: flex;
+        flex-direction: column;
+        font-size: $font-size-3;
+        font-family: $font-family-content;
+
+        .panel-list-title {
+            font-size: $font-size-2;
+            font-family: $font-family-title-bold;
+            color: $body-color-dark;
+            margin-top: 0.3em;
+        }
+
+        .panel-list {
+            background-color: #ffffff;
+            padding: 1em 2em;
+            margin: 1em 0;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .reservation-access-list-actions {
+            display: flex;
+            padding-top: 1em;
+            padding-bottom: 0.5em;
+
+            button {
+                margin-right: 2em;
+            }
+        }
+    }
+
+    .panel-actions {
+        padding-top: 1em;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+input,
+fieldset,
+div {
+    border: none;
+}

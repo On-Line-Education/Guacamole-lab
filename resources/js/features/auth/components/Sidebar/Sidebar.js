@@ -9,7 +9,7 @@ export default function Sidebar() {
                 <img src={Avocado} width="25px" />
                 <span>Guacamole Lab</span>
             </div>
-            <div className="description">OPIS</div>
+            <div className="description"></div>
         </div>
     );
 }

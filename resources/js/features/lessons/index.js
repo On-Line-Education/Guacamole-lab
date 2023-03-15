@@ -5,6 +5,7 @@ import "./assets/style.scss";
 import LessonReserve from "./components/LessonReserve/LessonReserve";
 import LessonReservedList from "./components/LessonReservedList/LessonReservedList";
 import useGetAllReserved from "./hooks/useGetAllReserved";
+import ReservationDetails from "./components/ReservationDetails/ReservationDetails";
 
 export default function LessonsView() {
     // View states
@@ -25,8 +26,6 @@ export default function LessonsView() {
         refetch: reservedListRefetch,
     } = useGetAllReserved();
 
-    // Refetch logic
-
     return (
         <div className="lessons">
             <Logo />
@@ -43,6 +42,15 @@ export default function LessonsView() {
                 />
                 <LessonReserve refetch={reservedListRefetch} />
             </div>
+
+            {reservationDetailsPanelState ? (
+                <ReservationDetails
+                    reservation={selectedReservation}
+                    close={setReservationDetailsPanelState}
+                />
+            ) : (
+                ""
+            )}
         </div>
     );
 }

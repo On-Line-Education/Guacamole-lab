@@ -12,8 +12,6 @@ export default function LessonReservedList({
     setSelectedReservation,
     setReservationDetailsPanelState,
 }) {
-    console.log(reservedList);
-
     const tableColumns = [
         {
             Header: "Czas startu",

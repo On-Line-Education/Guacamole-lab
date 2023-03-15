@@ -16,7 +16,13 @@ export default function ComputerImport() {
                 Importuj komputery z pliku .csv
             </div>
             <div className="panel computer-import-panel">
-                <form className="panel-form import-form">
+                <form
+                    className="panel-form import-form"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        importComputers();
+                    }}
+                >
                     <div className="form-group">
                         <label className="form-label">Wybierz plik .csv</label>
                         <FileInput
@@ -30,7 +36,6 @@ export default function ComputerImport() {
                             type="submit"
                             sx={{ width: "40%" }}
                             disabled={!file}
-                            onClick={() => importComputers()}
                         >
                             Importuj
                         </GuacamoleButton>
