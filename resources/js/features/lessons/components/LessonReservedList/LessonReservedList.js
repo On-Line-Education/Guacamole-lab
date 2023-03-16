@@ -11,6 +11,7 @@ export default function LessonReservedList({
     selectedReservation,
     setSelectedReservation,
     setReservationDetailsPanelState,
+    date,
 }) {
     const tableColumns = [
         {
@@ -29,13 +30,13 @@ export default function LessonReservedList({
             Header: "Klasa",
             name: "class",
             accessor: "class.name",
-            disableSortBy: true,
+            disableSortBy: false,
         },
         {
             Header: "Sala",
             name: "classroom",
             accessor: "class_room.name",
-            disableSortBy: true,
+            disableSortBy: false,
         },
         {
             Header: "Nazwa",
@@ -59,6 +60,7 @@ export default function LessonReservedList({
                             selectedRow={selectedReservation}
                             tableData={reservedList.lectures}
                             tableColumns={tableColumns}
+                            externalFilter={date.format("DD-MM")}
                         />
                     )}
                 </div>

@@ -1,5 +1,6 @@
 .reserved-list-container {
     grid-column: 1;
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,22 +29,22 @@
 
             th.time,
             td.time {
-                width: 25%;
+                width: 20%;
             }
 
             th.instructor,
             td.instructor {
-                width: 25%;
+                width: 20%;
             }
 
             th.class,
             td.class {
-                width: 10%;
+                width: 15%;
             }
 
             th.classroom,
             td.classroom {
-                width: 10%;
+                width: 15%;
             }
 
             th.name,

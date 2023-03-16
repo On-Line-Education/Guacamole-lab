@@ -89,8 +89,6 @@ export default function LessonReserve({ refetch }) {
         refetch();
     };
 
-    console.log(reservationDate, reservationStartTime);
-
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div className="lesson-create-container">

@@ -1,6 +1,6 @@
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import GlobalFilter from "./GlobalFilter";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useEffect } from "react";
 import {
     useTable,
     useSortBy,
@@ -15,6 +15,7 @@ export default function SortingTable({
     selectedRow,
     tableData,
     tableColumns,
+    externalFilter,
 }) {
     // cache data from api using useMemo react hook
 
@@ -42,6 +43,13 @@ export default function SortingTable({
     );
 
     const { globalFilter } = state;
+    console.log(externalFilter);
+
+    useEffect(() => {
+        if (externalFilter) {
+            setGlobalFilter(externalFilter);
+        }
+    }, [externalFilter]);
 
     return (
         <div className="table-container">
