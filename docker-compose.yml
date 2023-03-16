@@ -96,7 +96,7 @@ services:
             - guacnetwork_compose
         ports:
         ## enable next line if not using nginx
-            - 8080:8080/tcp # Guacamole is on :8080/guacamole, not /.
+            - '${GUACAMOLE_PORT:-8080}:8080/tcp' # Guacamole is on :8080/guacamole, not /.
         ## enable next line when using nginx
         ##    - 8080/tcp
         restart: unless-stopped
