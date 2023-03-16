@@ -113,7 +113,13 @@ export default function SortingTable({
                                             className={cell.column.name}
                                             {...cell.getCellProps()}
                                         >
-                                            {cell.render("Cell")}
+                                            {cell.column.destructureClass
+                                                ? cell.value.map((item) => {
+                                                      if (item) {
+                                                          return item.name;
+                                                      }
+                                                  })
+                                                : cell.render("Cell")}
                                         </td>
                                     );
                                 })}

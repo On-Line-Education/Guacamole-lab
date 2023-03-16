@@ -27,11 +27,14 @@ export default function StudentList({
         {
             Header: "Grupy",
             name: "group",
-            accessor: "group",
+            accessor: "classes",
+            destructureClass: true,
             disableSortBy: true,
             Filter: true,
         },
     ];
+
+    console.log(studentList);
 
     return (
         <div className="student-list-container">
