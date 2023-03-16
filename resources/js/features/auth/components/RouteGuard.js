@@ -2,10 +2,14 @@ import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const RouteGuard = () => {
-    const token = useSelector((state) => state.auth.token);
+const RouteGuard = ({ accessList, children }) => {
+    const { token, role } = useSelector((state) => state.auth);
 
-    return token ? <Outlet /> : <Navigate to="/" exact />;
+    if (token && accessList.includes(role)) {
+        return <>{children}</>;
+    } else {
+        return <Navigate to="/" exact />;
+    }
 };
 
 export default RouteGuard;

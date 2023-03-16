@@ -1,15 +1,14 @@
 import React from "react";
-import Sidebar from "./components/Sidebar";
-import LoginForm from "./components/LoginForm";
+import Sidebar from "./components/Sidebar/Sidebar";
+import LoginForm from "./components/LoginForm/LoginForm";
 import { useState } from "react";
 import useLogin from "./hooks/useLogin";
+import "./assets/style.scss";
 
 export default function LoginView() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [token, error, login] = useLogin(username, password);
-
-    console.log(login);
 
     return (
         <div className="login">

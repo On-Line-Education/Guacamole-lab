@@ -22,6 +22,7 @@
 .student-details-panel {
     z-index: 3;
     opacity: 1;
+    width: 50%;
     background-color: $body-color-light;
     border-radius: 30px;
     padding: 1em 3em;
@@ -29,13 +30,28 @@
     flex-direction: column;
     position: relative;
 
-    .panel-info {
-        font-size: $font-size-2;
-        font-family: $font-family-title-bold;
+    .student-info-panel {
         color: $body-color-dark;
+        font-size: $font-size-2;
+        margin-bottom: 1em;
 
-        .user-info {
-            margin: 0.4em 0;
+        .student-info-group {
+            td {
+                padding: 0.5em 0.5em 0 0;
+            }
+
+            .student-info-key {
+                font-family: $font-family-title-bold;
+            }
+
+            .student-info-value#username {
+                font-family: $font-family-content;
+            }
+
+            .student-info-value#groups {
+                font-family: $font-family-content;
+                display: flex;
+            }
         }
     }
 
@@ -75,16 +91,24 @@
             padding-bottom: 0.5em;
         }
     }
+
+    .panel-actions {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 //Table override styles
 
 .computer-access-list {
+    .id {
+        width: 10%;
+    }
     .computerName {
-        min-width: 275px;
+        min-width: 40%;
     }
     .ip {
-        min-width: 175px;
+        min-width: 40%;
     }
 
     // the following entry is required because of a weird bug

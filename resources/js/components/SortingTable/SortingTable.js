@@ -1,6 +1,6 @@
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import GlobalFilter from "./GlobalFilter";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useEffect } from "react";
 import {
     useTable,
     useSortBy,
@@ -10,88 +10,17 @@ import {
 import "./sortingtable.scss";
 import { IconButton } from "@mui/material";
 
-export default function GuacamoleSoringTable({ selectRow, selectedRow }) {
-    // TESTING DATA
-    const MOCKDATA = [
-        {
-            id: 1,
-            username: "amacpake0",
-            group: "1tc",
-        },
-        {
-            id: 2,
-            username: "hdenizet1",
-            group: "4la",
-        },
-        {
-            id: 3,
-            username: "lharwell2",
-            group: "4ta",
-        },
-        {
-            id: 4,
-            username: "ymacfadzean3",
-            group: "1gtb",
-        },
-        {
-            id: 5,
-            username: "cwiltshear4",
-            group: "1gtb",
-        },
-        {
-            id: 6,
-            username: "bmccrorie5",
-            group: "1tc",
-        },
-        {
-            id: 7,
-            username: "bkruschov6",
-            group: "4la",
-        },
-        {
-            id: 8,
-            username: "keric7",
-            group: "1gta",
-        },
-        {
-            id: 9,
-            username: "tdomenge8",
-            group: "1gta",
-        },
-        {
-            id: 10,
-            username: "bmereweather9",
-            group: "1tc",
-        },
-        {
-            id: 10,
-            username: "bmereweather9",
-            group: "1tc",
-        },
-    ];
-
-    const COLUMNS = [
-        {
-            Header: "Id",
-            accessor: "id",
-            disableSortBy: true,
-        },
-        {
-            Header: "Username",
-            accessor: "username",
-        },
-        {
-            Header: "Groups",
-            accessor: "group",
-            disableSortBy: true,
-            Filter: true,
-        },
-    ];
-
+export default function SortingTable({
+    selectRow,
+    selectedRow,
+    tableData,
+    tableColumns,
+    externalFilter,
+}) {
     // cache data from api using useMemo react hook
 
-    const columns = useMemo(() => COLUMNS, []);
-    const data = useMemo(() => MOCKDATA, []);
+    const columns = useMemo(() => tableColumns, []);
+    const data = useMemo(() => tableData, []);
 
     // create table instance using react-table library, for more check official react-table documentation
 
@@ -115,6 +44,12 @@ export default function GuacamoleSoringTable({ selectRow, selectedRow }) {
 
     const { globalFilter } = state;
 
+    useEffect(() => {
+        if (externalFilter) {
+            setGlobalFilter(externalFilter);
+        }
+    }, [externalFilter]);
+
     return (
         <div className="table-container">
             <table {...getTableProps()} className="sorting-table">
@@ -124,7 +59,7 @@ export default function GuacamoleSoringTable({ selectRow, selectedRow }) {
                             {headerGroup.headers.map((column) => (
                                 <th
                                     id={column.id}
-                                    className={column.id}
+                                    className={column.name}
                                     {...column.getHeaderProps()}
                                 >
                                     <div className="col-flex">
@@ -165,19 +100,25 @@ export default function GuacamoleSoringTable({ selectRow, selectedRow }) {
                             <tr
                                 {...row.getRowProps()}
                                 className={`table-row ${
-                                    row.id === selectedRow ? "active" : ""
+                                    row.original === selectedRow ? "active" : ""
                                 }`}
                                 onClick={() => {
-                                    selectRow(row.id);
+                                    selectRow(row.original);
                                 }}
                             >
                                 {row.cells.map((cell) => {
                                     return (
                                         <td
-                                            className={cell.column.id}
+                                            className={cell.column.name}
                                             {...cell.getCellProps()}
                                         >
-                                            {cell.render("Cell")}
+                                            {cell.column.destructureClass
+                                                ? cell.value.map((item) => {
+                                                      if (item) {
+                                                          return item.name;
+                                                      }
+                                                  })
+                                                : cell.render("Cell")}
                                         </td>
                                     );
                                 })}

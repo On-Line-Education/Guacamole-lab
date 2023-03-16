@@ -17,6 +17,11 @@
     font-family: "Inter-Bold";
     src: local('Inter'), url(/fonts/Inter-Bold.ttf?88fa7ae373b07b41ecce77adbdf16ec2) format('truetype');
 }
+
+@font-face {
+    font-family: "Inter-Light";
+    src: local('Inter'), url(/fonts/Inter-Light.ttf?eec8664621fec98efb3798b3ad4177aa) format('truetype');
+}
 * {
     margin: 0;
     padding: 0;

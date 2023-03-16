@@ -8,35 +8,40 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import useLogout from "../../features/auth/hooks/useLogout";
 
 export default function Sidebar({ active }) {
-    const loggedUser = useSelector((state) => state.auth.username);
+    const loggedUserUsername = useSelector((state) => state.auth.username);
+    const loggedUserRole = useSelector((state) => state.auth.role);
     const [error, logout] = useLogout();
 
     return (
         <div className="app-sidebar">
             <div className="app-nav">
-                <ul>
-                    <li
-                        className={`app-nav-link ${
-                            active === "lessons" ? "checked" : ""
-                        }`}
-                    >
-                        <Link to="/lessons">Lekcje</Link>
-                    </li>
-                    <li
-                        className={`app-nav-link ${
-                            active === "classrooms" ? "checked" : ""
-                        }`}
-                    >
-                        <Link to="/classrooms">Sale</Link>
-                    </li>
-                    <li
-                        className={`app-nav-link ${
-                            active === "students" ? "checked" : ""
-                        }`}
-                    >
-                        <Link to="/students">Uczniowie</Link>
-                    </li>
-                </ul>
+                {["admin", "teacher"].includes(loggedUserRole) ? (
+                    <ul>
+                        <li
+                            className={`app-nav-link ${
+                                active === "lessons" ? "checked" : ""
+                            }`}
+                        >
+                            <Link to="/lessons">Lekcje</Link>
+                        </li>
+                        <li
+                            className={`app-nav-link ${
+                                active === "classrooms" ? "checked" : ""
+                            }`}
+                        >
+                            <Link to="/classrooms">Sale</Link>
+                        </li>
+                        <li
+                            className={`app-nav-link ${
+                                active === "students" ? "checked" : ""
+                            }`}
+                        >
+                            <Link to="/students">Uczniowie</Link>
+                        </li>
+                    </ul>
+                ) : (
+                    ""
+                )}
             </div>
             <div className="sidebar-footer">
                 <div className="sidebar-footer-logout">
@@ -44,7 +49,9 @@ export default function Sidebar({ active }) {
                         <LogoutIcon fontSize="large" color="secondary" />
                     </IconButton>
                 </div>
-                <div className="sidebar-footer-user-info">{loggedUser}</div>
+                <div className="sidebar-footer-user-info">
+                    {loggedUserUsername}
+                </div>
             </div>
         </div>
     );

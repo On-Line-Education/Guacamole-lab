@@ -1,8 +1,14 @@
-import React from "react";
-import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
+import React, { useState } from "react";
+import { GuacamoleButton } from "../../../../mui";
+import useImportStudents from "../../hooks/useImportStudents";
+import FileInput from "../../../../components/FileInput/FileInput";
 import "./studentimport.scss";
 
 export default function StudentImport() {
+    const [file, setFile] = useState("");
+    const [fileName, setFileName] = useState("");
+
+    const [error, data, importStudents] = useImportStudents(file);
     return (
         <div className="student-import-container">
             <div className="title student-import-title">
@@ -12,15 +18,18 @@ export default function StudentImport() {
                 <form className="panel-form import-form">
                     <div className="form-group">
                         <label className="form-label">Wybierz plik .csv</label>
-                        <GuacamoleInput
-                            className="form-input"
-                            variant="outlined"
-                            size="small"
-                            id="import-file"
+                        <FileInput
+                            setFile={setFile}
+                            setFileName={setFileName}
+                            fileName={fileName}
                         />
                     </div>
                     <div className="form-actions student-import-actions">
-                        <GuacamoleButton type="submit" sx={{ width: "40%" }}>
+                        <GuacamoleButton
+                            sx={{ width: "40%" }}
+                            disabled={!file}
+                            onClick={() => importStudents()}
+                        >
                             Importuj
                         </GuacamoleButton>
                     </div>

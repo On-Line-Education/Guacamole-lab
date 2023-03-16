@@ -1,30 +1,27 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import usePost from "../../../hooks/usePost";
+import { actionSucceed } from "../../alert/state/alertActions";
+import { formatSuccess } from "../../alert/services/formatSuccess";
 
 export default function useCreateStudent(username, password) {
     const [data, loading, refresh, error] = usePost("/user", false, {
         username: username,
         password: password,
+        role: "student",
     });
-    const didMount = useRef(false);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (didMount.current) {
-            if (!loading && error.length < 1) {
-                try {
-                    setToken(data.token);
-                    dispatch(loginAction(data));
-                    navigate("/home");
-                } catch (e) {
-                    console.log(e);
-                }
-            }
-        } else didMount.current = true;
-    }, [createStudent, loading, data, error]);
+        if (!loading && !error.length > 0) {
+            dispatch(actionSucceed(formatSuccess("STUDENT_CREATE_SUCCESS")));
+        }
+    }, [loading, error]);
 
-    const createStudent = async () => {
+    const createUser = async () => {
         refresh();
     };
 
-    return [loading, error, createStudent];
+    return [error, data, createUser];
 }

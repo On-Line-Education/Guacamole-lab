@@ -1,28 +1,40 @@
 .group-list-container {
+    grid-column: 2;
+    grid-row: 1;
     display: flex;
     flex-direction: column;
-    grid-column: 2 / 3;
-    grid-row: 1;
+    justify-content: center;
 
     .group-list-title {
         padding: 0.5em 1em;
     }
 
     .group-list-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         background-color: #ffffff;
         padding: 1em 2em;
         border-radius: 30px;
-        width: 250px;
-    }
+        width: 50%;
+        min-height: 80%;
 
-    .group-list-actions {
-        display: flex;
-        flex-direction: column;
-        padding-top: 1em;
-        justify-content: space-around;
+        .group-list {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
 
-        button {
-            margin: 5px 0;
+        .group-list-actions {
+            display: flex;
+            flex-direction: column;
+            padding-top: 1em;
+            justify-content: space-around;
+
+            button {
+                margin: 5px 0;
+            }
         }
     }
 }
@@ -30,7 +42,10 @@
 //table override styles
 
 .group-list {
-    .group {
-        min-width: 150px !important;
+    .id {
+        width: 20%;
+    }
+    .name {
+        width: 80%;
     }
 }

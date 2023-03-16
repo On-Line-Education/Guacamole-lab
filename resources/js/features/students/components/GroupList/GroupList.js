@@ -2,88 +2,61 @@ import React, { useState } from "react";
 import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import "./grouplist.scss";
 import BasicTable from "../../../../components/BasicTable/BasicTable";
+import useDeleteGroup from "../../hooks/useDeleteGroup";
+import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 
-export default function GroupList({ openStudentAdd }) {
-    const [selectedRow, setSelectedRow] = useState(null);
+export default function GroupList({
+    openGroupAdd,
+    groupList,
+    loading,
+    setSelectedGroup,
+    selectedGroup,
+}) {
+    const { error: groupDeletionError, deleteGroup } = useDeleteGroup(
+        selectedGroup.id
+    );
 
-    console.log(selectedRow);
-
-    // TESTING DATA
-
-    const MOCKDATA = {
-        DATA: [
-            {
-                id: 1,
-                group: "1tc",
-            },
-            {
-                id: 2,
-                group: "4la",
-            },
-            {
-                id: 3,
-                group: "4ta",
-            },
-            {
-                id: 4,
-                group: "1gtb",
-            },
-            {
-                id: 5,
-                group: "1gtb",
-            },
-            {
-                id: 6,
-                group: "1tc",
-            },
-            {
-                id: 7,
-                group: "4la",
-            },
-            {
-                id: 8,
-                group: "1gta",
-            },
-            {
-                id: 9,
-                group: "1gta",
-            },
-            {
-                id: 10,
-                group: "1tc",
-            },
-            {
-                id: 10,
-                group: "1tc",
-            },
-        ],
-        COLUMNS: [
-            {
-                Header: "Id",
-                accessor: "id",
-            },
-
-            {
-                Header: "Groups",
-                accessor: "group",
-            },
-        ],
-    };
+    const tableColumns = [
+        {
+            Header: "Id",
+            accessor: "id",
+        },
+        {
+            Header: "Grupa",
+            accessor: "name",
+        },
+    ];
 
     return (
         <div className="group-list-container">
             <div className="title group-list-title">Lista grup</div>
             <div className="group-list-panel">
                 <div className="group-list">
-                    <BasicTable
-                        selectRow={setSelectedRow}
-                        selectedRow={selectedRow}
-                        MOCKDATA={MOCKDATA}
-                    />
+                    {loading ? (
+                        <LoadingSpinner />
+                    ) : (
+                        <BasicTable
+                            selectRow={setSelectedGroup}
+                            selectedRow={selectedGroup}
+                            tableColumns={tableColumns}
+                            tableData={groupList.class}
+                        />
+                    )}
                 </div>
                 <div className="group-list-actions">
-                    <GuacamoleButton>Dodaj grupę</GuacamoleButton>
-                    <GuacamoleFragileButton>Usuń grupę</GuacamoleFragileButton>
+                    <GuacamoleButton
+                        onClick={() => {
+                            openGroupAdd(true);
+                        }}
+                    >
+                        Dodaj grupę
+                    </GuacamoleButton>
+                    <GuacamoleFragileButton
+                        disabled={selectedGroup ? false : true}
+                        onClick={() => deleteGroup()}
+                    >
+                        Usuń grupę
+                    </GuacamoleFragileButton>
                 </div>
             </div>
         </div>

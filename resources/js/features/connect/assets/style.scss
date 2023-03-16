@@ -1,0 +1,17 @@
+@import "../../../../sass/variables";
+
+.connect {
+    display: flex;
+    height: 100vh;
+}
+
+.connect-container {
+    padding: 70px;
+    flex: 6;
+    background-color: $body-color-light;
+
+    .title {
+        font-family: $font-family-title-bold;
+        font-size: $font-size-2;
+    }
+}

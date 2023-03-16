@@ -1,29 +1,31 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { formatError } from "../features/alert/services/formatError";
-import { loginFailedAction } from "../features/alert/state/alertActions";
+import {
+    failedAction,
+    userUnauthenticated,
+} from "../features/alert/state/alertActions";
 
 const useFetch = ({ endpoint, method, body, start }) => {
     const [result, setResult] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState([]);
+    const token = useSelector((state) => state.auth.token);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (start) fetchData();
     }, [fetchData, start]);
 
     const fetchData = async () => {
-        if (loading) return;
-
         setLoading(true);
         const staticURL = `${"http://localhost:8888/api"}${endpoint}`;
         const headers = {
             Accept: "application/json",
-            Authorization: localStorage.getItem("token")
-                ? `Bearer ${localStorage.getItem("token")}`
-                : {},
+            Authorization: token ? `Bearer ${token}` : {},
         };
 
         const requestOptions = {
@@ -40,25 +42,35 @@ const useFetch = ({ endpoint, method, body, start }) => {
             const response = await fetch(staticURL, requestOptions);
             const data = await response.json();
 
-            console.log(data);
             if (!response.ok) {
-                console.log(data);
-                // Api returns an array of errors. This piece of code formats every returned error message and sends it to state variable
+                console.log(response);
+                if (response.status === 401 || response.status === 403) {
+                    dispatch(userUnauthenticated());
+                    navigate("/login");
+                    return;
+                }
+
+                // Api returns an array of errors. This piece of code formats every returned error message and send it to redux store
                 if (data.errors) {
+                    console.log(data);
                     Object.values(data.errors).forEach((error) => {
+                        dispatch(failedAction(formatError(error[0])));
                         setError((prevErrors) => [
                             ...prevErrors,
                             formatError(error[0]),
                         ]);
-                        dispatch(loginFailedAction(formatError(error[0])));
                     });
                 } else {
-                    setError(data.message);
-                    dispatch(loginFailedAction(formatError(data.message)));
+                    console.log(data.message);
+                    dispatch(failedAction(formatError(data.message)));
+                    setError((prevErrors) => [
+                        ...prevErrors,
+                        formatError(data.message),
+                    ]);
                 }
             } else {
-                console.log(data);
-                setResult(data);
+                // if there are no errors return data
+                setResult(data.body);
             }
         } catch (err) {
             setError(err);
@@ -67,6 +79,8 @@ const useFetch = ({ endpoint, method, body, start }) => {
     };
 
     const refresh = () => {
+        console.log(token);
+        setError([]);
         fetchData();
     };
 

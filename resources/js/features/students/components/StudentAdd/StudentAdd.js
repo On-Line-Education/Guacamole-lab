@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
 import CloseIcon from "@mui/icons-material/Close";
-import "./addstudent.scss";
+import "./studentadd.scss";
 import { IconButton } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import useCreateStudent from "../../hooks/useCreateStudent";
 
-export default function StudentAdd({ close }) {
+export default function StudentAdd({ close, refetch }) {
     const [newStudentUsername, setNewStudentUsername] = useState();
     const [newStudentPassword, setNewStudentPassword] = useState();
 
@@ -15,19 +15,13 @@ export default function StudentAdd({ close }) {
         newStudentPassword
     );
 
-    if (error) {
-        console.log(error);
-    }
-
     return (
         <>
             <div className="overlay"></div>
             <div className="student-add-container">
                 <ClickAwayListener onClickAway={() => close(false)}>
                     <div className="student-add-panel">
-                        <div className="panel-title">
-                            Stwórz nowego użytkownika
-                        </div>
+                        <div className="panel-title">Stwórz nowego ucznia</div>
                         <div className="panel-close">
                             <IconButton onClick={() => close(false)}>
                                 <CloseIcon />
@@ -35,9 +29,10 @@ export default function StudentAdd({ close }) {
                         </div>
                         <div className="panel-form">
                             <form
-                                onSubmit={() => {
+                                onSubmit={(e) => {
+                                    e.preventDefault();
                                     createStudent();
-                                    console.log("?");
+                                    refetch();
                                 }}
                             >
                                 <div className="form-group">

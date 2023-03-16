@@ -1,8 +1,11 @@
+@import "../../../../../sass/variables";
+
 .student-list-container {
+    grid-column: 1;
+    grid-row: 1;
     display: flex;
     flex-direction: column;
-    grid-column: 1 / 2;
-    grid-row: 1;
+    justify-content: center;
 
     .student-list-title {
         padding: 0.5em 1em;
@@ -15,7 +18,28 @@
         background-color: #ffffff;
         padding: 0.5em 2em;
         border-radius: 30px;
-        width: 550px;
+        width: 90%;
+        min-height: 80%;
+
+        .student-list {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .id {
+            width: 10%;
+            font-family: $font-family-content-bold;
+        }
+
+        .username {
+            width: 40%;
+        }
+
+        .group {
+            width: 50%;
+        }
     }
 
     .student-list-actions {

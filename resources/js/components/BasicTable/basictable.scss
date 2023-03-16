@@ -2,66 +2,41 @@
 
 // styles for custom table
 
+.table-container {
+    display: flex;
+    flex: 1;
+}
+
 .basic-table {
     font-size: $font-size-3;
     border-collapse: separate;
     border-spacing: 0 5px;
     table-layout: fixed;
-
-    thead {
-        font-family: $font-family-content-bold;
-        tr {
-            display: block;
-            th {
-                position: relative;
-                border-bottom: 2px solid $body-color-dark;
-                height: 40px;
-                padding: 2px 5px;
-                text-align: left;
-                position: sticky;
-                top: 0px;
-
-                .col-flex {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-            }
-
-            //pseudo-class responsible for creating spaced borders in hader
-            th::after {
-                content: "";
-                position: absolute;
-                top: 10%;
-                bottom: 10%;
-                right: -2px;
-                border-left: 2px solid $body-color-dark;
-            }
-
-            //disable creation of last border
-            th:last-child:after {
-                display: none;
-            }
-        }
-    }
+    width: 100%;
+    height: 100%;
 
     tbody {
         display: block;
         width: 100%;
         overflow: auto;
-        height: 275px;
         margin-right: 10px;
 
         tr {
+            display: flex;
+            width: 100%;
+            border-radius: 10px;
             td {
+                display: flex;
+                align-items: center;
                 font-family: $font-family-content;
                 height: 20px;
-                padding: 2px 5px;
+                padding: 0.2em 0.5em;
                 border-left: 2px solid $body-color-dark;
             }
 
             //disable border for first cell in a row
             td:first-child {
+                padding: 0.2em;
                 border: none;
             }
 
@@ -77,34 +52,10 @@
     }
 }
 
-//custom input field
-
-.guac-table-input {
-    height: 1.5em;
-    width: 100px;
-    border: none;
-    border-bottom: 1px solid $body-color-dark;
-    background-color: transparent;
-}
-
-.guac-table-input:hover {
-    border-bottom: 2px solid $body-color-dark;
-}
-
-.guac-table-input:active,
-.guac-table-input:focus {
-    border: none;
-    box-shadow: none;
-    outline: none;
-    border-bottom: 2px solid $body-color-dark;
-    font-size: $font-size-4;
-    font-family: $font-family-content;
-}
-
 //custom scrollbar
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 0.5em;
 }
 
 ::-webkit-scrollbar-track {

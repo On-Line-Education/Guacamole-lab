@@ -1,0 +1,20 @@
+@import "../../../../sass/variables";
+
+.classrooms {
+    display: flex;
+    height: 100vh;
+}
+
+.classrooms-container {
+    padding: 70px;
+    flex: 6;
+    display: grid;
+    grid-template-columns: 30% 50% auto;
+    grid-template-rows: 50% 50%;
+    background-color: $body-color-light;
+
+    .title {
+        font-family: $font-family-title-bold;
+        font-size: $font-size-2;
+    }
+}
