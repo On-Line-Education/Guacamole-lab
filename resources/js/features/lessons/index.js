@@ -48,7 +48,7 @@ export default function LessonsView() {
                     setReservationDetailsPanelState={
                         setReservationDetailsPanelState
                     }
-                    date={date.format()}
+                    date={date}
                 />
                 <LessonReserve refetch={reservedListRefetch} />
             </div>

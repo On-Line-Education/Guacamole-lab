@@ -43,7 +43,6 @@ export default function SortingTable({
     );
 
     const { globalFilter } = state;
-    console.log(externalFilter);
 
     useEffect(() => {
         if (externalFilter) {
