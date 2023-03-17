@@ -13,12 +13,13 @@ export default function ClassroomAdd({
     // Form fields state
 
     const [newClassroomName, setNewClassroomName] = useState();
+    const [newClassroomDescription, setNewClassroomDescription] = useState();
 
     // Create classroom hook declaration
 
     const [error, loading, createClassroom] = useCreateClassroom(
         newClassroomName,
-        "desc"
+        newClassroomDescription
     );
 
     const close = () => {
@@ -37,7 +38,7 @@ export default function ClassroomAdd({
                                 <CloseIcon />
                             </IconButton>
                         </div>
-                        <div className="panel-form">
+                        <div className="classroom-add-form">
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
@@ -47,15 +48,23 @@ export default function ClassroomAdd({
                                     close();
                                 }}
                             >
-                                <div className="form-classroom">
+                                <div className="form-group">
                                     <label className="form-label">Nazwa</label>
                                     <GuacamoleInput
                                         className="form-input"
-                                        variant="outlined"
-                                        size="small"
-                                        id="classroom-name"
                                         onChange={(e) =>
                                             setNewClassroomName(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Opis</label>
+                                    <GuacamoleInput
+                                        className="form-input"
+                                        onChange={(e) =>
+                                            setNewClassroomDescription(
+                                                e.target.value
+                                            )
                                         }
                                     />
                                 </div>

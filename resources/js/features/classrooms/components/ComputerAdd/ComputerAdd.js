@@ -7,10 +7,13 @@ import { ClickAwayListener } from "@mui/base";
 import useCreateComputer from "../../hooks/useCreateComputer";
 
 export default function ComputerAdd({ close, classroom }) {
+    // Form fields state
     const [newComputerName, setNewComputerName] = useState();
     const [newComputerIp, setNewComputerIp] = useState();
     const [newComputerMac, setNewComputerMac] = useState();
     const [newComputerLogin, setNewComputerLogin] = useState();
+
+    // Create Computer hook declaration
 
     const [error, loading, createComputer] = useCreateComputer(
         classroom.id,
@@ -19,10 +22,6 @@ export default function ComputerAdd({ close, classroom }) {
         newComputerMac,
         newComputerLogin
     );
-
-    if (error) {
-        console.log(error);
-    }
 
     return (
         <>
@@ -36,12 +35,11 @@ export default function ComputerAdd({ close, classroom }) {
                                 <CloseIcon />
                             </IconButton>
                         </div>
-                        <div className="panel-form">
+                        <div className="computer-add-form">
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
                                     createComputer();
-                                    console.log("?");
                                 }}
                             >
                                 <div className="form-group">
