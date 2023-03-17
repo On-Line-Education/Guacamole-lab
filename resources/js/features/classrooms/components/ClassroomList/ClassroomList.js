@@ -6,14 +6,18 @@ import useDeleteClassroom from "../../hooks/useDeleteClassroom";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 
 export default function ClassroomList({
-    openClassroomAdd,
+    setClassroomAdditionPanelState,
     classroomList,
     loading,
     setSelectedClassroom,
     selectedClassroom,
+    refetch,
 }) {
-    const { error: classroomDeletionError, deleteClassroom } =
-        useDeleteClassroom(selectedClassroom.id);
+    // Delete classroom hook declaration
+
+    const { error, deleteClassroom } = useDeleteClassroom(selectedClassroom.id);
+
+    // Headers for react-table
 
     const tableColumns = [
         {
@@ -25,6 +29,16 @@ export default function ClassroomList({
             accessor: "name",
         },
     ];
+
+    // Sleep function
+
+    const timeout = (delay) => {
+        return new Promise((res) => setTimeout(res, delay));
+    };
+
+    const openClassroomAdd = () => {
+        setClassroomAdditionPanelState(true);
+    };
 
     return (
         <div className="classroom-list-container">
@@ -45,14 +59,19 @@ export default function ClassroomList({
                 <div className="classroom-list-actions">
                     <GuacamoleButton
                         onClick={() => {
-                            openClassroomAdd(true);
+                            openClassroomAdd();
                         }}
                     >
                         Dodaj salę
                     </GuacamoleButton>
                     <GuacamoleFragileButton
                         disabled={selectedClassroom ? false : true}
-                        onClick={() => deleteClassroom()}
+                        onClick={async () => {
+                            deleteClassroom();
+                            // the timeout is needed becouse of the delay on server
+                            await timeout(100);
+                            refetch();
+                        }}
                     >
                         Usuń salę
                     </GuacamoleFragileButton>

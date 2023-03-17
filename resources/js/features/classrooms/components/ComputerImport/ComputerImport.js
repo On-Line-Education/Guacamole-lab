@@ -4,9 +4,12 @@ import { GuacamoleButton } from "../../../../mui";
 import useImportComputers from "../../hooks/useImportComputers";
 import "./computerimport.scss";
 
-export default function ComputerImport() {
+export default function ComputerImport({ refetch }) {
+    // Form fields state
     const [file, setFile] = useState("");
     const [fileName, setFileName] = useState("");
+
+    // Import Computers hook declaration
 
     const [error, data, importComputers] = useImportComputers(file);
 
@@ -20,7 +23,9 @@ export default function ComputerImport() {
                     className="panel-form import-form"
                     onSubmit={(e) => {
                         e.preventDefault();
+
                         importComputers();
+                        refetch();
                     }}
                 >
                     <div className="form-group">

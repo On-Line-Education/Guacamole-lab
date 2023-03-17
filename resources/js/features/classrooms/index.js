@@ -14,11 +14,11 @@ import ComputerImport from "./components/ComputerImport/ComputerImport";
 export default function ClassroomsView() {
     // View states
 
-    const [classroomAdditionPanelActive, setClassroomAdditionPanelActive] =
+    const [classroomAdditionPanelState, setClassroomAdditionPanelState] =
         useState(false);
-    const [computerDetailsPanelActive, setComputerDetailsPanelActive] =
+    const [computerDetailsPanelState, setComputerDetailsPanelState] =
         useState(false);
-    const [computerAdditionPanelActive, setComputerAdditionPanelActive] =
+    const [computerAdditionPanelState, setComputerAdditionPanelState] =
         useState(false);
 
     // Selected table rows state
@@ -32,6 +32,7 @@ export default function ClassroomsView() {
         data: classroomList,
         loading: classroomListLoading,
         error: classroomListLoadingError,
+        refetch: classroomListRefetch,
     } = useGetAllClassrooms();
 
     const {
@@ -55,44 +56,53 @@ export default function ClassroomsView() {
             <Sidebar active={"classrooms"} />
             <div className="classrooms-container">
                 <ClassroomList
-                    openClassroomAdd={setClassroomAdditionPanelActive}
+                    setClassroomAdditionPanelState={
+                        setClassroomAdditionPanelState
+                    }
                     classroomList={classroomList}
                     loading={classroomListLoading}
                     setSelectedClassroom={setSelectedClassroom}
                     selectedClassroom={selectedClassroom}
+                    refetch={classroomListRefetch}
                 />
                 <ComputerList
-                    openComputerAdd={setComputerAdditionPanelActive}
-                    openComputerDetails={setComputerDetailsPanelActive}
+                    openComputerAdd={setComputerAdditionPanelState}
+                    openComputerDetails={setComputerDetailsPanelState}
                     computerList={computerList}
                     loading={computerListLoading}
                     setSelectedComputer={setSelectedComputer}
                     selectedClassroom={selectedClassroom}
                     selectedComputer={selectedComputer}
                 />
-                <ComputerImport />
+                <ComputerImport refetch={classroomListRefetch} />
             </div>
 
-            {classroomAdditionPanelActive ? (
-                <ClassroomAdd close={setClassroomAdditionPanelActive} />
-            ) : (
-                ""
-            )}
-
-            {computerDetailsPanelActive ? (
-                <ComputerDetails
-                    classroom={selectedClassroom}
-                    computer={selectedComputer}
-                    close={setComputerDetailsPanelActive}
+            {classroomAdditionPanelState ? (
+                <ClassroomAdd
+                    setClassroomAdditionPanelState={
+                        setClassroomAdditionPanelState
+                    }
+                    refetch={classroomListRefetch}
                 />
             ) : (
                 ""
             )}
 
-            {computerAdditionPanelActive ? (
+            {computerDetailsPanelState ? (
+                <ComputerDetails
+                    classroom={selectedClassroom}
+                    computer={selectedComputer}
+                    close={setComputerDetailsPanelState}
+                />
+            ) : (
+                ""
+            )}
+
+            {computerAdditionPanelState ? (
                 <ComputerAdd
                     classroom={selectedClassroom}
-                    close={setComputerAdditionPanelActive}
+                    close={setComputerAdditionPanelState}
+                    refetch={getClassroomComputers}
                 />
             ) : (
                 ""
