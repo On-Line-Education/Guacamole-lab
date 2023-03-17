@@ -12,7 +12,8 @@
     .computer-list-panel {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
         background-color: #ffffff;
         padding: 0.5em 2em;
         border-radius: 30px;
@@ -43,6 +44,7 @@
     }
 
     .computer-list-actions {
+        width: 100%;
         display: flex;
         justify-content: space-between;
         padding-top: 1em;
