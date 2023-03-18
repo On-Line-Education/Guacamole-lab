@@ -9,7 +9,7 @@ import useCreateComputer from "../../hooks/useCreateComputer";
 export default function ComputerAdd({
     classroom,
     refetch,
-    setComputerDetailsPanelState,
+    setComputerAdditionPanelState,
 }) {
     // Form fields state
     const [newComputerName, setNewComputerName] = useState();
@@ -29,7 +29,7 @@ export default function ComputerAdd({
     );
 
     const close = () => {
-        setComputerDetailsPanelState(false);
+        setComputerAdditionPanelState(false);
     };
 
     const handleSubmit = (e) => {

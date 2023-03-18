@@ -1,26 +1,54 @@
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./computerdetails.scss";
-import { IconButton, TextField } from "@mui/material";
+import { Checkbox, IconButton, TextField } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
-import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
+import {
+    GuacamoleButton,
+    GuacamoleFragileButton,
+    GuacamoleInput,
+} from "../../../../mui";
 import useDeleteComputer from "../../hooks/useDeleteComputer";
 import EditIcon from "@mui/icons-material/Edit";
 import EditOffIcon from "@mui/icons-material/EditOff";
+import useEditComputer from "../../hooks/useEditComputer";
 
-export default function ComputerDetails({ classroom, computer, close }) {
+export default function ComputerDetails({
+    classroom,
+    computer,
+    refetch,
+    close,
+}) {
+    // Form edit state
+
     const [nameEditActive, setNameEditActive] = useState(false);
     const [ipEditActive, setIpEditActive] = useState(false);
     const [macEditActive, setMacEditActive] = useState(false);
+    const [instructorEditActive, setInstructorEditActive] = useState(false);
 
+    // Form fields state
     const [newName, setNewName] = useState("");
     const [newIp, setNewIp] = useState("");
     const [newMac, setNewMac] = useState("");
+    const [newInstructor, setNewInstructor] = useState("");
 
+    // Delete Computer hook declarataion
     const { error, deleteComputer } = useDeleteComputer(
         classroom.id,
         computer.id
     );
+
+    // Edit Computer hook declarataion
+    const { editComputer } = useEditComputer(classroom.id, computer.id, {
+        name: newName ? newName : undefined,
+        ip: newIp ? newIp : undefined,
+        mac: newMac ? newMac : undefined,
+        instructor: newInstructor ? newInstructor : undefined,
+    });
+
+    // Sleep function
+
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     return (
         <>
@@ -28,154 +56,198 @@ export default function ComputerDetails({ classroom, computer, close }) {
             <div className="computer-details-container">
                 <ClickAwayListener onClickAway={() => close(false)}>
                     <div className="computer-details-panel">
-                        <div className="panel-info">
-                            <table className="computer-info-panel">
-                                <tbody>
-                                    <tr className="computer-info-group">
-                                        <td className="computer-info-key">
-                                            Sala:
-                                        </td>
-                                        <td
-                                            className="computer-info-value"
-                                            id="computer-classroom"
-                                        >
-                                            {classroom.name}
-                                        </td>
-                                    </tr>
-                                    <tr className="computer-info-group">
-                                        <td className="computer-info-key">
-                                            Nazwa:
-                                        </td>
-                                        <td
-                                            className="computer-info-value"
-                                            id="computer-name"
+                        <div className="computer-details">
+                            {/* Computer Classroom  */}
+                            <div className="detail-group">
+                                <label className="detail-label">Sala</label>
+                                <div className="detail-container">
+                                    <div className={`detail`}>
+                                        <GuacamoleInput
+                                            placeholder={classroom.name}
+                                            InputProps={{
+                                                readOnly: true,
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Computer Name  */}
+                            <div className="detail-group">
+                                <label className="detail-label">Nazwa</label>
+                                <div className="detail-container">
+                                    <div
+                                        className={`detail ${
+                                            nameEditActive ? "edit" : ""
+                                        }`}
+                                    >
+                                        <GuacamoleInput
+                                            placeholder={computer.name}
+                                            InputProps={{
+                                                readOnly: !nameEditActive,
+                                            }}
+                                            value={newName}
+                                            onChange={(e) => {
+                                                setNewName(e.target.value);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="detail-edit">
+                                        <IconButton
+                                            size="small"
+                                            onClick={() => {
+                                                setNameEditActive(
+                                                    !nameEditActive
+                                                );
+                                                setNewName("");
+                                            }}
                                         >
                                             {nameEditActive ? (
-                                                <TextField
-                                                    variant="standard"
-                                                    placeholder={computer.name}
-                                                    onChange={(e) => {
-                                                        setNewName(
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                />
+                                                <EditOffIcon />
                                             ) : (
-                                                computer.name
+                                                <EditIcon />
                                             )}
-                                        </td>
-                                        <td className="computer-info-edit">
-                                            <IconButton
-                                                size="small"
-                                                color="primary"
-                                                onClick={() => {
-                                                    setNewName("");
-                                                    setNameEditActive(
-                                                        !nameEditActive
-                                                    );
-                                                }}
-                                            >
-                                                {nameEditActive ? (
-                                                    <EditOffIcon />
-                                                ) : (
-                                                    <EditIcon />
-                                                )}
-                                            </IconButton>
-                                        </td>
-                                    </tr>
-                                    <tr className="computer-info-group">
-                                        <td className="computer-info-key">
-                                            IP:
-                                        </td>
-                                        <td
-                                            className="computer-info-value"
-                                            id="computer-ip"
-                                        >
-                                            {ipEditActive ? (
-                                                <TextField
-                                                    variant="standard"
-                                                    placeholder={computer.ip}
-                                                    onChange={(e) => {
-                                                        setNewIp(
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                />
-                                            ) : (
-                                                computer.ip
-                                            )}
-                                        </td>
-                                        <td className="computer-info-edit">
-                                            <IconButton
-                                                size="small"
-                                                color="primary"
-                                                onClick={() => {
-                                                    setIpEditActive(
-                                                        !ipEditActive
-                                                    );
-                                                }}
-                                            >
-                                                {ipEditActive ? (
-                                                    <EditOffIcon />
-                                                ) : (
-                                                    <EditIcon />
-                                                )}
-                                            </IconButton>
-                                        </td>
-                                    </tr>
-                                    <tr className="computer-info-group">
-                                        <td className="computer-info-key">
-                                            MAC:
-                                        </td>
-                                        <td
-                                            className="computer-info-value"
-                                            id="computer-mac"
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Computer MAC  */}
+                            <div className="detail-group">
+                                <label className="detail-label">MAC</label>
+                                <div className="detail-container">
+                                    <div
+                                        className={`detail ${
+                                            macEditActive ? "edit" : ""
+                                        }`}
+                                    >
+                                        <GuacamoleInput
+                                            placeholder={computer.mac}
+                                            InputProps={{
+                                                readOnly: !macEditActive,
+                                            }}
+                                            value={newMac}
+                                            onChange={(e) => {
+                                                setNewMac(e.target.value);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="detail-edit">
+                                        <IconButton
+                                            size="small"
+                                            onClick={() => {
+                                                setMacEditActive(
+                                                    !macEditActive
+                                                );
+                                                setNewMac("");
+                                            }}
                                         >
                                             {macEditActive ? (
-                                                <TextField
-                                                    variant="standard"
-                                                    placeholder={computer.mac}
-                                                    onChange={(e) => {
-                                                        setNewMac(
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                />
+                                                <EditOffIcon />
                                             ) : (
-                                                computer.mac
+                                                <EditIcon />
                                             )}
-                                        </td>
-                                        <td className="computer-info-edit">
-                                            <IconButton
-                                                size="small"
-                                                color="primary"
-                                                onClick={() => {
-                                                    setMacEditActive(
-                                                        !macEditActive
-                                                    );
-                                                }}
-                                            >
-                                                {macEditActive ? (
-                                                    <EditOffIcon />
-                                                ) : (
-                                                    <EditIcon />
-                                                )}
-                                            </IconButton>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Computer IP  */}
+                            <div className="detail-group">
+                                <label className="detail-label">IP</label>
+                                <div className="detail-container">
+                                    <div
+                                        className={`detail ${
+                                            ipEditActive ? "edit" : ""
+                                        }`}
+                                    >
+                                        <GuacamoleInput
+                                            placeholder={computer.ip}
+                                            InputProps={{
+                                                readOnly: !ipEditActive,
+                                            }}
+                                            value={newIp}
+                                            onChange={(e) => {
+                                                setNewIp(e.target.value);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="detail-edit">
+                                        <IconButton
+                                            size="small"
+                                            onClick={() => {
+                                                setIpEditActive(!ipEditActive);
+                                                setNewIp("");
+                                            }}
+                                        >
+                                            {ipEditActive ? (
+                                                <EditOffIcon />
+                                            ) : (
+                                                <EditIcon />
+                                            )}
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Computer Instructor  */}
+                            <div className="detail-group">
+                                <label className="detail-label">
+                                    Komputer instruktorski
+                                </label>
+                                <div className="detail-container">
+                                    <div className="detail">
+                                        <Checkbox
+                                            defaultChecked={Boolean(
+                                                computer.instructor
+                                            )}
+                                            disabled={!instructorEditActive}
+                                            onChange={(e) =>
+                                                setNewInstructor(
+                                                    e.target.checked
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                    <div className="detail-edit">
+                                        <IconButton
+                                            size="small"
+                                            onClick={() => {
+                                                setInstructorEditActive(
+                                                    !instructorEditActive
+                                                );
+                                                setNewInstructor("");
+                                            }}
+                                        >
+                                            {instructorEditActive ? (
+                                                <EditOffIcon />
+                                            ) : (
+                                                <EditIcon />
+                                            )}
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div className="panel-actions">
                             <GuacamoleFragileButton
                                 sx={{ width: "45%" }}
                                 onClick={() => deleteComputer()}
                             >
-                                Usuń ucznia
+                                Usuń komputer
                             </GuacamoleFragileButton>
                             <GuacamoleButton
                                 sx={{ width: "45%" }}
-                                disabled={!newName && !newIp && !newMac}
+                                disabled={
+                                    !newName &&
+                                    !newIp &&
+                                    !newMac &&
+                                    !newInstructor
+                                }
+                                onClick={async () => {
+                                    {
+                                        editComputer();
+                                        await delay(100);
+                                        refetch();
+                                    }
+                                }}
                             >
                                 Edytuj dane
                             </GuacamoleButton>
