@@ -37,39 +37,61 @@
         color: $body-color-dark;
     }
 
-    .panel-close {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 10px;
-    }
-
-    .panel-form {
-        margin: 0.5em 0;
+    .computer-add-form {
         display: flex;
+        flex: 1;
         flex-direction: column;
         font-size: $font-size-3;
         font-family: $font-family-content;
 
         .form-group {
-            padding-left: 1em;
             display: flex;
-            margin: 1em 0;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0.2em 0;
 
             .form-label {
-                flex: 1;
-                display: flex;
-                align-items: center;
+                margin: 0.5em 0;
+                font-family: $font-family-content;
+                font-size: $font-size-4;
+                font-weight: $font-weight-regular;
             }
 
             .form-input {
-                flex: 4;
+                width: 100%;
                 display: flex;
+                justify-content: center;
+
                 input,
-                fieldset {
+                fieldset,
+                div {
                     border: none;
+                }
+
+                div {
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0 0.5em;
                 }
             }
         }
+
+        .form-group-checkbox {
+            display: flex;
+            align-items: center;
+            margin-top: 1em;
+        }
+    }
+
+    .panel-actions {
+        display: flex;
+        margin: 1em 0;
+    }
+
+    .panel-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
     }
 }

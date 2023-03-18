@@ -92,6 +92,7 @@ export default function ClassroomsView() {
                 <ComputerDetails
                     classroom={selectedClassroom}
                     computer={selectedComputer}
+                    refetch={getClassroomComputers}
                     close={setComputerDetailsPanelState}
                 />
             ) : (
@@ -101,7 +102,9 @@ export default function ClassroomsView() {
             {computerAdditionPanelState ? (
                 <ComputerAdd
                     classroom={selectedClassroom}
-                    close={setComputerAdditionPanelState}
+                    setComputerAdditionPanelState={
+                        setComputerAdditionPanelState
+                    }
                     refetch={getClassroomComputers}
                 />
             ) : (

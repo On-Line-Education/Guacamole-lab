@@ -2,55 +2,66 @@ import React, { useState } from "react";
 import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
 import CloseIcon from "@mui/icons-material/Close";
 import "./computeradd.scss";
-import { IconButton } from "@mui/material";
+import { Checkbox, IconButton } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import useCreateComputer from "../../hooks/useCreateComputer";
 
-export default function ComputerAdd({ close, classroom }) {
+export default function ComputerAdd({
+    classroom,
+    refetch,
+    setComputerAdditionPanelState,
+}) {
+    // Form fields state
     const [newComputerName, setNewComputerName] = useState();
     const [newComputerIp, setNewComputerIp] = useState();
     const [newComputerMac, setNewComputerMac] = useState();
-    const [newComputerLogin, setNewComputerLogin] = useState();
+    const [newComputerIsInstructors, setNewComputerIsInstructors] =
+        useState(false);
+
+    // Create Computer hook declaration
 
     const [error, loading, createComputer] = useCreateComputer(
         classroom.id,
         newComputerName,
         newComputerIp,
         newComputerMac,
-        newComputerLogin
+        newComputerIsInstructors
     );
 
-    if (error) {
-        console.log(error);
-    }
+    const close = () => {
+        setComputerAdditionPanelState(false);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        createComputer();
+        refetch();
+        close();
+    };
 
     return (
         <>
             <div className="overlay"></div>
             <div className="computer-add-container">
-                <ClickAwayListener onClickAway={() => close(false)}>
+                <ClickAwayListener onClickAway={() => close()}>
                     <div className="computer-add-panel">
                         <div className="panel-title">Stwórz nowego ucznia</div>
                         <div className="panel-close">
-                            <IconButton onClick={() => close(false)}>
+                            <IconButton onClick={() => close()}>
                                 <CloseIcon />
                             </IconButton>
                         </div>
-                        <div className="panel-form">
+                        <div className="computer-add-form">
                             <form
                                 onSubmit={(e) => {
-                                    e.preventDefault();
-                                    createComputer();
-                                    console.log("?");
+                                    handleSubmit(e);
                                 }}
                             >
                                 <div className="form-group">
                                     <label className="form-label">Nazwa</label>
                                     <GuacamoleInput
                                         className="form-input"
-                                        variant="outlined"
-                                        size="small"
-                                        id="computer-name"
                                         onChange={(e) =>
                                             setNewComputerName(e.target.value)
                                         }
@@ -62,9 +73,6 @@ export default function ComputerAdd({ close, classroom }) {
                                     </label>
                                     <GuacamoleInput
                                         className="form-input"
-                                        variant="outlined"
-                                        size="small"
-                                        id="computer-ip"
                                         onChange={(e) =>
                                             setNewComputerIp(e.target.value)
                                         }
@@ -76,25 +84,22 @@ export default function ComputerAdd({ close, classroom }) {
                                     </label>
                                     <GuacamoleInput
                                         className="form-input"
-                                        variant="outlined"
-                                        size="small"
-                                        id="computer-mac"
                                         onChange={(e) =>
                                             setNewComputerMac(e.target.value)
                                         }
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label className="form-label">Login</label>
-                                    <GuacamoleInput
-                                        className="form-input"
-                                        variant="outlined"
-                                        size="small"
-                                        id="computer-login"
+                                <div className="form-group-checkbox">
+                                    <Checkbox
                                         onChange={(e) =>
-                                            setNewComputerLogin(e.target.value)
+                                            setNewComputerIsInstructors(
+                                                e.target.checked
+                                            )
                                         }
                                     />
+                                    <label className="form-label">
+                                        Komputer instruktorski
+                                    </label>
                                 </div>
                                 <div className="panel-actions">
                                     <GuacamoleButton type="submit">

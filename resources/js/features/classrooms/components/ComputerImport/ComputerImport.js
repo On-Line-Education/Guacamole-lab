@@ -11,7 +11,7 @@ export default function ComputerImport({ refetch }) {
 
     // Import Computers hook declaration
 
-    const [error, data, importComputers] = useImportComputers(file);
+    const [importComputers] = useImportComputers(file);
 
     return (
         <div className="computer-import-container">

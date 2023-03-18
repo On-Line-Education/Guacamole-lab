@@ -3,9 +3,9 @@
 .overlay {
     position: absolute;
     z-index: 2;
-    background-color: $body-color-dark;
     width: 100%;
     height: 100%;
+    background-color: $body-color-dark;
     opacity: 0.9;
 }
 
@@ -20,39 +20,69 @@
 }
 
 .computer-details-panel {
-    width: 50%;
+    position: relative;
     z-index: 3;
-    opacity: 1;
-    background-color: $body-color-light;
-    border-radius: 30px;
     padding: 1em 3em;
+    border-radius: 30px;
     display: flex;
     flex-direction: column;
-    position: relative;
+    background-color: $body-color-light;
 
-    .computer-info-panel {
-        color: $body-color-dark;
-        font-size: $font-size-2;
-        margin-bottom: 1em;
+    .computer-details {
+        display: flex;
+        flex-direction: column;
 
-        .computer-info-group {
-            td {
-                padding: 0.5em 0.5em 0 0;
-            }
+        .detail-group {
+            width: 100%;
+            margin: 0.2em 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
-            .computer-info-key {
-                width: 25%;
-                font-family: $font-family-title-bold;
-            }
-
-            .computer-info-value {
-                width: 65%;
+            .detail-label {
                 font-family: $font-family-content;
-                display: flex;
+                font-size: $font-size-4;
+                font-weight: $font-weight-regular;
             }
 
-            .computer-info-edit {
-                width: 10%;
+            .detail-container {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .detail {
+                    font-family: $font-family-content;
+                    font-size: $font-size-2;
+                    border-bottom: 1px solid $body-color-light;
+
+                    div,
+                    input,
+                    fieldset {
+                        height: 2em;
+                        font-size: $font-size-2;
+                        border: none;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: default;
+                    }
+
+                    input::placeholder {
+                        opacity: 1;
+                        color: $body-color-dark;
+                    }
+                }
+
+                .edit {
+                    border-bottom: 1px solid $body-color-dark;
+                    input {
+                        cursor: text;
+                    }
+
+                    input::placeholder {
+                        opacity: 0.8;
+                    }
+                }
             }
         }
     }
@@ -64,64 +94,8 @@
         margin: 10px;
     }
 
-    .panel-list-container {
-        display: flex;
-        flex-direction: column;
-        font-size: $font-size-3;
-        font-family: $font-family-content;
-
-        .panel-list-title {
-            font-size: $font-size-2;
-            font-family: $font-family-title-bold;
-            color: $body-color-dark;
-            margin-top: 0.3em;
-        }
-
-        .panel-list {
-            background-color: #ffffff;
-            padding: 1em 2em;
-            margin: 1em 0;
-            border-radius: 30px;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .computer-access-list-actions {
-            display: flex;
-            padding-top: 1em;
-            padding-bottom: 0.5em;
-
-            button {
-                margin-right: 2em;
-            }
-        }
-    }
-
     .panel-actions {
         display: flex;
         justify-content: space-between;
     }
-}
-
-//Table override styles
-
-.computer-access-list {
-    .computerName {
-        min-width: 275px;
-    }
-    .ip {
-        min-width: 175px;
-    }
-
-    // the following entry is required because of a weird bug
-    tbody {
-        margin-right: 20px !important;
-    }
-}
-
-input,
-fieldset,
-div {
-    border: none;
 }

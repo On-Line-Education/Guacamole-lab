@@ -1,24 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import usePost from "../../../hooks/usePost";
+import usePatch from "../../../hooks/usePatch";
 import { formatSuccess } from "../../alert/services/formatSuccess";
 import { actionSucceed } from "../../alert/state/alertActions";
 
-export default function useEditComputer(
-    classroomId,
-    computerId,
-    newName,
-    newIp,
-    newMac
-) {
-    const [data, loading, refresh, error] = usePost(
+export default function useEditComputer(classroomId, computerId, props) {
+    const [data, loading, refresh, error] = usePatch(
         `/classroom/${classroomId}/computer/${computerId}`,
         false,
-        {
-            name: newName,
-            ip: newIp,
-            mac: newMac,
-        }
+        props
     );
 
     const dispatch = useDispatch();
@@ -29,9 +19,9 @@ export default function useEditComputer(
         }
     }, [loading, error]);
 
-    const createClassroom = async () => {
+    const editComputer = async () => {
         refresh();
     };
 
-    return [error, data, createClassroom];
+    return { error, data, editComputer };
 }
