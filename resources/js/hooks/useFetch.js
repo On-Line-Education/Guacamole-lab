@@ -70,7 +70,8 @@ const useFetch = ({ endpoint, method, body, start }) => {
                 }
             } else {
                 // if there are no errors return data
-                setResult(data.body);
+                if (method === "GET") setResult(data.body);
+                else setResult(data);
             }
         } catch (err) {
             setError(err);
@@ -79,7 +80,6 @@ const useFetch = ({ endpoint, method, body, start }) => {
     };
 
     const refresh = () => {
-        console.log(token);
         setError([]);
         fetchData();
     };

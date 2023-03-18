@@ -21,31 +21,28 @@ export default function StudentsView() {
     const [groupAdditionPanelActive, setGroupAdditionPanelActive] =
         useState(false);
 
-    //Queries
+    // Get All Students hook declaration
 
     const {
         data: studentList,
         loading: studentListLoading,
         error: studentListLoadingError,
-        refetch: refreshStudentList,
+        refetch: refetchStudentList,
     } = useGetAllStudents();
+
+    // Get All Groups hook declaration
 
     const {
         data: groupList,
         loading: groupListLoading,
         error: groupListLoadingError,
-        refetch: refreshGroupList,
+        refetch: refetchGroupList,
     } = useGetAllGroups();
 
     //Selected table rows state
 
     const [selectedStudent, setSelectedStudent] = useState("");
     const [selectedGroup, setSelectedGroup] = useState("");
-
-    const refetchAll = () => {
-        refreshStudentList();
-        refreshGroupList();
-    };
 
     return (
         <div className="students">
@@ -66,14 +63,20 @@ export default function StudentsView() {
                     loading={groupListLoading}
                     setSelectedGroup={setSelectedGroup}
                     selectedGroup={selectedGroup}
+                    refetch={refetchGroupList}
                 />
-                <StudentImport />
+                <StudentImport
+                    refetch={() => {
+                        refetchStudentList;
+                        refetchGroupList;
+                    }}
+                />
             </div>
 
             {studentAdditionPanelActive ? (
                 <StudentAdd
+                    refetch={refetchStudentList}
                     close={setStudentAdditionPanelActive}
-                    refetch={refetchAll}
                 />
             ) : (
                 ""
@@ -82,6 +85,7 @@ export default function StudentsView() {
             {studentDetailsPanelActive ? (
                 <StudentDetails
                     student={selectedStudent}
+                    refetch={refetchStudentList}
                     close={setStudentDetailsPanelActive}
                 />
             ) : (
@@ -91,7 +95,7 @@ export default function StudentsView() {
             {groupAdditionPanelActive ? (
                 <GroupAdd
                     close={setGroupAdditionPanelActive}
-                    refetch={refetchAll}
+                    refetch={refetchGroupList}
                 />
             ) : (
                 ""

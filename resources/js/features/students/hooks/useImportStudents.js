@@ -20,5 +20,5 @@ export default function useImportStudents(file) {
         refresh();
     };
 
-    return [error, data, importStudents];
+    return { error, data, importStudents };
 }

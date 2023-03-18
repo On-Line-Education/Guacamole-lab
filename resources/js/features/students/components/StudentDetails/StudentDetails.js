@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./studentdetails.scss";
 import { IconButton, TextField } from "@mui/material";
@@ -10,20 +10,39 @@ import EditIcon from "@mui/icons-material/Edit";
 import EditOffIcon from "@mui/icons-material/EditOff";
 import useEditStudent from "../../hooks/useEditStudent";
 
-export default function StudentDetails({ student, close }) {
+export default function StudentDetails({ student, refetch, close }) {
+    // Destructurize student object
     const { username, classes } = student;
 
+    // Form Fields State
     const [usernameEditActive, setUsernameEditActive] = useState(false);
     const [newUsername, setNewUsername] = useState("");
 
-    const { error: studentDeletionError, deleteStudent } = useDeleteStudent(
+    // Delete Student hook declaration
+    const { data: deleteStudentData, deleteStudent } = useDeleteStudent(
         student.id
     );
 
-    const { error: studentEditionError, editStudent } = useEditStudent(
+    // Edit Student hook declaration
+    const { data: editStudentData, editStudent } = useEditStudent(
         student.id,
         newUsername
     );
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (deleteStudentData.success) close();
+        } catch {}
+    }, [deleteStudentData]);
+
+    useEffect(() => {
+        try {
+            refetch();
+            if (editStudentData.success) close();
+        } catch {}
+    }, [editStudentData]);
 
     return (
         <>
