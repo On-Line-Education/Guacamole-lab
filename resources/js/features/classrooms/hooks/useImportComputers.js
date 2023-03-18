@@ -5,7 +5,10 @@ import { formatSuccess } from "../../alert/services/formatSuccess";
 import { actionSucceed } from "../../alert/state/alertActions";
 
 export default function useImportComputers(file) {
-    const [data, loading, refresh, error] = usePostFile("/user/import", file);
+    const [data, loading, refresh, error] = usePostFile(
+        "/classroom/computers/import",
+        file
+    );
 
     const dispatch = useDispatch();
 
@@ -19,5 +22,5 @@ export default function useImportComputers(file) {
         refresh();
     };
 
-    return [error, data, importComputers];
+    return { error, data, importComputers };
 }
