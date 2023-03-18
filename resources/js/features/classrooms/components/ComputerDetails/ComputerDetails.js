@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./computerdetails.scss";
-import { Checkbox, IconButton, TextField } from "@mui/material";
+import { Checkbox, IconButton } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import {
     GuacamoleButton,
@@ -33,22 +33,37 @@ export default function ComputerDetails({
     const [newInstructor, setNewInstructor] = useState("");
 
     // Delete Computer hook declarataion
-    const { error, deleteComputer } = useDeleteComputer(
+    const { data: deleteComputerData, deleteComputer } = useDeleteComputer(
         classroom.id,
         computer.id
     );
 
     // Edit Computer hook declarataion
-    const { editComputer } = useEditComputer(classroom.id, computer.id, {
-        name: newName ? newName : undefined,
-        ip: newIp ? newIp : undefined,
-        mac: newMac ? newMac : undefined,
-        instructor: newInstructor ? newInstructor : undefined,
-    });
+    const { data: editComputerData, editComputer } = useEditComputer(
+        classroom.id,
+        computer.id,
+        {
+            name: newName ? newName : undefined,
+            ip: newIp ? newIp : undefined,
+            mac: newMac ? newMac : undefined,
+            instructor: newInstructor ? newInstructor : undefined,
+        }
+    );
 
-    // Sleep function
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (editComputerData.success) close();
+        } catch {}
+    }, [editComputerData]);
 
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    useEffect(() => {
+        try {
+            refetch();
+            if (deleteComputerData.success) close();
+        } catch {}
+    }, [deleteComputerData]);
 
     return (
         <>
@@ -244,8 +259,6 @@ export default function ComputerDetails({
                                 onClick={async () => {
                                     {
                                         editComputer();
-                                        await delay(100);
-                                        refetch();
                                     }
                                 }}
                             >

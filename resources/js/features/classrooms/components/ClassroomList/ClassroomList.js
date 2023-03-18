@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import "./classroomlist.scss";
 import BasicTable from "../../../../components/BasicTable/BasicTable";
@@ -14,11 +14,22 @@ export default function ClassroomList({
     refetch,
 }) {
     // Delete classroom hook declaration
+    const { data, deleteClassroom } = useDeleteClassroom(selectedClassroom.id);
 
-    const { error, deleteClassroom } = useDeleteClassroom(selectedClassroom.id);
+    // Open panel function
+    const openClassroomAdd = () => {
+        setClassroomAdditionPanelState(true);
+    };
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (data.success);
+        } catch {}
+    }, [data]);
 
     // Headers for react-table
-
     const tableColumns = [
         {
             Header: "Id",
@@ -29,16 +40,6 @@ export default function ClassroomList({
             accessor: "name",
         },
     ];
-
-    // Sleep function
-
-    const timeout = (delay) => {
-        return new Promise((res) => setTimeout(res, delay));
-    };
-
-    const openClassroomAdd = () => {
-        setClassroomAdditionPanelState(true);
-    };
 
     return (
         <div className="classroom-list-container">
@@ -68,9 +69,6 @@ export default function ClassroomList({
                         disabled={selectedClassroom ? false : true}
                         onClick={async () => {
                             deleteClassroom();
-                            // the timeout is needed becouse of the delay on server
-                            await timeout(100);
-                            refetch();
                         }}
                     >
                         Usuń salę

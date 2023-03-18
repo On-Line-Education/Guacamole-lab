@@ -22,5 +22,5 @@ export default function useCreateClassroom(name, description) {
         refresh();
     };
 
-    return [error, data, createClassroom];
+    return { error, data, createClassroom };
 }

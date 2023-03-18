@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
 import CloseIcon from "@mui/icons-material/Close";
 import "./classroomadd.scss";
@@ -11,20 +11,27 @@ export default function ClassroomAdd({
     setClassroomAdditionPanelState,
 }) {
     // Form fields state
-
     const [newClassroomName, setNewClassroomName] = useState();
     const [newClassroomDescription, setNewClassroomDescription] = useState();
 
     // Create classroom hook declaration
-
-    const [error, loading, createClassroom] = useCreateClassroom(
+    const { data, createClassroom } = useCreateClassroom(
         newClassroomName,
         newClassroomDescription
     );
 
+    // Close panel function
     const close = () => {
         setClassroomAdditionPanelState(false);
     };
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (data.success) close();
+        } catch {}
+    }, [data]);
 
     return (
         <>
@@ -44,8 +51,6 @@ export default function ClassroomAdd({
                                     e.preventDefault();
 
                                     createClassroom();
-                                    refetch();
-                                    close();
                                 }}
                             >
                                 <div className="form-group">

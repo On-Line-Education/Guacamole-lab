@@ -35,5 +35,5 @@ export default function useCreateComputer(
         refresh();
     };
 
-    return [error, data, createComputer];
+    return { error, data, createComputer };
 }
