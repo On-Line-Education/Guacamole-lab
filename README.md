@@ -127,7 +127,8 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 | Ścieżka                            | Metoda | Opis                                                                             | Wymaga logowania |
 | ---------------------------------- | ------ | -------------------------------------------------------------------------------- | ---------------- |
 | /api/class/all                     | GET    | Umozliwia pobranie wszystkich grup/klas z systemu                                | TAK              |
-| /api/class/{classId}               | GET    | Umozliwia pobranie grupyy/klas z systemu o id podanym jako {classId}             | TAK              |
+| /api/class/{classId}               | GET    | Umozliwia pobranie grupy/klas z systemu o id podanym jako {classId}              | TAK              |
+| /api/class/{classId}/users         | GET    | Umozliwia pobranie uzytkowników grupy/klas z systemu o id podanym jako {classId} | TAK              |
 | /api/class                         | POST   | Umozliwia utworzenie nowej grupy/klasy w systemie                                | TAK              |
 | /api/class/{classId}               | PATCH  | Umozliwia aktualizacje danej grupy/klasy o id {classId} w systemie               | TAK              |
 | /api/class/{classId}               | DELETE | Umozliwia usunięcie grupy/klasy o id {classId} z systemu                         | TAK              |

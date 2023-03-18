@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('ip');
             $table->string('mac');
-            $table->string('login');
             $table->boolean('instructor')->default(false);
             $table->timestamps();
         });

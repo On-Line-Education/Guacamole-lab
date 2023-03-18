@@ -28,7 +28,7 @@ class UpdateComputerActionService extends AbstractActionService
             $computerUpdateRequestData['name'] ?? null,
             $computerUpdateRequestData['ip'] ?? null,
             $computerUpdateRequestData['mac'] ?? null,
-            $computerUpdateRequestData['login'] ?? null,
+            $computerUpdateRequestData['instructor'] ?? null,
         );
         return ($this->responder)(['computer' => $updated]);
     }

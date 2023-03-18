@@ -28,7 +28,6 @@ class ComputerCreateRequest extends FormRequest
             'name' => 'required|string',
             'ip' => 'required|ip',
             'mac' => 'required|mac_address',
-            'login' => 'required|string',
             'instructor' => 'required|boolean',
         ];
     }

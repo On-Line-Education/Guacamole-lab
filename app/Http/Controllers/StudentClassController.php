@@ -6,6 +6,7 @@ use App\ActionService\StudentClass\AssignStudentClassToStudentActionService;
 use App\ActionService\StudentClass\CreateStudentClassActionService;
 use App\ActionService\StudentClass\DeleteStudentClassActionService;
 use App\ActionService\StudentClass\ReadStudentClassActionService;
+use App\ActionService\StudentClass\ReadUsersInStudentClassActionService;
 use App\ActionService\StudentClass\UnassignStudentClassToStudentActionService;
 use App\ActionService\StudentClass\UpdateStudentClassActionService;
 use App\Http\Requests\StudentClassCreateRequest;
@@ -22,7 +23,8 @@ class StudentClassController extends Controller
         private readonly UpdateStudentClassActionService $updateStudentClassActionService,
         private readonly DeleteStudentClassActionService $deleteStudentClassActionService,
         private readonly AssignStudentClassToStudentActionService $assignStudentClassToStudentActionService,
-        private readonly UnassignStudentClassToStudentActionService $unassignStudentClassToStudentActionService
+        private readonly UnassignStudentClassToStudentActionService $unassignStudentClassToStudentActionService,
+        private readonly ReadUsersInStudentClassActionService $readUsersInStudentClassActionService
     )
     {}
 
@@ -34,6 +36,11 @@ class StudentClassController extends Controller
     public function list(): JsonResponse
     {
         return ($this->readStudentClassActionService)();
+    }
+
+    public function listUsers(StudentClass $class): JsonResponse
+    {
+        return ($this->readUsersInStudentClassActionService)($class);
     }
 
     public function create(StudentClassCreateRequest $studentClassCreateRequest): JsonResponse
