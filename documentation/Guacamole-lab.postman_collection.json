@@ -841,6 +841,37 @@
 					"response": []
 				},
 				{
+					"name": "Get Users In Class",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/class/1/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class",
+								"1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Class",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
@@ -1127,7 +1158,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Dell2\",\n    \"ip\": \"127.0.0.2\",\n    \"mac\": \"7b:76:0e:6c:e4:0c\",\n    \"login\": \"Andrzeju\",\n    \"instructor\": true\n}",
+							"raw": "{\n    \"name\": \"Dell2\",\n    \"ip\": \"127.0.0.2\",\n    \"mac\": \"7b:76:0e:6c:e4:0c\",\n    \"instructor\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1167,7 +1198,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"ip\": \"127.0.0.2\",\n    \"login\": \"Duda\"\n}",
+							"raw": "{\n    \"ip\": \"127.0.0.2\",\n    \"instructor\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1646,7 +1677,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "2|SKckGUkwsPJRYedNZ0jA29N53aMaMAlQMLsvRS9R",
+				"value": "5|tyFv9GQ7yGtEtZmeUFWYyvuJovFKvUOA6tc5nQoK",
 				"type": "string"
 			}
 		]

@@ -101,7 +101,6 @@ class ComputerImportAction
         $computer->name = $name;
         $computer->ip = $ip;
         $computer->mac = $mac;
-        $computer->login = '';
         $computer->class_room_id = $classroomId;
         $computer->instructor = $instructor;
         $computer->save();

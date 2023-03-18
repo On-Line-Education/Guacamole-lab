@@ -11,14 +11,14 @@ class ComputerUpdateAction
         ?string $newName = null,
         ?string $newIp = null,
         ?string $newMac = null,
-        ?string $newLogin = null
+        ?bool $instructor = null
         )
     {
         $computer = Computer::find($id);
         $computer->name = $newName ?? $computer->name;
         $computer->ip = $newIp ?? $computer->ip;
         $computer->mac = $newMac ?? $computer->mac;
-        $computer->login = $newLogin ?? $computer->login;
+        $computer->instructor = $instructor ?? $computer->instructor;
         $computer->save();
         return $computer;
     }

@@ -200,6 +200,11 @@ Route::controller(StudentClassController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
+        Route::get('/{class}/users', 'listUsers')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
         Route::get('/{class}/add/{user}', 'add')
             ->middleware([
                 SystemAuth::AUTH,
