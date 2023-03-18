@@ -18,7 +18,10 @@ export default function GroupList({
 
     // Refetch logic
     useEffect(() => {
-        refetch();
+        try {
+            refetch();
+            if (data.success) close();
+        } catch {}
     }, [data]);
 
     // Collums for react-table

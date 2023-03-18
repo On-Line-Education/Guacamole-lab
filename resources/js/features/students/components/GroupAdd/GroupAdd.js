@@ -21,9 +21,6 @@ export default function GroupAdd({ close, refetch }) {
         } catch {}
     }, [data]);
 
-    // Sleep function
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
     return (
         <>
             <div className="overlay"></div>
