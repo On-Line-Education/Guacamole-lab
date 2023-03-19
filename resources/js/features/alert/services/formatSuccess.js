@@ -55,6 +55,11 @@ export function formatSuccess(successResponse) {
                 title: "Pomyślnie zmieniono dane ucznia",
                 message: "",
             };
+        case "STUDENT_GROUP_EDIT_SUCCESS":
+            return {
+                title: "Pomyślnie zmieniono dane ucznia",
+                message: "",
+            };
         case "STUDENT_IMPORT_SUCCESS":
             return {
                 title: "Pomyślnie zaimportowano uczniów",
