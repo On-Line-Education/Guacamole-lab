@@ -39,7 +39,7 @@ class LectureJoinAction
         if (StudentClasses::where([
             ['student', '=', $user->id],
             ['student_class', '=', $lecture->getClass()->id]
-        ])->count() === 0) {
+        ])->count() === 0 && $lecture->instructor_id !== $user->id) {
             throw new InvalidStudentClassException();
         }
 
