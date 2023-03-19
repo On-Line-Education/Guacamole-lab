@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StudentClassUpdateBulkRequest extends FormRequest
+class UserUpdateBulkStudentClassRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class StudentClassUpdateBulkRequest extends FormRequest
     public function rules()
     {
         return [
-            'users' => 'required|array',
-            'users.*' => 'required|int||exists:users,id',
+            'groups' => 'required|array',
+            'groups.*' => 'required|int|exists:student_classes,id',
         ];
     }
 }

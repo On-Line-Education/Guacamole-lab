@@ -108,6 +108,7 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 | /api/user                   | POST   | Umozliwia utworzenie nowego użytkownika w systemie                                                                                  | TAK              |
 | /api/user/import            | POST   | Umozliwia zaimportowanie nowych użytkowników o roli student do systemu na podstawie przykładu documentation/example_user_import.csv | TAK              |
 | /api/user/{userId}          | PATCH  | Umozliwia aktualizacje danych użytkownika o id {userId} w systemie                                                                  | TAK              |
+| /api/user/{userId}/groups   | PATCH  | Umozliwia aktualizacje grup/klas uzytkownika, tak aby był on w jedynie podanych grupach                                             | TAK              |
 | /api/user/{userId}/password | PATCH  | Umozliwia zmianę hasła użytkownika o id {userId} w systemie                                                                         | TAK              |
 | /api/user/{userId}          | DELETE | Umozliwia usunięcie użytkownika o id {userId} z systemu                                                                             | TAK              |
 
@@ -133,7 +134,7 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 | /api/class/{classId}               | PATCH  | Umozliwia aktualizacje danej grupy/klasy o id {classId} w systemie                                 | TAK              |
 | /api/class/{classId}               | DELETE | Umozliwia usunięcie grupy/klasy o id {classId} z systemu                                           | TAK              |
 | /api/class/{classId}/add/{user}    | GET    | Umozliwia dodanie do grupy/klasy o id {classId} w systemie studenta o id {user}                    | TAK              |
-| /api/class/{classId}/add/bulk      | POST   | Umozliwia aktualizacje w grupie/klasie o id {classId}, tak aby byli w niej jedynie podani studenci | TAK              |
+| /api/class/{classId}/add/bulk      | PATCH  | Umozliwia aktualizacje w grupie/klasie o id {classId}, tak aby byli w niej jedynie podani studenci | TAK              |
 | /api/class/{classId}/remove/{user} | GET    | Umozliwia usunięcie studenta o id {user} z grupy/klasy w systemie o id {classId}                   | TAK              |
 
 ### Komputery

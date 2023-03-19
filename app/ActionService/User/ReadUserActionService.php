@@ -25,7 +25,7 @@ class ReadUserActionService extends AbstractActionService
 
     public function __invoke(Request $request, ?User $user = null, ?string $search = null)
     {
-        $guacAuth = ($this->guacamoleUserLoginService)($user);
+        $guacAuth = ($this->guacamoleUserLoginService)();
 
         $users = [];
         if ($user !== null) {

@@ -46,7 +46,8 @@ Route::controller(UserController::class)->group(function () {
             ]);
         Route::get('/{user}', 'get')
             ->middleware([
-                SystemAuth::AUTH
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::patch('/{user}', 'edit')
             ->middleware([
@@ -61,12 +62,22 @@ Route::controller(UserController::class)->group(function () {
             ->middleware([
                 SystemAuth::AUTH
             ]);
+        Route::patch('/{user}/groups', 'addBulkToGroups')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
         Route::get('/search/{search}', 'search')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
         Route::post('/import', 'import')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::patch('/{user}/group', 'addBulkToGroups')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
@@ -210,7 +221,7 @@ Route::controller(StudentClassController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::post('/{class}/add/bulk', 'addBulk')
+        Route::patch('/{class}/add/bulk', 'addBulk')
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
