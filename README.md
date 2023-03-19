@@ -124,16 +124,17 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 
 ### Grupy / Klasy
 
-| Ścieżka                            | Metoda | Opis                                                                             | Wymaga logowania |
-| ---------------------------------- | ------ | -------------------------------------------------------------------------------- | ---------------- |
-| /api/class/all                     | GET    | Umozliwia pobranie wszystkich grup/klas z systemu                                | TAK              |
-| /api/class/{classId}               | GET    | Umozliwia pobranie grupy/klas z systemu o id podanym jako {classId}              | TAK              |
-| /api/class/{classId}/users         | GET    | Umozliwia pobranie uzytkowników grupy/klas z systemu o id podanym jako {classId} | TAK              |
-| /api/class                         | POST   | Umozliwia utworzenie nowej grupy/klasy w systemie                                | TAK              |
-| /api/class/{classId}               | PATCH  | Umozliwia aktualizacje danej grupy/klasy o id {classId} w systemie               | TAK              |
-| /api/class/{classId}               | DELETE | Umozliwia usunięcie grupy/klasy o id {classId} z systemu                         | TAK              |
-| /api/class/{classId}/add/{user}    | GET    | Umozliwia dodanie do grupy/klasy o id {classId} w systemie studenta o id {user}  | TAK              |
-| /api/class/{classId}/remove/{user} | GET    | Umozliwia usunięcie studenta o id {user} z grupy/klasy w systemie o id {classId} | TAK              |
+| Ścieżka                            | Metoda | Opis                                                                                               | Wymaga logowania |
+| ---------------------------------- | ------ | -------------------------------------------------------------------------------------------------- | ---------------- |
+| /api/class/all                     | GET    | Umozliwia pobranie wszystkich grup/klas z systemu                                                  | TAK              |
+| /api/class/{classId}               | GET    | Umozliwia pobranie grupy/klas z systemu o id podanym jako {classId}                                | TAK              |
+| /api/class/{classId}/users         | GET    | Umozliwia pobranie uzytkowników grupy/klas z systemu o id podanym jako {classId}                   | TAK              |
+| /api/class                         | POST   | Umozliwia utworzenie nowej grupy/klasy w systemie                                                  | TAK              |
+| /api/class/{classId}               | PATCH  | Umozliwia aktualizacje danej grupy/klasy o id {classId} w systemie                                 | TAK              |
+| /api/class/{classId}               | DELETE | Umozliwia usunięcie grupy/klasy o id {classId} z systemu                                           | TAK              |
+| /api/class/{classId}/add/{user}    | GET    | Umozliwia dodanie do grupy/klasy o id {classId} w systemie studenta o id {user}                    | TAK              |
+| /api/class/{classId}/add/bulk      | POST   | Umozliwia aktualizacje w grupie/klasie o id {classId}, tak aby byli w niej jedynie podani studenci | TAK              |
+| /api/class/{classId}/remove/{user} | GET    | Umozliwia usunięcie studenta o id {user} z grupy/klasy w systemie o id {classId}                   | TAK              |
 
 ### Komputery
 

@@ -210,6 +210,11 @@ Route::controller(StudentClassController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
+        Route::post('/{class}/add/bulk', 'addBulk')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
         Route::get('/{class}/remove/{user}', 'remove')
             ->middleware([
                 SystemAuth::AUTH,
