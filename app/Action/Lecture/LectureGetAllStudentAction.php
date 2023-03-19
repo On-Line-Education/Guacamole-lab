@@ -14,11 +14,13 @@ class LectureGetAllStudentAction
     public function __invoke(User $user): Collection
     {
         $studentClasses = StudentClasses::where('student', $user->id)->get();
-        $where = [];
+        $lecturesQuery = Lecture::query();
         foreach ($studentClasses as $student) {
-           $where[] = ['class_id', '=', $student->student_class];
+            $lecturesQuery->orWhere(function ($query) use ($student) {
+                $query->where('class_id', $student->student_class);
+            });
         }
-        $lectures = Lecture::where($where)->get();
+        $lectures = $lecturesQuery->get();
 
         foreach ($lectures as &$lecture) {
             $lecture->instructor = User::find($lecture->instructor_id);

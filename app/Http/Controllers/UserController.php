@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActionService\User\AssignBulkStudentClassUserActionService;
 use App\ActionService\User\CreateUserActionService;
 use App\ActionService\User\DeleteUserActionService;
 use App\ActionService\User\ImportUserActionService;
@@ -11,6 +12,7 @@ use App\ActionService\User\UpdateUserPasswordActionService;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserImportRequest;
 use App\Http\Requests\UserNewPasswordRequest;
+use App\Http\Requests\UserUpdateBulkStudentClassRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -25,9 +27,10 @@ class UserController extends Controller
         private readonly UpdateUserActionService $updateUserActionService,
         private readonly DeleteUserActionService $deleteUserActionService,
         private readonly UpdateUserPasswordActionService $updateUserPasswordActionService,
-        private readonly ImportUserActionService $importUserActionService
-    )
-    {}
+        private readonly ImportUserActionService $importUserActionService,
+        private readonly AssignBulkStudentClassUserActionService $assignBulkStudentClassUserActionService
+    ) {
+    }
 
     public function self(Request $request): JsonResponse
     {
@@ -73,5 +76,12 @@ class UserController extends Controller
     public function import(UserImportRequest $request): JsonResponse
     {
         return ($this->importUserActionService)($request->file('import_csv')->get());
+    }
+
+    public function addBulkToGroups(
+        User $user,
+        UserUpdateBulkStudentClassRequest $userUpdateBulkStudentClassRequest
+    ): JsonResponse {
+        return ($this->assignBulkStudentClassUserActionService)($user, $userUpdateBulkStudentClassRequest->all());
     }
 }
