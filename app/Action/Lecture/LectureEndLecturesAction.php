@@ -26,5 +26,6 @@ class LectureEndLecturesAction
                 ($this->lectureEndAction)($guacLogin, $lecture);
             }
         }
+        $this->guacamole->getAuth()->logout($guacLogin->getAuthToken());
     }
 }
