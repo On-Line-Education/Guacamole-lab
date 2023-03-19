@@ -7,17 +7,19 @@ import { ClickAwayListener } from "@mui/base";
 import useCreateGroup from "../../hooks/useCreateGroup";
 
 export default function GroupAdd({ close, refetch }) {
+    // Form field state
     const [newGroupName, setNewGroupName] = useState();
 
-    const [data, error, createGroup] = useCreateGroup(newGroupName);
+    // Create Group hook declration
+    const { data, createGroup } = useCreateGroup(newGroupName);
 
+    // Refetch logic
     useEffect(() => {
-        refetch();
+        try {
+            refetch();
+            if (data.success) close();
+        } catch {}
     }, [data]);
-
-    if (error) {
-        console.log(error);
-    }
 
     return (
         <>
@@ -35,6 +37,7 @@ export default function GroupAdd({ close, refetch }) {
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
+
                                     createGroup();
                                 }}
                             >

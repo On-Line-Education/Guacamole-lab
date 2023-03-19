@@ -1,0 +1,58 @@
+@import "../../../../../sass/variables";
+
+.lesson-connect-container {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .lesson-connect-title {
+        padding: 0.5em 1em;
+        font-size: 1.5rem;
+        font-family: "Raleway-Bold", sans-serif;
+    }
+
+    .lesson-connect-panel {
+        width: 80%;
+        min-height: 80%;
+        padding: 1em 1.5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        border-radius: 30px;
+
+        .connection-details {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+
+            .detail-group {
+                margin: 0.5em 0;
+                display: flex;
+                flex-direction: column;
+
+                .detail-label {
+                    font-family: $font-family-title-bold;
+                    font-size: 1.25em;
+                }
+
+                .detail-value {
+                    padding: 0.2em 0.5em;
+                    font-family: $font-family-content;
+                    font-size: $font-size-3;
+                }
+            }
+        }
+
+        .panel-actions {
+            width: 100%;
+            display: flex;
+            padding-top: 1em;
+            padding-bottom: 0.5em;
+        }
+    }
+}

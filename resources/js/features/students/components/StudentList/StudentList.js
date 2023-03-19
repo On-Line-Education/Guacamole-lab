@@ -12,6 +12,8 @@ export default function StudentList({
     setSelectedStudent,
     selectedStudent,
 }) {
+    // Collumns for react-table
+
     const tableColumns = [
         {
             Header: "ID",
@@ -33,8 +35,6 @@ export default function StudentList({
             Filter: true,
         },
     ];
-
-    console.log(studentList);
 
     return (
         <div className="student-list-container">

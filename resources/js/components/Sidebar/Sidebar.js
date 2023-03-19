@@ -19,6 +19,13 @@ export default function Sidebar({ active }) {
                     <ul>
                         <li
                             className={`app-nav-link ${
+                                active === "connect" ? "checked" : ""
+                            }`}
+                        >
+                            <Link to="/connect">Połącz</Link>
+                        </li>
+                        <li
+                            className={`app-nav-link ${
                                 active === "lessons" ? "checked" : ""
                             }`}
                         >

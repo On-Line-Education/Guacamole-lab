@@ -1,30 +1,50 @@
 import React, { useState } from "react";
 import Logo from "../../components/Logo/Logo";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import "./assets/style.scss";
-import ConnectionList from "./components/SessionList/SessionList";
-import useGetAllGetSessions from "./hooks/UseGetAllSessions";
+import "./style.scss";
+import UserLessonList from "./components/UserLessonList/UserLessonList";
+import dayjs from "dayjs";
+import UserLessonCalendar from "./components/UserLessonCalendar/UserLessonCalendar";
+import useGetUserLessons from "./hooks/useGetUserLessons";
+import { useSelector } from "react-redux";
+import Connect from "./components/Connect/Connect";
 
 export default function ConnectView() {
-    const {
-        data: sessionList,
-        loading: sessionListLoading,
-        error: sessionListLoadingError,
-    } = useGetAllGetSessions();
+    // Get logged user Id
 
-    const [selectedSession, setSelectedSession] = useState("");
+    const userId = useSelector((state) => state.auth.id);
+
+    // Selected table row and calendar date
+
+    const [selectedLesson, setSelectedLesson] = useState("");
+    const [date, setDate] = useState(dayjs());
+
+    // Get User Lessons hook declaration
+    const {
+        data: lessonList,
+        loading: lessonListLoading,
+        error: lessonListLoadingError,
+    } = useGetUserLessons(userId);
 
     return (
         <>
             <div className="connect">
                 <Sidebar active={"connect"} />
                 <div className="connect-container">
-                    <ConnectionList
-                        selectedSession={selectedSession}
-                        setSelectedSession={setSelectedSession}
-                        sessionList={sessionList}
-                        sessionListLoading={sessionListLoading}
+                    <UserLessonCalendar
+                        date={date}
+                        setDate={setDate}
+                        reservedList={lessonList}
+                        loading={lessonListLoading}
                     />
+                    <UserLessonList
+                        selectedSession={selectedLesson}
+                        setSelectedSession={setSelectedLesson}
+                        sessionList={lessonList}
+                        loading={lessonListLoading}
+                        date={date}
+                    />
+                    <Connect selectedLesson={selectedLesson} />
                 </div>
             </div>
             <Logo />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileInput from "../../../../components/FileInput/FileInput";
 import { GuacamoleButton } from "../../../../mui";
 import useImportComputers from "../../hooks/useImportComputers";
@@ -11,7 +11,14 @@ export default function ComputerImport({ refetch }) {
 
     // Import Computers hook declaration
 
-    const { importComputers } = useImportComputers(file);
+    const { data, importComputers } = useImportComputers(file);
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+        } catch {}
+    }, [data]);
 
     return (
         <div className="computer-import-container">
@@ -25,7 +32,6 @@ export default function ComputerImport({ refetch }) {
                         e.preventDefault();
 
                         importComputers();
-                        refetch();
                     }}
                 >
                     <div className="form-group">

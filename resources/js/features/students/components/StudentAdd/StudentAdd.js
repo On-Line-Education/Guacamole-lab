@@ -7,13 +7,23 @@ import { ClickAwayListener } from "@mui/base";
 import useCreateStudent from "../../hooks/useCreateStudent";
 
 export default function StudentAdd({ close, refetch }) {
+    // Form fields state
     const [newStudentUsername, setNewStudentUsername] = useState();
     const [newStudentPassword, setNewStudentPassword] = useState();
 
-    const [error, loading, createStudent] = useCreateStudent(
+    // Create Student hook declaration
+    const { data, createStudent } = useCreateStudent(
         newStudentUsername,
         newStudentPassword
     );
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (data.success) close();
+        } catch {}
+    }, [data]);
 
     return (
         <>
@@ -29,10 +39,9 @@ export default function StudentAdd({ close, refetch }) {
                         </div>
                         <div className="panel-form">
                             <form
-                                onSubmit={(e) => {
+                                onSubmit={async (e) => {
                                     e.preventDefault();
                                     createStudent();
-                                    refetch();
                                 }}
                             >
                                 <div className="form-group">

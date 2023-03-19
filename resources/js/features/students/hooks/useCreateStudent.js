@@ -19,9 +19,9 @@ export default function useCreateStudent(username, password) {
         }
     }, [loading, error]);
 
-    const createUser = async () => {
+    const createStudent = async () => {
         refresh();
     };
 
-    return [error, data, createUser];
+    return { error, data, createStudent };
 }

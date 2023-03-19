@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import "./grouplist.scss";
 import BasicTable from "../../../../components/BasicTable/BasicTable";
@@ -11,11 +11,20 @@ export default function GroupList({
     loading,
     setSelectedGroup,
     selectedGroup,
+    refetch,
 }) {
-    const { error: groupDeletionError, deleteGroup } = useDeleteGroup(
-        selectedGroup.id
-    );
+    // Delete Group hook declration
+    const { data, deleteGroup } = useDeleteGroup(selectedGroup.id);
 
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (data.success) close();
+        } catch {}
+    }, [data]);
+
+    // Collums for react-table
     const tableColumns = [
         {
             Header: "Id",
@@ -53,7 +62,10 @@ export default function GroupList({
                     </GuacamoleButton>
                     <GuacamoleFragileButton
                         disabled={selectedGroup ? false : true}
-                        onClick={() => deleteGroup()}
+                        onClick={() => {
+                            deleteGroup();
+                            refetch();
+                        }}
                     >
                         Usuń grupę
                     </GuacamoleFragileButton>

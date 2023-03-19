@@ -13,6 +13,7 @@ export default function useCreateGroup(name) {
 
     useEffect(() => {
         if (!loading && !error.length > 0) {
+            console.log("success");
             dispatch(actionSucceed(formatSuccess("GROUP_CREATE_SUCCESS")));
         }
     }, [loading, error]);
@@ -21,5 +22,5 @@ export default function useCreateGroup(name) {
         refresh();
     };
 
-    return [error, data, createGroup];
+    return { error, data, createGroup };
 }

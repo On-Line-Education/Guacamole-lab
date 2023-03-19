@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GuacamoleButton } from "../../../../mui";
 import useImportStudents from "../../hooks/useImportStudents";
 import FileInput from "../../../../components/FileInput/FileInput";
 import "./studentimport.scss";
 
-export default function StudentImport() {
-    const [file, setFile] = useState("");
+export default function StudentImport({ refetch }) {
+    // Form fields state
+    const [file, setFile] = useState();
     const [fileName, setFileName] = useState("");
 
-    const [error, data, importStudents] = useImportStudents(file);
+    // Import Students hook declaration
+
+    const { data, importStudents } = useImportStudents(file);
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (data.success) close();
+        } catch {}
+    }, [data]);
+
     return (
         <div className="student-import-container">
             <div className="title student-import-title">
@@ -28,7 +40,9 @@ export default function StudentImport() {
                         <GuacamoleButton
                             sx={{ width: "40%" }}
                             disabled={!file}
-                            onClick={() => importStudents()}
+                            onClick={async () => {
+                                importStudents();
+                            }}
                         >
                             Importuj
                         </GuacamoleButton>

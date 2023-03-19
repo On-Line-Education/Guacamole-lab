@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GuacamoleButton, GuacamoleInput } from "../../../../mui";
 import CloseIcon from "@mui/icons-material/Close";
 import "./computeradd.scss";
@@ -19,8 +19,7 @@ export default function ComputerAdd({
         useState(false);
 
     // Create Computer hook declaration
-
-    const [error, loading, createComputer] = useCreateComputer(
+    const { data, createComputer } = useCreateComputer(
         classroom.id,
         newComputerName,
         newComputerIp,
@@ -28,16 +27,23 @@ export default function ComputerAdd({
         newComputerIsInstructors
     );
 
+    // Close panel function
     const close = () => {
         setComputerAdditionPanelState(false);
     };
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (data.success) close();
+        } catch {}
+    }, [data]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         createComputer();
-        refetch();
-        close();
     };
 
     return (

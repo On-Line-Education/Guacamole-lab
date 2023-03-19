@@ -57,21 +57,14 @@ export default function LessonReserve({ refetch }) {
 
     // Queries for selection data
 
-    const {
-        data: classroomList,
-        loading: classroomListLoading,
-        error: classroomListLoadingError,
-    } = useGetAllClassrooms();
+    const { data: classroomList, loading: classroomListLoading } =
+        useGetAllClassrooms();
 
-    const {
-        data: groupList,
-        loading: groupListLoading,
-        error: groupListLoadingError,
-    } = useGetAllGroups();
+    const { data: groupList, loading: groupListLoading } = useGetAllGroups();
 
     // Reserve lesson hook
 
-    const { error, data, createReservation } = useCreateReservation({
+    const { data, createReservation } = useCreateReservation({
         instructorId,
         reservationClassroom,
         reservationGroup,
@@ -81,12 +74,20 @@ export default function LessonReserve({ refetch }) {
         reservationEndTime,
     });
 
+    // Refetch logic
+    useEffect(() => {
+        try {
+            refetch();
+            if (data.success);
+        } catch {}
+    }, [data]);
+
     // Submit logic
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         createReservation();
-        refetch();
     };
 
     return (
