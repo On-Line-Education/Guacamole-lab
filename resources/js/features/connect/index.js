@@ -26,8 +26,6 @@ export default function ConnectView() {
         error: lessonListLoadingError,
     } = useGetUserLessons(userId);
 
-    console.log(lessonList);
-
     return (
         <>
             <div className="connect">

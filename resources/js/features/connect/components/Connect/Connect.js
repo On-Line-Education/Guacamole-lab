@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./connect.scss";
 import { GuacamoleButton } from "../../../../mui";
+import useConnect from "../../hooks/useConnect";
 
-export default function Connect({ selectedLesson, loading }) {
+export default function Connect({ selectedLesson }) {
+    const { connect } = useConnect(selectedLesson.id);
     return (
         <div className="lesson-connect-container">
             <div className="lesson-connect-title">Połącz</div>
@@ -47,6 +49,7 @@ export default function Connect({ selectedLesson, loading }) {
                         <div className="panel-actions">
                             <GuacamoleButton
                                 disabled={Boolean(!selectedLesson.started)}
+                                onClick={() => connect()}
                             >
                                 Połącz
                             </GuacamoleButton>

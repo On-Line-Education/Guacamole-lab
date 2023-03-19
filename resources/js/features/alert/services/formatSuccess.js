@@ -85,6 +85,11 @@ export function formatSuccess(successResponse) {
                 title: "Pomyślnie usunięto rezerwacje",
                 message: "",
             };
+        case "CONNECT_SUCCESS":
+            return {
+                title: "Pomyślnie utworzono połączenie z komputerem",
+                message: "",
+            };
 
         default:
             return {
