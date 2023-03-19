@@ -115,11 +115,13 @@ export default function SortingTable({
                                             {...cell.getCellProps()}
                                         >
                                             {cell.column.destructureClass
-                                                ? cell.value.map((item) => {
-                                                      if (item) {
-                                                          return item.name;
-                                                      }
-                                                  })
+                                                ? cell.value
+                                                      .map((item) => {
+                                                          if (item) {
+                                                              return item.name;
+                                                          }
+                                                      })
+                                                      .join(", ")
                                                 : cell.value}
                                         </td>
                                     );
