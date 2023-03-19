@@ -29,16 +29,16 @@ class ReadLectureActionService extends AbstractActionService
         (new GuacamoleUserLoginService())();
         if (
             $lecture !== null
-            && (!Auth::user()->isStudent()
+            && (!$user->isStudent()
                 || ($this->lectureWithUserAction)($lecture, Auth::user())
             )
         ) {
             $lecture = ['lecture' => $lecture];
-        } elseif (!Auth::user()->isStudent() && $user !== null) {
+        } elseif (!Auth::user()->isStudent() && $user !== null && !$user->isStudent()) {
             $lecture = ['lectures' => ($this->lectureGetAllInstructorAction)($user)];
         } elseif (!Auth::user()->isStudent() && $user === null) {
             $lecture = ['lectures' => ($this->lectureGetAllAction)()];
-        } elseif (Auth::user()->isStudent()) {
+        } elseif ($user->isStudent()) {
             $lecture = ['lectures' => ($this->lectureGetAllStudentAction)($user)];
         } else {
             throw new UnauthorizedException();

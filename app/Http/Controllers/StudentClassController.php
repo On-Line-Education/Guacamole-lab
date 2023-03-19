@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActionService\StudentClass\AssignBulkStudentClassActionService;
 use App\ActionService\StudentClass\AssignStudentClassToStudentActionService;
 use App\ActionService\StudentClass\CreateStudentClassActionService;
 use App\ActionService\StudentClass\DeleteStudentClassActionService;
@@ -10,6 +11,7 @@ use App\ActionService\StudentClass\ReadUsersInStudentClassActionService;
 use App\ActionService\StudentClass\UnassignStudentClassToStudentActionService;
 use App\ActionService\StudentClass\UpdateStudentClassActionService;
 use App\Http\Requests\StudentClassCreateRequest;
+use App\Http\Requests\StudentClassUpdateBulkRequest;
 use App\Http\Requests\StudentClassUpdateRequest;
 use App\Models\StudentClass;
 use App\Models\User;
@@ -24,9 +26,10 @@ class StudentClassController extends Controller
         private readonly DeleteStudentClassActionService $deleteStudentClassActionService,
         private readonly AssignStudentClassToStudentActionService $assignStudentClassToStudentActionService,
         private readonly UnassignStudentClassToStudentActionService $unassignStudentClassToStudentActionService,
-        private readonly ReadUsersInStudentClassActionService $readUsersInStudentClassActionService
-    )
-    {}
+        private readonly ReadUsersInStudentClassActionService $readUsersInStudentClassActionService,
+        private readonly AssignBulkStudentClassActionService $assignBulkStudentClassActionService
+    ) {
+    }
 
     public function get(StudentClass $class): JsonResponse
     {
@@ -62,6 +65,13 @@ class StudentClassController extends Controller
     public function add(StudentClass $class, User $user): JsonResponse
     {
         return ($this->assignStudentClassToStudentActionService)($user, $class);
+    }
+
+    public function addBulk(
+        StudentClass $class,
+        StudentClassUpdateBulkRequest $studentClassUpdateBulkRequest
+    ): JsonResponse {
+        return ($this->assignBulkStudentClassActionService)($class, $studentClassUpdateBulkRequest->all());
     }
 
     public function remove(StudentClass $class, User $user): JsonResponse

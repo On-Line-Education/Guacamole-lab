@@ -8,6 +8,8 @@ use App\Exceptions\InvalidOldPasswordException;
 use App\Models\User;
 use App\Service\GuacamoleUserLoginService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 
 class UpdateUserPasswordActionService extends AbstractActionService
 {
@@ -26,8 +28,11 @@ class UpdateUserPasswordActionService extends AbstractActionService
      */
     public function __invoke(User $user, array $userNewPasswordRequestData): JsonResponse
     {
-        $guacAuth = ($this->guacamoleUserLoginService)($user);
+        if (Auth::user()->isStudent() && Auth::id() !== $user->id) {
+            throw new UnauthorizedException();
+        }
 
+        $guacAuth = ($this->guacamoleUserLoginService)();
         $oldPassword = $userNewPasswordRequestData['oldPassword'];
         $newPassword = $userNewPasswordRequestData['newPassword'];
         if (!($this->userPasswordUpdateAction)($guacAuth, $user, $oldPassword, $newPassword)) {

@@ -411,6 +411,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update User Groups",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"groups\": [2,1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/user/2/groups",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"2",
+								"groups"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1040,6 +1080,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add User Bulk",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"users\": [2,3]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/class/2/add/bulk",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"class",
+								"2",
+								"add",
+								"bulk"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1584,7 +1665,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/lecture/join/4",
+							"raw": "{{URL}}/api/lecture/join/1",
 							"host": [
 								"{{URL}}"
 							],
@@ -1592,7 +1673,7 @@
 								"api",
 								"lecture",
 								"join",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -1615,7 +1696,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/lecture/time/4",
+							"raw": "{{URL}}/api/lecture/time/1",
 							"host": [
 								"{{URL}}"
 							],
@@ -1623,7 +1704,7 @@
 								"api",
 								"lecture",
 								"time",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -1677,7 +1758,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "5|tyFv9GQ7yGtEtZmeUFWYyvuJovFKvUOA6tc5nQoK",
+				"value": "4|9GeJLMqX7LfWc8um5nhqTHFmPvSnL8huyVUZ1T9H",
 				"type": "string"
 			}
 		]
