@@ -18,16 +18,15 @@ export default function useLogin(username, password) {
 
     useEffect(() => {
         if (didMount.current && !loading) {
-            console.log(error);
-            if (!error.length > 0) {
+            if (data.success) {
                 try {
-                    setToken(data.token);
-                    dispatch(loginAction(data));
+                    setToken(data.body.token);
+                    dispatch(loginAction(data.body));
                     dispatch(actionSucceed(formatSuccess("LOGIN_SUCCESS")));
-                    if (data.user.role === "student") navigate("/connect");
+                    if (data.body.user.role === "student") navigate("/connect");
                     if (
-                        data.user.role === "teacher" ||
-                        data.user.role === "admin"
+                        data.body.user.role === "teacher" ||
+                        data.body.user.role === "admin"
                     )
                         navigate("/lessons");
                 } catch (e) {

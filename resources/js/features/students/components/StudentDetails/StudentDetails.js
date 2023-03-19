@@ -1,33 +1,42 @@
 import React, { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./studentdetails.scss";
-import { IconButton, TextField } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
-import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
-import GroupTile from "../GroupTile/GroupTile";
-import useDeleteStudent from "../../hooks/useDeleteStudent";
+import {
+    GuacamoleButton,
+    GuacamoleFragileButton,
+    GuacamoleInput,
+    GuacamoleSelect,
+} from "../../../../mui";
 import EditIcon from "@mui/icons-material/Edit";
 import EditOffIcon from "@mui/icons-material/EditOff";
+import useDeleteStudent from "../../hooks/useDeleteStudent";
 import useEditStudent from "../../hooks/useEditStudent";
+import useGetAllGroups from "../../hooks/useGetAllGroups";
+import { MenuItem } from "@mui/material";
 
 export default function StudentDetails({ student, refetch, close }) {
-    // Destructurize student object
-    const { username, classes } = student;
+    // Form edit state
 
-    // Form Fields State
-    const [usernameEditActive, setUsernameEditActive] = useState(false);
-    const [newUsername, setNewUsername] = useState("");
+    const [groupEditActive, setGroupEditActive] = useState(false);
 
-    // Delete Student hook declaration
+    // Form fields state
+    const [newGroup, setNewGroup] = useState(student.classes);
+
+    // Delete Student hook declarataion
     const { data: deleteStudentData, deleteStudent } = useDeleteStudent(
         student.id
     );
 
-    // Edit Student hook declaration
-    const { data: editStudentData, editStudent } = useEditStudent(
-        student.id,
-        newUsername
-    );
+    // Edit Student hook declarataion
+    const { data: editStudentData, editStudent } = useEditStudent(student.id, {
+        classes: [],
+    });
+
+    // Get All Groups hook declaration
+
+    const { data: groupList, loading } = useGetAllGroups();
 
     // Refetch logic
     useEffect(() => {
@@ -44,92 +53,118 @@ export default function StudentDetails({ student, refetch, close }) {
         } catch {}
     }, [editStudentData]);
 
+    // Form handling
+
+    const handleChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setNewGroup(
+            // On autofill we get a stringified value.
+            typeof value === "string" ? value.split(",") : value
+        );
+    };
+
+    if (loading) return <>Loading</>;
+
     return (
         <>
             <div className="overlay"></div>
             <div className="student-details-container">
-                <ClickAwayListener onClickAway={() => close(false)}>
+                <ClickAwayListener
+                    onClickAway={(e) => {
+                        if (e.target.className == "overlay") {
+                            close(false);
+                        }
+                    }}
+                >
                     <div className="student-details-panel">
-                        <div className="panel-info">
-                            <table className="student-info-panel">
-                                <tbody>
-                                    <tr className="student-info-group">
-                                        <td className="student-info-key">
-                                            Nazwa:
-                                        </td>
-
-                                        <td
-                                            className="student-info-value"
-                                            id="username"
+                        <div className="student-details">
+                            {/* Student name */}
+                            <div className="detail-group">
+                                <label className="detail-label">Nazwa</label>
+                                <div className="detail-container">
+                                    <div className={`detail`}>
+                                        <GuacamoleInput
+                                            placeholder={student.username}
+                                            InputProps={{
+                                                readOnly: true,
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Computer groups  */}
+                            <div className="detail-group">
+                                <label className="detail-label">Grupy</label>
+                                <div className="detail-container">
+                                    <div
+                                        className={`detail ${
+                                            groupEditActive ? "edit" : ""
+                                        }`}
+                                    >
+                                        <GuacamoleSelect
+                                            className="group-select"
+                                            displayEmpty
+                                            multiple
+                                            value={newGroup}
+                                            onChange={handleChange}
+                                            disabled={!groupEditActive}
+                                            renderValue={(selected) => {
+                                                if (selected.length === 0) {
+                                                    return "Brak grup";
+                                                }
+                                                return selected
+                                                    .map((entry) => entry.name)
+                                                    .join(", ");
+                                            }}
                                         >
-                                            {usernameEditActive ? (
-                                                <TextField
-                                                    variant="standard"
-                                                    placeholder={username}
-                                                    onChange={(e) => {
-                                                        setNewUsername(
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                />
-                                            ) : (
-                                                username
-                                            )}
-                                        </td>
-                                        <td className="computer-info-edit">
-                                            <IconButton
-                                                size="small"
-                                                color="primary"
-                                                onClick={() => {
-                                                    setNewUsername("");
-                                                    setUsernameEditActive(
-                                                        !usernameEditActive
-                                                    );
-                                                }}
-                                            >
-                                                {usernameEditActive ? (
-                                                    <EditOffIcon />
-                                                ) : (
-                                                    <EditIcon />
-                                                )}
-                                            </IconButton>
-                                        </td>
-                                    </tr>
-                                    <tr className="student-info-group">
-                                        <td className="student-info-key">
-                                            Grupy:
-                                        </td>
-
-                                        <td
-                                            className="student-info-value"
-                                            id="groups"
-                                        >
-                                            {classes.map((group) => {
-                                                return (
-                                                    <GroupTile
-                                                        key={group.id}
-                                                        className={group.name}
-                                                        classId={group.id}
-                                                        userId={student.id}
-                                                    />
+                                            {groupList.class.map((group) => (
+                                                <MenuItem
+                                                    key={group.id}
+                                                    value={group}
+                                                >
+                                                    {group.name}
+                                                </MenuItem>
+                                            ))}
+                                        </GuacamoleSelect>
+                                    </div>
+                                    <div className="detail-edit">
+                                        <IconButton
+                                            size="small"
+                                            onClick={() => {
+                                                setGroupEditActive(
+                                                    !groupEditActive
                                                 );
-                                            })}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                setNewGroup(student.classes);
+                                            }}
+                                        >
+                                            {groupEditActive ? (
+                                                <EditOffIcon />
+                                            ) : (
+                                                <EditIcon />
+                                            )}
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div className="panel-actions">
                             <GuacamoleFragileButton
                                 sx={{ width: "45%" }}
                                 onClick={() => deleteStudent()}
                             >
-                                Usuń ucznia
+                                Usuń Ucznia
                             </GuacamoleFragileButton>
                             <GuacamoleButton
                                 sx={{ width: "45%" }}
-                                disabled={!newUsername}
-                                onClick={() => editStudent()}
+                                disabled
+                                onClick={() => {
+                                    {
+                                        editStudent();
+                                    }
+                                }}
                             >
                                 Edytuj dane
                             </GuacamoleButton>
