@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import "./assets/style.scss";
+import "./style.scss";
 import ClassroomList from "./components/ClassroomList/ClassroomList";
 import Logo from "../../components/Logo/Logo";
 import ClassroomAdd from "./components/ClassroomAdd/ClassroomAdd";
@@ -43,7 +43,6 @@ export default function ClassroomsView() {
     } = useGetClassroomComputers(selectedClassroom.id);
 
     // Query for loading computer list, if user selected a classroom it fetches computers for that classroom
-
     useEffect(() => {
         if (selectedClassroom) {
             getClassroomComputers();

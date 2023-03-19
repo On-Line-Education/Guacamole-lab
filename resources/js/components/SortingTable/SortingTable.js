@@ -50,6 +50,8 @@ export default function SortingTable({
         }
     }, [externalFilter]);
 
+    if (tableData.length < 1) return "Brak elementów do wyświetlenia";
+
     return (
         <div className="table-container">
             <table {...getTableProps()} className="sorting-table">
@@ -118,7 +120,7 @@ export default function SortingTable({
                                                           return item.name;
                                                       }
                                                   })
-                                                : cell.render("Cell")}
+                                                : cell.value}
                                         </td>
                                     );
                                 })}
