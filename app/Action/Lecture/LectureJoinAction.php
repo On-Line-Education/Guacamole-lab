@@ -2,6 +2,7 @@
 
 namespace App\Action\Lecture;
 
+use App\Action\Login\GuacamoleAuthLoginAction;
 use App\Exceptions\InvalidStudentClassException;
 use App\Exceptions\LectureNotStartedException;
 use App\Exceptions\NoComputerLeftException;
@@ -16,7 +17,8 @@ use App\Models\User;
 class LectureJoinAction
 {
     public function __construct(
-        private readonly Guacamole $guacamole
+        private readonly Guacamole $guacamole,
+        private readonly GuacamoleAuthLoginAction $guacamoleAuthLoginAction,
     ) {
     }
 
@@ -25,6 +27,8 @@ class LectureJoinAction
         if (!$lecture->started) {
             throw new LectureNotStartedException();
         }
+
+        $guacAdminLogin = ($this->guacamoleAuthLoginAction)(env('GUACAMOLE_ADMIN'), env('GUACAMOLE_ADMIN_PASSWORD'));
 
         $connection = Connection::where('user_id', $user->id);
         if ($connection->count() > 0) {
@@ -71,7 +75,7 @@ class LectureJoinAction
         $ip = $computer->ip;
         $domain = env('DOMAIN', '');
         $guacConnection = $this->guacamole->getConnectionEndpoint()->create(
-            $guacLogin,
+            $guacAdminLogin,
             $username,
             $group,
             $ip,
@@ -81,6 +85,15 @@ class LectureJoinAction
         $connection->user_id = $user->id;
         $connection->connection = $guacConnection->identifier;
         $connection->save();
+
+        $this->guacamole->getConnectionEndpoint()->assignPermission(
+            $guacAdminLogin,
+            $username,
+            $guacConnection->identifier
+        );
+
+        $this->guacamole->getAuth()->logout($guacAdminLogin->getAuthToken());
+
         return Guacamole::generateSessionConnectionUrl(
             $guacConnection->identifier,
             $guacLogin->dataSource

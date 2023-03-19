@@ -9,9 +9,12 @@ class ConnectionEndpoint
 {
 
     public function __construct(
-        private readonly ConnectionCreateEndpoint $connectionCreateEndpoint
-    )
-    {}
+        private readonly ConnectionCreateEndpoint $connectionCreateEndpoint,
+        private readonly ConnectionPermissionAssignEndpoint $connectionPermissionAssignEndpoint,
+        private readonly ConnectionPermissionRevokeEndpoint $connectionPermissionRevokeEndpoint,
+        private readonly ConnectionKillEndpoint $connectionKillEndpoint
+    ) {
+    }
 
     public function create(
         GuacamoleAuthLoginData $loginData,
@@ -19,7 +22,7 @@ class ConnectionEndpoint
         string $group,
         string $ip,
         string $domain
-        ): GuacamoleConnection {
+    ): GuacamoleConnection {
         return ($this->connectionCreateEndpoint)(
             $loginData,
             $name,
@@ -27,5 +30,28 @@ class ConnectionEndpoint
             $ip,
             $domain
         );
+    }
+
+    public function assignPermission(
+        GuacamoleAuthLoginData $loginData,
+        string $username,
+        int $connection
+    ): void {
+        ($this->connectionPermissionAssignEndpoint)($loginData, $username, $connection);
+    }
+
+    public function revokePermission(
+        GuacamoleAuthLoginData $loginData,
+        string $username,
+        int $connection
+    ): void {
+        ($this->connectionPermissionRevokeEndpoint)($loginData, $username, $connection);
+    }
+
+    public function killConnection(
+        GuacamoleAuthLoginData $loginData,
+        int $connection
+    ): void {
+        ($this->connectionKillEndpoint)($loginData, $connection);
     }
 }
