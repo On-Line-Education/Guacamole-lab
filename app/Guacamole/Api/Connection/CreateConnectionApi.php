@@ -48,7 +48,7 @@ class CreateConnectionApi extends AbstractApi
                     'sftp-port' => '',
                     'sftp-server-alive-interval' => '',
                     'enable-audio' => '',
-                    'security' => '',
+                    'security' => 'nla',
                     'disable-auth' => '',
                     'ignore-cert' => '',
                     'gateway-port' => '',
