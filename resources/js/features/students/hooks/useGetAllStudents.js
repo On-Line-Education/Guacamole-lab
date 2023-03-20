@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import useGet from "../../../hooks/useGet";
 
 export default function useGetAllStudents() {
@@ -6,9 +7,17 @@ export default function useGetAllStudents() {
         true
     );
 
+    let userData = {};
+
+    if (data) {
+        userData = data.filter((obj) => {
+            return obj.role == "student";
+        });
+    }
+
     const refetch = async () => {
         refresh();
     };
 
-    return { data, loading, error, refetch };
+    return { data: userData ? userData : data, loading, error, refetch };
 }

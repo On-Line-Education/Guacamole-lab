@@ -1,0 +1,19 @@
+@import "../../../sass/variables";
+
+.instructors {
+    display: flex;
+    height: 100vh;
+}
+
+.instructors-container {
+    padding: 3%;
+    flex: 6;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: $body-color-light;
+
+    .title {
+        font-family: $font-family-title-bold;
+        font-size: $font-size-2;
+    }
+}
