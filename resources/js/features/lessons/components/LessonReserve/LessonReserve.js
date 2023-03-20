@@ -41,7 +41,7 @@ export default function LessonReserve({ refetch }) {
             reservationEndTime
         ) {
             setValidForm(true);
-        }
+        } else setValidForm(false);
     }, [
         reservationClassroom,
         reservationGroup,
@@ -77,8 +77,7 @@ export default function LessonReserve({ refetch }) {
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
-            if (data.success);
+            if (data.success) refetch();
         } catch {}
     }, [data]);
 

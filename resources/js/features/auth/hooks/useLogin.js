@@ -18,6 +18,9 @@ export default function useLogin(username, password) {
 
     useEffect(() => {
         if (didMount.current && !loading) {
+            if (!data) {
+                return;
+            }
             if (data.success) {
                 try {
                     setToken(data.body.token);

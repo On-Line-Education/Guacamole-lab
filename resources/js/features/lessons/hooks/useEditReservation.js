@@ -4,7 +4,7 @@ import usePatch from "../../../hooks/usePatch";
 import { actionSucceed } from "../../alert/state/alertActions";
 import { formatSuccess } from "../../alert/services/formatSuccess";
 
-export default function useEditReservation(params, lectureId) {
+export default function useEditReservation(lectureId, params) {
     const [data, loading, refresh, error] = usePatch(
         `/lecture/reserve/${lectureId}`,
         false,
