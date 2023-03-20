@@ -12,7 +12,8 @@ class ConnectionEndpoint
         private readonly ConnectionCreateEndpoint $connectionCreateEndpoint,
         private readonly ConnectionPermissionAssignEndpoint $connectionPermissionAssignEndpoint,
         private readonly ConnectionPermissionRevokeEndpoint $connectionPermissionRevokeEndpoint,
-        private readonly ConnectionKillEndpoint $connectionKillEndpoint
+        private readonly ConnectionKillEndpoint $connectionKillEndpoint,
+        private readonly ConnectionDeleteEndpoint $connectionDeleteEndpoint
     ) {
     }
 
@@ -53,5 +54,12 @@ class ConnectionEndpoint
         int $connection
     ): void {
         ($this->connectionKillEndpoint)($loginData, $connection);
+    }
+
+    public function deleteConnection(
+        GuacamoleAuthLoginData $loginData,
+        int $connection
+    ): void {
+        ($this->connectionDeleteEndpoint)($loginData, $connection);
     }
 }

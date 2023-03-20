@@ -51,6 +51,10 @@ class LectureEndAction
                 $guacLogin,
                 $connection->connection
             );
+            $this->guacamole->getConnectionEndpoint()->deleteConnection(
+                $guacLogin,
+                $connection->connection
+            );
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
         }
