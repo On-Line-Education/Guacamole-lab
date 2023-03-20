@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useGet from "../../../hooks/useGet";
 
-export default function useGetAllStudents() {
+export default function useGetAllInstructors() {
     const [data, loading, refresh, error] = useGet(
         "/user/all?system-only=true",
         true
@@ -11,7 +11,7 @@ export default function useGetAllStudents() {
 
     if (data) {
         userData = data.filter((obj) => {
-            return obj.role == "student";
+            return obj.role == "instructor";
         });
     }
 

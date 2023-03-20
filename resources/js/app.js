@@ -19,6 +19,7 @@ import Page404 from "./features/auth/components/Page404/Page404";
 import Classrooms from "./features/pages/Classrooms";
 import Lessons from "./features/pages/Lessons";
 import Connect from "./features/pages/Connect";
+import Instructors from "./features/pages/Instructors";
 
 if (document.getElementById("app")) {
     const Index = ReactDOM.createRoot(document.getElementById("app"));
@@ -76,6 +77,14 @@ if (document.getElementById("app")) {
                                         accessList={["instructor", "admin"]}
                                     >
                                         <Students />
+                                    </RouteGuard>
+                                }
+                            />
+                            <Route
+                                path="/instructors"
+                                element={
+                                    <RouteGuard accessList={["admin"]}>
+                                        <Instructors />
                                     </RouteGuard>
                                 }
                             />

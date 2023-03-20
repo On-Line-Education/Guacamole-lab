@@ -45,6 +45,13 @@ export default function Sidebar({ active }) {
                         >
                             <Link to="/students">Uczniowie</Link>
                         </li>
+                        <li
+                            className={`app-nav-link ${
+                                active === "instructors" ? "checked" : ""
+                            }`}
+                        >
+                            <Link to="/instructors">Nauczyciele</Link>
+                        </li>
                     </ul>
                 ) : (
                     ""
