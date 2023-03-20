@@ -50,7 +50,7 @@ class CreateConnectionApi extends AbstractApi
                     'enable-audio' => '',
                     'security' => 'nla',
                     'disable-auth' => '',
-                    'ignore-cert' => '',
+                    'ignore-cert' => true,
                     'gateway-port' => '',
                     'server-layout' => '',
                     'timezone' => '',
