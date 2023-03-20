@@ -15,7 +15,7 @@ export default function LessonReservedList({
 }) {
     const tableColumns = [
         {
-            Header: "Czas startu",
+            Header: "Start",
             name: "time",
             accessor: "start",
             disableSortBy: true,

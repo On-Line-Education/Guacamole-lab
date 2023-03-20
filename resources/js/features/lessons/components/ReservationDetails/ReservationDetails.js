@@ -10,36 +10,43 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./reservationdetails.scss";
 import {
     GuacamoleButton,
-    GuacamoleDateTimePicker,
     GuacamoleFragileButton,
+    GuacamoleInput,
     GuacamoleSelect,
+    GuacamoleTimePicker,
 } from "../../../../mui";
 import { IconButton, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import EditOffIcon from "@mui/icons-material/EditOff";
 import useEditReservation from "../../hooks/useEditReservation";
+import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
+import dayjs from "dayjs";
 
-export default function ReservationDetails({ reservation, close }) {
-    // Field edit mode state
+export default function ReservationDetails({ reservation, refetch, close }) {
+    // Form edit mode state
 
     const [nameEditActive, setNameEditActive] = useState(false);
     const [groupEditActive, setGroupEditActive] = useState(false);
     const [classroomEditActive, setClassroomEditActive] = useState(false);
-    const [startEditActive, setStartEditActive] = useState(false);
-    const [endEditActive, setEndEditActive] = useState(false);
+    const [lengthEditActive, setLengthEditActive] = useState(false);
 
-    // New params
+    // Form Fields state
 
-    const [newName, setNewName] = useState({});
-    const [newClassroom, setNewClassroom] = useState({});
-    const [newGroup, setNewGroup] = useState({});
-    const [newStart, setNewStart] = useState(undefined);
-    const [newEnd, setNewEnd] = useState(undefined);
+    const [newName, setNewName] = useState("");
+    const [newClassroom, setNewClassroom] = useState("");
+    const [newGroup, setNewGroup] = useState("");
+    const [newStart, setNewStart] = useState();
+    const [newEnd, setNewEnd] = useState();
 
-    // Tracking edition state
+    // Form validation
 
-    const [editState, setEditState] = useState(false);
-    const [editedValues, setEditedValues] = useState("");
+    const [validForm, setValidForm] = useState(false);
+
+    useEffect(() => {
+        if (newName || newClassroom || newGroup || newStart || newEnd) {
+            setValidForm(true);
+        } else setValidForm(false);
+    }, [newName, newClassroom, newGroup, newStart, newEnd]);
 
     // Queries for selection data
 
@@ -55,29 +62,46 @@ export default function ReservationDetails({ reservation, close }) {
         error: groupListLoadingError,
     } = useGetAllGroups();
 
-    // Delete query
+    // Edit Reservation hook declaration
 
-    const { error: deleteReservationError, deleteReservation } =
+    const {
+        data: editReservationData,
+        error: editReservationError,
+        editReservation,
+    } = useEditReservation(reservation.id, {
+        name: newName ? newName : undefined,
+        class_room_id: newClassroom ? newClassroom.id : undefined,
+        class_id: newGroup ? newGroup.id : undefined,
+        start: newStart
+            ? `${dayjs(reservation.start, "DD-MM").format(
+                  "YYYY-MM-DD"
+              )} ${newStart}`
+            : undefined,
+        end: newEnd
+            ? `${dayjs(reservation.start, "DD-MM").format(
+                  "YYYY-MM-DD"
+              )} ${newEnd}`
+            : undefined,
+    });
+
+    // Delete Reservation hook declaration
+
+    const { data: deleteReservationData, deleteReservation } =
         useDeleteReservation(reservation.id);
 
-    // Edit Reservation
-
-    const { error: editReservationError, editReservation } = useEditReservation(
-        editedValues,
-        reservation.id
-    );
-
+    // Refetch logic
     useEffect(() => {
-        if (newName || newGroup || newClassroom || newStart || newEnd) {
-            setEditState(true);
-            setEditedValues({
-                class_room_id: newClassroom.id,
-                class_id: newGroup.id,
-                start: newStart,
-                end: newEnd,
-            });
-        }
-    }, [newName, newGroup, newClassroom, newStart, newEnd]);
+        try {
+            if (editReservationData.success) refetch();
+        } catch {}
+    }, [editReservationData]);
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            if (deleteReservationData.success) refetch();
+        } catch {}
+    }, [deleteReservationData]);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -85,235 +109,275 @@ export default function ReservationDetails({ reservation, close }) {
             <div className="reservation-details-container">
                 <ClickAwayListener
                     onClickAway={(e) => {
-                        if (e.target.className == "overlay") {
+                        if (
+                            e.target.className ==
+                            "reservation-details-container"
+                        ) {
                             close(false);
                         }
                     }}
                 >
-                    <div className="reservation-details">
-                        <div className="reservation-name">
-                            {reservation.name}
-                        </div>
-                        <div className="reservation-classroom">
-                            <div className="reservation-param-key">Sala:</div>
-                            <div className="reservation-param-value">
-                                {classroomEditActive ? (
-                                    <GuacamoleSelect
-                                        id="lesson-classroom"
-                                        className="form-input"
-                                        value={newClassroom}
-                                        label={reservation.class_room.name}
-                                        onChange={(e) => {
-                                            setNewClassroom(e.target.value);
-                                        }}
-                                        displayEmpty
-                                        renderValue={
-                                            newClassroom !== ""
-                                                ? undefined
-                                                : () =>
-                                                      reservation.class_room
-                                                          .name
-                                        }
-                                        sx={{ width: "200px !important" }}
-                                    >
-                                        {classroomListLoading ? (
-                                            <div>Loading</div>
-                                        ) : classroomList.classrooms.length >
-                                          0 ? (
-                                            classroomList.classrooms.map(
-                                                (classroom) => {
-                                                    return (
-                                                        <MenuItem
-                                                            key={classroom.id}
-                                                            value={classroom}
-                                                        >
-                                                            {classroom.name}
-                                                        </MenuItem>
+                    <div className="reservation-details-panel">
+                        {groupListLoading || classroomListLoading ? (
+                            <LoadingSpinner />
+                        ) : (
+                            <div className="reservation-details">
+                                {/* Reservation Name  */}
+                                <div className="detail-group">
+                                    <label className="detail-label">
+                                        Nazwa
+                                    </label>
+                                    <div className="detail-container">
+                                        <div
+                                            className={`detail ${
+                                                nameEditActive ? "edit" : ""
+                                            }`}
+                                        >
+                                            <GuacamoleInput
+                                                placeholder={reservation.name}
+                                                value={newName}
+                                                InputProps={{
+                                                    readOnly: !nameEditActive,
+                                                }}
+                                                onChange={(e) => {
+                                                    setNewName(e.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="detail-edit">
+                                            <IconButton
+                                                size="small"
+                                                onClick={() => {
+                                                    setNameEditActive(
+                                                        !nameEditActive
                                                     );
-                                                }
-                                            )
+                                                    setNewName("");
+                                                }}
+                                            >
+                                                {nameEditActive ? (
+                                                    <EditOffIcon />
+                                                ) : (
+                                                    <EditIcon />
+                                                )}
+                                            </IconButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Reservation Length  */}
+                                <div className="detail-group">
+                                    <label className="detail-label">
+                                        Czas trwania
+                                    </label>
+                                    <div className="detail-container">
+                                        {lengthEditActive ? (
+                                            <div className="detail edit">
+                                                <div className="time-range-picker">
+                                                    <GuacamoleTimePicker
+                                                        className="form-input"
+                                                        ampm={false}
+                                                        format={"HH:mm"}
+                                                        defaultValue={dayjs(
+                                                            reservation.start,
+                                                            "DD-MM HH:mm"
+                                                        )}
+                                                        disabled={
+                                                            !lengthEditActive
+                                                        }
+                                                        onChange={(value) => {
+                                                            setNewStart(
+                                                                value.format(
+                                                                    "HH:mm"
+                                                                )
+                                                            );
+                                                        }}
+                                                    />
+                                                    <span>do</span>
+                                                    <GuacamoleTimePicker
+                                                        className="form-input"
+                                                        ampm={false}
+                                                        defaultValue={dayjs(
+                                                            reservation.end,
+                                                            "DD-MM HH:mm"
+                                                        )}
+                                                        disabled={
+                                                            !lengthEditActive
+                                                        }
+                                                        onChange={(value) =>
+                                                            setNewEnd(
+                                                                value.format(
+                                                                    "HH:mm"
+                                                                )
+                                                            )
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
                                         ) : (
-                                            <MenuItem value={""}>
-                                                Brak dostępnych sal
-                                            </MenuItem>
+                                            <div className="detail static">
+                                                {reservation.start.slice(6)} do{" "}
+                                                {reservation.end.slice(6)}
+                                            </div>
                                         )}
-                                    </GuacamoleSelect>
-                                ) : (
-                                    reservation.class_room.name
-                                )}
-                            </div>
-                            <div className="reservation-param-edit">
-                                <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => {
-                                        setNewClassroom("");
-                                        setClassroomEditActive(
-                                            !classroomEditActive
-                                        );
-                                    }}
-                                >
-                                    {classroomEditActive ? (
-                                        <EditOffIcon />
-                                    ) : (
-                                        <EditIcon />
-                                    )}
-                                </IconButton>
-                            </div>
-                        </div>
-                        <div className="reservation-class">
-                            <div className="reservation-param-key">Klasa:</div>
-                            <div className="reservation-param-value">
-                                {groupEditActive ? (
-                                    <GuacamoleSelect
-                                        id="lesson-classroom"
-                                        className="form-input"
-                                        value={newGroup}
-                                        onChange={(e) => {
-                                            setNewGroup(e.target.value);
-                                        }}
-                                        displayEmpty
-                                        renderValue={
-                                            newGroup !== ""
-                                                ? undefined
-                                                : () => reservation.class.name
-                                        }
-                                        sx={{ width: "200px !important" }}
+                                        <div className="detail-edit">
+                                            <IconButton
+                                                size="small"
+                                                onClick={() => {
+                                                    setLengthEditActive(
+                                                        !lengthEditActive
+                                                    );
+                                                    setNewStart("");
+                                                    setNewEnd("");
+                                                }}
+                                            >
+                                                {lengthEditActive ? (
+                                                    <EditOffIcon />
+                                                ) : (
+                                                    <EditIcon />
+                                                )}
+                                            </IconButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Reservation Classroom  */}
+                                <div className="detail-group">
+                                    <label className="detail-label">Sala</label>
+                                    <div className="detail-container">
+                                        {classroomEditActive ? (
+                                            <div className="detail edit-select">
+                                                <GuacamoleSelect
+                                                    className="form-input form-input-narrow"
+                                                    value={newClassroom}
+                                                    onChange={(e) =>
+                                                        setNewClassroom(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                >
+                                                    {classroomList.classrooms.map(
+                                                        (classroom) => {
+                                                            return (
+                                                                <MenuItem
+                                                                    key={
+                                                                        classroom.id
+                                                                    }
+                                                                    value={
+                                                                        classroom
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        classroom.name
+                                                                    }
+                                                                </MenuItem>
+                                                            );
+                                                        }
+                                                    )}
+                                                </GuacamoleSelect>
+                                            </div>
+                                        ) : (
+                                            <div className="detail static">
+                                                {reservation.class_room.name}
+                                            </div>
+                                        )}
+                                        <div className="detail-edit">
+                                            <IconButton
+                                                size="small"
+                                                onClick={() => {
+                                                    setClassroomEditActive(
+                                                        !classroomEditActive
+                                                    );
+                                                    setNewClassroom("");
+                                                }}
+                                            >
+                                                {classroomEditActive ? (
+                                                    <EditOffIcon />
+                                                ) : (
+                                                    <EditIcon />
+                                                )}
+                                            </IconButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Reservation Class  */}
+                                <div className="detail-group">
+                                    <label className="detail-label">
+                                        Nazwa
+                                    </label>
+                                    <div className="detail-container">
+                                        {groupEditActive ? (
+                                            <div className="detail edit-select">
+                                                <GuacamoleSelect
+                                                    className="form-input form-input-narrow"
+                                                    value={newGroup}
+                                                    onChange={(e) =>
+                                                        setNewGroup(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                >
+                                                    {groupList.class.map(
+                                                        (group) => {
+                                                            return (
+                                                                <MenuItem
+                                                                    key={
+                                                                        group.id
+                                                                    }
+                                                                    value={
+                                                                        group
+                                                                    }
+                                                                >
+                                                                    {group.name}
+                                                                </MenuItem>
+                                                            );
+                                                        }
+                                                    )}
+                                                </GuacamoleSelect>
+                                            </div>
+                                        ) : (
+                                            <div className="detail static">
+                                                {reservation.class.name}
+                                            </div>
+                                        )}
+                                        <div className="detail-edit">
+                                            <IconButton
+                                                size="small"
+                                                onClick={() => {
+                                                    setGroupEditActive(
+                                                        !groupEditActive
+                                                    );
+                                                    setNewGroup("");
+                                                }}
+                                            >
+                                                {groupEditActive ? (
+                                                    <EditOffIcon />
+                                                ) : (
+                                                    <EditIcon />
+                                                )}
+                                            </IconButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="panel-actions">
+                                    <GuacamoleFragileButton
+                                        sx={{ width: "45%" }}
+                                        onClick={() => deleteReservation()}
                                     >
-                                        {groupList.class.length > 0 ? (
-                                            groupList.class.map((group) => {
-                                                return (
-                                                    <MenuItem
-                                                        key={group.id}
-                                                        value={group}
-                                                    >
-                                                        {group.name}
-                                                    </MenuItem>
-                                                );
-                                            })
-                                        ) : (
-                                            <MenuItem value={""}>
-                                                Brak dostępnych klas
-                                            </MenuItem>
-                                        )}
-                                    </GuacamoleSelect>
-                                ) : (
-                                    reservation.class.name
-                                )}
+                                        Usuń Rezerwacje
+                                    </GuacamoleFragileButton>
+                                    <GuacamoleButton
+                                        onClick={() => editReservation()}
+                                        sx={{ width: "45%" }}
+                                        disabled={!validForm}
+                                    >
+                                        Zapisz
+                                    </GuacamoleButton>
+                                </div>
+                                <div className="panel-close">
+                                    <IconButton onClick={() => close(false)}>
+                                        <CloseIcon />
+                                    </IconButton>
+                                </div>
                             </div>
-                            <div className="reservation-param-edit">
-                                <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => {
-                                        setNewGroup("");
-                                        setGroupEditActive(!groupEditActive);
-                                    }}
-                                >
-                                    {groupEditActive ? (
-                                        <EditOffIcon />
-                                    ) : (
-                                        <EditIcon />
-                                    )}
-                                </IconButton>
-                            </div>
-                        </div>
-                        <div className="reservation-start">
-                            <div className="reservation-param-key">Start:</div>
-                            <div className="reservation-param-value">
-                                {startEditActive ? (
-                                    <GuacamoleDateTimePicker
-                                        className="form-input"
-                                        size="small"
-                                        id="lesson-start"
-                                        ampm={false}
-                                        onChange={(value) =>
-                                            setNewStart(
-                                                value.format(
-                                                    "YYYY-MM-DD hh:mm:ss"
-                                                )
-                                            )
-                                        }
-                                    />
-                                ) : (
-                                    reservation.start
-                                )}
-                            </div>
-                            <div className="reservation-param-edit">
-                                <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => {
-                                        setNewStart("");
-                                        setStartEditActive(!startEditActive);
-                                    }}
-                                >
-                                    {startEditActive ? (
-                                        <EditOffIcon />
-                                    ) : (
-                                        <EditIcon />
-                                    )}
-                                </IconButton>
-                            </div>
-                        </div>
-                        <div className="reservation-end">
-                            <div className="reservation-param-key">Koniec:</div>
-                            <div className="reservation-param-value">
-                                {endEditActive ? (
-                                    <GuacamoleDateTimePicker
-                                        className="form-input"
-                                        size="small"
-                                        id="lesson-start"
-                                        ampm={false}
-                                        onChange={(value) =>
-                                            setNewStart(
-                                                value.format(
-                                                    "YYYY-MM-DD hh:mm:ss"
-                                                )
-                                            )
-                                        }
-                                    />
-                                ) : (
-                                    reservation.end
-                                )}
-                            </div>
-                            <div className="reservation-param-edit">
-                                <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => {
-                                        setNewEnd("");
-                                        setEndEditActive(!endEditActive);
-                                    }}
-                                >
-                                    {endEditActive ? (
-                                        <EditOffIcon />
-                                    ) : (
-                                        <EditIcon />
-                                    )}
-                                </IconButton>
-                            </div>
-                        </div>
-                        <div className="panel-actions">
-                            <GuacamoleFragileButton
-                                sx={{ width: "45%" }}
-                                onClick={() => deleteReservation()}
-                            >
-                                Usuń Rezerwacje
-                            </GuacamoleFragileButton>
-                            <GuacamoleButton
-                                onClick={() => editReservation()}
-                                sx={{ width: "45%" }}
-                                disabled={!editState}
-                            >
-                                Edytuj dane
-                            </GuacamoleButton>
-                        </div>
-                        <div className="panel-close">
-                            <IconButton onClick={() => close(false)}>
-                                <CloseIcon />
-                            </IconButton>
-                        </div>
+                        )}
                     </div>
                 </ClickAwayListener>
             </div>

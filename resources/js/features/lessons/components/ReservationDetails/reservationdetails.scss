@@ -30,39 +30,91 @@
     position: relative;
     color: $body-color-dark;
 
-    .reservation-name {
-        font-family: $font-family-title;
-        font-size: $font-size-2;
-        padding-bottom: 1em;
-    }
-
-    .reservation-classroom,
-    .reservation-class,
-    .reservation-start,
-    .reservation-end {
-        padding-left: 1em;
+    .detail-group {
+        width: 100%;
+        margin: 0.2em 0;
         display: flex;
-        font-size: $font-size-2;
+        flex-direction: column;
+        justify-content: space-between;
 
-        .reservation-param-key {
-            width: 25%;
-            font-family: $font-family-title-bold;
-        }
-
-        .reservation-param-value {
-            width: 65%;
+        .detail-label {
             font-family: $font-family-content;
-            display: flex;
-
-            input,
-            fieldset,
-            div {
-                border: none;
-            }
+            font-size: $font-size-4;
+            font-weight: $font-weight-regular;
         }
 
-        .reservation-param-edit {
-            width: 10%;
+        .detail-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .detail {
+                font-family: $font-family-content;
+                font-size: $font-size-2;
+                border-bottom: 1px solid $body-color-light;
+                color: rgba(0, 0, 0, 0.38);
+
+                div,
+                input,
+                fieldset {
+                    height: 2em;
+                    font-size: $font-size-2;
+                    border: none;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: default;
+                }
+
+                .time-range-picker {
+                    display: flex;
+                    align-items: center;
+
+                    input {
+                        width: 100px;
+                    }
+
+                    span {
+                        padding: 0.5em;
+                        font-family: $font-family-title;
+                        font-size: $font-size-2;
+                    }
+                }
+            }
+
+            .static {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 2em;
+                padding: 16.5px 14px;
+                border-bottom: 1px solid $body-color-light;
+            }
+
+            .edit {
+                color: $body-color-dark;
+                border-bottom: 1px solid $body-color-dark;
+                input {
+                    cursor: text;
+                }
+
+                input::placeholder {
+                    opacity: 1;
+                    color: $body-color-dark !important;
+                }
+            }
+
+            .edit-select {
+                width: 50%;
+                border-bottom: 1px solid $body-color-dark;
+                input {
+                    cursor: text;
+                }
+
+                input::placeholder {
+                    opacity: 0.8;
+                }
+            }
         }
     }
 
