@@ -3,7 +3,7 @@
 namespace App\ActionService\User;
 
 use App\Action\User\UserGetAllAction;
-use App\Action\User\UserGetByIdAction;
+use App\Action\User\UserGetByUsernameAction;
 use App\Action\User\UserSearchAction;
 use App\ActionService\AbstractActionService;
 use App\Models\User;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ReadUserActionService extends AbstractActionService
 {
     public function __construct(
-        private readonly UserGetByIdAction         $userGetByIdAction,
+        private readonly UserGetByUsernamedAction         $userGetByUsernameAction,
         private readonly UserGetAllAction          $userGetAllAction,
         private readonly UserSearchAction          $userSearchAction,
         private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
@@ -32,7 +32,7 @@ class ReadUserActionService extends AbstractActionService
             if (Auth::user()->isStudent() && $user->id !== Auth::id()) {
                 throw new UnauthorizedException();
             }
-            $guacUser = ($this->userGetByIdAction)($guacAuth, $user->username);
+            $guacUser = ($this->userGetByUsernameAction)($guacAuth, $user->username);
             return ($this->responder)(
                 array_merge(
                     $user->getUserWithGuacDataArray($guacUser),
