@@ -29,7 +29,7 @@ class ReadLectureActionService extends AbstractActionService
         (new GuacamoleUserLoginService())();
         if (
             $lecture !== null
-            && (!$user->isStudent()
+            && ($user !== null && !$user->isStudent()
                 || ($this->lectureWithUserAction)($lecture, Auth::user())
             )
         ) {

@@ -25,28 +25,45 @@ class LectureEndAction
         foreach ($students as $student) {
             $username = $student->getStudent()->username;
             $group = $classRoom->name;
-            $this->guacamole->getConnectionGroupEndpoint()->revokePermissions($guacLogin, $username, $group);
-            $computer = Computer::where('user_id', $student->id)->first();
+            $this->end($guacLogin, $student->getStudent()->id, $username, $group);
+        }
+
+        $this->end($guacLogin, $lecture->getInstructor()->id, $lecture->getInstructor()->username, $classRoom->name);
+
+        $lecture->started = false;
+        $lecture->save();
+    }
+
+    public function end($guacLogin, int $id, string $username, string $group) {
+        try {
+            $connection = Connection::where('user_id', $id)->first();
+            $this->guacamole->getConnectionEndpoint()->revokePermission(
+                $guacLogin,
+                $username,
+                $connection->connection
+            );
+            $this->guacamole->getConnectionGroupEndpoint()->revokePermissions(
+                $guacLogin,
+                $username,
+                $group
+            );
+            $this->guacamole->getConnectionEndpoint()->killConnection(
+                $guacLogin,
+                $connection->connection
+            );
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+        }
+
+        try {
+            $computer = Computer::where('user_id', $id)->first();
             if ($computer !== null) {
                 $computer->user_id = null;
                 $computer->save();
             }
-            Connection::where('user_id', $student->getStudent()->id)->delete();
+            Connection::where('user_id', $id)->delete();
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
         }
-
-        $this->guacamole->getConnectionGroupEndpoint()->revokePermissions(
-            $guacLogin,
-            $lecture->getInstructor()->username,
-            $classRoom->name
-        );
-        $computer = Computer::where('user_id', $lecture->getInstructor()->id)->first();
-        if ($computer !== null) {
-            $computer->user_id = null;
-            $computer->save();
-        }
-        Connection::where('user_id', $lecture->getInstructor()->id)->delete();
-
-        $lecture->started = false;
-        $lecture->save();
     }
 }

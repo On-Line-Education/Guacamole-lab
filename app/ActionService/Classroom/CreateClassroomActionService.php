@@ -30,7 +30,7 @@ class CreateClassroomActionService extends AbstractActionService
         $this->guacamole->getConnectionGroupEndpoint()->create($guacAuth, $classRoomCreateRequestData['name']);
         $newClass = ($this->classroomCreateAction)(
             $classRoomCreateRequestData['name'],
-            $classRoomCreateRequestData['description']
+            $classRoomCreateRequestData['description'] ?? ''
         );
         
         return ($this->responder)(['classroom' => $newClass]);

@@ -15,6 +15,7 @@ import useDeleteStudent from "../../hooks/useDeleteStudent";
 import useEditStudent from "../../hooks/useEditStudent";
 import useGetAllGroups from "../../hooks/useGetAllGroups";
 import { MenuItem } from "@mui/material";
+import useEditStudentGroups from "../../hooks/useEditStudentGroups";
 
 export default function StudentDetails({ student, refetch, close }) {
     // Form edit state
@@ -22,7 +23,7 @@ export default function StudentDetails({ student, refetch, close }) {
     const [groupEditActive, setGroupEditActive] = useState(false);
 
     // Form fields state
-    const [newGroup, setNewGroup] = useState(student.classes);
+    const [newGroup, setNewGroup] = useState([]);
 
     // Delete Student hook declarataion
     const { data: deleteStudentData, deleteStudent } = useDeleteStudent(
@@ -33,6 +34,13 @@ export default function StudentDetails({ student, refetch, close }) {
     const { data: editStudentData, editStudent } = useEditStudent(student.id, {
         classes: [],
     });
+
+    // Edit Student Groups hook declarataion and handling
+
+    const { data: editStudentGroupsData, editStudentGroups } =
+        useEditStudentGroups(student.id, {
+            groups: newGroup.map((group) => group.id),
+        });
 
     // Get All Groups hook declaration
 
@@ -53,8 +61,7 @@ export default function StudentDetails({ student, refetch, close }) {
         } catch {}
     }, [editStudentData]);
 
-    // Form handling
-
+    // Form Select handling
     const handleChange = (event) => {
         const {
             target: { value },
@@ -64,6 +71,8 @@ export default function StudentDetails({ student, refetch, close }) {
             typeof value === "string" ? value.split(",") : value
         );
     };
+
+    console.log(newGroup);
 
     if (loading) return <>Loading</>;
 
@@ -105,14 +114,31 @@ export default function StudentDetails({ student, refetch, close }) {
                                     >
                                         <GuacamoleSelect
                                             className="group-select"
+                                            defaultValue={student.classes}
                                             displayEmpty
                                             multiple
                                             value={newGroup}
                                             onChange={handleChange}
                                             disabled={!groupEditActive}
                                             renderValue={(selected) => {
-                                                if (selected.length === 0) {
-                                                    return "Brak grup";
+                                                console.log(selected);
+                                                if (
+                                                    selected.length === 0 &&
+                                                    !groupEditActive
+                                                ) {
+                                                    return student.classes
+                                                        .map(
+                                                            (group) =>
+                                                                group.name
+                                                        )
+                                                        .join(", ");
+                                                }
+
+                                                if (
+                                                    selected.length === 0 &&
+                                                    groupEditActive
+                                                ) {
+                                                    return "Wybierz grupy";
                                                 }
                                                 return selected
                                                     .map((entry) => entry.name)
@@ -136,7 +162,7 @@ export default function StudentDetails({ student, refetch, close }) {
                                                 setGroupEditActive(
                                                     !groupEditActive
                                                 );
-                                                setNewGroup(student.classes);
+                                                setNewGroup([]);
                                             }}
                                         >
                                             {groupEditActive ? (
@@ -159,10 +185,10 @@ export default function StudentDetails({ student, refetch, close }) {
                             </GuacamoleFragileButton>
                             <GuacamoleButton
                                 sx={{ width: "45%" }}
-                                disabled
+                                disabled={student.classes == newGroup}
                                 onClick={() => {
                                     {
-                                        editStudent();
+                                        editStudentGroups();
                                     }
                                 }}
                             >
