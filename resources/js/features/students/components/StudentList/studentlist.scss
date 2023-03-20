@@ -1,7 +1,7 @@
 @import "../../../../../sass/variables";
 
 .student-list-container {
-    grid-column: 1;
+    grid-column: 2;
     grid-row: 1;
     display: flex;
     flex-direction: column;
@@ -34,11 +34,7 @@
         }
 
         .username {
-            width: 40%;
-        }
-
-        .group {
-            width: 50%;
+            width: 90%;
         }
     }
 

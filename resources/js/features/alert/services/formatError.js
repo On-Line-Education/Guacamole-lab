@@ -46,6 +46,12 @@ export function formatError(errorResponse) {
                 title: "Błąd tworzenia rezerwacji",
                 message: "Ten termin jest już zajęty",
             };
+        case "The username has already been taken.":
+            return {
+                title: "Błąd tworzenia użytkownika",
+                message: "Ta nazwa użytkownika jest już zajęta",
+            };
+
         default:
             return {
                 title: "Wystąpił błąd",

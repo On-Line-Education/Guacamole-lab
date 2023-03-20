@@ -18,6 +18,7 @@ import { MenuItem } from "@mui/material";
 import useEditStudentGroups from "../../hooks/useEditStudentGroups";
 
 export default function StudentDetails({ student, refetch, close }) {
+    console.log(student);
     // Form edit state
 
     const [groupEditActive, setGroupEditActive] = useState(false);

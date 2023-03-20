@@ -10,8 +10,8 @@ export default function ComputerList({
     openComputerDetails,
     computerList,
     loading,
-    setSelectedComputer,
     selectedClassroom,
+    setSelectedComputer,
     selectedComputer,
 }) {
     const tableColumns = [

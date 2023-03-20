@@ -5,25 +5,55 @@ import "./studentadd.scss";
 import { IconButton } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import useCreateStudent from "../../hooks/useCreateStudent";
+import useAssignToGroup from "../../hooks/useAssignToGroup";
 
-export default function StudentAdd({ close, refetch }) {
+export default function StudentAdd({ group, close, refetch }) {
     // Form fields state
     const [newStudentUsername, setNewStudentUsername] = useState();
     const [newStudentPassword, setNewStudentPassword] = useState();
 
     // Create Student hook declaration
-    const { data, createStudent } = useCreateStudent(
+    const { data: createStudentData, createStudent } = useCreateStudent(
         newStudentUsername,
-        newStudentPassword
+        newStudentPassword,
+        group
     );
+
+    const [userId, setUserId] = useState();
+
+    // Auto-assign to group logic
+
+    const { data: assignToGroupData, assignToGroup } = useAssignToGroup(
+        group.id,
+        userId
+    );
+
+    useEffect(() => {
+        try {
+            if (createStudentData.success) {
+                setUserId(createStudentData.body.user.id);
+            }
+        } catch {}
+    }, [createStudentData]);
+
+    useEffect(() => {
+        if (userId) {
+            assignToGroup();
+        }
+    }, [userId]);
 
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
-            if (data.success) close();
-        } catch {}
-    }, [data]);
+            if (
+                createStudentData.success &&
+                typeof assignToGroupData === "undefined"
+            ) {
+                refetch();
+                close();
+            }
+        } catch (e) {}
+    }, [createStudentData, assignToGroupData]);
 
     return (
         <>

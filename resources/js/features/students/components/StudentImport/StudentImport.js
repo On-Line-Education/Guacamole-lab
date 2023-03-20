@@ -16,8 +16,10 @@ export default function StudentImport({ refetch }) {
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
-            if (data.success) close();
+            if (data.success) {
+                close();
+                refetch();
+            }
         } catch {}
     }, [data]);
 
