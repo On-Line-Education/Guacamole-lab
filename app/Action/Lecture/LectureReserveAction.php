@@ -2,6 +2,7 @@
 
 namespace App\Action\Lecture;
 
+use App\Exceptions\CannotReserveLectureInThePastException;
 use App\Exceptions\ClassHasLectureException;
 use App\Exceptions\ClassRoomIsOccupiedException;
 use App\Exceptions\EndDateIsOlderThanStartDateException;
@@ -22,6 +23,11 @@ class LectureReserveAction
         $classRoomId = $reserveData['class_room_id'];
         $instructorId = $reserveData['instructor_id'];
         $name = $reserveData['name'];
+
+
+        if (Carbon::now(env('TIMEZONE', null))->greaterThan($end)) {
+            throw new CannotReserveLectureInThePastException();
+        }
 
         if (Carbon::createFromTimeString($start)->greaterThan(Carbon::createFromTimeString($end))) {
             throw new EndDateIsOlderThanStartDateException();
