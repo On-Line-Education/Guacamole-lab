@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import "./assets/style.scss";
+import "./style.scss";
 import StudentList from "./components/StudentList/StudentList";
 import Logo from "../../components/Logo/Logo";
 import StudentAdd from "./components/StudentAdd/StudentAdd";
 import GroupList from "./components/GroupList/GroupList";
 import StudentDetails from "./components/StudentDetails/StudentDetails";
 import StudentImport from "./components/StudentImport/StudentImport";
-import useGetAllStudents from "./hooks/useGetAllStudents";
 import useGetAllGroups from "./hooks/useGetAllGroups";
 import GroupAdd from "./components/GroupAdd/GroupAdd";
+import useGetStudentsFromGroup from "./hooks/useGetStudentsFromGroup";
 
 export default function StudentsView() {
+    //Selected table rows state
+
+    const [selectedStudent, setSelectedStudent] = useState("");
+    const [selectedGroup, setSelectedGroup] = useState("");
+
     // View states
 
     const [studentAdditionPanelActive, setStudentAdditionPanelActive] =
@@ -20,15 +25,6 @@ export default function StudentsView() {
         useState(false);
     const [groupAdditionPanelActive, setGroupAdditionPanelActive] =
         useState(false);
-
-    // Get All Students hook declaration
-
-    const {
-        data: studentList,
-        loading: studentListLoading,
-        error: studentListLoadingError,
-        refetch: refetchStudentList,
-    } = useGetAllStudents();
 
     // Get All Groups hook declaration
 
@@ -39,10 +35,21 @@ export default function StudentsView() {
         refetch: refetchGroupList,
     } = useGetAllGroups();
 
-    //Selected table rows state
+    // Get Students From Group hook declaration
 
-    const [selectedStudent, setSelectedStudent] = useState("");
-    const [selectedGroup, setSelectedGroup] = useState("");
+    const {
+        data: studentList,
+        loading: studentListLoading,
+        error: studentListLoadingError,
+        getSelectedClassroomComputers,
+    } = useGetStudentsFromGroup(selectedGroup.id);
+
+    // Query for loading computer list, if user selected a classroom it fetches computers for that classroom
+    useEffect(() => {
+        if (selectedGroup) {
+            getSelectedClassroomComputers();
+        }
+    }, [selectedGroup]);
 
     return (
         <div className="students">
@@ -54,8 +61,9 @@ export default function StudentsView() {
                     openStudentDetails={setStudentDetailsPanelActive}
                     studentList={studentList}
                     loading={studentListLoading}
-                    setSelectedStudent={setSelectedStudent}
+                    selectedGroup={selectedGroup}
                     selectedStudent={selectedStudent}
+                    setSelectedStudent={setSelectedStudent}
                 />
                 <GroupList
                     openGroupAdd={setGroupAdditionPanelActive}
@@ -65,17 +73,13 @@ export default function StudentsView() {
                     selectedGroup={selectedGroup}
                     refetch={refetchGroupList}
                 />
-                <StudentImport
-                    refetch={() => {
-                        refetchStudentList;
-                        refetchGroupList;
-                    }}
-                />
+                <StudentImport refetch={refetchGroupList} />
             </div>
 
             {studentAdditionPanelActive ? (
                 <StudentAdd
-                    refetch={refetchStudentList}
+                    refetch={getSelectedClassroomComputers}
+                    group={selectedGroup}
                     close={setStudentAdditionPanelActive}
                 />
             ) : (

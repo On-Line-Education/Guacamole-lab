@@ -10,6 +10,8 @@ export default function useConnect(lessonId) {
 
     const dispatch = useDispatch();
 
+    console.log(data);
+
     useEffect(() => {
         if (!loading && !error.length > 0) {
             dispatch(actionSucceed(formatSuccess("CONNECT_SUCCESS")));

@@ -52,7 +52,7 @@ export default function ComputerAdd({
             <div className="computer-add-container">
                 <ClickAwayListener onClickAway={() => close()}>
                     <div className="computer-add-panel">
-                        <div className="panel-title">Stwórz nowego ucznia</div>
+                        <div className="panel-title">Dodaj nowy komputer</div>
                         <div className="panel-close">
                             <IconButton onClick={() => close()}>
                                 <CloseIcon />

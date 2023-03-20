@@ -9,8 +9,9 @@ export default function StudentList({
     openStudentDetails,
     studentList,
     loading,
-    setSelectedStudent,
+    selectedGroup,
     selectedStudent,
+    setSelectedStudent,
 }) {
     // Collumns for react-table
 
@@ -26,47 +27,47 @@ export default function StudentList({
             name: "username",
             accessor: "username",
         },
-        {
-            Header: "Grupy",
-            name: "group",
-            accessor: "classes",
-            destructureClass: true,
-            disableSortBy: true,
-            Filter: true,
-        },
     ];
 
     return (
         <div className="student-list-container">
             <div className="title student-list-title">Lista uczniów</div>
             <div className="student-list-panel">
-                <div className="student-list">
-                    {loading ? (
-                        <LoadingSpinner />
-                    ) : (
-                        <SortingTable
-                            selectRow={setSelectedStudent}
-                            selectedRow={selectedStudent}
-                            tableData={studentList}
-                            tableColumns={tableColumns}
-                        />
-                    )}
-                </div>
-                <div className="list-actions student-list-actions">
-                    <GuacamoleButton
-                        sx={{ width: "40%" }}
-                        onClick={() => openStudentAdd(true)}
-                    >
-                        Dodaj ucznia
-                    </GuacamoleButton>
-                    <GuacamoleButton
-                        sx={{ width: "50%" }}
-                        onClick={() => openStudentDetails(true)}
-                        disabled={!selectedStudent}
-                    >
-                        Szczegóły ucznia
-                    </GuacamoleButton>
-                </div>
+                {selectedGroup ? (
+                    <>
+                        <div className="student-list">
+                            {loading ? (
+                                <LoadingSpinner />
+                            ) : (
+                                <SortingTable
+                                    selectRow={setSelectedStudent}
+                                    selectedRow={selectedStudent}
+                                    tableData={studentList.users}
+                                    tableColumns={tableColumns}
+                                />
+                            )}
+                        </div>
+                        <div className="list-actions student-list-actions">
+                            <GuacamoleButton
+                                sx={{ width: "40%" }}
+                                onClick={() => openStudentAdd(true)}
+                            >
+                                Dodaj ucznia
+                            </GuacamoleButton>
+                            <GuacamoleButton
+                                sx={{ width: "50%" }}
+                                onClick={() => openStudentDetails(true)}
+                                disabled={!selectedStudent}
+                            >
+                                Szczegóły ucznia
+                            </GuacamoleButton>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="select-group-notice">Wybierz grupę</div>
+                    </>
+                )}
             </div>
         </div>
     );
