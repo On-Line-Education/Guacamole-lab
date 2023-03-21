@@ -34,7 +34,8 @@ class LectureJoinAction
         if ($connection->count() > 0) {
             return Guacamole::generateSessionConnectionUrl(
                 $connection->first()->connection,
-                $guacLogin->dataSource
+                $guacLogin->dataSource,
+                $guacLogin->authToken
             );
         }
 
@@ -96,7 +97,8 @@ class LectureJoinAction
 
         return Guacamole::generateSessionConnectionUrl(
             $guacConnection->identifier,
-            $guacLogin->dataSource
+            $guacLogin->dataSource,
+            $guacLogin->authToken
         );
     }
 }

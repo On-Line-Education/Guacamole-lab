@@ -31,11 +31,11 @@ class Guacamole
             : env("GUACAMOLE_APP_URL") . "/";
     }
     
-    public static function generateSessionConnectionUrl(int $connectionId, string $provider) : string
+    public static function generateSessionConnectionUrl(int $connectionId, string $provider, string $token) : string
     {
         $urlBuilder = "$connectionId\0c\0$provider";
 
-        return Guacamole::getAppUrl() . "guacamole/#/client/" . base64_encode($urlBuilder);
+        return Guacamole::getAppUrl() . "guacamole/#/client/" . base64_encode($urlBuilder) . '?token=' . $token;
     }
 
     /**
