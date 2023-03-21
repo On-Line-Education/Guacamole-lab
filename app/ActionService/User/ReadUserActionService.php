@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ReadUserActionService extends AbstractActionService
 {
     public function __construct(
-        private readonly UserGetByUsernamedAction         $userGetByUsernameAction,
+        private readonly UserGetByUsernameAction         $userGetByUsernameAction,
         private readonly UserGetAllAction          $userGetAllAction,
         private readonly UserSearchAction          $userSearchAction,
         private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
@@ -37,7 +37,7 @@ class ReadUserActionService extends AbstractActionService
                 array_merge(
                     $user->getUserWithGuacDataArray($guacUser),
                     ['classes' => $user->getGroups()]
-                    
+
                 )
             );
         } elseif ($search !== null && !Auth::user()->isStudent()) {
