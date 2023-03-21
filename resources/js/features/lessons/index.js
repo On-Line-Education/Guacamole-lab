@@ -20,7 +20,7 @@ export default function LessonsView() {
     const [selectedReservation, setSelectedReservation] = useState("");
     const [date, setDate] = useState(dayjs());
 
-    // Queries
+    // Get All Reserved Lectures hook declaration
 
     const {
         data: reservedList,
@@ -43,6 +43,7 @@ export default function LessonsView() {
                 <LessonReservedList
                     reservedList={reservedList}
                     loading={reservedListLoading}
+                    refetch={reservedListRefetch}
                     selectedReservation={selectedReservation}
                     setSelectedReservation={setSelectedReservation}
                     setReservationDetailsPanelState={

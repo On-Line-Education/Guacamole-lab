@@ -6,7 +6,7 @@ import { actionSucceed } from "../../alert/state/alertActions";
 
 export default function useDeleteReservation(lessonId) {
     const [data, loading, refresh, error] = useDelete(
-        `/lecture/reserve/${lessonId}}`,
+        `/lecture/reserve/${lessonId}`,
         false
     );
 
@@ -22,5 +22,5 @@ export default function useDeleteReservation(lessonId) {
         refresh();
     };
 
-    return { loading, error, deleteReservation };
+    return { loading, error, data, deleteReservation };
 }

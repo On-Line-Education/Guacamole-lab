@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 import BasicTable from "../../../../components/BasicTable/BasicTable";
 import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import "./lessonreservedlist.scss";
 import SortingTable from "../../../../components/SortingTable/SortingTable";
+import useDeleteReservation from "../../hooks/useDeleteReservation";
 
 export default function LessonReservedList({
     reservedList,
     loading,
+    refetch,
     selectedReservation,
     setSelectedReservation,
     setReservationDetailsPanelState,
     date,
 }) {
+    // Table collumns for react-table
+
     const tableColumns = [
         {
             Header: "Start",
@@ -47,6 +51,20 @@ export default function LessonReservedList({
         },
     ];
 
+    // Delete Reservation hook declaration
+
+    const { data: deleteReservationData, deleteReservation } =
+        useDeleteReservation(selectedReservation.id);
+
+    // Refetch logic
+    useEffect(() => {
+        try {
+            if (deleteReservationData.success) {
+                refetch();
+            }
+        } catch (e) {}
+    }, [deleteReservationData]);
+
     return (
         <div className="reserved-list-container">
             <div className="title reserved-list-title">Lista rezerwacji</div>
@@ -74,7 +92,7 @@ export default function LessonReservedList({
                     </GuacamoleButton>
                     <GuacamoleFragileButton
                         sx={{ width: "50%" }}
-                        onClick={() => console.log("usuń")}
+                        onClick={() => deleteReservation()}
                         disabled={!selectedReservation}
                     >
                         usuń rezerwacje

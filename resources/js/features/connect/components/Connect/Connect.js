@@ -9,7 +9,6 @@ export default function Connect({ selectedLesson, loading }) {
         selectedLesson ? selectedLesson.lecture.id : undefined
     );
 
-    console.log(selectedLesson);
     return (
         <div className="lesson-connect-container">
             <div className="lesson-connect-title">Połącz</div>

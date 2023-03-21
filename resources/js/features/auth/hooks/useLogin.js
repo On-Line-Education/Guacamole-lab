@@ -27,14 +27,10 @@ export default function useLogin(username, password) {
                     dispatch(loginAction(data.body));
                     dispatch(actionSucceed(formatSuccess("LOGIN_SUCCESS")));
                     if (data.body.user.role === "student") navigate("/connect");
-                    if (
-                        data.body.user.role === "teacher" ||
-                        data.body.user.role === "admin"
-                    )
-                        navigate("/lessons");
-                } catch (e) {
-                    console.log(e);
-                }
+                    if (data.body.user.role === "teacher") navigate("/lessons");
+                    if (data.body.user.role === "admin")
+                        navigate("/instructors");
+                } catch (e) {}
             }
         } else didMount.current = true;
     }, [login, loading, data, error]);

@@ -16,7 +16,9 @@ export default function ComputerImport({ refetch }) {
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
+            if (data.success) {
+                refetch();
+            }
         } catch {}
     }, [data]);
 

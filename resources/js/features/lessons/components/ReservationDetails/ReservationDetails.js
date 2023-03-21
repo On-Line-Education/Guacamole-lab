@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import useGetAllClassrooms from "../../../classrooms/hooks/useGetAllClassrooms";
 import useGetAllGroups from "../../../students/hooks/useGetAllGroups";
-import useDeleteReservation from "../../hooks/useDeleteReservation";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ClickAwayListener } from "@mui/base";
-import { FormControl, InputLabel, MenuItem } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./reservationdetails.scss";
 import {
     GuacamoleButton,
-    GuacamoleFragileButton,
     GuacamoleInput,
     GuacamoleSelect,
     GuacamoleTimePicker,
 } from "../../../../mui";
-import { IconButton, TextField } from "@mui/material";
+import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import EditOffIcon from "@mui/icons-material/EditOff";
 import useEditReservation from "../../hooks/useEditReservation";
@@ -94,13 +92,6 @@ export default function ReservationDetails({
             : undefined,
     });
 
-    console.log(reservation);
-
-    // Delete Reservation hook declaration
-
-    const { data: deleteReservationData, deleteReservation } =
-        useDeleteReservation(reservation.id);
-
     // Refetch logic
     useEffect(() => {
         try {
@@ -110,16 +101,6 @@ export default function ReservationDetails({
             }
         } catch {}
     }, [editReservationData]);
-
-    // Refetch logic
-    useEffect(() => {
-        try {
-            refetch();
-            if (deleteReservationData.success) {
-                close;
-            }
-        } catch {}
-    }, [deleteReservationData]);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -375,15 +356,8 @@ export default function ReservationDetails({
                                     </div>
                                 </div>
                                 <div className="panel-actions">
-                                    <GuacamoleFragileButton
-                                        sx={{ width: "45%" }}
-                                        onClick={() => deleteReservation()}
-                                    >
-                                        Usuń Rezerwacje
-                                    </GuacamoleFragileButton>
                                     <GuacamoleButton
                                         onClick={() => editReservation()}
-                                        sx={{ width: "45%" }}
                                         disabled={!validForm}
                                     >
                                         Zapisz

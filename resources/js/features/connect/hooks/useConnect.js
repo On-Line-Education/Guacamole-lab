@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import useGet from "../../../hooks/useGet";
+import { formatSuccess } from "../../alert/services/formatSuccess";
+import { actionSucceed } from "../../alert/state/alertActions";
 
 export default function useConnect(lessonId) {
     const [data, loading, refresh, error] = useGet(
@@ -9,8 +11,6 @@ export default function useConnect(lessonId) {
     );
 
     const dispatch = useDispatch();
-
-    console.log(data);
 
     useEffect(() => {
         if (!loading && !error.length > 0) {

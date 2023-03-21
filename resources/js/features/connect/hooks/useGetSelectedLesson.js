@@ -6,18 +6,19 @@ export default function useGetSelectedLesson(lessonId) {
         `/lecture/reserve/get/${lessonId}`,
         false
     );
+
     const formatData = (data) => {
-        data["start"] = dayjs(data["start"]).format("DD-MM HH:mm");
+        if (dayjs(data["start"]).isValid())
+            data["start"] = dayjs(data["start"]).format("DD-MM HH:mm");
+
+        if (dayjs(data["end"]).isValid())
+            data["end"] = dayjs(data["end"]).format("DD-MM HH:mm");
     };
 
     if (data) {
         try {
-            data.lectures.map((lecture) => {
-                formatData(lecture);
-            });
-        } catch (e) {
-            console.log(e);
-        }
+            formatData(data.lecture);
+        } catch (e) {}
     }
 
     const getLesson = async () => {

@@ -34,17 +34,13 @@ export default function ConnectView() {
         getLesson,
     } = useGetSelectedLesson(selectedLesson.id);
 
+    // Refetch logic
+
     useEffect(() => {
         if (selectedLesson) {
             getLesson();
         }
     }, [selectedLesson]);
-
-    console.log(selectedLessonData);
-
-    // setTimeout(() => {
-    //     refetch();
-    // }, 1000);
 
     return (
         <>
