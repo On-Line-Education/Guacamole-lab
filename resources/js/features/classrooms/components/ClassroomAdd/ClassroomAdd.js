@@ -75,7 +75,7 @@ export default function ClassroomAdd({
                                 </div>
                                 <div className="panel-actions">
                                     <GuacamoleButton type="submit">
-                                        Stwórz
+                                        Dodaj
                                     </GuacamoleButton>
                                 </div>
                             </form>

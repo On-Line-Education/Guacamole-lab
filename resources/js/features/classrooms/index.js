@@ -55,33 +55,33 @@ export default function ClassroomsView() {
             <Sidebar active={"classrooms"} />
             <div className="classrooms-container">
                 <ClassroomList
+                    classroomList={classroomList}
+                    loading={classroomListLoading}
+                    refetch={classroomListRefetch}
+                    selectedClassroom={selectedClassroom}
+                    setSelectedClassroom={setSelectedClassroom}
                     setClassroomAdditionPanelState={
                         setClassroomAdditionPanelState
                     }
-                    classroomList={classroomList}
-                    loading={classroomListLoading}
-                    setSelectedClassroom={setSelectedClassroom}
-                    selectedClassroom={selectedClassroom}
-                    refetch={classroomListRefetch}
                 />
                 <ComputerList
-                    openComputerAdd={setComputerAdditionPanelState}
-                    openComputerDetails={setComputerDetailsPanelState}
                     computerList={computerList}
                     loading={computerListLoading}
-                    setSelectedComputer={setSelectedComputer}
                     selectedClassroom={selectedClassroom}
                     selectedComputer={selectedComputer}
+                    setSelectedComputer={setSelectedComputer}
+                    openComputerDetails={setComputerDetailsPanelState}
+                    openComputerAdd={setComputerAdditionPanelState}
                 />
                 <ComputerImport refetch={classroomListRefetch} />
             </div>
 
             {classroomAdditionPanelState ? (
                 <ClassroomAdd
+                    refetch={classroomListRefetch}
                     setClassroomAdditionPanelState={
                         setClassroomAdditionPanelState
                     }
-                    refetch={classroomListRefetch}
                 />
             ) : (
                 ""
@@ -92,7 +92,7 @@ export default function ClassroomsView() {
                     classroom={selectedClassroom}
                     computer={selectedComputer}
                     refetch={getClassroomComputers}
-                    close={setComputerDetailsPanelState}
+                    setComputerDetailsPanelState={setComputerDetailsPanelState}
                 />
             ) : (
                 ""
@@ -101,10 +101,10 @@ export default function ClassroomsView() {
             {computerAdditionPanelState ? (
                 <ComputerAdd
                     classroom={selectedClassroom}
+                    refetch={getClassroomComputers}
                     setComputerAdditionPanelState={
                         setComputerAdditionPanelState
                     }
-                    refetch={getClassroomComputers}
                 />
             ) : (
                 ""

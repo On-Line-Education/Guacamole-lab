@@ -20,9 +20,9 @@ export default function useGetSelectedLesson(lessonId) {
         }
     }
 
-    const refetch = async () => {
+    const getLesson = async () => {
         refresh();
     };
 
-    return { data, loading, error, refetch };
+    return { data, loading, error, getLesson };
 }

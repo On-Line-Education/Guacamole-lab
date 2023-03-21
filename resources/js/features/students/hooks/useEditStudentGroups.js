@@ -25,5 +25,5 @@ export default function useEditStudentGroups(studentId, props) {
         refresh();
     };
 
-    return { error, editStudentGroups };
+    return { error, data, editStudentGroups };
 }

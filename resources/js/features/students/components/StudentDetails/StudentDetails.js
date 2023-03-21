@@ -17,8 +17,11 @@ import useGetAllGroups from "../../hooks/useGetAllGroups";
 import { MenuItem } from "@mui/material";
 import useEditStudentGroups from "../../hooks/useEditStudentGroups";
 
-export default function StudentDetails({ student, refetch, close }) {
-    console.log(student);
+export default function StudentDetails({
+    student,
+    refetch,
+    setStudentDetailsPanelState,
+}) {
     // Form edit state
 
     const [groupEditActive, setGroupEditActive] = useState(false);
@@ -31,11 +34,6 @@ export default function StudentDetails({ student, refetch, close }) {
         student.id
     );
 
-    // Edit Student hook declarataion
-    const { data: editStudentData, editStudent } = useEditStudent(student.id, {
-        classes: [],
-    });
-
     // Edit Student Groups hook declarataion and handling
 
     const { data: editStudentGroupsData, editStudentGroups } =
@@ -47,20 +45,30 @@ export default function StudentDetails({ student, refetch, close }) {
 
     const { data: groupList, loading } = useGetAllGroups();
 
+    // Close panel function
+
+    const close = () => {
+        setStudentDetailsPanelState(false);
+    };
+
     // Refetch logic
     useEffect(() => {
         try {
             refetch();
-            if (deleteStudentData.success) close();
+            if (deleteStudentData.success) {
+                close();
+            }
         } catch {}
     }, [deleteStudentData]);
 
     useEffect(() => {
         try {
             refetch();
-            if (editStudentData.success) close();
+            if (editStudentGroupsData.success) {
+                close();
+            }
         } catch {}
-    }, [editStudentData]);
+    }, [editStudentGroupsData]);
 
     // Form Select handling
     const handleChange = (event) => {
@@ -73,8 +81,6 @@ export default function StudentDetails({ student, refetch, close }) {
         );
     };
 
-    console.log(newGroup);
-
     if (loading) return <>Loading</>;
 
     return (
@@ -84,7 +90,7 @@ export default function StudentDetails({ student, refetch, close }) {
                 <ClickAwayListener
                     onClickAway={(e) => {
                         if (e.target.className == "overlay") {
-                            close(false);
+                            close();
                         }
                     }}
                 >
@@ -122,7 +128,6 @@ export default function StudentDetails({ student, refetch, close }) {
                                             onChange={handleChange}
                                             disabled={!groupEditActive}
                                             renderValue={(selected) => {
-                                                console.log(selected);
                                                 if (
                                                     selected.length === 0 &&
                                                     !groupEditActive
@@ -186,7 +191,7 @@ export default function StudentDetails({ student, refetch, close }) {
                             </GuacamoleFragileButton>
                             <GuacamoleButton
                                 sx={{ width: "45%" }}
-                                disabled={student.classes == newGroup}
+                                disabled={newGroup.length < 1}
                                 onClick={() => {
                                     {
                                         editStudentGroups();
@@ -197,7 +202,7 @@ export default function StudentDetails({ student, refetch, close }) {
                             </GuacamoleButton>
                         </div>
                         <div className="panel-close">
-                            <IconButton onClick={() => close(false)}>
+                            <IconButton onClick={() => close()}>
                                 <CloseIcon />
                             </IconButton>
                         </div>

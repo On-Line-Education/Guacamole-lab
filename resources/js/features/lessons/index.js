@@ -57,7 +57,9 @@ export default function LessonsView() {
                 <ReservationDetails
                     reservation={selectedReservation}
                     refetch={reservedListRefetch}
-                    close={setReservationDetailsPanelState}
+                    setReservationDetailsPanelState={
+                        setReservationDetailsPanelState
+                    }
                 />
             ) : (
                 ""

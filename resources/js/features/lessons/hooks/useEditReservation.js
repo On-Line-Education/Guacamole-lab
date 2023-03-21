@@ -11,8 +11,6 @@ export default function useEditReservation(lectureId, params) {
         params
     );
 
-    console.log(params);
-
     const dispatch = useDispatch();
 
     useEffect(() => {

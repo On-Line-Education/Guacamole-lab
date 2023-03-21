@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../../components/Logo/Logo";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./style.scss";
@@ -8,6 +8,7 @@ import UserLessonCalendar from "./components/UserLessonCalendar/UserLessonCalend
 import useGetUserLessons from "./hooks/useGetUserLessons";
 import { useSelector } from "react-redux";
 import Connect from "./components/Connect/Connect";
+import useGetSelectedLesson from "./hooks/useGetSelectedLesson";
 
 export default function ConnectView() {
     // Get logged user Id
@@ -25,6 +26,25 @@ export default function ConnectView() {
         loading: lessonListLoading,
         error: lessonListLoadingError,
     } = useGetUserLessons(userId);
+
+    const {
+        data: selectedLessonData,
+        loading: selectedLessonLoading,
+        error: selectedLessonLoadingError,
+        getLesson,
+    } = useGetSelectedLesson(selectedLesson.id);
+
+    useEffect(() => {
+        if (selectedLesson) {
+            getLesson();
+        }
+    }, [selectedLesson]);
+
+    console.log(selectedLessonData);
+
+    // setTimeout(() => {
+    //     refetch();
+    // }, 1000);
 
     return (
         <>
@@ -44,7 +64,10 @@ export default function ConnectView() {
                         loading={lessonListLoading}
                         date={date}
                     />
-                    <Connect selectedLesson={selectedLesson} />
+                    <Connect
+                        selectedLesson={selectedLessonData}
+                        loading={selectedLessonLoading}
+                    />
                 </div>
             </div>
             <Logo />

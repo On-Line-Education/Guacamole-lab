@@ -22,5 +22,5 @@ export default function useDeleteStudent(studentId) {
         refresh();
     };
 
-    return { loading, error, deleteStudent };
+    return { loading, error, data, deleteStudent };
 }

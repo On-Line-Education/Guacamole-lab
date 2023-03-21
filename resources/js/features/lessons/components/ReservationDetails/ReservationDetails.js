@@ -22,7 +22,11 @@ import useEditReservation from "../../hooks/useEditReservation";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 import dayjs from "dayjs";
 
-export default function ReservationDetails({ reservation, refetch, close }) {
+export default function ReservationDetails({
+    reservation,
+    refetch,
+    setReservationDetailsPanelState,
+}) {
     // Form edit mode state
 
     const [nameEditActive, setNameEditActive] = useState(false);
@@ -47,6 +51,12 @@ export default function ReservationDetails({ reservation, refetch, close }) {
             setValidForm(true);
         } else setValidForm(false);
     }, [newName, newClassroom, newGroup, newStart, newEnd]);
+
+    // Close panel function
+
+    const close = () => {
+        setReservationDetailsPanelState(false);
+    };
 
     // Queries for selection data
 
@@ -84,6 +94,8 @@ export default function ReservationDetails({ reservation, refetch, close }) {
             : undefined,
     });
 
+    console.log(reservation);
+
     // Delete Reservation hook declaration
 
     const { data: deleteReservationData, deleteReservation } =
@@ -92,14 +104,20 @@ export default function ReservationDetails({ reservation, refetch, close }) {
     // Refetch logic
     useEffect(() => {
         try {
-            if (editReservationData.success) refetch();
+            refetch();
+            if (editReservationData.success) {
+                close();
+            }
         } catch {}
     }, [editReservationData]);
 
     // Refetch logic
     useEffect(() => {
         try {
-            if (deleteReservationData.success) refetch();
+            refetch();
+            if (deleteReservationData.success) {
+                close;
+            }
         } catch {}
     }, [deleteReservationData]);
 
@@ -113,7 +131,7 @@ export default function ReservationDetails({ reservation, refetch, close }) {
                             e.target.className ==
                             "reservation-details-container"
                         ) {
-                            close(false);
+                            close();
                         }
                     }}
                 >
@@ -300,7 +318,7 @@ export default function ReservationDetails({ reservation, refetch, close }) {
                                 {/* Reservation Class  */}
                                 <div className="detail-group">
                                     <label className="detail-label">
-                                        Nazwa
+                                        Grupa
                                     </label>
                                     <div className="detail-container">
                                         {groupEditActive ? (
@@ -372,7 +390,7 @@ export default function ReservationDetails({ reservation, refetch, close }) {
                                     </GuacamoleButton>
                                 </div>
                                 <div className="panel-close">
-                                    <IconButton onClick={() => close(false)}>
+                                    <IconButton onClick={() => close()}>
                                         <CloseIcon />
                                     </IconButton>
                                 </div>

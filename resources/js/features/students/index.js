@@ -19,11 +19,11 @@ export default function StudentsView() {
 
     // View states
 
-    const [studentAdditionPanelActive, setStudentAdditionPanelActive] =
+    const [studentAdditionPanelActive, setStudentAdditionPanelState] =
         useState(false);
-    const [studentDetailsPanelActive, setStudentDetailsPanelActive] =
+    const [studentDetailsPanelActive, setStudentDetailsPanelState] =
         useState(false);
-    const [groupAdditionPanelActive, setGroupAdditionPanelActive] =
+    const [groupAdditionPanelActive, setGroupAdditionPanelState] =
         useState(false);
 
     // Get All Groups hook declaration
@@ -57,8 +57,8 @@ export default function StudentsView() {
             <Sidebar active={"students"} />
             <div className="students-container">
                 <StudentList
-                    openStudentAdd={setStudentAdditionPanelActive}
-                    openStudentDetails={setStudentDetailsPanelActive}
+                    openStudentAdd={setStudentAdditionPanelState}
+                    openStudentDetails={setStudentDetailsPanelState}
                     studentList={studentList}
                     loading={studentListLoading}
                     selectedGroup={selectedGroup}
@@ -66,7 +66,7 @@ export default function StudentsView() {
                     setSelectedStudent={setSelectedStudent}
                 />
                 <GroupList
-                    openGroupAdd={setGroupAdditionPanelActive}
+                    openGroupAdd={setGroupAdditionPanelState}
                     groupList={groupList}
                     loading={groupListLoading}
                     setSelectedGroup={setSelectedGroup}
@@ -80,7 +80,7 @@ export default function StudentsView() {
                 <StudentAdd
                     refetch={getSelectedClassroomComputers}
                     group={selectedGroup}
-                    close={setStudentAdditionPanelActive}
+                    close={setStudentAdditionPanelState}
                 />
             ) : (
                 ""
@@ -89,8 +89,8 @@ export default function StudentsView() {
             {studentDetailsPanelActive ? (
                 <StudentDetails
                     student={selectedStudent}
-                    refetch={refetchStudentList}
-                    close={setStudentDetailsPanelActive}
+                    refetch={getSelectedClassroomComputers}
+                    setStudentDetailsPanelState={setStudentDetailsPanelState}
                 />
             ) : (
                 ""
@@ -98,7 +98,7 @@ export default function StudentsView() {
 
             {groupAdditionPanelActive ? (
                 <GroupAdd
-                    close={setGroupAdditionPanelActive}
+                    close={setGroupAdditionPanelState}
                     refetch={refetchGroupList}
                 />
             ) : (

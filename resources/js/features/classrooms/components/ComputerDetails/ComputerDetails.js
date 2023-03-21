@@ -17,7 +17,7 @@ export default function ComputerDetails({
     classroom,
     computer,
     refetch,
-    close,
+    setComputerDetailsPanelState,
 }) {
     // Form edit state
 
@@ -31,6 +31,12 @@ export default function ComputerDetails({
     const [newIp, setNewIp] = useState("");
     const [newMac, setNewMac] = useState("");
     const [newInstructor, setNewInstructor] = useState("");
+
+    // Close panel function
+
+    const close = () => {
+        setComputerDetailsPanelState(false);
+    };
 
     // Delete Computer hook declarataion
     const { data: deleteComputerData, deleteComputer } = useDeleteComputer(
@@ -69,7 +75,7 @@ export default function ComputerDetails({
         <>
             <div className="overlay"></div>
             <div className="computer-details-container">
-                <ClickAwayListener onClickAway={() => close(false)}>
+                <ClickAwayListener onClickAway={() => close()}>
                     <div className="computer-details-panel">
                         <div className="computer-details">
                             {/* Computer Classroom  */}
@@ -262,11 +268,11 @@ export default function ComputerDetails({
                                     }
                                 }}
                             >
-                                Edytuj dane
+                                Zapisz
                             </GuacamoleButton>
                         </div>
                         <div className="panel-close">
-                            <IconButton onClick={() => close(false)}>
+                            <IconButton onClick={() => close()}>
                                 <CloseIcon />
                             </IconButton>
                         </div>
