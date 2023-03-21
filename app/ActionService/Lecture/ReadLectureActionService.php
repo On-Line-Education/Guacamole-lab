@@ -2,6 +2,7 @@
 
 namespace App\ActionService\Lecture;
 
+use App\Action\Lecture\LectureGetAction;
 use App\Action\Lecture\LectureGetAllAction;
 use App\Action\Lecture\LectureGetAllInstructorAction;
 use App\Action\Lecture\LectureGetAllStudentAction;
@@ -19,7 +20,8 @@ class ReadLectureActionService extends AbstractActionService
         private readonly LectureGetAllAction $lectureGetAllAction,
         private readonly LectureGetAllStudentAction $lectureGetAllStudentAction,
         private readonly LectureWithUserAction $lectureWithUserAction,
-        private readonly LectureGetAllInstructorAction $lectureGetAllInstructorAction
+        private readonly LectureGetAllInstructorAction $lectureGetAllInstructorAction,
+        private readonly LectureGetAction $lectureGetAction
     ) {
         parent::__construct();
     }
@@ -33,7 +35,7 @@ class ReadLectureActionService extends AbstractActionService
                 || ($this->lectureWithUserAction)($lecture, Auth::user())
             )
         ) {
-            $lecture = ['lecture' => $lecture];
+            $lecture = ['lecture' => ($this->lectureGetAction)($lecture)];
         } elseif (!Auth::user()->isStudent() && $user !== null && !$user->isStudent()) {
             $lecture = ['lectures' => ($this->lectureGetAllInstructorAction)($user)];
         } elseif (!Auth::user()->isStudent() && $user === null) {
