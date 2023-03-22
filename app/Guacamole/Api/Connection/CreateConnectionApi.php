@@ -58,7 +58,7 @@ class CreateConnectionApi extends AbstractApi
                     'width' => '',
                     'height' => '',
                     'dpi' => '',
-                    'resize-method' => '',
+                    'resize-method' => 'display-update',
                     'console-audio' => '',
                     'disable-audio' => '',
                     'enable-audio-input' => '',
