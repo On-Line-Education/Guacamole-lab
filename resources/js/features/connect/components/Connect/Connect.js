@@ -3,6 +3,7 @@ import "./connect.scss";
 import { GuacamoleButton } from "../../../../mui";
 import useConnect from "../../hooks/useConnect";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
+import dayjs from "dayjs";
 
 export default function Connect({ selectedLesson, loading }) {
     const { connect } = useConnect(
@@ -55,7 +56,22 @@ export default function Connect({ selectedLesson, loading }) {
                                         {selectedLesson.lecture.started ? (
                                             <>Lekcja już trwa</>
                                         ) : (
-                                            <>Lekcja się jeszcze nie zaczęła</>
+                                            <>
+                                                {dayjs().isAfter(
+                                                    dayjs(
+                                                        selectedLesson.lecture
+                                                            .end,
+                                                        "DD-MM HH:mm"
+                                                    )
+                                                ) ? (
+                                                    <>Lekcja się już odbyła</>
+                                                ) : (
+                                                    <>
+                                                        Lekcja się jeszcze nie
+                                                        zaczęła
+                                                    </>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>
