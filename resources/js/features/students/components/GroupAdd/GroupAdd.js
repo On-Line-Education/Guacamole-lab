@@ -27,7 +27,7 @@ export default function GroupAdd({ close, refetch }) {
             <div className="group-add-container">
                 <ClickAwayListener onClickAway={() => close(false)}>
                     <div className="group-add-panel">
-                        <div className="panel-title">Stwórz nową grupę</div>
+                        <div className="panel-title">Dodaj nową grupę</div>
                         <div className="panel-close">
                             <IconButton onClick={() => close(false)}>
                                 <CloseIcon />
@@ -55,7 +55,7 @@ export default function GroupAdd({ close, refetch }) {
                                 </div>
                                 <div className="panel-actions">
                                     <GuacamoleButton type="submit">
-                                        Stwórz
+                                        Dodaj
                                     </GuacamoleButton>
                                 </div>
                             </form>

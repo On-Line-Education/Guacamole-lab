@@ -27,7 +27,8 @@ export default function useLogin(username, password) {
                     dispatch(loginAction(data.body));
                     dispatch(actionSucceed(formatSuccess("LOGIN_SUCCESS")));
                     if (data.body.user.role === "student") navigate("/connect");
-                    if (data.body.user.role === "teacher") navigate("/lessons");
+                    if (data.body.user.role === "instructor")
+                        navigate("/lessons");
                     if (data.body.user.role === "admin")
                         navigate("/instructors");
                 } catch (e) {}

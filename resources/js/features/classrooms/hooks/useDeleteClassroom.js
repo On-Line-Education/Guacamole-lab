@@ -22,5 +22,5 @@ export default function useDeleteClassroom(classroomId) {
         refresh();
     };
 
-    return { loading, error, deleteClassroom };
+    return { loading, error, data, deleteClassroom };
 }

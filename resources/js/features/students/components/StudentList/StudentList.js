@@ -42,7 +42,9 @@ export default function StudentList({
                                 <SortingTable
                                     selectRow={setSelectedStudent}
                                     selectedRow={selectedStudent}
-                                    tableData={studentList.users}
+                                    tableData={
+                                        studentList ? studentList.users : []
+                                    }
                                     tableColumns={tableColumns}
                                 />
                             )}

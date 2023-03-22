@@ -24,9 +24,10 @@ export default function ClassroomList({
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
-            if (data.success);
-        } catch {}
+            if (data.success) {
+                refetch();
+            }
+        } catch (e) {}
     }, [data]);
 
     // Headers for react-table

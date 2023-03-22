@@ -61,7 +61,7 @@ export default function StudentAdd({ group, close, refetch }) {
             <div className="student-add-container">
                 <ClickAwayListener onClickAway={() => close(false)}>
                     <div className="student-add-panel">
-                        <div className="panel-title">Stwórz nowego ucznia</div>
+                        <div className="panel-title">Dodaj nowego ucznia</div>
                         <div className="panel-close">
                             <IconButton onClick={() => close(false)}>
                                 <CloseIcon />
@@ -105,7 +105,7 @@ export default function StudentAdd({ group, close, refetch }) {
                                 </div>
                                 <div className="panel-actions">
                                     <GuacamoleButton type="submit">
-                                        Stwórz
+                                        Dodaj
                                     </GuacamoleButton>
                                 </div>
                             </form>

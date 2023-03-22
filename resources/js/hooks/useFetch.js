@@ -61,7 +61,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
                         ]);
                     });
                 } else {
-                    console.log(data.message);
+                    console.log(data);
                     dispatch(failedAction(formatError(data.message)));
                     setError((prevErrors) => [
                         ...prevErrors,
