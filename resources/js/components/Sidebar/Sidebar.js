@@ -15,7 +15,7 @@ export default function Sidebar({ active }) {
     return (
         <div className="app-sidebar">
             <div className="app-nav">
-                {["admin", "teacher"].includes(loggedUserRole) ? (
+                {["admin", "instructor"].includes(loggedUserRole) ? (
                     <ul>
                         <li
                             className={`app-nav-link ${
@@ -45,13 +45,18 @@ export default function Sidebar({ active }) {
                         >
                             <Link to="/students">Uczniowie</Link>
                         </li>
-                        <li
-                            className={`app-nav-link ${
-                                active === "instructors" ? "checked" : ""
-                            }`}
-                        >
-                            <Link to="/instructors">Nauczyciele</Link>
-                        </li>
+
+                        {"admin".includes(loggedUserRole) ? (
+                            <li
+                                className={`app-nav-link ${
+                                    active === "instructors" ? "checked" : ""
+                                }`}
+                            >
+                                <Link to="/instructors">Nauczyciele</Link>
+                            </li>
+                        ) : (
+                            ""
+                        )}
                     </ul>
                 ) : (
                     ""
