@@ -37,6 +37,7 @@ sed -i "s|^APP_URL.*$|APP_URL=http://$APP_URL|" .env
 sed -i "s|^GUACAMOLE_APP_URL.*$|GUACAMOLE_APP_URL=http://$APP_URL:$GUACAMOLE_PORT/guacamole|" .env
 sed -i "s/^APP_NAME.*$/APP_NAME=$APP_NAME/" .env
 sed -i "s/^GUACAMOLE_PORT.*$/GUACAMOLE_PORT=$GUACAMOLE_PORT/" .env
+sed -i "s/^DB_PASSWORD.*$/DB_PASSWORD=$DB_PASSWORD/" .env
 
 [ -z $UID ] && (echo "Cannot read UID variable, please set it with export UID=<UID OF YOUR USER> and rerun script"; err=1)
 
