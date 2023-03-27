@@ -53,8 +53,6 @@ RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u $WWWUSER sail
 
 COPY start-container /usr/local/bin/start-container
 COPY php.ini /etc/php/8.1/cli/conf.d/99-sail.ini
-COPY composer-install /usr/local/bin/composer-install
-RUN chmod +x /usr/local/bin/composer-install
 RUN chmod +x /usr/local/bin/start-container
 RUN mkdir /.composer
 RUN chmod -R ugo+rw /.composer
