@@ -18,7 +18,7 @@ const usePostFile = (endpoint, file) => {
 
     const fetchData = async () => {
         setLoading(true);
-        const staticURL = `${"http://localhost:8888/api"}${endpoint}`;
+        const staticURL = `${"/api"}${endpoint}`;
 
         const myHeaders = new Headers();
         myHeaders.append("Accept", "application/json");
