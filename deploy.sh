@@ -2,7 +2,7 @@
 
 [ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; err=1 )
 
-[ $err -eq 1 ] && exit
+[[ $err == 1 ]] && exit
 
 cp .env.example .env
 echo "Reading application variables. Press ENTER for default"
@@ -42,7 +42,7 @@ sed -i "s/^DB_PASSWORD.*$/DB_PASSWORD=$DB_PASSWORD/" .env
 
 [ -z $UID ] && (echo "Cannot read UID variable, please set it with export UID=<UID OF YOUR USER> and rerun script"; err=1)
 
-[ $err -eq 1 ] && exit
+[[ $err == 1 ]] && exit
 
 docker build -t php --build-arg WWWGROUP=$(id -g) --build-arg WWWUSER=$UID docker-php/
 
