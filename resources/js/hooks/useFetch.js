@@ -22,7 +22,7 @@ const useFetch = ({ endpoint, method, body, start }) => {
 
     const fetchData = async () => {
         setLoading(true);
-        const staticURL = `${"http://localhost:8888/api"}${endpoint}`;
+        const staticURL = `${"/api"}${endpoint}`;
         const headers = {
             Accept: "application/json",
             Authorization: token ? `Bearer ${token}` : {},
