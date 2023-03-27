@@ -1,7 +1,6 @@
 #!/bin/bash
 
 [ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; err=1 )
-[ -x "$(command -v php)" ] && echo "PHP is installed" || ( echo "PHP is not installed"; err=1 )
 
 [ $err -eq 1 ] && exit
 
@@ -37,9 +36,11 @@ sed -i "s/^APP_PORT.*$/APP_PORT=$APP_PORT/" .env
 sed -i "s/^APP_URL.*$/APP_URL=http://$APP_URL/" .env
 sed -i "s!^GUACAMOLE_APP_URL.*$!GUACAMOLE_APP_URL=http://$APP_URL:$GUACAMOLE_PORT/guacamole!" .env
 sed -i "s/^APP_NAME.*$/APP_NAME=$APP_NAME/" .env
+sed -i "s/^GUACAMOLE_PORT.*$/GUACAMOLE_PORT=$GUACAMOLE_PORT/" .env
 
+[ -z $UID ] && (echo "Cannot read UID variable, please set it with export UID=<UID OF YOUR USER> and rerun script"; err=1)
 
-
+[ $err -eq 1 ] && exit
 
 docker build -t php --build-arg WWWGROUP=$(id -g) --build-arg WWWUSER=$UID docker-php/
 
