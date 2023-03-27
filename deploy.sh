@@ -5,21 +5,22 @@
 [ $err -eq 1 ] && exit
 
 cp .env.example .env
+echo "Reading application variables. Press ENTER for default"
 
 read -p "GUACAMOLE_DATABASE_PASSWORD> " GUACAMOLE_DATABASE_PASSWORD
-read -p "GUACAMOLE_DATABASE_USER> " GUACAMOLE_DATABASE_USER
-read -p "GUACAMOLE_ADMIN> " GUACAMOLE_ADMIN
-read -p "GUACAMOLE_ADMIN_PASSWORD> " GUACAMOLE_ADMIN_PASSWORD
+read -p "GUACAMOLE_DATABASE_USER (guac_db_user)> " GUACAMOLE_DATABASE_USER
+read -p "GUACAMOLE_ADMIN (guacadmin)> " GUACAMOLE_ADMIN
+read -p "GUACAMOLE_ADMIN_PASSWORD (guacadmin)> " GUACAMOLE_ADMIN_PASSWORD
 read -p "DB_PASSWORD> " DB_PASSWORD
-read -p "Server hostname (eg. IP ADDRESS)> " APP_URL
-read -p "App name> " APP_NAME
-read -p "App port> " APP_PORT
-read -p "Guacamole port> " GUACAMOLE_PORT
+read -p "Server hostname (eg. IP ADDRESS) (localhost)> " APP_URL
+read -p "App name (Guacamole)> " APP_NAME
+read -p "App port (8888)> " APP_PORT
+read -p "Guacamole port (8080)> " GUACAMOLE_PORT
 
 GUACAMOLE_DATABASE_PASSWORD=${GUACAMOLE_DATABASE_PASSWORD:-fsewfdsqedsae}
 GUACAMOLE_DATABASE_USER=${GUACAMOLE_DATABASE_USER:-guac_db_user}
 GUACAMOLE_ADMIN=${GUACAMOLE_ADMIN:-guacadmin}
-GUACAMOLE_ADMIN_PASSWORD=${GUACAMOLE_ADMIN_PASSWORD:-fsewfdsqedsae}
+GUACAMOLE_ADMIN_PASSWORD=${GUACAMOLE_ADMIN_PASSWORD:-guacadmin}
 DB_PASSWORD=${DB_PASSWORD:-fsewfdsqedsae}
 APP_URL=${APP_URL:-localhost}
 APP_NAME=${APP_NAME:-Guacamole}
@@ -46,6 +47,8 @@ sed -i "s/^DB_PASSWORD.*$/DB_PASSWORD=$DB_PASSWORD/" .env
 docker build -t php --build-arg WWWGROUP=$(id -g) --build-arg WWWUSER=$UID docker-php/
 
 docker run --rm -v $PWD:/var/www/html -ti php
+
+sed -i 's/^.*platform:.*$//g' docker-compose.yml
 
 ./vendor/bin/sail up -d
 
