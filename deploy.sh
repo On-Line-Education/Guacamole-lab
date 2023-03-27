@@ -23,7 +23,7 @@ GUACAMOLE_ADMIN=${GUACAMOLE_ADMIN:-guacadmin}
 GUACAMOLE_ADMIN_PASSWORD=${GUACAMOLE_ADMIN_PASSWORD:-fsewfdsqedsae}
 DB_PASSWORD=${DB_PASSWORD:-fsewfdsqedsae}
 APP_URL=${APP_URL:-localhost}
-APP_NAME=${APP_NAME:-Laravel}
+APP_NAME=${APP_NAME:-Guacamole}
 APP_PORT=${APP_PORT:-8888}
 GUACAMOLE_PORT=${GUACAMOLE_PORT:-8080}
 
@@ -40,9 +40,8 @@ sed -i "s/^APP_NAME.*$/APP_NAME=$APP_NAME/" .env
 
 
 
-getent passwd | grep ^$USER | cut -d: -f3
 
-docker build -t php --build-arg WWWGROUP=20 --build-arg WWWUSER=501 docker-php/
+docker build -t php --build-arg WWWGROUP=$(id -g) --build-arg WWWUSER=$UID docker-php/
 
 docker run --rm -v $PWD:/var/www/html -ti php
 
