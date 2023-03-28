@@ -1,9 +1,9 @@
 #!/bin/bash
 
-[ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; err=1 )
-groups | grep "docker" && echo "User is in docker group" || ( echo "User is not in docker group. Add user to docker group and relogin"; err=1 )
-[[ $UID == 0 ]] && echo "Running this script as root is not supported. Please use a different user." && err=1
-[[ $err == 1 ]] && exit
+[ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; exit )
+groups | grep "docker" && echo "User is in docker group" || ( echo "User is not in docker group. Add user to docker group and relogin"; exit )
+[[ $UID == 0 ]] && echo "Running this script as root is not supported. Please use a different user." && exit
+#[[ $err == 1 ]] && exit
 
 cp .env.example .env
 echo "Reading application variables. Press ENTER for default"
@@ -41,9 +41,9 @@ sed -i "s/^APP_NAME.*$/APP_NAME=$APP_NAME/" .env
 sed -i "s/^GUACAMOLE_PORT.*$/GUACAMOLE_PORT=$GUACAMOLE_PORT/" .env
 sed -i "s/^DB_PASSWORD.*$/DB_PASSWORD=$DB_PASSWORD/" .env
 
-[ -z $UID ] && (echo "Cannot read UID variable, please set it with export UID=<UID OF YOUR USER> and rerun script"; err=1)
+[ -z $UID ] && (echo "Cannot read UID variable, please set it with export UID=<UID OF YOUR USER> and rerun script"; exit)
 
-[[ $err == 1 ]] && exit
+#[[ $err == 1 ]] && exit
 
 docker build -t php --build-arg WWWGROUP=$(id -g) --build-arg WWWUSER=$UID docker-php/
 
