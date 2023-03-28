@@ -1,6 +1,7 @@
 #!/bin/bash
 
 [ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; err=1 )
+groups | grep "docker" && echo "User is in docker group" || ( echo "User is not in docker group. Add user to docker group and relogin"; err=1 )
 
 [[ $err == 1 ]] && exit
 
