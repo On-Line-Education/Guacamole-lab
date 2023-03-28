@@ -1,6 +1,7 @@
 #!/bin/bash
 
 [ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; exit )
+[ -x "$(command -v docker-compose)" ] && echo "Docker-compose is installed" || ( echo "Docker-compose is not installed"; exit )
 groups | grep "docker" && echo "User is in docker group" || ( echo "User is not in docker group. Add user to docker group and relogin"; exit )
 [[ $UID == 0 ]] && echo "Running this script as root is not supported. Please use a different user." && exit
 #[[ $err == 1 ]] && exit
