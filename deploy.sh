@@ -2,7 +2,7 @@
 
 [ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; err=1 )
 groups | grep "docker" && echo "User is in docker group" || ( echo "User is not in docker group. Add user to docker group and relogin"; err=1 )
-
+[[ $UID == 0 ]] && echo "Running this script as root is not supported. Please use a different user." && err=1
 [[ $err == 1 ]] && exit
 
 cp .env.example .env
