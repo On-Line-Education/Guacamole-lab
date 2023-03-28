@@ -32,13 +32,12 @@
 ## Instalacja
 
 Niniejszy projekt składa się z dwóch części. Pierwszą jest aplikacja webowa zawierająca klienta oraz serwer (ten projekt),
-natomiast drugą częścią jest serwer Guacamole. W celu uruchomienia Guacamole należy **TODO**. Mając uruchomiony serwer
+natomiast drugą częścią jest serwer Guacamole. Mając uruchomiony serwer
 Guacamole, można kontynuować instalację aplikacji webowej:
 1. Należy zainstalować PHP w wersji 8.0 lub nowszej. W tym celu należy albo udać się na stronę [PHP](https://www.php.net)
 i postępować zgodnie z przedstawionymi tam krokami, albo zainstalować z repozytorium danego systemu.
 2. Po instalacji PHP należy się upewnić, czy jest on zainstalowany oraz działa prawidłowo. W tym celu należy uruchomić
-terminal i wpisać komendę `php -v`. Zwrot powinien wyglądać podobnie do następującego:
-![](./documentation/wersja-php.png)
+terminal i wpisać komendę `php -v`.
 3. Następnie należy zainstalować [Dockera](https://www.docker.com) 
 4. Jeśli instalacja przebiegła prawidłowo, należy sprawdzić, czy docker działa. Można to zrobić wykonując polecenie 
 `docker run hello-world`. Po jego wykonaniu powinien się wyświetlić napis:
@@ -57,32 +56,6 @@ Następnie należy go uzupełnić odpowiednimi danymi.
 
 Należy wykonać wszystkie punkty z [Instalacji](#instalacja), z wyjątkiem 8, gdzie zamiast `./vendor/bin/sail npm run prod`
 należy wykonać `./vendor/bin/sail npm run watch`.
-
-## Opis struktury systemu
-
-TODO
-
-### Action
-
-### ActionService
-
-### Responder
-
-### Service
-
-### Obsługa błędów
-
-### Kontrolery endpointów
-
-### Definicje endpointów
-
-### Połączenie z Guacamole
-
-#### Połączenie z Api
-
-#### Obiekty wewnętrzne
-
-#### Obiekty pomocnicze
 
 ## Endpointy
 
@@ -165,10 +138,6 @@ Należy ją zaimportować w postmanie i następnie zmienić zmienną URL na odp
 | /api/lecture/time/{lecture}        | GET    | Umozliwia pobranie pozostałego czasu zajęć                            | TAK              |
 | /api/lecture/time/{lecture}        | PATCH  | Umozliwia aktualizację pozostałego czasu zajęć                        | TAK              |
 
-
-## Instrukcja obsługi
-
-TODO
 
 ## Dodatkowe informacje
 
