@@ -16,14 +16,24 @@
         background-color: #ffffff;
         padding: 1em 2em;
         border-radius: 30px;
-        width: 50%;
+        width: 90%;
         min-height: 80%;
 
         .group-list {
             display: flex;
+            min-height: 5em;
             flex: 1;
             justify-content: center;
             align-items: center;
+
+            .group-list {
+                .id {
+                    width: 20%;
+                }
+                .name {
+                    width: 80%;
+                }
+            }
         }
 
         .group-list-actions {
@@ -39,13 +49,13 @@
     }
 }
 
-//table override styles
+@media only screen and (max-width: 1100px) {
+    .group-list-actions {
+        flex-direction: row !important;
+        justify-content: space-around !important;
 
-.group-list {
-    .id {
-        width: 20%;
-    }
-    .name {
-        width: 80%;
+        button {
+            width: 45% !important;
+        }
     }
 }

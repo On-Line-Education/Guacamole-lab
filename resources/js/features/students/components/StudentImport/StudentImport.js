@@ -39,7 +39,7 @@ export default function StudentImport({ refetch }) {
                     </div>
                     <div className="form-actions student-import-actions">
                         <GuacamoleButton
-                            sx={{ width: "40%" }}
+                            sx={{ width: "40% !important" }}
                             disabled={!file}
                             onClick={async () => {
                                 importStudents();

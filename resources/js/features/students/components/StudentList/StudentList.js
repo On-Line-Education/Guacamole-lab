@@ -67,7 +67,7 @@ export default function StudentList({
                     </>
                 ) : (
                     <>
-                        <div className="select-group-notice">Wybierz grupę</div>
+                        <div className="student-list">Wybierz grupę</div>
                     </>
                 )}
             </div>

@@ -56,6 +56,14 @@ export default function StudentsView() {
             <Logo />
             <Sidebar active={"students"} />
             <div className="students-container">
+                <GroupList
+                    openGroupAdd={setGroupAdditionPanelState}
+                    groupList={groupList}
+                    loading={groupListLoading}
+                    setSelectedGroup={setSelectedGroup}
+                    selectedGroup={selectedGroup}
+                    refetch={refetchGroupList}
+                />
                 <StudentList
                     openStudentAdd={setStudentAdditionPanelState}
                     openStudentDetails={setStudentDetailsPanelState}
@@ -64,14 +72,6 @@ export default function StudentsView() {
                     selectedGroup={selectedGroup}
                     selectedStudent={selectedStudent}
                     setSelectedStudent={setSelectedStudent}
-                />
-                <GroupList
-                    openGroupAdd={setGroupAdditionPanelState}
-                    groupList={groupList}
-                    loading={groupListLoading}
-                    setSelectedGroup={setSelectedGroup}
-                    selectedGroup={selectedGroup}
-                    refetch={refetchGroupList}
                 />
                 <StudentImport refetch={refetchGroupList} />
             </div>
