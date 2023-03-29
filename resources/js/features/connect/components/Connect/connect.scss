@@ -48,6 +48,13 @@
             }
         }
 
+        .select-lesson-notice {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 10em;
+        }
+
         .panel-actions {
             width: 100%;
             display: flex;

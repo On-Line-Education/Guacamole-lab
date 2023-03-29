@@ -33,10 +33,6 @@ export default function ClassroomList({
     // Headers for react-table
     const tableColumns = [
         {
-            Header: "Id",
-            accessor: "id",
-        },
-        {
             Header: "Sale",
             accessor: "name",
         },
@@ -55,6 +51,7 @@ export default function ClassroomList({
                             selectedRow={selectedClassroom}
                             tableColumns={tableColumns}
                             tableData={classroomList.classrooms}
+                            numbered={true}
                         />
                     )}
                 </div>

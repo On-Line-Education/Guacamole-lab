@@ -16,6 +16,7 @@ export default function SortingTable({
     tableData,
     tableColumns,
     externalFilter,
+    numbered = false,
 }) {
     // cache data from api using useMemo react hook
 
@@ -58,6 +59,13 @@ export default function SortingTable({
                 <thead>
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
+                            {numbered ? (
+                                <th className="id">
+                                    <div className="col-flex">Lp</div>
+                                </th>
+                            ) : (
+                                ""
+                            )}
                             {headerGroup.headers.map((column) => (
                                 <th
                                     id={column.id}
@@ -80,6 +88,7 @@ export default function SortingTable({
                                                 onClick={() =>
                                                     column.toggleSortBy()
                                                 }
+                                                className="table-button"
                                             >
                                                 <SortByAlphaIcon
                                                     fontSize="small"
@@ -96,7 +105,7 @@ export default function SortingTable({
                     ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
+                    {rows.map((row, i) => {
                         prepareRow(row);
                         return (
                             <tr
@@ -108,6 +117,11 @@ export default function SortingTable({
                                     selectRow(row.original);
                                 }}
                             >
+                                {numbered ? (
+                                    <td className="id">{i + 1}</td>
+                                ) : (
+                                    ""
+                                )}
                                 {row.cells.map((cell) => {
                                     return (
                                         <td

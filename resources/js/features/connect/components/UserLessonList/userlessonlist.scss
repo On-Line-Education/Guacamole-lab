@@ -24,32 +24,33 @@
             min-height: 10em;
             justify-content: center;
             align-items: center;
+            overflow-x: auto;
 
             // Table cells styles
 
             th.time,
             td.time {
-                width: 20%;
+                min-width: 7em;
             }
 
             th.instructor,
             td.instructor {
-                width: 20%;
+                min-width: 10em;
             }
 
             th.class,
             td.class {
-                width: 15%;
+                min-width: 6em;
             }
 
             th.classroom,
             td.classroom {
-                width: 15%;
+                min-width: 6em;
             }
 
             th.name,
             td.name {
-                width: 30%;
+                min-width: 10em;
             }
         }
     }

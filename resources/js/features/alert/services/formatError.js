@@ -51,7 +51,11 @@ export function formatError(errorResponse) {
                 title: "Błąd tworzenia użytkownika",
                 message: "Ta nazwa użytkownika jest już zajęta",
             };
-
+        case "Cannot reserve lecture in the past.":
+            return {
+                title: "Błąd tworzenia rezerwacji",
+                message: "Nie można utworzyć lekcji w przeszłości",
+            };
         default:
             return {
                 title: "Wystąpił błąd",

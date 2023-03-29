@@ -16,11 +16,6 @@ export default function ComputerList({
 }) {
     const tableColumns = [
         {
-            Header: "ID",
-            accessor: "id",
-            disableSortBy: true,
-        },
-        {
             Header: "Nazwa",
             accessor: "name",
         },
@@ -50,6 +45,7 @@ export default function ComputerList({
                                     selectedRow={selectedComputer}
                                     tableData={computerList.computers}
                                     tableColumns={tableColumns}
+                                    numbered={true}
                                 />
                             )}
                         </div>

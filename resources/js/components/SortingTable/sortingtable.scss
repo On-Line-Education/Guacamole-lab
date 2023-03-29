@@ -15,14 +15,16 @@
     border-collapse: separate;
     border-spacing: 0 5px;
     table-layout: fixed;
-    width: 100%;
     height: 100%;
+    white-space: nowrap;
 
     thead {
         font-family: $font-family-content-bold;
         tr {
             display: flex;
-            width: 100%;
+            min-width: 100%;
+            border-bottom: 2px solid $body-color-dark;
+
             th {
                 display: flex;
                 justify-content: space-between;
@@ -30,13 +32,15 @@
                 position: sticky;
                 min-height: 2.5em;
                 padding: 0.2em 0.5em;
-                border-bottom: 2px solid $body-color-dark;
 
                 .col-flex {
                     width: 100%;
                     display: flex;
-                    justify-content: space-between;
                     align-items: center;
+                }
+
+                .table-button {
+                    margin-left: 0.5em;
                 }
             }
 
@@ -65,7 +69,6 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        overflow: auto;
         margin-right: 10px;
         height: 100%;
 

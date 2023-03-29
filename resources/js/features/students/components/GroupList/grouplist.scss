@@ -1,3 +1,5 @@
+@import "../../../../../sass/variables";
+
 .group-list-container {
     grid-column: 1;
     grid-row: 1;
@@ -26,13 +28,13 @@
             justify-content: center;
             align-items: center;
 
-            .group-list {
-                .id {
-                    width: 20%;
-                }
-                .name {
-                    width: 80%;
-                }
+            td.id {
+                min-width: 1.5em;
+                font-family: $font-family-content-bold;
+            }
+
+            td.name {
+                min-width: 10em;
             }
         }
 

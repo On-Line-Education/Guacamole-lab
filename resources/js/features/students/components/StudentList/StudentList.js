@@ -17,12 +17,6 @@ export default function StudentList({
 
     const tableColumns = [
         {
-            Header: "ID",
-            name: "id",
-            accessor: "id",
-            disableSortBy: true,
-        },
-        {
             Header: "Nazwa",
             name: "username",
             accessor: "username",
@@ -46,6 +40,7 @@ export default function StudentList({
                                         studentList ? studentList.users : []
                                     }
                                     tableColumns={tableColumns}
+                                    numbered={true}
                                 />
                             )}
                         </div>
