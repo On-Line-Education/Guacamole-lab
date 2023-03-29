@@ -28,6 +28,7 @@ export default function InstructorsView() {
                     loading={instructorListLoading}
                     selectedInstructor={selectedInstructor}
                     setSelectedInstructor={setSelectedInstructor}
+                    refetch={refetchInstructorList}
                 />
                 <InstructorAdd refetch={refetchInstructorList} />
             </div>
