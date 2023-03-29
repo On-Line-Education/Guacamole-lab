@@ -16,39 +16,41 @@
         background-color: #ffffff;
         padding: 0.5em 2em;
         border-radius: 30px;
-        width: 80%;
+        width: 90%;
         min-height: 80%;
         .user-lesson-list {
             display: flex;
             flex: 1;
+            min-height: 10em;
             justify-content: center;
             align-items: center;
+            overflow-x: auto;
 
             // Table cells styles
 
             th.time,
             td.time {
-                width: 20%;
+                min-width: 7em;
             }
 
             th.instructor,
             td.instructor {
-                width: 20%;
+                min-width: 10em;
             }
 
             th.class,
             td.class {
-                width: 15%;
+                min-width: 6em;
             }
 
             th.classroom,
             td.classroom {
-                width: 15%;
+                min-width: 6em;
             }
 
             th.name,
             td.name {
-                width: 30%;
+                min-width: 10em;
             }
         }
     }

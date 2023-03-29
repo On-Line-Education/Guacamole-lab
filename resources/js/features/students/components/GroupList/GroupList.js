@@ -27,10 +27,6 @@ export default function GroupList({
     // Collums for react-table
     const tableColumns = [
         {
-            Header: "Id",
-            accessor: "id",
-        },
-        {
             Header: "Grupa",
             accessor: "name",
         },
@@ -49,6 +45,7 @@ export default function GroupList({
                             selectedRow={selectedGroup}
                             tableColumns={tableColumns}
                             tableData={groupList.class}
+                            numbered={true}
                         />
                     )}
                 </div>

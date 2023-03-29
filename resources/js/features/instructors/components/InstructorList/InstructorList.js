@@ -16,12 +16,6 @@ export default function InstructorList({
 
     const tableColumns = [
         {
-            Header: "ID",
-            name: "id",
-            accessor: "id",
-            disableSortBy: true,
-        },
-        {
             Header: "Nazwa",
             name: "username",
             accessor: "username",
@@ -55,6 +49,7 @@ export default function InstructorList({
                             selectedRow={selectedInstructor}
                             tableData={instructorList}
                             tableColumns={tableColumns}
+                            numbered={true}
                         />
                     )}
                 </div>

@@ -4,7 +4,7 @@ import "./fileinput.scss";
 
 export default function FileInput({ setFile, setFileName, fileName }) {
     return (
-        <div className="computer-csv-input">
+        <div className="csv-input">
             <input
                 type="file"
                 accept=".csv"

@@ -16,11 +16,6 @@ export default function ComputerList({
 }) {
     const tableColumns = [
         {
-            Header: "ID",
-            accessor: "id",
-            disableSortBy: true,
-        },
-        {
             Header: "Nazwa",
             accessor: "name",
         },
@@ -50,6 +45,7 @@ export default function ComputerList({
                                     selectedRow={selectedComputer}
                                     tableData={computerList.computers}
                                     tableColumns={tableColumns}
+                                    numbered={true}
                                 />
                             )}
                         </div>
@@ -71,9 +67,7 @@ export default function ComputerList({
                     </>
                 ) : (
                     <>
-                        <div className="select-classroom-notice">
-                            Wybierz salę
-                        </div>
+                        <div className="computer-list">Wybierz salę</div>
                     </>
                 )}
             </div>

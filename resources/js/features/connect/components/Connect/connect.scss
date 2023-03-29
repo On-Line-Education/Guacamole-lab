@@ -14,7 +14,7 @@
     }
 
     .lesson-connect-panel {
-        width: 80%;
+        width: 90%;
         min-height: 80%;
         padding: 1em 1.5em;
         display: flex;
@@ -46,6 +46,13 @@
                     font-size: $font-size-3;
                 }
             }
+        }
+
+        .select-lesson-notice {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 10em;
         }
 
         .panel-actions {

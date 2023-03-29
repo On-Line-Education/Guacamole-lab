@@ -4,8 +4,8 @@
     grid-column: 2;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
+    padding: 3%;
 
     .instructor-add-title {
         padding: 0.5em 1em;
@@ -14,7 +14,7 @@
     }
 
     .instructor-add-panel {
-        width: 50%;
+        width: 60%;
         min-height: 30%;
         padding: 1em 1.5em;
         display: flex;
@@ -67,5 +67,14 @@
             display: flex;
             margin: 1em 0;
         }
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .instructor-add-container {
+        align-items: center;
+    }
+    .instructor-add-panel {
+        width: 90% !important;
     }
 }

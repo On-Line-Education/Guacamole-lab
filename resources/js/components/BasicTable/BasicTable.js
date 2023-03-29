@@ -7,6 +7,7 @@ export default function BasicTable({
     tableData,
     selectRow,
     selectedRow,
+    numbered = false,
 }) {
     // cache data from api using useMemo react hook
 
@@ -15,27 +16,21 @@ export default function BasicTable({
 
     // create table instance using react-table library, for more check official react-table documentation
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-        state,
-    } = useTable(
-        {
-            columns,
-            data,
-        },
-        useRowSelect
-    );
+    const { getTableProps, getTableBodyProps, rows, prepareRow, state } =
+        useTable(
+            {
+                columns,
+                data,
+            },
+            useRowSelect
+        );
 
     if (tableData.length < 1) return "Brak elementów do wyświetlenia";
 
     return (
         <table {...getTableProps()} className="basic-table">
             <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
+                {rows.map((row, i) => {
                     prepareRow(row);
                     return (
                         <tr
@@ -47,6 +42,7 @@ export default function BasicTable({
                                 selectRow(row.original);
                             }}
                         >
+                            {numbered ? <td className="id">{i + 1}</td> : ""}
                             {row.cells.map((cell) => {
                                 return (
                                     <td

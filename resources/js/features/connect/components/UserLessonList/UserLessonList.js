@@ -41,7 +41,6 @@ export default function UserLessonList({
             name: "name",
             accessor: "name",
             disableSortBy: true,
-            Filter: true,
         },
     ];
 

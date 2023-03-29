@@ -1,7 +1,8 @@
 @import "../../../sass/variables";
 
-.computer-csv-input {
+.csv-input {
     display: flex;
+    min-width: 40%;
     .file-input-input {
         width: 0.1px;
         height: 0.1px;
@@ -13,7 +14,7 @@
 
     .file-input-btn {
         display: flex;
-        width: 200px;
+        width: 100%;
         border: 1px solid $body-color-dark;
         border-radius: 10px;
 

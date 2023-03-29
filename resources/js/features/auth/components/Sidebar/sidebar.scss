@@ -9,15 +9,19 @@
 
     .login-logo {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         font-family: $font-family-title;
         font-size: $font-size-1;
         color: $font-color-light;
-        margin: 1em 0;
+        padding: 0.5em 0.2em;
 
-        img,
+        img {
+            display: flex;
+            margin-right: 0.2em;
+        }
+
         span {
-            margin: 0 0.1em;
+            display: flex;
         }
     }
 
