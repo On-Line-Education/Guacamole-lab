@@ -14,8 +14,11 @@ class UserUpdateAction
     )
     {}
 
-    public function __invoke(GuacamoleAuthLoginData $guacamoleAuthLoginData, GuacamoleUserData $user): void
-    {
-        $this->guacamole->getUser()->update($guacamoleAuthLoginData, $user);
+    public function __invoke(
+        GuacamoleAuthLoginData $guacamoleAuthLoginData,
+        GuacamoleUserData $user,
+        ?string $password = null
+        ): void {
+        $this->guacamole->getUser()->update($guacamoleAuthLoginData, $user, $password);
     }
 }

@@ -25,6 +25,7 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'password' => 'string|min:8',
             'attributes' => 'array',
             'attributes.guac-email-address' => 'string',
             'attributes.guac-organizational-role' => 'string',

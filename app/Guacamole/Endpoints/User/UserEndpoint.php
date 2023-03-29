@@ -38,9 +38,9 @@ class UserEndpoint
         ($this->userDeleteEndpoint)($loginData, $username);
     }
 
-    public function update(GuacamoleAuthLoginData $loginData, GuacamoleUserData $user): void
+    public function update(GuacamoleAuthLoginData $loginData, GuacamoleUserData $user, ?string $password = null): void
     {
-        ($this->userUpdateEndpoint)($loginData, $user);
+        ($this->userUpdateEndpoint)($loginData, $user, $password);
     }
 
     public function updatePassword(

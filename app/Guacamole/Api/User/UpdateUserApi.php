@@ -12,8 +12,18 @@ class UpdateUserApi extends AbstractApi
     /**
      * @throws GuzzleException
      */
-    public function __invoke(string $token, string $sourceData, GuacamoleUserData $user): ResponseInterface
+    public function __invoke(
+        string $token,
+        string $sourceData,
+        GuacamoleUserData $user,
+        ?string $password = null
+        ): ResponseInterface
     {
+        if ($password !== null) {
+            $payload = array_merge($user->getGuacFormat(), ['password' => $password]);
+        } else {
+            $payload = $user->getGuacFormat();
+        }
         return $this->apiClient->put('api/session/data/' . $sourceData . '/users/'. $user->username, [
             'query' => [
                 'token' => $token
@@ -21,7 +31,7 @@ class UpdateUserApi extends AbstractApi
             'headers' => [
                     'Content-Type' => 'application/json'
             ],
-            'body' => json_encode($user->getGuacFormat())
+            'body' => json_encode($payload)
         ]);
     }
 }

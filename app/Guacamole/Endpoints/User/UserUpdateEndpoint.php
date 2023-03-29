@@ -15,10 +15,10 @@ class UserUpdateEndpoint
     )
     {}
 
-    public function __invoke(GuacamoleAuthLoginData $loginData, GuacamoleUserData $user): void
+    public function __invoke(GuacamoleAuthLoginData $loginData, GuacamoleUserData $user, ?string $password = null): void
     {
         try {
-            ($this->updateUserApi)($loginData->getAuthToken(), $loginData->getDataSource(), $user);
+            ($this->updateUserApi)($loginData->getAuthToken(), $loginData->getDataSource(), $user, $password);
         } catch (GuzzleException $exception) {
             abort($exception->getCode(), "Guacamole Api Error: " . $exception->getMessage());
         }
