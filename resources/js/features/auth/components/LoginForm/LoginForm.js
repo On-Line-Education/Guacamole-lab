@@ -22,21 +22,19 @@ export default function LoginForm({ setUsername, setPassword, login }) {
             <div className="login-form-input">
                 <label className="login-form-label">Nazwa użytkownika</label>
                 <GuacamoleInput
-                    id="username"
-                    variant="outlined"
+                    required
                     size="small"
                     onChange={(e) => {
                         setUsername(e.target.value);
                     }}
                 />
             </div>
-            <div className="login-form-input" id="password">
-                <label className="login-form-label">Hasło</label>
+            <div className="login-form-input">
+                <label className="login-form-label">Nazwa użytkownika</label>
                 <GuacamoleInput
-                    id="password"
-                    variant="outlined"
-                    type="password"
+                    required
                     size="small"
+                    type="password"
                     onChange={(e) => {
                         setPassword(e.target.value);
                     }}

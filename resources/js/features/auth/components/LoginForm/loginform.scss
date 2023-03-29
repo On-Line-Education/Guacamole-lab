@@ -29,6 +29,11 @@
         font-weight: $font-weight-regular;
     }
 
+    div {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
     input,
     fieldset {
         border: none;
