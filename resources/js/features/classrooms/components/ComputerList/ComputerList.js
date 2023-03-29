@@ -71,9 +71,7 @@ export default function ComputerList({
                     </>
                 ) : (
                     <>
-                        <div className="select-classroom-notice">
-                            Wybierz salę
-                        </div>
+                        <div className="computer-list">Wybierz salę</div>
                     </>
                 )}
             </div>
