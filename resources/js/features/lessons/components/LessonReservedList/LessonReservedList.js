@@ -47,7 +47,6 @@ export default function LessonReservedList({
             name: "name",
             accessor: "name",
             disableSortBy: true,
-            Filter: true,
         },
     ];
 
