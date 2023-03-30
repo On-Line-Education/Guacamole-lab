@@ -12,6 +12,7 @@ export default function StudentList({
     selectedGroup,
     selectedStudent,
     setSelectedStudent,
+    openStudentChangePasswordPanelState,
 }) {
     // Collumns for react-table
 
@@ -46,17 +47,26 @@ export default function StudentList({
                         </div>
                         <div className="list-actions student-list-actions">
                             <GuacamoleButton
-                                sx={{ width: "40%" }}
+                                sx={{ width: "30%" }}
                                 onClick={() => openStudentAdd(true)}
                             >
                                 Dodaj ucznia
                             </GuacamoleButton>
                             <GuacamoleButton
-                                sx={{ width: "50%" }}
+                                sx={{ width: "30%" }}
                                 onClick={() => openStudentDetails(true)}
                                 disabled={!selectedStudent}
                             >
                                 Szczegóły ucznia
+                            </GuacamoleButton>
+                            <GuacamoleButton
+                                sx={{ width: "30%" }}
+                                onClick={() =>
+                                    openStudentChangePasswordPanelState(true)
+                                }
+                                disabled={!selectedStudent}
+                            >
+                                Zmień hasło
                             </GuacamoleButton>
                         </div>
                     </>
