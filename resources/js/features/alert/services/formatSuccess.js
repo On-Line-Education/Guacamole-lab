@@ -95,6 +95,16 @@ export function formatSuccess(successResponse) {
                 title: "Pomyślnie utworzono połączenie z komputerem",
                 message: "",
             };
+        case "INSTRUCTOR_PSWD_CHANGE_SUCCESS":
+            return {
+                title: "Pomyślnie zmieniono hasło nauczyciela",
+                message: "",
+            };
+        case "STUDENT_PSWD_CHANGE_SUCCESS":
+            return {
+                title: "Pomyślnie zmieniono hasło ucznia",
+                message: "",
+            };
 
         default:
             return {

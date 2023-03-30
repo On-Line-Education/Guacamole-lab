@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { GuacamoleFragileButton } from "../../../../mui";
+import { GuacamoleButton, GuacamoleFragileButton } from "../../../../mui";
 import "./instructorlist.scss";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 import SortingTable from "../../../../components/SortingTable/SortingTable";
@@ -11,6 +11,7 @@ export default function InstructorList({
     setSelectedInstructor,
     selectedInstructor,
     refetch,
+    setInstructorChangePasswordPanelState,
 }) {
     // Collumns for react-table
 
@@ -55,11 +56,21 @@ export default function InstructorList({
                 </div>
                 <div className="list-actions instructor-list-actions">
                     <GuacamoleFragileButton
-                        sx={{ width: "100%" }}
+                        sx={{ width: "45%" }}
                         onClick={() => deleteInstructor()}
+                        disabled={!selectedInstructor}
                     >
                         Usuń nauczyciela
                     </GuacamoleFragileButton>
+                    <GuacamoleButton
+                        sx={{ width: "45%" }}
+                        onClick={() =>
+                            setInstructorChangePasswordPanelState(true)
+                        }
+                        disabled={!selectedInstructor}
+                    >
+                        Zmień hasło
+                    </GuacamoleButton>
                 </div>
             </div>
         </div>
