@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import FileInput from "../../../../components/FileInput/FileInput";
 import { GuacamoleButton } from "../../../../mui";
 import useImportComputers from "../../hooks/useImportComputers";
@@ -37,7 +38,15 @@ export default function ComputerImport({ refetch }) {
                     }}
                 >
                     <div className="form-group">
-                        <label className="form-label">Wybierz plik .csv</label>
+                        <label className="form-label">
+                            Wybierz plik .csv
+                            <a
+                                href="/files/example_computer_import.csv"
+                                download
+                            >
+                                Przykładowy plik importu
+                            </a>
+                        </label>
                         <FileInput
                             setFile={setFile}
                             setFileName={setFileName}

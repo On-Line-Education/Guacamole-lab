@@ -30,7 +30,13 @@
                 .form-label {
                     flex: 3;
                     display: flex;
-                    align-items: center;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    a {
+                        color: $body-color-dark;
+                        opacity: 0.7;
+                    }
                 }
 
                 .form-input {
