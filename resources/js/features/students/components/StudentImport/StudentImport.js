@@ -30,7 +30,12 @@ export default function StudentImport({ refetch }) {
             <div className="panel student-import-panel">
                 <form className="panel-form import-form">
                     <div className="form-group">
-                        <label className="form-label">Wybierz plik .csv</label>
+                        <label className="form-label">
+                            Wybierz plik .csv
+                            <a href="/files/example_user_import.csv" download>
+                                Przykładowy plik importu
+                            </a>
+                        </label>
                         <FileInput
                             setFile={setFile}
                             setFileName={setFileName}
