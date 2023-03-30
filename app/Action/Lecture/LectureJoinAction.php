@@ -80,6 +80,7 @@ class LectureJoinAction
             $username,
             $group,
             $ip,
+            $computer->mac,
             $domain
         );
         $connection = new Connection();
