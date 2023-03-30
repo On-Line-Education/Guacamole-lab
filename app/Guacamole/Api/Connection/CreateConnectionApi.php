@@ -17,6 +17,7 @@ class CreateConnectionApi extends AbstractApi
         string $name,
         int $id,
         string $ip,
+        string $mac,
         string $domain
     ): ResponseInterface {
         return $this->apiClient->post('api/session/data/' . $sourceData . '/connections', [
@@ -103,7 +104,11 @@ class CreateConnectionApi extends AbstractApi
                     'sftp-private-key' => '',
                     'sftp-passphrase' => '',
                     'sftp-root-directory' => '',
-                    'sftp-directory' => ''
+                    'sftp-directory' => '',
+                    'wol-send-packet' => 'true',
+                    'wol-wait-time' => '30',
+                    'wol-mac-addr' => $mac,
+                    'wol-udp-port' => ''
                 ],
                 'attributes' => [
                     'max-connections' => '',
