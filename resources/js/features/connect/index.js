@@ -42,6 +42,14 @@ export default function ConnectView() {
         }
     }, [selectedLesson]);
 
+    useEffect(() => {
+        const scheduledTimeout = setInterval(() => {
+            if (selectedLesson) {
+                getLesson();
+            }
+        }, 60000);
+    }, [selectedLesson]);
+
     return (
         <>
             <div className="connect">
