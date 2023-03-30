@@ -16,8 +16,10 @@ read -p "GUACAMOLE_ADMIN_PASSWORD (guacadmin)> " GUACAMOLE_ADMIN_PASSWORD
 read -p "DB_PASSWORD> " DB_PASSWORD
 read -p "Server hostname (eg. IP ADDRESS) (localhost)> " APP_URL
 read -p "App name (Guacamole)> " APP_NAME
+echo "Now enter app port - web application will listen on that port ON THE SERVER, so redirect a port on your PUBLIC IP ADDRESS to THIS PORT ON THE SERVER"
 read -p "App port (8888)> " APP_PORT
-read -p "Guacamole port (8080)> " GUACAMOLE_PORT
+echo "Now enter external Guacamole (RDP Gateway) port - this port MUST be available on your PUBLIC IP address and redirected to 8080 port ON THE SERVER"
+read -p "Guacamole external port (8080) > " GUACAMOLE_PORT
 
 GUACAMOLE_DATABASE_PASSWORD=${GUACAMOLE_DATABASE_PASSWORD:-fsewfdsqedsae}
 GUACAMOLE_DATABASE_USER=${GUACAMOLE_DATABASE_USER:-guac_db_user}
@@ -39,7 +41,7 @@ sed -i "s/^APP_PORT=.*$/APP_PORT=$APP_PORT/" .env
 sed -i "s|^APP_URL=.*$|APP_URL=http://$APP_URL|" .env
 sed -i "s|^GUACAMOLE_APP_URL=.*$|GUACAMOLE_APP_URL=http://$APP_URL:$GUACAMOLE_PORT/guacamole|" .env
 sed -i "s/^APP_NAME=.*$/APP_NAME=$APP_NAME/" .env
-sed -i "s/^GUACAMOLE_PORT=.*$/GUACAMOLE_PORT=$GUACAMOLE_PORT/" .env
+#sed -i "s/^GUACAMOLE_PORT=.*$/GUACAMOLE_PORT=$GUACAMOLE_PORT/" .env
 sed -i "s/^DB_PASSWORD=.*$/DB_PASSWORD=$DB_PASSWORD/" .env
 
 [ -z $UID ] && (echo "Cannot read UID variable, please set it with export UID=<UID OF YOUR USER> and rerun script"; exit)
