@@ -1,9 +1,9 @@
 #!/bin/bash
 
-[ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; exit )
-[ -x "$(command -v docker-compose)" ] && echo "Docker-compose is installed" || ( echo "Docker-compose is not installed"; exit )
-groups | grep "docker" && echo "User is in docker group" || ( echo "User is not in docker group. Add user to docker group and relogin"; exit )
-[[ $UID == 0 ]] && echo "Running this script as root is not supported. Please use a different user." && exit
+[ -x "$(command -v docker)" ] && echo "Docker is installed" || ( echo "Docker is not installed"; exit 1)
+[ -x "$(command -v docker-compose)" ] && echo "Docker-compose is installed" || ( echo "Docker-compose is not installed"; exit 1)
+groups | grep "docker" && echo "User is in docker group" || ( echo "User is not in docker group. Add user to docker group and relogin"; exit 1)
+[[ $UID == 0 ]] && echo "Running this script as root is not supported. Please use a different user." && exit 1
 #[[ $err == 1 ]] && exit
 
 cp .env.example .env
@@ -31,16 +31,16 @@ GUACAMOLE_PORT=${GUACAMOLE_PORT:-8080}
 
 
 
-sed -i "s/^GUACAMOLE_DATABASE_PASSWORD.*$/GUACAMOLE_DATABASE_PASSWORD=$GUACAMOLE_DATABASE_PASSWORD/" .env
-sed -i "s/^GUACAMOLE_DATABASE_USER.*$/GUACAMOLE_DATABASE_USER=$GUACAMOLE_DATABASE_USER/" .env
-sed -i "s/^GUACAMOLE_ADMIN.*$/GUACAMOLE_ADMIN=$GUACAMOLE_ADMIN/" .env
-sed -i "s/^GUACAMOLE_ADMIN_PASSWORD.*$/GUACAMOLE_ADMIN_PASSWORD=$GUACAMOLE_ADMIN_PASSWORD/" .env
-sed -i "s/^APP_PORT.*$/APP_PORT=$APP_PORT/" .env
-sed -i "s|^APP_URL.*$|APP_URL=http://$APP_URL|" .env
-sed -i "s|^GUACAMOLE_APP_URL.*$|GUACAMOLE_APP_URL=http://$APP_URL:$GUACAMOLE_PORT/guacamole|" .env
-sed -i "s/^APP_NAME.*$/APP_NAME=$APP_NAME/" .env
-sed -i "s/^GUACAMOLE_PORT.*$/GUACAMOLE_PORT=$GUACAMOLE_PORT/" .env
-sed -i "s/^DB_PASSWORD.*$/DB_PASSWORD=$DB_PASSWORD/" .env
+sed -i "s/^GUACAMOLE_DATABASE_PASSWORD=.*$/GUACAMOLE_DATABASE_PASSWORD=$GUACAMOLE_DATABASE_PASSWORD/" .env
+sed -i "s/^GUACAMOLE_DATABASE_USER=.*$/GUACAMOLE_DATABASE_USER=$GUACAMOLE_DATABASE_USER/" .env
+sed -i "s/^GUACAMOLE_ADMIN=.*$/GUACAMOLE_ADMIN=$GUACAMOLE_ADMIN/" .env
+sed -i "s/^GUACAMOLE_ADMIN_PASSWORD=.*$/GUACAMOLE_ADMIN_PASSWORD=$GUACAMOLE_ADMIN_PASSWORD/" .env
+sed -i "s/^APP_PORT=.*$/APP_PORT=$APP_PORT/" .env
+sed -i "s|^APP_URL=.*$|APP_URL=http://$APP_URL|" .env
+sed -i "s|^GUACAMOLE_APP_URL=.*$|GUACAMOLE_APP_URL=http://$APP_URL:$GUACAMOLE_PORT/guacamole|" .env
+sed -i "s/^APP_NAME=.*$/APP_NAME=$APP_NAME/" .env
+sed -i "s/^GUACAMOLE_PORT=.*$/GUACAMOLE_PORT=$GUACAMOLE_PORT/" .env
+sed -i "s/^DB_PASSWORD=.*$/DB_PASSWORD=$DB_PASSWORD/" .env
 
 [ -z $UID ] && (echo "Cannot read UID variable, please set it with export UID=<UID OF YOUR USER> and rerun script"; exit)
 
