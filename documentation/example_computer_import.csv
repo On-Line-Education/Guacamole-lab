@@ -1,7 +1,7 @@
-nazwa;ip;mac;sala;instruktora
-pc-1;192.168.30.10;AA:BB:CC:DD:EE:FF;Pracownia 121;1
-pc-2;192.168.30.11;AB:BB:CC:DD:EE:FF;Pracownia 121;0
-pc-3;192.168.30.12;AC:BB:CC:DD:EE:FF;Pracownia 121;0
-pc-4;192.168.30.13;AD:BB:CC:DD:EE:FF;Pracownia 121;0
-pc-5;192.168.30.14;AE:BB:CC:DD:EE:FF;Pracownia 121;0
-pc-6;192.168.30.15;AF:BB:CC:DD:EE:FF;Pracownia 121;0
+nazwa;ip;mac;sala;broadcast;instruktora
+pc-1;192.168.30.10;AA:BB:CC:DD:EE:FF;;Pracownia 121;1
+pc-2;192.168.30.11;AB:BB:CC:DD:EE:FF;;Pracownia 121;0
+pc-3;192.168.30.12;AC:BB:CC:DD:EE:FF;;Pracownia 121;0
+pc-4;192.168.30.13;AD:BB:CC:DD:EE:FF;;Pracownia 121;0
+pc-5;192.168.30.14;AE:BB:CC:DD:EE:FF;;Pracownia 121;0
+pc-6;192.168.30.15;AF:BB:CC:DD:EE:FF;;Pracownia 121;0

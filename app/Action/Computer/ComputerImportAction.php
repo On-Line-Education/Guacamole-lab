@@ -21,6 +21,7 @@ class ComputerImportAction
         private readonly string $mac = 'mac',
         private readonly string $classroom = 'sala',
         private readonly string $instructor = 'instruktora',
+        private readonly string $broadcast = 'broadcast'
     )
     {}
 
@@ -29,12 +30,13 @@ class ComputerImportAction
         $import = $this->getCsvArray($importStr);
         
         if (
-            count($import[0]) !== 5
+            count($import[0]) !== 6
             || $import[0][0] !== $this->name
             || $import[0][1] !== $this->ip
             || $import[0][2] !== $this->mac
             || $import[0][3] !== $this->classroom
-            || $import[0][4] !== $this->instructor
+            || $import[0][4] !== $this->broadcast
+            || $import[0][5] !== $this->instructor
             ) {
             throw new InvalidImportFileException();
         }
@@ -48,7 +50,7 @@ class ComputerImportAction
 
         foreach ($import as $row) {
             $classroom = $this->getClassroom($row[3]);
-            $this->getComputer($row[0], $row[1], $row[2], $row[4], $classroom->id);
+            $this->getComputer($row[0], $row[1], $row[2], $row[4], $row[5], $classroom->id);
         }
     }
 
@@ -78,7 +80,7 @@ class ComputerImportAction
         return false;
     }
 
-    private function getComputer(string $name, string $ip, string $mac, bool $instructor, int $classroomId): Computer
+    private function getComputer(string $name, string $ip, string $mac, string $broadcast, bool $instructor, int $classroomId): Computer
     {
 
         $validator = Validator::make(['ip' => $ip], [
@@ -97,12 +99,21 @@ class ComputerImportAction
             throw new ImportComputerExistsException('mac ' . $mac);
         }
 
+        $validator = Validator::make(['mac' => $broadcast], [
+            'broadcast' => 'required|ip'
+        ]);
+    
+        if ($validator->fails()) {
+            throw new ImportComputerExistsException('mac ' . $mac);
+        }
+
         $computer = new Computer();
         $computer->name = $name;
         $computer->ip = $ip;
         $computer->mac = $mac;
         $computer->class_room_id = $classroomId;
         $computer->instructor = $instructor;
+        $computer->broadcast = $broadcast;
         $computer->save();
 
         return $computer;

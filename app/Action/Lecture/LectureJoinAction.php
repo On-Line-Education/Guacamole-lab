@@ -81,6 +81,7 @@ class LectureJoinAction
             $group,
             $ip,
             $computer->mac,
+            $computer->broadcast,
             $domain
         );
         $connection = new Connection();
