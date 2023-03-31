@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import Logo from "../../components/Logo/Logo";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import InstructorAdd from "./components/InstructorAdd/InstructorAdd";
+import InstructorChangePassword from "./components/InstructorChangePassword/InstructorChangePassword";
 import InstructorList from "./components/InstructorList/InstructorList";
 import useGetAllInstructors from "./hooks/useGetAllInstructors";
 import "./style.scss";
 
 export default function InstructorsView() {
+    // View state
+
+    const [
+        instructorChangePasswordPanelState,
+        setInstructorChangePasswordPanelState,
+    ] = useState(false);
+
     // Get All instructors hook declaration
     const {
         data: instructorList,
@@ -29,9 +37,23 @@ export default function InstructorsView() {
                     selectedInstructor={selectedInstructor}
                     setSelectedInstructor={setSelectedInstructor}
                     refetch={refetchInstructorList}
+                    setInstructorChangePasswordPanelState={
+                        setInstructorChangePasswordPanelState
+                    }
                 />
                 <InstructorAdd refetch={refetchInstructorList} />
             </div>
+            {instructorChangePasswordPanelState ? (
+                <InstructorChangePassword
+                    selectedInstructor={selectedInstructor}
+                    refetch={refetchInstructorList}
+                    setInstructorChangePasswordPanelState={
+                        setInstructorChangePasswordPanelState
+                    }
+                />
+            ) : (
+                ""
+            )}
         </div>
     );
 }

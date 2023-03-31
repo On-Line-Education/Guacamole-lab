@@ -31,5 +31,5 @@ export default function useLogout() {
         refresh();
     };
 
-    return [error, logout];
+    return { data, error, logout };
 }

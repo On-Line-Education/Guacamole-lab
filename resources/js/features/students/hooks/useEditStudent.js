@@ -27,5 +27,5 @@ export default function useEditStudent(studentId, newUsername) {
         refresh();
     };
 
-    return { error, editStudent };
+    return { data, error, editStudent };
 }

@@ -7,7 +7,7 @@ export default function useGetStudentsFromGroup(groupId) {
         false
     );
 
-    const getSelectedClassroomComputers = async () => {
+    const getSelectedGroupStudents = async () => {
         refresh();
     };
 
@@ -15,6 +15,6 @@ export default function useGetStudentsFromGroup(groupId) {
         data,
         loading,
         error,
-        getSelectedClassroomComputers,
+        getSelectedGroupStudents,
     };
 }

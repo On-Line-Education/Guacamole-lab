@@ -10,6 +10,7 @@ import StudentImport from "./components/StudentImport/StudentImport";
 import useGetAllGroups from "./hooks/useGetAllGroups";
 import GroupAdd from "./components/GroupAdd/GroupAdd";
 import useGetStudentsFromGroup from "./hooks/useGetStudentsFromGroup";
+import StudentChangePassword from "./components/StudentChangePassword/StudentChangePassword";
 
 export default function StudentsView() {
     //Selected table rows state
@@ -25,6 +26,10 @@ export default function StudentsView() {
         useState(false);
     const [groupAdditionPanelActive, setGroupAdditionPanelState] =
         useState(false);
+    const [
+        studentChangePasswordPanelActive,
+        setStudentChangePasswordPanelState,
+    ] = useState(false);
 
     // Get All Groups hook declaration
 
@@ -41,13 +46,13 @@ export default function StudentsView() {
         data: studentList,
         loading: studentListLoading,
         error: studentListLoadingError,
-        getSelectedClassroomComputers,
+        getSelectedGroupStudents,
     } = useGetStudentsFromGroup(selectedGroup.id);
 
     // Query for loading computer list, if user selected a classroom it fetches computers for that classroom
     useEffect(() => {
         if (selectedGroup) {
-            getSelectedClassroomComputers();
+            getSelectedGroupStudents();
         }
     }, [selectedGroup]);
 
@@ -67,6 +72,9 @@ export default function StudentsView() {
                 <StudentList
                     openStudentAdd={setStudentAdditionPanelState}
                     openStudentDetails={setStudentDetailsPanelState}
+                    openStudentChangePasswordPanelState={
+                        setStudentChangePasswordPanelState
+                    }
                     studentList={studentList}
                     loading={studentListLoading}
                     selectedGroup={selectedGroup}
@@ -78,7 +86,7 @@ export default function StudentsView() {
 
             {studentAdditionPanelActive ? (
                 <StudentAdd
-                    refetch={getSelectedClassroomComputers}
+                    refetch={getSelectedGroupStudents}
                     group={selectedGroup}
                     close={setStudentAdditionPanelState}
                 />
@@ -89,7 +97,7 @@ export default function StudentsView() {
             {studentDetailsPanelActive ? (
                 <StudentDetails
                     student={selectedStudent}
-                    refetch={getSelectedClassroomComputers}
+                    refetch={getSelectedGroupStudents}
                     setStudentDetailsPanelState={setStudentDetailsPanelState}
                 />
             ) : (
@@ -100,6 +108,18 @@ export default function StudentsView() {
                 <GroupAdd
                     close={setGroupAdditionPanelState}
                     refetch={refetchGroupList}
+                />
+            ) : (
+                ""
+            )}
+
+            {studentChangePasswordPanelActive ? (
+                <StudentChangePassword
+                    selectedStudent={selectedStudent}
+                    setStudentChangePasswordPanelState={
+                        setStudentChangePasswordPanelState
+                    }
+                    refetch={getSelectedGroupStudents}
                 />
             ) : (
                 ""
