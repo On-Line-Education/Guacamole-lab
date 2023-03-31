@@ -30,7 +30,7 @@ export default function LoginForm({ setUsername, setPassword, login }) {
                 />
             </div>
             <div className="login-form-input">
-                <label className="login-form-label">Nazwa użytkownika</label>
+                <label className="login-form-label">Hasło</label>
                 <GuacamoleInput
                     required
                     size="small"
