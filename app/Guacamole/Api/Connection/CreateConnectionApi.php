@@ -18,6 +18,7 @@ class CreateConnectionApi extends AbstractApi
         int $id,
         string $ip,
         string $mac,
+        string $broadcast,
         string $domain
     ): ResponseInterface {
         return $this->apiClient->post('api/session/data/' . $sourceData . '/connections', [
@@ -108,7 +109,8 @@ class CreateConnectionApi extends AbstractApi
                     'wol-send-packet' => 'true',
                     'wol-wait-time' => '30',
                     'wol-mac-addr' => $mac,
-                    'wol-udp-port' => ''
+                    'wol-udp-port' => '',
+                    'wol-broadcast-addr' => $broadcast
                 ],
                 'attributes' => [
                     'max-connections' => '',

@@ -25,6 +25,7 @@ class ConnectionCreateEndpoint
         string $group,
         string $ip,
         string $mac,
+        string $broadcast,
         string $domain
     ): GuacamoleConnection {
         try {
@@ -35,6 +36,7 @@ class ConnectionCreateEndpoint
                 $this->getConnectionGroupId($loginData, $group),
                 $ip,
                 $mac,
+                $broadcast,
                 $domain
             );
             return new GuacamoleConnection(($this->apiResponseWrapper)($response));

@@ -11,6 +11,7 @@ class ComputerUpdateAction
         ?string $newName = null,
         ?string $newIp = null,
         ?string $newMac = null,
+        ?string $newBroadcast = null,
         ?bool $instructor = null
         )
     {
@@ -19,6 +20,7 @@ class ComputerUpdateAction
         $computer->ip = $newIp ?? $computer->ip;
         $computer->mac = $newMac ?? $computer->mac;
         $computer->instructor = $instructor ?? $computer->instructor;
+        $computer->broadcast = $newBroadcast ?? $computer->broadcast;
         $computer->save();
         return $computer;
     }

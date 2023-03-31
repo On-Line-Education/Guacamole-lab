@@ -22,6 +22,7 @@ class CreateComputerActionService extends AbstractActionService
             $computerCreateRequestData['name'],
             $computerCreateRequestData['ip'],
             $computerCreateRequestData['mac'] ?? '',
+            $computerCreateRequestData['broadcast'] ?? '',
             $computerCreateRequestData['instructor'],
             $classRoom->id
         );
