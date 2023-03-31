@@ -105,6 +105,11 @@ export function formatSuccess(successResponse) {
                 title: "Pomyślnie zmieniono hasło ucznia",
                 message: "",
             };
+        case "USER_PSWD_CHANGE_SUCCESS":
+            return {
+                title: "Pomyślnie zaktualizowano hasło użytkownika",
+                message: "zaloguj się ponownie",
+            };
 
         default:
             return {
