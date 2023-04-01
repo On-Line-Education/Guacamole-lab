@@ -14,8 +14,11 @@ class GuacamoleUserCreateAction
     )
     {}
 
-    public function __invoke(GuacamoleAuthLoginData $guacamoleAuthLoginData, GuacamoleUserData $user): void
-    {
-        $this->guacamole->getUser()->create($guacamoleAuthLoginData, $user);
+    public function __invoke(
+        GuacamoleAuthLoginData $guacamoleAuthLoginData,
+        GuacamoleUserData $user,
+        bool $isInstructor = false
+        ): void {
+        $this->guacamole->getUser()->create($guacamoleAuthLoginData, $user, $isInstructor);
     }
 }

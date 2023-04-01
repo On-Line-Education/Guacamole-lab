@@ -9,6 +9,7 @@ use App\ActionService\AbstractActionService;
 use App\Exceptions\UserAlreadyExistsException;
 use App\Guacamole\Objects\User\GuacamoleUserData;
 use App\Service\GuacamoleUserLoginService;
+use App\System\SystemPermissions;
 
 class CreateUserActionService extends AbstractActionService
 {
@@ -34,7 +35,11 @@ class CreateUserActionService extends AbstractActionService
             }
         }
 
-        ($this->guacamoleUserCreateAction)($guacAuth, $user);
+        ($this->guacamoleUserCreateAction)(
+            $guacAuth,
+            $user,
+            $userCreateRequestData['role'] === SystemPermissions::INSTRUCTOR
+        );
         $sysuser = ($this->userCreateAction)(
             $userCreateRequestData['username'],
             $userCreateRequestData['password'],
