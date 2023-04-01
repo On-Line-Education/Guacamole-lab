@@ -28,9 +28,9 @@ class UserEndpoint
         return ($this->userGetEndpoint)($loginData, $username);
     }
 
-    public function create(GuacamoleAuthLoginData $loginData, GuacamoleUserData $user): void
+    public function create(GuacamoleAuthLoginData $loginData, GuacamoleUserData $user, bool $isInstructor): void
     {
-        ($this->userCreateEndpoint)($loginData, $user);
+        ($this->userCreateEndpoint)($loginData, $user, $isInstructor);
     }
 
     public function delete(GuacamoleAuthLoginData $loginData, string $username): void
