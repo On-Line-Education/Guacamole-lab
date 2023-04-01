@@ -68,6 +68,7 @@ export default function ComputerAdd({
                                     <label className="form-label">Nazwa</label>
                                     <GuacamoleInput
                                         className="form-input"
+                                        required
                                         onChange={(e) =>
                                             setNewComputerName(e.target.value)
                                         }
@@ -78,6 +79,7 @@ export default function ComputerAdd({
                                         Adres Ip
                                     </label>
                                     <GuacamoleInput
+                                        required
                                         className="form-input"
                                         onChange={(e) =>
                                             setNewComputerIp(e.target.value)

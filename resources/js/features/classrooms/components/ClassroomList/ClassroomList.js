@@ -25,6 +25,7 @@ export default function ClassroomList({
     useEffect(() => {
         try {
             if (data.success) {
+                setSelectedClassroom("");
                 refetch();
             }
         } catch (e) {}

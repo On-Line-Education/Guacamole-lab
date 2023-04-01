@@ -37,6 +37,7 @@ export default function InstructorAdd({ refetch }) {
                             <label className="form-label">Nazwa</label>
                             <GuacamoleInput
                                 className="form-input"
+                                required
                                 onChange={(e) =>
                                     setNewInstructorUsername(e.target.value)
                                 }
@@ -47,6 +48,7 @@ export default function InstructorAdd({ refetch }) {
                             <GuacamoleInput
                                 className="form-input"
                                 type="password"
+                                required
                                 onChange={(e) =>
                                     setNewInstructorPassword(e.target.value)
                                 }

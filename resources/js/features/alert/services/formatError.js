@@ -56,6 +56,21 @@ export function formatError(errorResponse) {
                 title: "Błąd tworzenia rezerwacji",
                 message: "Nie można utworzyć lekcji w przeszłości",
             };
+        case "Class already exists.":
+            return {
+                title: "Błąd tworzenia grupy",
+                message: "Grupa o podanej nazwie już istnieje",
+            };
+        case "The ip must be a valid IP address.":
+            return {
+                title: "Błąd tworzenia komputera",
+                message: "Podany adres IP jest niepoprawny",
+            };
+        case "The mac must be a valid MAC address.":
+            return {
+                title: "Błąd tworzenia komputera",
+                message: "Podany adres MAC jest niepoprawny",
+            };
         default:
             return {
                 title: "Wystąpił błąd",

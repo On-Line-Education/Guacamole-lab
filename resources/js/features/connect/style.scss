@@ -20,13 +20,13 @@
     }
 }
 
-@media only screen and (max-width: 1800px) {
+@media only screen and (max-width: 1800px), screen and (max-height: 800px) {
     .logo {
         display: none;
     }
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1200px), screen and (max-height: 800px) {
     .connect-container {
         display: flex;
         flex-direction: column;

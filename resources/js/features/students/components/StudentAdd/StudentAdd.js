@@ -78,9 +78,8 @@ export default function StudentAdd({ group, close, refetch }) {
                                     <label className="form-label">Nazwa</label>
                                     <GuacamoleInput
                                         className="form-input"
-                                        variant="outlined"
                                         size="small"
-                                        id="username"
+                                        required
                                         onChange={(e) =>
                                             setNewStudentUsername(
                                                 e.target.value
@@ -92,10 +91,9 @@ export default function StudentAdd({ group, close, refetch }) {
                                     <label className="form-label">Hasło</label>
                                     <GuacamoleInput
                                         className="form-input"
-                                        variant="outlined"
-                                        type="password"
                                         size="small"
-                                        id="password"
+                                        type="password"
+                                        required
                                         onChange={(e) =>
                                             setNewStudentPassword(
                                                 e.target.value

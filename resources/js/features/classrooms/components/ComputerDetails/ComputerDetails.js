@@ -141,7 +141,11 @@ export default function ComputerDetails({
                                         }`}
                                     >
                                         <GuacamoleInput
-                                            placeholder={computer.mac}
+                                            placeholder={
+                                                computer.mac
+                                                    ? computer.mac
+                                                    : "brak adresu"
+                                            }
                                             InputProps={{
                                                 readOnly: !macEditActive,
                                             }}

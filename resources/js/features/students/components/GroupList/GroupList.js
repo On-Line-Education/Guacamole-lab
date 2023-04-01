@@ -19,9 +19,11 @@ export default function GroupList({
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
-            if (data.success) close();
-        } catch {}
+            if (data.success) {
+                setSelectedGroup("");
+                refetch();
+            }
+        } catch (e) {}
     }, [data]);
 
     // Collums for react-table
@@ -61,7 +63,6 @@ export default function GroupList({
                         disabled={selectedGroup ? false : true}
                         onClick={() => {
                             deleteGroup();
-                            refetch();
                         }}
                     >
                         Usuń grupę

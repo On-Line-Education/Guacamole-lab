@@ -65,7 +65,7 @@ export default function ClassroomsView() {
                     }
                 />
                 <ComputerList
-                    computerList={computerList}
+                    computerList={selectedClassroom ? computerList : undefined}
                     loading={computerListLoading}
                     selectedClassroom={selectedClassroom}
                     selectedComputer={selectedComputer}

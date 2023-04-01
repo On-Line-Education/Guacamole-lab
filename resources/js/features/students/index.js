@@ -75,7 +75,7 @@ export default function StudentsView() {
                     openStudentChangePasswordPanelState={
                         setStudentChangePasswordPanelState
                     }
-                    studentList={studentList}
+                    studentList={selectedGroup ? studentList : undefined}
                     loading={studentListLoading}
                     selectedGroup={selectedGroup}
                     selectedStudent={selectedStudent}
@@ -119,7 +119,8 @@ export default function StudentsView() {
                     setStudentChangePasswordPanelState={
                         setStudentChangePasswordPanelState
                     }
-                    refetch={getSelectedGroupStudents}
+                    refetchStudents={getSelectedGroupStudents}
+                    refetchGroups={refetchGroupList}
                 />
             ) : (
                 ""

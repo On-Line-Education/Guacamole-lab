@@ -16,9 +16,11 @@ export default function GroupAdd({ close, refetch }) {
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
-            if (data.success) close();
-        } catch {}
+            if (data.success) {
+                refetch();
+                close();
+            }
+        } catch (e) {}
     }, [data]);
 
     return (
@@ -45,9 +47,8 @@ export default function GroupAdd({ close, refetch }) {
                                     <label className="form-label">Nazwa</label>
                                     <GuacamoleInput
                                         className="form-input"
-                                        variant="outlined"
                                         size="small"
-                                        id="username"
+                                        required
                                         onChange={(e) =>
                                             setNewGroupName(e.target.value)
                                         }

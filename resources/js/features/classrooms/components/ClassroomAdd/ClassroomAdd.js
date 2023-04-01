@@ -57,6 +57,7 @@ export default function ClassroomAdd({
                                     <label className="form-label">Nazwa</label>
                                     <GuacamoleInput
                                         className="form-input"
+                                        required
                                         onChange={(e) =>
                                             setNewClassroomName(e.target.value)
                                         }

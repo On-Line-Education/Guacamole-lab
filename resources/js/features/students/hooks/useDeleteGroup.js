@@ -22,5 +22,5 @@ export default function useDeleteGroup(groupId) {
         refresh();
     };
 
-    return { loading, error, deleteGroup };
+    return { loading, data, error, deleteGroup };
 }

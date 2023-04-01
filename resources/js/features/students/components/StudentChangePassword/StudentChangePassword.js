@@ -62,9 +62,7 @@ export default function StudentChangePassword({
                                     </label>
                                     <GuacamoleInput
                                         className="form-input"
-                                        variant="outlined"
                                         size="small"
-                                        id="username"
                                         required
                                         onChange={(e) =>
                                             setNewPassword(e.target.value)
@@ -72,10 +70,7 @@ export default function StudentChangePassword({
                                     />
                                 </div>
                                 <div className="panel-actions">
-                                    <GuacamoleButton
-                                        type="submit"
-                                        disabled={!newPassword}
-                                    >
+                                    <GuacamoleButton type="submit">
                                         Zmień
                                     </GuacamoleButton>
                                 </div>

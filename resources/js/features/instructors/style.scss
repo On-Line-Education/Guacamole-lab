@@ -21,6 +21,7 @@
 @media only screen and (max-width: 1100px) {
     .instructors-container {
         display: flex;
+        overflow: auto;
         flex-direction: column;
         justify-content: space-around;
     }
