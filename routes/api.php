@@ -192,25 +192,6 @@ Route::controller(StudentClassController::class)->group(function () {
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
             ]);
-        Route::get('/{class}', 'get')
-            ->middleware([
-                SystemAuth::AUTH
-            ]);
-        Route::post('/', 'create')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::patch('/{class}', 'edit')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
-        Route::delete('/{class}', 'delete')
-            ->middleware([
-                SystemAuth::AUTH,
-                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
-            ]);
         Route::get('/{class}/users', 'listUsers')
             ->middleware([
                 SystemAuth::AUTH,
@@ -230,6 +211,25 @@ Route::controller(StudentClassController::class)->group(function () {
             ->middleware([
                 SystemAuth::AUTH,
                 SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::post('/', 'create')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::patch('/{class}', 'edit')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::delete('/{class}', 'delete')
+            ->middleware([
+                SystemAuth::AUTH,
+                SystemPermissions::hasAtLeastOne(SystemPermissions::INSTRUCTOR)
+            ]);
+        Route::get('/{class}', 'get')
+            ->middleware([
+                SystemAuth::AUTH
             ]);
     });
 });
