@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('computer', function (Blueprint $table) {
+        Schema::table('computers', function (Blueprint $table) {
             //
             $table->string('broadcast')->default('');
         });
@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('computer', function (Blueprint $table) {
+        Schema::table('computers', function (Blueprint $table) {
             //
         });
     }
