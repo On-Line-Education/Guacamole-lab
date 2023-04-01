@@ -32,7 +32,7 @@ export default function ConnectView() {
         loading: selectedLessonLoading,
         error: selectedLessonLoadingError,
         getLesson,
-    } = useGetSelectedLesson(selectedLesson.id);
+    } = useGetSelectedLesson(selectedLesson ? selectedLesson.id : undefined);
 
     // Refetch logic
 

@@ -16,10 +16,8 @@ export default function StudentImport({ refetchStudents, refetchGroups }) {
     // Refetch logic
     useEffect(() => {
         try {
-            if (data.success) {
-                refetchStudents();
-                refetchGroups();
-            }
+            refetchStudents();
+            refetchGroups();
         } catch {}
     }, [data]);
 
