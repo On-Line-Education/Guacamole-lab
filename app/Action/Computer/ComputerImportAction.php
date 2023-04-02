@@ -99,12 +99,14 @@ class ComputerImportAction
             throw new ImportComputerExistsException('mac ' . $mac);
         }
 
-        $validator = Validator::make(['mac' => $broadcast], [
-            'broadcast' => 'required|ip'
-        ]);
+        if ($broadcast) {
+            $validator = Validator::make(['broadcast' => $broadcast], [
+                'broadcast' => 'required|ip'
+            ]);
     
-        if ($validator->fails()) {
-            throw new ImportComputerExistsException('mac ' . $mac);
+            if ($validator->fails()) {
+                throw new ImportComputerExistsException('broadcast ' . $mac);
+            }
         }
 
         $computer = new Computer();
