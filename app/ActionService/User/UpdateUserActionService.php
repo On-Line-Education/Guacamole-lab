@@ -31,6 +31,8 @@ class UpdateUserActionService extends AbstractActionService
         $password = null;
         if (Auth::user()->isAdmin()) {
             $password = $userUpdateRequestData['password'] ?? null;
+        } 
+        if (Auth::user()->isAdmin() || Auth::user()->isInstructor()){
             $guacAuth = ($this->guacamoleAuthLoginAction)(env('GUACAMOLE_ADMIN'), env('GUACAMOLE_ADMIN_PASSWORD'));
         } else {
             $guacAuth = ($this->guacamoleUserLoginService)();
