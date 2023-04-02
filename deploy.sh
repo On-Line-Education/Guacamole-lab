@@ -39,7 +39,7 @@ sed -i "s/^GUACAMOLE_ADMIN=.*$/GUACAMOLE_ADMIN=$GUACAMOLE_ADMIN/" .env
 sed -i "s/^GUACAMOLE_ADMIN_PASSWORD=.*$/GUACAMOLE_ADMIN_PASSWORD=$GUACAMOLE_ADMIN_PASSWORD/" .env
 sed -i "s/^APP_PORT=.*$/APP_PORT=$APP_PORT/" .env
 sed -i "s|^APP_URL=.*$|APP_URL=http://$APP_URL|" .env
-sed -i "s|^GUACAMOLE_APP_URL=.*$|GUACAMOLE_APP_URL=http://$APP_URL:$GUACAMOLE_PORT/guacamole|" .env
+sed -i "s|^GUACAMOLE_APP_URL=.*$|GUACAMOLE_APP_URL=http://$APP_URL:$GUACAMOLE_PORT|" .env
 sed -i "s/^APP_NAME=.*$/APP_NAME=$APP_NAME/" .env
 #sed -i "s/^GUACAMOLE_PORT=.*$/GUACAMOLE_PORT=$GUACAMOLE_PORT/" .env
 sed -i "s/^DB_PASSWORD=.*$/DB_PASSWORD=$DB_PASSWORD/" .env
@@ -57,6 +57,9 @@ sed -i 's/^.*platform:.*$//g' docker-compose.yml
 ./vendor/bin/sail up -d
 
 ./vendor/bin/sail npm install
+
+echo "Changing ownership of log file - temporary fix. Please provide sudo password"
+sudo chown $USER storage/log/laravel.log
 
 ./vendor/bin/sail npm run prod
 
