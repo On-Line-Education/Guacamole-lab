@@ -1,8 +1,8 @@
 import useGet from "../../../hooks/useGet";
 import dayjs from "dayjs";
 
-export default function useGetAllLessons() {
-    const [data, loading, refresh, error] = useGet(`/lecture/`, true);
+export default function useGetAllLessons(start) {
+    const [data, loading, refresh, error] = useGet(`/lecture/`, start);
 
     const formatData = (data) => {
         if (dayjs(data["start"]).isValid())
