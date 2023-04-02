@@ -71,10 +71,15 @@ export function formatError(errorResponse) {
                 title: "Błąd tworzenia komputera",
                 message: "Podany adres MAC jest niepoprawny",
             };
+        case "Cannot assign computer. Computer pool is exhausted.":
+            return {
+                title: "Błąd łączenia z komputerem",
+                message: "Pula komputerów się wyczerpała",
+            };
         default:
             return {
                 title: "Wystąpił błąd",
-                message: "",
+                message: errorResponse,
             };
     }
 }
