@@ -55,7 +55,7 @@ export default function UserLessonList({
                         <SortingTable
                             selectedRow={selectedSession}
                             selectRow={setSelectedSession}
-                            tableData={sessionList.lectures}
+                            tableData={sessionList ? sessionList.lectures : ""}
                             tableColumns={tableColumns}
                             externalFilter={date.format("DD-MM")}
                         />

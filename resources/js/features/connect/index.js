@@ -9,11 +9,13 @@ import useGetUserLessons from "./hooks/useGetUserLessons";
 import { useSelector } from "react-redux";
 import Connect from "./components/Connect/Connect";
 import useGetSelectedLesson from "./hooks/useGetSelectedLesson";
+import useGetAllLessons from "./hooks/useGetAllLessons";
 
 export default function ConnectView() {
     // Get logged user Id
 
     const userId = useSelector((state) => state.auth.id);
+    const userRole = useSelector((state) => state.auth.role);
 
     // Selected table row and calendar date
 
@@ -26,6 +28,12 @@ export default function ConnectView() {
         loading: lessonListLoading,
         error: lessonListLoadingError,
     } = useGetUserLessons(userId);
+
+    const {
+        data: allLessonList,
+        loading: allLessonListLoading,
+        error: allLessonListLoadingError,
+    } = useGetAllLessons();
 
     const {
         data: selectedLessonData,
@@ -47,6 +55,8 @@ export default function ConnectView() {
             if (selectedLesson) {
                 getLesson();
             }
+
+            return clearInterval(scheduledTimeout);
         }, 60000);
     }, [selectedLesson]);
 
@@ -64,8 +74,14 @@ export default function ConnectView() {
                     <UserLessonList
                         selectedSession={selectedLesson}
                         setSelectedSession={setSelectedLesson}
-                        sessionList={lessonList}
-                        loading={lessonListLoading}
+                        sessionList={
+                            userRole === "admin" ? allLessonList : lessonList
+                        }
+                        loading={
+                            userRole === "admin"
+                                ? allLessonListLoading
+                                : lessonListLoading
+                        }
                         date={date}
                     />
                     <Connect
