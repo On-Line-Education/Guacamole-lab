@@ -88,7 +88,7 @@ class ComputerImportAction
         ]);
     
         if ($validator->fails()) {
-            throw new ImportComputerExistsException('ip ' . $ip);
+            throw new ImportComputerExistsException('with ip ' . $ip);
         }
 
         $validator = Validator::make(['mac' => $mac], [
@@ -96,7 +96,7 @@ class ComputerImportAction
         ]);
     
         if ($validator->fails()) {
-            throw new ImportComputerExistsException('mac ' . $mac);
+            throw new ImportComputerExistsException('with mac ' . $mac);
         }
 
         if ($broadcast) {
@@ -105,7 +105,7 @@ class ComputerImportAction
             ]);
     
             if ($validator->fails()) {
-                throw new ImportComputerExistsException('broadcast ' . $mac);
+                throw new ImportComputerExistsException('with broadcast ' . $mac);
             }
         }
 
