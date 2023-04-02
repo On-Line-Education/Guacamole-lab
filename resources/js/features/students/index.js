@@ -119,8 +119,6 @@ export default function StudentsView() {
                     setStudentChangePasswordPanelState={
                         setStudentChangePasswordPanelState
                     }
-                    refetchStudents={getSelectedGroupStudents}
-                    refetchGroups={refetchGroupList}
                 />
             ) : (
                 ""

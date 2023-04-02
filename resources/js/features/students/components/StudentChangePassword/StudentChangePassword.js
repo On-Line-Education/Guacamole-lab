@@ -9,7 +9,6 @@ import useChangeStudentsPassword from "../../hooks/useChangeStudentsPassword";
 export default function StudentChangePassword({
     selectedStudent,
     setStudentChangePasswordPanelState,
-    refetch,
 }) {
     // Form field state
 
@@ -27,7 +26,6 @@ export default function StudentChangePassword({
     useEffect(() => {
         try {
             if (data.success) {
-                refetch();
                 close();
             }
         } catch (e) {}
