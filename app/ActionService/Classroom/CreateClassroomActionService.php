@@ -4,6 +4,7 @@ namespace App\ActionService\Classroom;
 
 use App\Action\Classroom\ClassroomCreateAction;
 use App\Action\Classroom\ClassroomExistsAction;
+use App\Action\Login\GuacamoleAuthLoginAction;
 use App\ActionService\AbstractActionService;
 use App\Guacamole\Guacamole;
 use App\Service\GuacamoleUserLoginService;
@@ -15,14 +16,16 @@ class CreateClassroomActionService extends AbstractActionService
         private readonly ClassroomCreateAction $classroomCreateAction,
         private readonly ClassroomExistsAction $classroomExistsAction,
         private readonly Guacamole $guacamole,
-        private readonly GuacamoleUserLoginService $guacamoleUserLoginService
+        private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
+        private readonly GuacamoleAuthLoginAction $guacamoleAuthLoginAction
     ) {
         parent::__construct();
     }
 
     public function __invoke(array $classRoomCreateRequestData)
     {
-        $guacAuth = ($this->guacamoleUserLoginService)();
+        ($this->guacamoleUserLoginService)();
+        $guacAuth = ($this->guacamoleAuthLoginAction)(env('GUACAMOLE_ADMIN'), env('GUACAMOLE_ADMIN_PASSWORD'));
         
         if (($this->classroomExistsAction)($classRoomCreateRequestData['name'])) {
             throw new ClassroomAlreadyExistsException();

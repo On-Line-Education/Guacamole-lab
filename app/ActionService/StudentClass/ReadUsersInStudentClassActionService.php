@@ -18,9 +18,9 @@ class ReadUsersInStudentClassActionService extends AbstractActionService
 
     public function __invoke(StudentClass $class)
     {
-        $guacAuth = ($this->guacamoleUserLoginService)();
+        ($this->guacamoleUserLoginService)();
 
-        $users = ($this->getAllUsersAction)($guacAuth, $class);
+        $users = ($this->getAllUsersAction)($class);
 
         return ($this->responder)(['users' => $users]);
     }
