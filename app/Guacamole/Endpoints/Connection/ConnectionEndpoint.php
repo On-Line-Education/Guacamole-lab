@@ -23,6 +23,7 @@ class ConnectionEndpoint
         string $group,
         string $ip,
         string $mac,
+        string $broadcast,
         string $domain
     ): GuacamoleConnection {
         return ($this->connectionCreateEndpoint)(
@@ -31,6 +32,7 @@ class ConnectionEndpoint
             $group,
             $ip,
             $mac,
+            $broadcast,
             $domain
         );
     }
