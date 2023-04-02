@@ -11,6 +11,7 @@ class ConnectionGroupEndpoint
     public function __construct(
         private readonly ConnectionGroupListEndpoint $connectionGroupListEndpoint,
         private readonly ConnectionGroupCreateEndpoint $connectionGroupCreateEndpoint,
+        private readonly ConnectionGroupUpdateEndpoint $connectionGroupUpdateEndpoint,
         private readonly ConnectionGroupDeleteEndpoint $connectionGroupDeleteEndpoint,
         private readonly ConnectionGroupAssignPermissionsEndpoint $connectionGroupAssignPermissionsEndpoint,
         private readonly ConnectionGroupRevokePermissionsEndpoint $connectionGroupRevokePermissionsEndpoint
@@ -25,6 +26,11 @@ class ConnectionGroupEndpoint
     public function create(GuacamoleAuthLoginData $loginData, string $name): void
     {
         ($this->connectionGroupCreateEndpoint)($loginData, $name);
+    }
+
+    public function update(GuacamoleAuthLoginData $loginData, string $oldName, string $name): void
+    {
+        ($this->connectionGroupUpdateEndpoint)($loginData, $oldName, $name);
     }
 
     public function delete(GuacamoleAuthLoginData $loginData, string $name): void

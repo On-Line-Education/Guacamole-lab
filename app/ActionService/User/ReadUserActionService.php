@@ -2,6 +2,7 @@
 
 namespace App\ActionService\User;
 
+use App\Action\Login\GuacamoleAuthLoginAction;
 use App\Action\User\UserGetAllAction;
 use App\Action\User\UserGetByUsernameAction;
 use App\Action\User\UserSearchAction;
@@ -18,15 +19,15 @@ class ReadUserActionService extends AbstractActionService
         private readonly UserGetByUsernameAction         $userGetByUsernameAction,
         private readonly UserGetAllAction          $userGetAllAction,
         private readonly UserSearchAction          $userSearchAction,
-        private readonly GuacamoleUserLoginService $guacamoleUserLoginService,
+        private readonly GuacamoleAuthLoginAction $guacamoleAuthLoginAction,
     ) {
         parent::__construct();
     }
 
     public function __invoke(Request $request, ?User $user = null, ?string $search = null)
     {
-        $guacAuth = ($this->guacamoleUserLoginService)();
-
+        $guacAuth = ($this->guacamoleAuthLoginAction)(env('GUACAMOLE_ADMIN'), env('GUACAMOLE_ADMIN_PASSWORD'));
+        
         $users = [];
         if ($user !== null) {
             if (Auth::user()->isStudent() && $user->id !== Auth::id()) {

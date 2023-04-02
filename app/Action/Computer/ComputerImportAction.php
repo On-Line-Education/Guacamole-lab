@@ -3,8 +3,11 @@
 namespace App\Action\Computer;
 
 use App\Action\Classroom\ClassroomCreateAction;
+use App\Action\Login\GuacamoleAuthLoginAction;
 use App\Exceptions\ImportComputerExistsException;
 use App\Exceptions\InvalidImportFileException;
+use App\Guacamole\Guacamole;
+use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use App\Models\ClassRoom;
 use App\Models\Computer;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +18,8 @@ class ComputerImportAction
     public function __construct(
         private readonly ComputerCreateAction $computerCreateAction,
         private readonly ClassroomCreateAction $classroomCreateAction,
+        private readonly Guacamole $guacamole,
+        private readonly GuacamoleAuthLoginAction $guacamoleAuthLoginAction,
 
         private readonly string $name = 'nazwa',
         private readonly string $ip = 'ip',
@@ -27,6 +32,7 @@ class ComputerImportAction
 
     public function __invoke(string $importStr): void
     {
+        $guacAuth = ($this->guacamoleAuthLoginAction)(env('GUACAMOLE_ADMIN'), env('GUACAMOLE_ADMIN_PASSWORD'));
         $import = $this->getCsvArray($importStr);
         
         if (
@@ -49,7 +55,7 @@ class ComputerImportAction
         }
 
         foreach ($import as $row) {
-            $classroom = $this->getClassroom($row[3]);
+            $classroom = $this->getClassroom($guacAuth, $row[3]);
             $this->getComputer($row[0], $row[1], $row[2], $row[4], $row[5], $classroom->id);
         }
     }
@@ -80,9 +86,14 @@ class ComputerImportAction
         return false;
     }
 
-    private function getComputer(string $name, string $ip, string $mac, string $broadcast, bool $instructor, int $classroomId): Computer
-    {
-
+    private function getComputer(
+        string $name,
+        string $ip,
+        string $mac,
+        string $broadcast,
+        bool $instructor,
+        int $classroomId
+        ): Computer {
         $validator = Validator::make(['ip' => $ip], [
             'ip' => 'required|ip'
         ]);
@@ -105,7 +116,7 @@ class ComputerImportAction
             ]);
     
             if ($validator->fails()) {
-                throw new ImportComputerExistsException('with broadcast ' . $mac);
+                throw new ImportComputerExistsException('with broadcast ' . $broadcast);
             }
         }
 
@@ -121,12 +132,13 @@ class ComputerImportAction
         return $computer;
     }
 
-    private function getClassroom(string $classname): ClassRoom
+    private function getClassroom(GuacamoleAuthLoginData $guacAuth, string $classname): ClassRoom
     {
         $class = ClassRoom::where('name', $classname);
         if ($class->count()) {
             return $class->first();
         }
+        $this->guacamole->getConnectionGroupEndpoint()->create($guacAuth, $classname);
         $class = new ClassRoom();
         $class->name = $classname;
         $class->description = '';
