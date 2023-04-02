@@ -3,6 +3,7 @@ import { GuacamoleButton } from "../../../../mui";
 import "./studentlist.scss";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 import SortingTable from "../../../../components/SortingTable/SortingTable";
+import { useSelector } from "react-redux";
 
 export default function StudentList({
     openStudentAdd,
@@ -15,6 +16,7 @@ export default function StudentList({
     openStudentChangePasswordPanelState,
 }) {
     // Collumns for react-table
+    const userRole = useSelector((state) => state.auth.role);
 
     const tableColumns = [
         {
@@ -59,15 +61,21 @@ export default function StudentList({
                             >
                                 Szczegóły ucznia
                             </GuacamoleButton>
-                            <GuacamoleButton
-                                sx={{ width: "30%" }}
-                                onClick={() =>
-                                    openStudentChangePasswordPanelState(true)
-                                }
-                                disabled={!selectedStudent}
-                            >
-                                Zmień hasło
-                            </GuacamoleButton>
+                            {userRole === "admin" ? (
+                                <GuacamoleButton
+                                    sx={{ width: "30%" }}
+                                    onClick={() =>
+                                        openStudentChangePasswordPanelState(
+                                            true
+                                        )
+                                    }
+                                    disabled={!selectedStudent}
+                                >
+                                    Zmień hasło
+                                </GuacamoleButton>
+                            ) : (
+                                ""
+                            )}
                         </div>
                     </>
                 ) : (
