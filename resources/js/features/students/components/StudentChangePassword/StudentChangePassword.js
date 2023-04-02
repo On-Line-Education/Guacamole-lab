@@ -64,6 +64,7 @@ export default function StudentChangePassword({
                                         className="form-input"
                                         size="small"
                                         required
+                                        type="password"
                                         onChange={(e) =>
                                             setNewPassword(e.target.value)
                                         }
