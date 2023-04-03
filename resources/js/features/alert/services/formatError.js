@@ -80,6 +80,11 @@ export function formatError(errorResponse) {
                 title: "Błąd importu",
                 message: "Nieprawidłowy plik importu",
             };
+        case "Unauthenticated.":
+            return {
+                title: "Użytkownik nieuwierzytelniony",
+                message: "",
+            };
         default:
             return {
                 title: "Wystąpił błąd",
