@@ -40,7 +40,6 @@ export function formatError(errorResponse) {
                 title: "Błąd tworzenia klasy",
                 message: "Klasa już istnieje",
             };
-
         case "Class alredy has lecture at provided time range.":
             return {
                 title: "Błąd tworzenia rezerwacji",
