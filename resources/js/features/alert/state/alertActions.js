@@ -1,6 +1,7 @@
 let nextId = 0;
 
 export function failedAction(error) {
+    console.log(error);
     return {
         type: "ACTION_FAILED",
         payload: { ...error, type: "error", id: nextId++ },

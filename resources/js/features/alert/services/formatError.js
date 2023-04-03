@@ -76,6 +76,11 @@ export function formatError(errorResponse) {
                 title: "Błąd łączenia z komputerem",
                 message: "Pula komputerów się wyczerpała",
             };
+        case "Invalid Import File.":
+            return {
+                title: "Błąd importu",
+                message: "Nieprawidłowy plik importu",
+            };
         default:
             return {
                 title: "Wystąpił błąd",

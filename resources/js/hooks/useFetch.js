@@ -44,15 +44,9 @@ const useFetch = ({ endpoint, method, body, start }) => {
 
             if (!response.ok) {
                 console.log(response);
-                if (response.status === 401 || response.status === 403) {
-                    dispatch(userUnauthenticated());
-                    navigate("/login");
-                    return;
-                }
 
                 // Api returns an array of errors. This piece of code formats every returned error message and send it to redux store
                 if (data.errors) {
-                    console.log(data);
                     Object.values(data.errors).forEach((error) => {
                         dispatch(failedAction(formatError(error[0])));
                         setError((prevErrors) => [
@@ -61,7 +55,6 @@ const useFetch = ({ endpoint, method, body, start }) => {
                         ]);
                     });
                 } else {
-                    console.log(data);
                     dispatch(failedAction(formatError(data.message)));
                     setError((prevErrors) => [
                         ...prevErrors,

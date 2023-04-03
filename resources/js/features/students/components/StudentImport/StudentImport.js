@@ -4,7 +4,11 @@ import useImportStudents from "../../hooks/useImportStudents";
 import FileInput from "../../../../components/FileInput/FileInput";
 import "./studentimport.scss";
 
-export default function StudentImport({ refetchStudents, refetchGroups }) {
+export default function StudentImport({
+    refetchStudents,
+    refetchGroups,
+    selectedGroup,
+}) {
     // Form fields state
     const [file, setFile] = useState();
     const [fileName, setFileName] = useState("");
@@ -16,9 +20,13 @@ export default function StudentImport({ refetchStudents, refetchGroups }) {
     // Refetch logic
     useEffect(() => {
         try {
-            refetchStudents();
             refetchGroups();
-        } catch {}
+            if (selectedGroup) {
+                refetchStudents();
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }, [data]);
 
     return (

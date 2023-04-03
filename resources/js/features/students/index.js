@@ -47,7 +47,7 @@ export default function StudentsView() {
         loading: studentListLoading,
         error: studentListLoadingError,
         getSelectedGroupStudents,
-    } = useGetStudentsFromGroup(selectedGroup.id);
+    } = useGetStudentsFromGroup(selectedGroup ? selectedGroup.id : undefined);
 
     // Query for loading computer list, if user selected a classroom it fetches computers for that classroom
     useEffect(() => {
@@ -81,7 +81,11 @@ export default function StudentsView() {
                     selectedStudent={selectedStudent}
                     setSelectedStudent={setSelectedStudent}
                 />
-                <StudentImport refetch={refetchGroupList} />
+                <StudentImport
+                    refetchGroups={refetchGroupList}
+                    refetchStudents={getSelectedGroupStudents}
+                    selectedGroup={selectedGroup}
+                />
             </div>
 
             {studentAdditionPanelActive ? (
