@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { formatError } from "../features/alert/services/formatError";
-import {
-    failedAction,
-    userUnauthenticated,
-} from "../features/alert/state/alertActions";
+import { failedAction } from "../features/alert/state/alertActions";
 
 const useFetch = ({ endpoint, method, body, start }) => {
     const [result, setResult] = useState(null);
