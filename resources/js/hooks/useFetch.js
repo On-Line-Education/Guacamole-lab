@@ -43,12 +43,13 @@ const useFetch = ({ endpoint, method, body, start }) => {
             const data = await response.json();
 
             if (!response.ok) {
-                console.log(response);
-
                 // Api returns an array of errors. This piece of code formats every returned error message and send it to redux store
                 if (data.errors) {
                     Object.values(data.errors).forEach((error) => {
                         dispatch(failedAction(formatError(error[0])));
+                        if (error[0] === "Session expired") {
+                            navigate("/login");
+                        }
                         setError((prevErrors) => [
                             ...prevErrors,
                             formatError(error[0]),
@@ -56,6 +57,9 @@ const useFetch = ({ endpoint, method, body, start }) => {
                     });
                 } else {
                     dispatch(failedAction(formatError(data.message)));
+                    if (error[0] === "Session expired") {
+                        navigate("/login");
+                    }
                     setError((prevErrors) => [
                         ...prevErrors,
                         formatError(data.message),
