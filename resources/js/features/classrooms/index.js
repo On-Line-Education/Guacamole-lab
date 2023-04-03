@@ -73,7 +73,11 @@ export default function ClassroomsView() {
                     openComputerDetails={setComputerDetailsPanelState}
                     openComputerAdd={setComputerAdditionPanelState}
                 />
-                <ComputerImport refetch={classroomListRefetch} />
+                <ComputerImport
+                    classroomRefetch={classroomListRefetch}
+                    computerRefetch={getClassroomComputers}
+                    selectedClassroom={selectedClassroom}
+                />
             </div>
 
             {classroomAdditionPanelState ? (
