@@ -37,6 +37,10 @@ class LectureEndAction
     public function end($guacLogin, int $id, string $username, string $group) {
         try {
             $connection = Connection::where('user_id', $id)->first();
+            $this->guacamole->getConnectionEndpoint()->killConnection(
+                $guacLogin,
+                $connection->connection
+            );
             $this->guacamole->getConnectionEndpoint()->revokePermission(
                 $guacLogin,
                 $username,
@@ -46,10 +50,6 @@ class LectureEndAction
                 $guacLogin,
                 $username,
                 $group
-            );
-            $this->guacamole->getConnectionEndpoint()->killConnection(
-                $guacLogin,
-                $connection->connection
             );
             $this->guacamole->getConnectionEndpoint()->deleteConnection(
                 $guacLogin,

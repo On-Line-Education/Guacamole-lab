@@ -2,43 +2,29 @@
 
 namespace App\Guacamole\Endpoints\Connection;
 
-use App\Guacamole\Api\Connection\KillConnectionApi;
 use App\Guacamole\Api\Connection\ListActiveConnectionApi;
 use App\Guacamole\Endpoints\ApiResponseWrapper;
 use App\Guacamole\Objects\Auth\GuacamoleAuthLoginData;
 use GuzzleHttp\Exception\GuzzleException;
 
-class ConnectionKillEndpoint
+class ConnectionActiveListEndpoint
 {
 
     public function __construct(
-        private readonly KillConnectionApi $killConnectionApi,
         private readonly ListActiveConnectionApi $listActiveConnectionApi,
         private readonly ApiResponseWrapper $apiResponseWrapper
     ) {
     }
 
     public function __invoke(
-        GuacamoleAuthLoginData $loginData,
-        int $connection
-    ): void {
+        GuacamoleAuthLoginData $loginData
+    ) {
         try {
             $response = ($this->listActiveConnectionApi)(
                 $loginData->getAuthToken(),
                 $loginData->getDataSource()
             );
-            $list = ($this->apiResponseWrapper)($response);
-            $connectionId = "";
-            foreach ($list as $activeConnection) {
-                if ($activeConnection['connectionIdentifier'] === $connection) {
-                    $connectionId = $activeConnection['identifier'];
-                }
-            }
-            ($this->killConnectionApi)(
-                $loginData->getAuthToken(),
-                $loginData->getDataSource(),
-                $connectionId
-            );
+            return ($this->apiResponseWrapper)($response);
         } catch (GuzzleException $exception) {
             abort($exception->getCode(), "Guacamole Api Error: " . $exception->getMessage());
         }
