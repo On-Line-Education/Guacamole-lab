@@ -27,18 +27,20 @@ class LectureReserveUpdateAction
         }
 
         $lectures = Lecture::query()
-            ->orWhere([
-                ['class_id', '=', $classId],
-                ['start', '>', $checkStart],
-                ['start', '<', $checkEnd],
-                ['id', '!=', $lecture->id]
-            ])
-            ->orWhere([
-                ['class_id', '=', $classId],
-                ['end', '>', $checkStart],
-                ['end', '<', $checkEnd],
-                ['id', '!=', $lecture->id]
-            ]);
+            ->orWhere(function ($query) use ($classId, $checkStart) {
+                $query->where('class_id', $classId)
+                    ->whereDate('start', '<=', $checkStart)
+                    ->whereTime('start', '<', $checkStart)
+                    ->whereDate('end', '>=', $checkStart)
+                    ->whereTime('end', '>', $checkStart);
+            })
+            ->orWhere(function ($query) use ($classId, $checkEnd) {
+                $query->where('class_id', $classId)
+                    ->whereDate('start', '<=', $checkEnd)
+                    ->whereTime('start', '<', $checkEnd)
+                    ->whereDate('end', '>=', $checkEnd)
+                    ->whereTime('end', '>', $checkEnd);
+            });
 
         if (
             $lectures->count() > 0
@@ -47,18 +49,20 @@ class LectureReserveUpdateAction
         }
 
         $lectures = Lecture::query()
-            ->orWhere([
-                ['class_room_id', '=', $classRoomId],
-                ['start', '>', $checkStart],
-                ['start', '<', $checkEnd],
-                ['id', '!=', $lecture->id]
-            ])
-            ->orWhere([
-                ['class_room_id', '=', $classRoomId],
-                ['end', '>', $checkStart],
-                ['end', '<', $checkEnd],
-                ['id', '!=', $lecture->id]
-            ]);
+            ->orWhere(function ($query) use ($classRoomId, $checkStart) {
+                $query->where('class_room_id', $classRoomId)
+                    ->whereDate('start', '<=', $checkStart)
+                    ->whereTime('start', '<', $checkStart)
+                    ->whereDate('end', '>=', $checkStart)
+                    ->whereTime('end', '>', $checkStart);
+            })
+            ->orWhere(function ($query) use ($classRoomId, $checkEnd) {
+                $query->where('class_room_id', $classRoomId)
+                    ->whereDate('start', '<=', $checkEnd)
+                    ->whereTime('start', '<', $checkEnd)
+                    ->whereDate('end', '>=', $checkEnd)
+                    ->whereTime('end', '>', $checkEnd);
+            });
 
         if (
             $lectures->count() > 0
@@ -67,18 +71,20 @@ class LectureReserveUpdateAction
         }
 
         $lectures = Lecture::query()
-            ->orWhere([
-                ['instructor_id', '=', $instructorId],
-                ['start', '>', $checkStart],
-                ['start', '<', $checkEnd],
-                ['id', '!=', $lecture->id]
-            ])
-            ->orWhere([
-                ['instructor_id', '=', $instructorId],
-                ['end', '>', $checkStart],
-                ['end', '<', $checkEnd],
-                ['id', '!=', $lecture->id]
-            ]);
+            ->orWhere(function ($query) use ($instructorId, $checkStart) {
+                $query->where('instructor_id', $instructorId)
+                    ->whereDate('start', '<=', $checkStart)
+                    ->whereTime('start', '<', $checkStart)
+                    ->whereDate('end', '>=', $checkStart)
+                    ->whereTime('end', '>', $checkStart);
+            })
+            ->orWhere(function ($query) use ($instructorId, $checkEnd) {
+                $query->where('instructor_id', $instructorId)
+                    ->whereDate('start', '<=', $checkEnd)
+                    ->whereTime('start', '<', $checkEnd)
+                    ->whereDate('end', '>=', $checkEnd)
+                    ->whereTime('end', '>', $checkEnd);
+            });
         if (
             $lectures->count() > 0
         ) {

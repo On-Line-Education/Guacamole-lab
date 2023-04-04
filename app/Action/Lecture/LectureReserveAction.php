@@ -17,8 +17,8 @@ class LectureReserveAction
 
         $start = $reserveData['start'];
         $end = $reserveData['end'];
-        $checkStart = Carbon::createFromTimeString($start)->addMinutes(3);
-        $checkEnd = Carbon::createFromTimeString($end)->addMinutes(3);
+        $checkStart = Carbon::createFromTimeString($start)->subMinutes(3);
+        $checkEnd = Carbon::createFromTimeString($end)->subMinutes(3);
         $classId = $reserveData['class_id'];
         $classRoomId = $reserveData['class_room_id'];
         $instructorId = $reserveData['instructor_id'];
@@ -34,17 +34,20 @@ class LectureReserveAction
         }
 
         $lectures = Lecture::query()
-            ->orWhere([
-                ['class_id', '=', $classId],
-                ['start', '>', $checkStart],
-                ['start', '<', $checkEnd]
-            ])
-            ->orWhere([
-                ['class_id', '=', $classId],
-                ['end', '>', $checkStart],
-                ['end', '<', $checkEnd]
-            ]);
-
+            ->orWhere(function ($query) use ($classId, $checkStart) {
+                $query->where('class_id', $classId)
+                ->whereDate('start', '<=', $checkStart)
+                ->whereTime('start', '<', $checkStart)
+                ->whereDate('end', '>=', $checkStart)
+                ->whereTime('end', '>', $checkStart);
+            })
+            ->orWhere(function ($query) use ($classId, $checkEnd) {
+                $query->where('class_id', $classId)
+                ->whereDate('start', '<=', $checkEnd)
+                ->whereTime('start', '<', $checkEnd)
+                ->whereDate('end', '>=', $checkEnd)
+                ->whereTime('end', '>', $checkEnd);
+            });
         if (
             $lectures->count() > 0
         ) {
@@ -52,16 +55,20 @@ class LectureReserveAction
         }
 
         $lectures = Lecture::query()
-            ->orWhere([
-                ['class_room_id', '=', $classRoomId],
-                ['start', '>', $checkStart],
-                ['start', '<', $checkEnd]
-            ])
-            ->orWhere([
-                ['class_room_id', '=', $classRoomId],
-                ['end', '>', $checkStart],
-                ['end', '<', $checkEnd]
-            ]);
+            ->orWhere(function ($query) use ($classRoomId, $checkStart) {
+                $query->where('class_room_id', $classRoomId)
+                ->whereDate('start', '<=', $checkStart)
+                ->whereTime('start', '<', $checkStart)
+                ->whereDate('end', '>=', $checkStart)
+                ->whereTime('end', '>', $checkStart);
+            })
+            ->orWhere(function ($query) use ($classRoomId, $checkEnd) {
+                $query->where('class_room_id', $classRoomId)
+                ->whereDate('start', '<=', $checkEnd)
+                ->whereTime('start', '<', $checkEnd)
+                ->whereDate('end', '>=', $checkEnd)
+                ->whereTime('end', '>', $checkEnd);
+            });
 
         if (
             $lectures->count() > 0
@@ -70,16 +77,21 @@ class LectureReserveAction
         }
 
         $lectures = Lecture::query()
-            ->orWhere([
-                ['instructor_id', '=', $instructorId],
-                ['start', '>', $checkStart],
-                ['start', '<', $checkEnd]
-            ])
-            ->orWhere([
-                ['instructor_id', '=', $instructorId],
-                ['end', '>', $checkStart],
-                ['end', '<', $checkEnd]
-            ]);
+            ->orWhere(function ($query) use ($instructorId, $checkStart) {
+                $query->where('instructor_id', $instructorId)
+                ->whereDate('start', '<=', $checkStart)
+                ->whereTime('start', '<', $checkStart)
+                ->whereDate('end', '>=', $checkStart)
+                ->whereTime('end', '>', $checkStart);
+            })
+            ->orWhere(function ($query) use ($instructorId, $checkEnd) {
+                $query->where('instructor_id', $instructorId)
+                ->whereDate('start', '<=', $checkEnd)
+                ->whereTime('start', '<', $checkEnd)
+                ->whereDate('end', '>=', $checkEnd)
+                ->whereTime('end', '>', $checkEnd);
+        });
+
         if (
             $lectures->count() > 0
         ) {
