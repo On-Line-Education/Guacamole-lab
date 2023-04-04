@@ -31,7 +31,7 @@ export default function ConnectConfirm({
                             </div>
                             <div className="panel-actions">
                                 <GuacamoleButton
-                                    onClick={() => setConnectConfirmed(tr)}
+                                    onClick={() => setConnectConfirmed(true)}
                                 >
                                     Połącz
                                 </GuacamoleButton>
