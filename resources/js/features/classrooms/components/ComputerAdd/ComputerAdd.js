@@ -15,6 +15,7 @@ export default function ComputerAdd({
     const [newComputerName, setNewComputerName] = useState();
     const [newComputerIp, setNewComputerIp] = useState();
     const [newComputerMac, setNewComputerMac] = useState();
+    const [newComputerBroadcast, setNewComputerBroadcast] = useState();
     const [newComputerIsInstructors, setNewComputerIsInstructors] =
         useState(false);
 
@@ -24,6 +25,7 @@ export default function ComputerAdd({
         newComputerName,
         newComputerIp,
         newComputerMac,
+        newComputerBroadcast,
         newComputerIsInstructors
     );
 
@@ -94,6 +96,19 @@ export default function ComputerAdd({
                                         className="form-input"
                                         onChange={(e) =>
                                             setNewComputerMac(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        Adres broadcast
+                                    </label>
+                                    <GuacamoleInput
+                                        className="form-input"
+                                        onChange={(e) =>
+                                            setNewComputerBroadcast(
+                                                e.target.value
+                                            )
                                         }
                                     />
                                 </div>
