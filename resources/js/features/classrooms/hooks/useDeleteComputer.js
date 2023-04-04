@@ -22,5 +22,5 @@ export default function useDeleteComputer(classroomId, computerId) {
         refresh();
     };
 
-    return { loading, error, deleteComputer };
+    return { loading, data, error, deleteComputer };
 }

@@ -9,6 +9,7 @@ export default function useCreateComputer(
     name,
     ip,
     mac,
+    broadcast,
     instructor
 ) {
     const [data, loading, refresh, error] = usePost(
@@ -18,7 +19,7 @@ export default function useCreateComputer(
             name: name,
             ip: ip,
             mac: mac,
-            login: "placeholder",
+            broadcast: broadcast,
             instructor: instructor,
         }
     );
