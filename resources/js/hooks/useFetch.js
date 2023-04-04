@@ -40,32 +40,35 @@ const useFetch = ({ endpoint, method, body, start }) => {
             const data = await response.json();
 
             if (!response.ok) {
-                if (response.status)
-                    if (data.errors) {
-                        // Api returns an array of errors. This piece of code formats every returned error message and send it to redux store
-                        Object.values(data.errors).forEach((error) => {
-                            dispatch(failedAction(formatError(error[0])));
-                            if (
-                                error[0] === "Session expired" ||
-                                error[0] === "Unauthenticated."
-                            ) {
-                                navigate("/login");
-                            }
-                            setError((prevErrors) => [
-                                ...prevErrors,
-                                formatError(error[0]),
-                            ]);
-                        });
-                    } else {
-                        dispatch(failedAction(formatError(data.message)));
-                        if (error[0] === "Session expired") {
+                if (response.status === 401) {
+                    navigate("/login");
+                }
+                console.log(data);
+                if (data.errors) {
+                    // Api returns an array of errors. This piece of code formats every returned error message and send it to redux store
+                    Object.values(data.errors).forEach((error) => {
+                        dispatch(failedAction(formatError(error[0])));
+                        if (
+                            error[0] === "Session expired" ||
+                            error[0] === "Unauthenticated."
+                        ) {
                             navigate("/login");
                         }
                         setError((prevErrors) => [
                             ...prevErrors,
-                            formatError(data.message),
+                            formatError(error[0]),
                         ]);
+                    });
+                } else {
+                    dispatch(failedAction(formatError(data.message)));
+                    if (error[0] === "Session expired") {
+                        navigate("/login");
                     }
+                    setError((prevErrors) => [
+                        ...prevErrors,
+                        formatError(data.message),
+                    ]);
+                }
             } else {
                 // if there are no errors return data
                 if (method === "GET") setResult(data.body);
