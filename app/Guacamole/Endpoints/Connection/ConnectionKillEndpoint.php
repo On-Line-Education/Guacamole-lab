@@ -29,9 +29,10 @@ class ConnectionKillEndpoint
             );
             $list = ($this->apiResponseWrapper)($response);
             $connectionId = "";
-            foreach ($list as $activeConnection) {
-                if ($activeConnection['connectionIdentifier'] === $connection) {
-                    $connectionId = $activeConnection['identifier'];
+            foreach ($list as $connId => $activeConnection) {
+                if (intval($activeConnection['connectionIdentifier']) === $connection) {
+                    $connectionId = $connId;
+                    break;
                 }
             }
             ($this->killConnectionApi)(
