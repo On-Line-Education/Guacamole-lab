@@ -37,8 +37,10 @@ export default function ComputerAdd({
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
-            if (data.success) close();
+            if (data.success) {
+                refetch();
+                close();
+            }
         } catch {}
     }, [data]);
 
