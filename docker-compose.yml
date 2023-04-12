@@ -107,6 +107,8 @@ networks:
     # guac network
     guacnetwork_compose:
         driver: bridge
+        driver_opts:
+            com.docker.network.bridge.name: br-guacamole
 volumes:
     sail-mysql:
         driver: local
