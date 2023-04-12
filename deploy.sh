@@ -68,3 +68,7 @@ sudo chown $USER storage/logs/laravel.log
 ./vendor/bin/sail artisan key:generate
 
 ./vendor/bin/sail artisan make:test:admin
+
+echo "Preparing docker network for Wake-on-Lan"
+chmod +x configure_docker_networks_for_wol.sh
+./configure_docker_networks_for_wol.sh
