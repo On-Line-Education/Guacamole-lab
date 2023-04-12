@@ -33,7 +33,7 @@ export default function ConnectView() {
         data: allLessonList,
         loading: allLessonListLoading,
         error: allLessonListLoadingError,
-    } = useGetAllLessons();
+    } = useGetAllLessons(userRole === "admin" ? true : false);
 
     const {
         data: selectedLessonData,

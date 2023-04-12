@@ -40,7 +40,6 @@ export function formatError(errorResponse) {
                 title: "Błąd tworzenia klasy",
                 message: "Klasa już istnieje",
             };
-
         case "Class alredy has lecture at provided time range.":
             return {
                 title: "Błąd tworzenia rezerwacji",
@@ -71,10 +70,25 @@ export function formatError(errorResponse) {
                 title: "Błąd tworzenia komputera",
                 message: "Podany adres MAC jest niepoprawny",
             };
+        case "Cannot assign computer. Computer pool is exhausted.":
+            return {
+                title: "Błąd łączenia z komputerem",
+                message: "Pula komputerów się wyczerpała",
+            };
+        case "Invalid Import File.":
+            return {
+                title: "Błąd importu",
+                message: "Nieprawidłowy plik importu",
+            };
+        case "Unauthenticated.":
+            return {
+                title: "Użytkownik nieuwierzytelniony",
+                message: "",
+            };
         default:
             return {
                 title: "Wystąpił błąd",
-                message: "",
+                message: errorResponse,
             };
     }
 }

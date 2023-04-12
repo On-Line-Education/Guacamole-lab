@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
-import "./sidebar.scss";
 import { useSelector } from "react-redux";
-
-import LogoutIcon from "@mui/icons-material/Logout";
 import useLogout from "../../features/auth/hooks/useLogout";
+
+import "./sidebar.scss";
 import UserChangePassword from "../UserChangePassword/UserChangePassword";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export default function Sidebar({ active }) {
     const loggedUserUsername = useSelector((state) => state.auth.username);
@@ -72,19 +73,20 @@ export default function Sidebar({ active }) {
                     )}
                 </div>
                 <div className="sidebar-footer">
-                    <div className="sidebar-footer-logout">
+                    <div className="sidebar-footer-actions">
                         <IconButton onClick={() => logout()}>
                             <LogoutIcon fontSize="large" color="secondary" />
                         </IconButton>
+                        <IconButton
+                            onClick={() =>
+                                setUserChangePasswordPanelState(true)
+                            }
+                        >
+                            <SettingsIcon fontSize="large" color="secondary" />
+                        </IconButton>
                     </div>
                     <div className="sidebar-footer-user-info">
-                        <div
-                            onClick={() => {
-                                setUserChangePasswordPanelState(true);
-                            }}
-                        >
-                            {loggedUserUsername}
-                        </div>
+                        {loggedUserUsername}
                     </div>
                 </div>
             </div>

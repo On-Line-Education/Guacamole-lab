@@ -23,7 +23,7 @@ class LectureDeleteAction
             $lecture->save();
             $lecture->started = false;
             $guacLogin = ($this->guacamoleAuthLoginAction)(env('GUACAMOLE_ADMIN'), env('GUACAMOLE_ADMIN_PASSWORD'));
-            ($this->lectureEndAction)($lecture);
+            ($this->lectureEndAction)($guacLogin, $lecture);
             $this->guacamole->getAuth()->logout($guacLogin->getAuthToken());
         }
         $lecture->delete();

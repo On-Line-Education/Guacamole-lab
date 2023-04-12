@@ -59,7 +59,7 @@ sed -i 's/^.*platform:.*$//g' docker-compose.yml
 ./vendor/bin/sail npm install
 
 echo "Changing ownership of log file - temporary fix. Please provide sudo password"
-sudo chown $USER storage/log/laravel.log
+sudo chown $USER storage/logs/laravel.log
 
 ./vendor/bin/sail npm run prod
 

@@ -11,7 +11,7 @@ class KillConnectionApi extends AbstractApi
     /**
      * @throws GuzzleException
      */
-    public function __invoke(string $token, string $sourceData, int $connection): ResponseInterface
+    public function __invoke(string $token, string $sourceData, string $connection): ResponseInterface
     {
         return $this->apiClient->patch('api/session/data/' . $sourceData . '/activeConnections', [
             'query' => [

@@ -5,7 +5,11 @@ import { GuacamoleButton } from "../../../../mui";
 import useImportComputers from "../../hooks/useImportComputers";
 import "./computerimport.scss";
 
-export default function ComputerImport({ refetch }) {
+export default function ComputerImport({
+    classroomRefetch,
+    computerRefetch,
+    selectedClassroom,
+}) {
     // Form fields state
     const [file, setFile] = useState("");
     const [fileName, setFileName] = useState("");
@@ -17,7 +21,10 @@ export default function ComputerImport({ refetch }) {
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
+            classroomRefetch();
+            if (selectedClassroom) {
+                computerRefetch();
+            }
         } catch {}
     }, [data]);
 

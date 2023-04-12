@@ -63,8 +63,8 @@ export default function StudentDetails({
 
     useEffect(() => {
         try {
-            refetch();
             if (editStudentGroupsData.success) {
+                refetch();
                 close();
             }
         } catch {}

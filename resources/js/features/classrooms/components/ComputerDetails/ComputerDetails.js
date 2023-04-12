@@ -25,11 +25,13 @@ export default function ComputerDetails({
     const [ipEditActive, setIpEditActive] = useState(false);
     const [macEditActive, setMacEditActive] = useState(false);
     const [instructorEditActive, setInstructorEditActive] = useState(false);
+    const [broadcastEditActive, setBroadcastEditActive] = useState(false);
 
     // Form fields state
     const [newName, setNewName] = useState("");
     const [newIp, setNewIp] = useState("");
     const [newMac, setNewMac] = useState("");
+    const [newBroadcast, setNewBroadcast] = useState("");
     const [newInstructor, setNewInstructor] = useState("");
 
     // Close panel function
@@ -52,6 +54,7 @@ export default function ComputerDetails({
             name: newName ? newName : undefined,
             ip: newIp ? newIp : undefined,
             mac: newMac ? newMac : undefined,
+            broadcast: newBroadcast ? newBroadcast : undefined,
             instructor: newInstructor ? newInstructor : undefined,
         }
     );
@@ -59,16 +62,20 @@ export default function ComputerDetails({
     // Refetch logic
     useEffect(() => {
         try {
-            refetch();
-            if (editComputerData.success) close();
-        } catch {}
+            if (editComputerData.success) {
+                refetch();
+                close();
+            }
+        } catch (e) {}
     }, [editComputerData]);
 
     useEffect(() => {
         try {
-            refetch();
-            if (deleteComputerData.success) close();
-        } catch {}
+            if (deleteComputerData.success) {
+                refetch();
+                close();
+            }
+        } catch (e) {}
     }, [deleteComputerData]);
 
     return (
@@ -131,6 +138,43 @@ export default function ComputerDetails({
                                     </div>
                                 </div>
                             </div>
+                            {/* Computer IP  */}
+                            <div className="detail-group">
+                                <label className="detail-label">IP</label>
+                                <div className="detail-container">
+                                    <div
+                                        className={`detail ${
+                                            ipEditActive ? "edit" : ""
+                                        }`}
+                                    >
+                                        <GuacamoleInput
+                                            placeholder={computer.ip}
+                                            InputProps={{
+                                                readOnly: !ipEditActive,
+                                            }}
+                                            value={newIp}
+                                            onChange={(e) => {
+                                                setNewIp(e.target.value);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="detail-edit">
+                                        <IconButton
+                                            size="small"
+                                            onClick={() => {
+                                                setIpEditActive(!ipEditActive);
+                                                setNewIp("");
+                                            }}
+                                        >
+                                            {ipEditActive ? (
+                                                <EditOffIcon />
+                                            ) : (
+                                                <EditIcon />
+                                            )}
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </div>
                             {/* Computer MAC  */}
                             <div className="detail-group">
                                 <label className="detail-label">MAC</label>
@@ -174,23 +218,29 @@ export default function ComputerDetails({
                                     </div>
                                 </div>
                             </div>
-                            {/* Computer IP  */}
+                            {/* Computer Broadcast  */}
                             <div className="detail-group">
-                                <label className="detail-label">IP</label>
+                                <label className="detail-label">
+                                    Broadcast
+                                </label>
                                 <div className="detail-container">
                                     <div
                                         className={`detail ${
-                                            ipEditActive ? "edit" : ""
+                                            broadcastEditActive ? "edit" : ""
                                         }`}
                                     >
                                         <GuacamoleInput
-                                            placeholder={computer.ip}
+                                            placeholder={
+                                                computer.broadcast
+                                                    ? computer.broadcast
+                                                    : "brak adresu"
+                                            }
                                             InputProps={{
-                                                readOnly: !ipEditActive,
+                                                readOnly: !broadcastEditActive,
                                             }}
-                                            value={newIp}
+                                            value={newBroadcast}
                                             onChange={(e) => {
-                                                setNewIp(e.target.value);
+                                                setNewBroadcast(e.target.value);
                                             }}
                                         />
                                     </div>
@@ -198,11 +248,13 @@ export default function ComputerDetails({
                                         <IconButton
                                             size="small"
                                             onClick={() => {
-                                                setIpEditActive(!ipEditActive);
-                                                setNewIp("");
+                                                setBroadcastEditActive(
+                                                    !broadcastEditActive
+                                                );
+                                                setNewBroadcast("");
                                             }}
                                         >
-                                            {ipEditActive ? (
+                                            {broadcastEditActive ? (
                                                 <EditOffIcon />
                                             ) : (
                                                 <EditIcon />
@@ -264,7 +316,8 @@ export default function ComputerDetails({
                                     !newName &&
                                     !newIp &&
                                     !newMac &&
-                                    !newInstructor
+                                    !newInstructor &&
+                                    !newBroadcast
                                 }
                                 onClick={async () => {
                                     {

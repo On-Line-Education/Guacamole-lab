@@ -14,30 +14,6 @@ export function actionSucceed(success) {
     };
 }
 
-export function connectionError() {
-    return {
-        type: "ACTION_FAILED",
-        payload: {
-            title: "Błąd połączenia",
-            message: "Spróbuj ponownie później",
-            type: "error",
-            id: nextId++,
-        },
-    };
-}
-
-export function userUnauthenticated() {
-    return {
-        type: "ACTION_FAILED",
-        payload: {
-            title: "Sesja wygasła",
-            message: "Zaloguj się ponownie",
-            type: "error",
-            id: nextId++,
-        },
-    };
-}
-
 export function deleteError(id) {
     return {
         type: "DELETE_MESSAGE",

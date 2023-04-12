@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { formatError } from "../features/alert/services/formatError";
-import {
-    failedAction,
-    userUnauthenticated,
-} from "../features/alert/state/alertActions";
+import { failedAction } from "../features/alert/state/alertActions";
 
 const usePostFile = (endpoint, file) => {
     const [result, setResult] = useState(null);
@@ -14,7 +10,6 @@ const usePostFile = (endpoint, file) => {
     const token = useSelector((state) => state.auth.token);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const fetchData = async () => {
         setLoading(true);
@@ -39,15 +34,9 @@ const usePostFile = (endpoint, file) => {
 
             if (!response.ok) {
                 console.log(response);
-                if (response.status === 401 || response.status === 403) {
-                    dispatch(userUnauthenticated());
-                    navigate("/login");
-                    return;
-                }
 
                 // Api returns an array of errors. This piece of code formats every returned error message and send it to redux store
                 if (data.errors) {
-                    console.log(data);
                     Object.values(data.errors).forEach((error) => {
                         dispatch(failedAction(formatError(error[0])));
                         setError((prevErrors) => [
@@ -56,7 +45,6 @@ const usePostFile = (endpoint, file) => {
                         ]);
                     });
                 } else {
-                    console.log(data.message);
                     dispatch(failedAction(formatError(data.message)));
                     setError(formatError(data.message));
                 }
@@ -71,8 +59,7 @@ const usePostFile = (endpoint, file) => {
     };
 
     const refresh = () => {
-        console.log(token);
-        setError("");
+        setError([]);
         fetchData();
     };
 
